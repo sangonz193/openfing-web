@@ -1,0 +1,11 @@
+/node_modules
+/dist
+/build
+/.idea
+/tmp
+/scratches
+/.env*
+!/.env*.example
+/*.graphql.d.ts
+/.vscode
+.DS_STORE
