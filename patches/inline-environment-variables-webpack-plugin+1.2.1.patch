@@ -1,0 +1,25 @@
+diff --git a/node_modules/inline-environment-variables-webpack-plugin/index.d.ts b/node_modules/inline-environment-variables-webpack-plugin/index.d.ts
+new file mode 100644
+index 0000000..9a91fb6
+--- /dev/null
++++ b/node_modules/inline-environment-variables-webpack-plugin/index.d.ts
+@@ -0,0 +1,19 @@
++import { Plugin } from "webpack";
++
++declare class InlineEnvironmentVariablesPlugin extends Plugin {
++	public constructor();
++	public constructor(variable: string, options?: InlineEnvironmentVariablesPlugin.InlineEnvironmentVariablesPluginOptions);
++	public constructor(variables: Record<string, string>, options?: InlineEnvironmentVariablesPlugin.InlineEnvironmentVariablesPluginOptions);
++	public constructor(
++		variables: Array<string | Record<string, string>>,
++		options?: InlineEnvironmentVariablesPlugin.InlineEnvironmentVariablesPluginOptions
++	);
++}
++
++declare namespace InlineEnvironmentVariablesPlugin {
++	type InlineEnvironmentVariablesPluginOptions = {
++		warnings: boolean;
++	};
++}
++
++export = InlineEnvironmentVariablesPlugin;
