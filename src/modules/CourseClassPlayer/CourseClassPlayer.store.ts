@@ -21,6 +21,12 @@ export class CourseClassPlayerStore {
 		current: undefined,
 	};
 	@observable buffered: TimeRanges | undefined = undefined;
+	@observable chapterTextTracks: VTTCue[] = [];
+	@observable activeChapterTextTracks: VTTCue[] = [];
+
+	track: TextTrack | undefined = undefined;
+
+	private trackCueChangeHanlder: (() => void) | undefined = undefined;
 
 	@computed get showControls() {
 		return this.showControlsBlockers.size > 0;
@@ -115,7 +121,7 @@ export class CourseClassPlayerStore {
 		this.currentTime = htmlVideoElement.currentTime = s;
 	}
 
-	setVolume(volume: number) {
+	@action setVolume(volume: number) {
 		const { htmlVideoElement } = this;
 
 		if (!htmlVideoElement) return;
@@ -152,11 +158,47 @@ export class CourseClassPlayerStore {
 	}
 
 	@action.bound setVideoInstance(video: HTMLVideoElement | null) {
+		if (this.htmlVideoElement === video) return;
+
+		if (this.track && this.trackCueChangeHanlder)
+			this.track.removeEventListener("cuechange", this.trackCueChangeHanlder);
+
+		this.track = undefined;
+		this.trackCueChangeHanlder = undefined;
+
 		this.htmlVideoElement = video;
+		this.chapterTextTracks = [];
+		this.activeChapterTextTracks = [];
 	}
 
 	@action.bound setVideoWrapperInstance(wrapper: HTMLDivElement | null) {
 		this.htmlVideoWrapperElement = wrapper;
+	}
+
+	@action.bound setIsFullscreen(isFullscreen: boolean) {
+		this.isFullscreen = isFullscreen;
+	}
+
+	@action.bound setChapterTextTracks(vttCues: VTTCue[]) {
+		const { htmlVideoElement } = this;
+
+		if (!htmlVideoElement) return;
+
+		const track = htmlVideoElement.addTextTrack("chapters", "Índice", "es");
+		vttCues.forEach((vvtCue) => track.addCue(vvtCue));
+
+		this.trackCueChangeHanlder = () => {
+			const activeCues: VTTCue[] = [];
+
+			if (track.activeCues)
+				for (let i = 0; i < (track.activeCues.length || 0); i++) activeCues.push(track.activeCues[i] as VTTCue);
+
+			this.activeChapterTextTracks = activeCues;
+		};
+
+		track.addEventListener("cuechange", this.trackCueChangeHanlder);
+
+		this.chapterTextTracks = vttCues;
 	}
 
 	@action.bound syncVideoState() {
@@ -193,9 +235,5 @@ export class CourseClassPlayerStore {
 			// @ts-ignore
 			this[key] = video[key] as unknown;
 		});
-	}
-
-	@action.bound setIsFullscreen(isFullscreen: boolean) {
-		this.isFullscreen = isFullscreen;
 	}
 }

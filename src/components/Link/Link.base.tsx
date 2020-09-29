@@ -15,23 +15,22 @@ export const LinkBase = (props: React.PropsWithChildren<LinkProps>) => {
 
 	const history = useHistory();
 	const handleClick = React.useCallback<(e: React.MouseEvent<HTMLAnchorElement, MouseEvent>) => void>(
-		(e) => {
-			e.preventDefault();
+		anchorProps.onClick ||
+			((e) => {
+				e.preventDefault();
 
-			if (anchorProps.href) {
-				const target = anchorProps.target || "_self";
+				if (anchorProps.href) {
+					const target = anchorProps.target || "_self";
 
-				if (
-					target === "_self" &&
-					!anchorProps.href.startsWith("http") &&
-					!anchorProps.href.startsWith("mailto:")
-				)
-					history.push(anchorProps.href);
-				else window.open(anchorProps.href, target);
-			}
-
-			if (anchorProps.onClick) anchorProps.onClick(e);
-		},
+					if (
+						target === "_self" &&
+						!anchorProps.href.startsWith("http") &&
+						!anchorProps.href.startsWith("mailto:")
+					)
+						history.push(anchorProps.href);
+					else window.open(anchorProps.href, target);
+				}
+			}),
 		[anchorProps.onClick, history]
 	);
 

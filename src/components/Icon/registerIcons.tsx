@@ -10,6 +10,7 @@ import { CopyIcon } from "./CopyIcon";
 import { DownloadIcon } from "./DownloadIcon";
 import { HelpCircleIcon } from "./HelpCircleIcon";
 import { HomeIcon } from "./HomeIcon";
+import { ListIcon } from "./ListIcon";
 import { PauseIcon } from "./PauseIcon";
 import { PlayIcon } from "./PlayIcon";
 import { ResizeIcon } from "./ResizeIcon";
@@ -37,6 +38,7 @@ export const registerIcons = () => {
 			Download: <DownloadIcon />,
 			HelpCircle: <HelpCircleIcon />,
 			Home: <HomeIcon />,
+			List: <ListIcon />,
 			Pause: <PauseIcon />,
 			Play: <PlayIcon />,
 			Resize: <ResizeIcon />,
