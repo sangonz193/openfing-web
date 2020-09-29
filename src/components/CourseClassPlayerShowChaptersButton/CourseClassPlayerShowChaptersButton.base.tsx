@@ -24,9 +24,9 @@ export const CourseClassPlayerShowChaptersButtonBase = (props: CourseClassPlayer
 	const classNames = getClassNames(styles, { theme, className: props.className });
 
 	const courseClassPlayerStore = useCourseClassPlayerStore();
-	const { chapterTextTracks } = useObserveProperties(courseClassPlayerStore, [
+	const { chapterTextTracks, isFullscreen } = useObserveProperties(courseClassPlayerStore, [
+		"isFullscreen",
 		"chapterTextTracks",
-		"activeChapterTextTracks",
 	]);
 
 	const [panelVisible, setPanelVisible] = React.useState(false);
@@ -54,7 +54,7 @@ export const CourseClassPlayerShowChaptersButtonBase = (props: CourseClassPlayer
 				headerText="Índice de temas"
 				isOpen={panelVisible}
 				isLightDismiss
-				layerProps={{ hostId: isMd ? "course-class-player-controls" : undefined }}
+				layerProps={{ hostId: isMd || isFullscreen ? "course-class-player-controls" : undefined }}
 				onDismiss={handlePanelDismiss}
 			>
 				<List items={chapterTextTracks} onRenderCell={handleRenderCell} getKey={handleGetKey} />
