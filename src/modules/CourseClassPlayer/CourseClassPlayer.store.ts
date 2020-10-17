@@ -26,7 +26,7 @@ export class CourseClassPlayerStore {
 
 	track: TextTrack | undefined = undefined;
 
-	private trackCueChangeHanlder: (() => void) | undefined = undefined;
+	private trackCueChangeHandler: (() => void) | undefined = undefined;
 
 	@computed get showControls() {
 		return this.showControlsBlockers.size > 0;
@@ -160,11 +160,11 @@ export class CourseClassPlayerStore {
 	@action.bound setVideoInstance(video: HTMLVideoElement | null) {
 		if (this.htmlVideoElement === video) return;
 
-		if (this.track && this.trackCueChangeHanlder)
-			this.track.removeEventListener("cuechange", this.trackCueChangeHanlder);
+		if (this.track && this.trackCueChangeHandler)
+			this.track.removeEventListener("cuechange", this.trackCueChangeHandler);
 
 		this.track = undefined;
-		this.trackCueChangeHanlder = undefined;
+		this.trackCueChangeHandler = undefined;
 
 		this.htmlVideoElement = video;
 		this.chapterTextTracks = [];
@@ -187,7 +187,7 @@ export class CourseClassPlayerStore {
 		const track = htmlVideoElement.addTextTrack("chapters", "Índice", "es");
 		vttCues.forEach((vvtCue) => track.addCue(vvtCue));
 
-		this.trackCueChangeHanlder = () => {
+		this.trackCueChangeHandler = () => {
 			const activeCues: VTTCue[] = [];
 
 			if (track.activeCues)
@@ -196,7 +196,7 @@ export class CourseClassPlayerStore {
 			this.activeChapterTextTracks = activeCues;
 		};
 
-		track.addEventListener("cuechange", this.trackCueChangeHanlder);
+		track.addEventListener("cuechange", this.trackCueChangeHandler);
 
 		this.chapterTextTracks = vttCues;
 	}
