@@ -39,6 +39,16 @@ export const courseClassById = gql`
 						}
 					}
 				}
+
+				chapterCues {
+					id
+					name
+					startSeconds
+					endSeconds
+					courseClass {
+						id
+					}
+				}
 			}
 		}
 	}

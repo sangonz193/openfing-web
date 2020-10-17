@@ -7,7 +7,7 @@ export type CourseClassListByCodeQueryVariables = Types.Exact<{
 }>;
 
 
-export type CourseClassListByCodeQuery = { __typename?: 'Query', courseClassListByCode: { __typename?: 'CourseClassList', id: string, courseEdition: Types.Maybe<{ __typename?: 'CourseEdition', id: string, course: Types.Maybe<{ __typename?: 'Course', id: string, editions: Array<{ __typename?: 'CourseEdition', id: string, name: Types.Maybe<string>, courseClassLists: Array<{ __typename?: 'CourseClassList', id: string, code: string, name: Types.Maybe<string>, courseEdition: Types.Maybe<{ __typename?: 'CourseEdition', id: string }> }> }> }> }> } | { __typename?: 'NotFoundError' } };
+export type CourseClassListByCodeQuery = { __typename?: 'Query', courseClassListByCode: { __typename?: 'CourseClassList', id: string, courseEdition: Types.Maybe<{ __typename?: 'CourseEdition', id: string, course: Types.Maybe<{ __typename?: 'Course', id: string, editions: Array<{ __typename?: 'CourseEdition', id: string, name: Types.Maybe<string>, courseClassLists: Array<{ __typename?: 'CourseClassList', id: string, code: string, name: Types.Maybe<string>, courseEdition: Types.Maybe<{ __typename?: 'CourseEdition', id: string, course: Types.Maybe<{ __typename?: 'Course', id: string }> }> }> }> }> }> } | { __typename?: 'NotFoundError' } };
 
 export type CourseClassListClassesByCodeQueryVariables = Types.Exact<{
   code: Types.Scalars['String'];

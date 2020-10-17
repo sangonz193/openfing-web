@@ -2,24 +2,11 @@ import gql from "graphql-tag";
 
 export const remoteSchema = gql`scalar Void
 
-type Query {
-  _: Void
-  courses: [Course!]!
-  courseById(id: ID!): CourseByIdResult!
-  courseByCode(code: String!): CourseByCodeResult!
-  courseClassById(id: ID!): CourseClassByIdResult!
-  latestCourseClasses: [CourseClass!]!
-  courseClassListById(id: ID!): CourseClassListByIdResult!
-  courseClassListByCode(code: String!): CourseClassListByCodeResult!
-  courseEditionById(id: ID!): CourseEditionByIdResult!
-  faqs: [Faq!]!
-  userRoles: [UserRole!]!
-}
-
 type Mutation {
   _: Void
-  createCourse(input: CreateCourseInput!): CreateCoursePayload!
-  updateCourseClassVideos(courseClassId: ID!, secret: String!): NotFoundError!
+  backupDb(secret: String!): Void
+  createCourse(input: CreateCourseInput!, secret: String!): CreateCourseResult!
+  updateCourseClassVideos(courseClassId: ID!, secret: String!): NotFoundError
 }
 
 type GenericError {
@@ -34,43 +21,26 @@ type AuthenticationError {
   _: Void
 }
 
-type Course {
+type CourseClassChapterCue {
   id: ID!
-  code: String!
   name: String!
-  iconUrl: String
-  eva: String
-  editions: [CourseEdition!]!
+  startSeconds: Float!
+  endSeconds: Float!
+  courseClass: CourseClass
   createdAt: String
   updatedAt: String
   deletedAt: String
   createdBy: User
-  updatedBy: User
   deletedBy: User
+  updatedBy: User
 }
-
-union CourseByIdResult = Course | NotFoundError
-
-union CourseByCodeResult = Course | NotFoundError
-
-input CreateCourseInput {
-  code: String!
-  name: String!
-  eva: String
-  editionName: String!
-  editionSemester: Int!
-  editionYear: Int!
-  courseClassListCode: String!
-  courseClassListName: String!
-}
-
-union CreateCoursePayload = GenericError | NotFoundError
 
 type CourseClass {
   id: ID!
   number: Int
   name: String
   videos: [CourseClassVideo!]!
+  chapterCues: [CourseClassChapterCue!]!
   courseClassList: CourseClassList
   createdAt: String
   updatedAt: String
@@ -79,10 +49,6 @@ type CourseClass {
   updatedBy: User
   deletedBy: User
 }
-
-union CourseClassByIdResult = CourseClass | NotFoundError
-
-union UpdateCourseClassVideosResult = CourseClass | NotFoundError
 
 type CourseClassList {
   id: ID!
@@ -97,10 +63,6 @@ type CourseClassList {
   updatedBy: User
   deletedBy: User
 }
-
-union CourseClassListByIdResult = CourseClassList | NotFoundError
-
-union CourseClassListByCodeResult = CourseClassList | NotFoundError
 
 type CourseClassVideo {
   id: ID!
@@ -143,6 +105,21 @@ type CourseClassVideoQuality {
   updatedBy: User
 }
 
+type Course {
+  id: ID!
+  code: String!
+  name: String!
+  iconUrl: String
+  eva: String
+  editions: [CourseEdition!]!
+  createdAt: String
+  updatedAt: String
+  deletedAt: String
+  createdBy: User
+  updatedBy: User
+  deletedBy: User
+}
+
 type CourseEdition {
   id: ID!
   name: String
@@ -158,8 +135,6 @@ type CourseEdition {
   deletedBy: User
 }
 
-union CourseEditionByIdResult = CourseEdition | NotFoundError
-
 type Faq {
   id: ID!
   title: String!
@@ -171,6 +146,20 @@ type Faq {
   updatedBy: User
   deletedAt: String
   deletedBy: User
+}
+
+type Query {
+  _: Void
+  courseByCode(code: String!): CourseByCodeResult!
+  courseById(id: ID!): CourseByIdResult!
+  courseClassById(id: ID!): CourseClassByIdResult!
+  courseClassListByCode(code: String!): CourseClassListByCodeResult!
+  courseClassListById(id: ID!): CourseClassListByIdResult!
+  courseEditionById(id: ID!): CourseEditionByIdResult!
+  courses: [Course!]!
+  faqs: [Faq!]!
+  latestCourseClasses: [CourseClass!]!
+  userRoles: [UserRole!]!
 }
 
 type User {
@@ -188,6 +177,37 @@ type UserRole {
   id: ID!
   code: String!
 }
+
+union CourseByCodeResult = Course | NotFoundError
+
+union CourseByIdResult = Course | NotFoundError
+
+union CourseClassByIdResult = CourseClass | NotFoundError
+
+union CourseClassListByCodeResult = CourseClassList | NotFoundError
+
+union CourseClassListByIdResult = CourseClassList | NotFoundError
+
+union CourseEditionByIdResult = CourseEdition | NotFoundError
+
+enum CreateCourseInputVisibility {
+  PUBLIC
+  HIDDEN
+  DISABLED
+}
+
+input CreateCourseInput {
+  code: String!
+  name: String!
+  eva: String
+  visibility: CreateCourseInputVisibility
+}
+
+type CreateCoursePayload {
+  course: Course!
+}
+
+union CreateCourseResult = CreateCoursePayload | GenericError | AuthenticationError
 
 enum CacheControlScope {
   PUBLIC

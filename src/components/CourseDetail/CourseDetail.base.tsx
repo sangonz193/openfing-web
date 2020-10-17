@@ -8,6 +8,7 @@ import { classNamesFunction } from "@fluentui/react/lib/Utilities";
 import React from "react";
 import { useObserveProperties } from "src/hooks/useObserveProperties";
 
+import { useCourseClassPlayerStore } from "../../modules/CourseClassPlayer";
 import { useCourseSelectionStore } from "../../modules/CourseSelection";
 import { CourseClassDownloadButton } from "../CourseClassDownloadButton";
 import { CourseClassPlayer } from "../CourseClassPlayer";
@@ -23,6 +24,9 @@ export const CourseDetailBase = (props: CourseDetailProps) => {
 	const { styles, theme } = props as Required<Pick<typeof props, "styles" | "theme">>;
 	const classNames = getClassNames(styles, { theme });
 
+	const courseClassPlayerStore = useCourseClassPlayerStore();
+
+	const { htmlVideoElement } = useObserveProperties(courseClassPlayerStore, ["htmlVideoElement"]);
 	const { selection } = useObserveProperties(useCourseSelectionStore(), ["selection"]);
 
 	const courseClassResult = useCourseClassByIdQuery({
@@ -47,6 +51,28 @@ export const CourseDetailBase = (props: CourseDetailProps) => {
 		courseClassResult.data?.courseClassById?.__typename === "CourseClass"
 			? courseClassResult.data?.courseClassById
 			: undefined;
+
+	React.useEffect(() => {
+		if (htmlVideoElement && courseClass?.chapterCues) {
+			const handler = () => {
+				courseClassPlayerStore.setChapterTextTracks(
+					courseClass.chapterCues.map((chapterCue) => {
+						const vvtCue = new VTTCue(chapterCue.startSeconds, chapterCue.endSeconds, chapterCue.name);
+						vvtCue.id = chapterCue.id;
+
+						return vvtCue;
+					})
+				);
+			};
+
+			htmlVideoElement.addEventListener("loadedmetadata", handler);
+
+			return () => htmlVideoElement.removeEventListener("loadedmetadata", handler);
+		}
+
+		return undefined;
+	}, [htmlVideoElement, courseClass?.chapterCues]);
+
 	const createdAt = React.useMemo(() => (courseClass?.createdAt ? new Date(courseClass.createdAt) : undefined), [
 		courseClass?.createdAt,
 	]);

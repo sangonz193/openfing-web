@@ -14,61 +14,23 @@ export type Scalars = {
 
 
 
-export type Query = {
-  __typename: 'Query';
-  _?: Maybe<Scalars['Void']>;
-  courses: Array<Course>;
-  courseById: CourseByIdResult;
-  courseByCode: CourseByCodeResult;
-  courseClassById: CourseClassByIdResult;
-  latestCourseClasses: Array<CourseClass>;
-  courseClassListById: CourseClassListByIdResult;
-  courseClassListByCode: CourseClassListByCodeResult;
-  courseEditionById: CourseEditionByIdResult;
-  faqs: Array<Faq>;
-  userRoles: Array<UserRole>;
-};
-
-
-export type QueryCourseByIdArgs = {
-  id: Scalars['ID'];
-};
-
-
-export type QueryCourseByCodeArgs = {
-  code: Scalars['String'];
-};
-
-
-export type QueryCourseClassByIdArgs = {
-  id: Scalars['ID'];
-};
-
-
-export type QueryCourseClassListByIdArgs = {
-  id: Scalars['ID'];
-};
-
-
-export type QueryCourseClassListByCodeArgs = {
-  code: Scalars['String'];
-};
-
-
-export type QueryCourseEditionByIdArgs = {
-  id: Scalars['ID'];
-};
-
 export type Mutation = {
   __typename: 'Mutation';
   _?: Maybe<Scalars['Void']>;
-  createCourse: CreateCoursePayload;
-  updateCourseClassVideos: NotFoundError;
+  backupDb?: Maybe<Scalars['Void']>;
+  createCourse: CreateCourseResult;
+  updateCourseClassVideos?: Maybe<NotFoundError>;
+};
+
+
+export type MutationBackupDbArgs = {
+  secret: Scalars['String'];
 };
 
 
 export type MutationCreateCourseArgs = {
   input: CreateCourseInput;
+  secret: Scalars['String'];
 };
 
 
@@ -92,38 +54,20 @@ export type AuthenticationError = {
   _?: Maybe<Scalars['Void']>;
 };
 
-export type Course = {
-  __typename: 'Course';
+export type CourseClassChapterCue = {
+  __typename: 'CourseClassChapterCue';
   id: Scalars['ID'];
-  code: Scalars['String'];
   name: Scalars['String'];
-  iconUrl?: Maybe<Scalars['String']>;
-  eva?: Maybe<Scalars['String']>;
-  editions: Array<CourseEdition>;
+  startSeconds: Scalars['Float'];
+  endSeconds: Scalars['Float'];
+  courseClass?: Maybe<CourseClass>;
   createdAt?: Maybe<Scalars['String']>;
   updatedAt?: Maybe<Scalars['String']>;
   deletedAt?: Maybe<Scalars['String']>;
   createdBy?: Maybe<User>;
-  updatedBy?: Maybe<User>;
   deletedBy?: Maybe<User>;
+  updatedBy?: Maybe<User>;
 };
-
-export type CourseByIdResult = Course | NotFoundError;
-
-export type CourseByCodeResult = Course | NotFoundError;
-
-export type CreateCourseInput = {
-  code: Scalars['String'];
-  name: Scalars['String'];
-  eva?: Maybe<Scalars['String']>;
-  editionName: Scalars['String'];
-  editionSemester: Scalars['Int'];
-  editionYear: Scalars['Int'];
-  courseClassListCode: Scalars['String'];
-  courseClassListName: Scalars['String'];
-};
-
-export type CreateCoursePayload = GenericError | NotFoundError;
 
 export type CourseClass = {
   __typename: 'CourseClass';
@@ -131,6 +75,7 @@ export type CourseClass = {
   number?: Maybe<Scalars['Int']>;
   name?: Maybe<Scalars['String']>;
   videos: Array<CourseClassVideo>;
+  chapterCues: Array<CourseClassChapterCue>;
   courseClassList?: Maybe<CourseClassList>;
   createdAt?: Maybe<Scalars['String']>;
   updatedAt?: Maybe<Scalars['String']>;
@@ -139,10 +84,6 @@ export type CourseClass = {
   updatedBy?: Maybe<User>;
   deletedBy?: Maybe<User>;
 };
-
-export type CourseClassByIdResult = CourseClass | NotFoundError;
-
-export type UpdateCourseClassVideosResult = CourseClass | NotFoundError;
 
 export type CourseClassList = {
   __typename: 'CourseClassList';
@@ -158,10 +99,6 @@ export type CourseClassList = {
   updatedBy?: Maybe<User>;
   deletedBy?: Maybe<User>;
 };
-
-export type CourseClassListByIdResult = CourseClassList | NotFoundError;
-
-export type CourseClassListByCodeResult = CourseClassList | NotFoundError;
 
 export type CourseClassVideo = {
   __typename: 'CourseClassVideo';
@@ -207,6 +144,22 @@ export type CourseClassVideoQuality = {
   updatedBy?: Maybe<User>;
 };
 
+export type Course = {
+  __typename: 'Course';
+  id: Scalars['ID'];
+  code: Scalars['String'];
+  name: Scalars['String'];
+  iconUrl?: Maybe<Scalars['String']>;
+  eva?: Maybe<Scalars['String']>;
+  editions: Array<CourseEdition>;
+  createdAt?: Maybe<Scalars['String']>;
+  updatedAt?: Maybe<Scalars['String']>;
+  deletedAt?: Maybe<Scalars['String']>;
+  createdBy?: Maybe<User>;
+  updatedBy?: Maybe<User>;
+  deletedBy?: Maybe<User>;
+};
+
 export type CourseEdition = {
   __typename: 'CourseEdition';
   id: Scalars['ID'];
@@ -223,8 +176,6 @@ export type CourseEdition = {
   deletedBy?: Maybe<User>;
 };
 
-export type CourseEditionByIdResult = CourseEdition | NotFoundError;
-
 export type Faq = {
   __typename: 'Faq';
   id: Scalars['ID'];
@@ -237,6 +188,51 @@ export type Faq = {
   updatedBy?: Maybe<User>;
   deletedAt?: Maybe<Scalars['String']>;
   deletedBy?: Maybe<User>;
+};
+
+export type Query = {
+  __typename: 'Query';
+  _?: Maybe<Scalars['Void']>;
+  courseByCode: CourseByCodeResult;
+  courseById: CourseByIdResult;
+  courseClassById: CourseClassByIdResult;
+  courseClassListByCode: CourseClassListByCodeResult;
+  courseClassListById: CourseClassListByIdResult;
+  courseEditionById: CourseEditionByIdResult;
+  courses: Array<Course>;
+  faqs: Array<Faq>;
+  latestCourseClasses: Array<CourseClass>;
+  userRoles: Array<UserRole>;
+};
+
+
+export type QueryCourseByCodeArgs = {
+  code: Scalars['String'];
+};
+
+
+export type QueryCourseByIdArgs = {
+  id: Scalars['ID'];
+};
+
+
+export type QueryCourseClassByIdArgs = {
+  id: Scalars['ID'];
+};
+
+
+export type QueryCourseClassListByCodeArgs = {
+  code: Scalars['String'];
+};
+
+
+export type QueryCourseClassListByIdArgs = {
+  id: Scalars['ID'];
+};
+
+
+export type QueryCourseEditionByIdArgs = {
+  id: Scalars['ID'];
 };
 
 export type User = {
@@ -256,6 +252,37 @@ export type UserRole = {
   id: Scalars['ID'];
   code: Scalars['String'];
 };
+
+export type CourseByCodeResult = Course | NotFoundError;
+
+export type CourseByIdResult = Course | NotFoundError;
+
+export type CourseClassByIdResult = CourseClass | NotFoundError;
+
+export type CourseClassListByCodeResult = CourseClassList | NotFoundError;
+
+export type CourseClassListByIdResult = CourseClassList | NotFoundError;
+
+export type CourseEditionByIdResult = CourseEdition | NotFoundError;
+
+export type CreateCourseInputVisibility = 
+  | 'PUBLIC'
+  | 'HIDDEN'
+  | 'DISABLED';
+
+export type CreateCourseInput = {
+  code: Scalars['String'];
+  name: Scalars['String'];
+  eva?: Maybe<Scalars['String']>;
+  visibility?: Maybe<CreateCourseInputVisibility>;
+};
+
+export type CreateCoursePayload = {
+  __typename: 'CreateCoursePayload';
+  course: Course;
+};
+
+export type CreateCourseResult = CreateCoursePayload | GenericError | AuthenticationError;
 
 export type CacheControlScope = 
   | 'PUBLIC'
