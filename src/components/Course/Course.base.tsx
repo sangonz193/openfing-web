@@ -37,7 +37,7 @@ export const CourseBase = (props: CourseProps) => {
 					code: props.courseClassListCode,
 			  }
 			: undefined,
-		skip: !props.courseClassListCode,
+		skip: !selection.courseClassListCode || !props.courseClassListCode,
 	});
 	const course =
 		courseClassListByCodeQueryResult.data?.courseClassListByCode?.__typename === "CourseClassList"
