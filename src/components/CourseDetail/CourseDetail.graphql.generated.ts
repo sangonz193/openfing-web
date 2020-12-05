@@ -14,7 +14,7 @@ export type CourseClassByIdQueryVariables = Types.Exact<{
 }>;
 
 
-export type CourseClassByIdQuery = { __typename?: 'Query', courseClassById: { __typename: 'CourseClass', id: string, name: Types.Maybe<string>, createdAt: Types.Maybe<string>, videos: Array<{ __typename?: 'CourseClassVideo', id: string, name: Types.Maybe<string>, qualities: Array<{ __typename?: 'CourseClassVideoQuality', id: string, formats: Array<{ __typename?: 'CourseClassVideoFormat', id: string, name: Types.Maybe<string>, url: Types.Maybe<string> }> }> }> } | { __typename: 'NotFoundError' } };
+export type CourseClassByIdQuery = { __typename?: 'Query', courseClassById: { __typename: 'CourseClass', id: string, name: Types.Maybe<string>, createdAt: Types.Maybe<string>, videos: Array<{ __typename?: 'CourseClassVideo', id: string, name: Types.Maybe<string>, qualities: Array<{ __typename?: 'CourseClassVideoQuality', id: string, formats: Array<{ __typename?: 'CourseClassVideoFormat', id: string, name: Types.Maybe<string>, url: Types.Maybe<string> }> }> }>, chapterCues: Array<{ __typename?: 'CourseClassChapterCue', id: string, name: string, startSeconds: number, endSeconds: number, courseClass: Types.Maybe<{ __typename?: 'CourseClass', id: string }> }> } | { __typename: 'NotFoundError' } };
 
 
 export function useCourseClassListByIdQuery(baseOptions?: Apollo.QueryHookOptions<CourseClassListByIdQuery, CourseClassListByIdQueryVariables>) {

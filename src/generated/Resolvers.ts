@@ -18,61 +18,23 @@ export type Scalars = {
 
 
 
-export type Query = {
-  __typename?: 'Query';
-  _?: Maybe<Scalars['Void']>;
-  courses: Array<Course>;
-  courseById: CourseByIdResult;
-  courseByCode: CourseByCodeResult;
-  courseClassById: CourseClassByIdResult;
-  latestCourseClasses: Array<CourseClass>;
-  courseClassListById: CourseClassListByIdResult;
-  courseClassListByCode: CourseClassListByCodeResult;
-  courseEditionById: CourseEditionByIdResult;
-  faqs: Array<Faq>;
-  userRoles: Array<UserRole>;
-};
-
-
-export type QueryCourseByIdArgs = {
-  id: Scalars['ID'];
-};
-
-
-export type QueryCourseByCodeArgs = {
-  code: Scalars['String'];
-};
-
-
-export type QueryCourseClassByIdArgs = {
-  id: Scalars['ID'];
-};
-
-
-export type QueryCourseClassListByIdArgs = {
-  id: Scalars['ID'];
-};
-
-
-export type QueryCourseClassListByCodeArgs = {
-  code: Scalars['String'];
-};
-
-
-export type QueryCourseEditionByIdArgs = {
-  id: Scalars['ID'];
-};
-
 export type Mutation = {
   __typename?: 'Mutation';
   _?: Maybe<Scalars['Void']>;
-  createCourse: CreateCoursePayload;
-  updateCourseClassVideos: NotFoundError;
+  backupDb?: Maybe<Scalars['Void']>;
+  createCourse: CreateCourseResult;
+  updateCourseClassVideos?: Maybe<NotFoundError>;
+};
+
+
+export type MutationBackupDbArgs = {
+  secret: Scalars['String'];
 };
 
 
 export type MutationCreateCourseArgs = {
   input: CreateCourseInput;
+  secret: Scalars['String'];
 };
 
 
@@ -96,38 +58,20 @@ export type AuthenticationError = {
   _?: Maybe<Scalars['Void']>;
 };
 
-export type Course = {
-  __typename?: 'Course';
+export type CourseClassChapterCue = {
+  __typename?: 'CourseClassChapterCue';
   id: Scalars['ID'];
-  code: Scalars['String'];
   name: Scalars['String'];
-  iconUrl?: Maybe<Scalars['String']>;
-  eva?: Maybe<Scalars['String']>;
-  editions: Array<CourseEdition>;
+  startSeconds: Scalars['Float'];
+  endSeconds: Scalars['Float'];
+  courseClass?: Maybe<CourseClass>;
   createdAt?: Maybe<Scalars['String']>;
   updatedAt?: Maybe<Scalars['String']>;
   deletedAt?: Maybe<Scalars['String']>;
   createdBy?: Maybe<User>;
-  updatedBy?: Maybe<User>;
   deletedBy?: Maybe<User>;
+  updatedBy?: Maybe<User>;
 };
-
-export type CourseByIdResult = Course | NotFoundError;
-
-export type CourseByCodeResult = Course | NotFoundError;
-
-export type CreateCourseInput = {
-  code: Scalars['String'];
-  name: Scalars['String'];
-  eva?: Maybe<Scalars['String']>;
-  editionName: Scalars['String'];
-  editionSemester: Scalars['Int'];
-  editionYear: Scalars['Int'];
-  courseClassListCode: Scalars['String'];
-  courseClassListName: Scalars['String'];
-};
-
-export type CreateCoursePayload = GenericError | NotFoundError;
 
 export type CourseClass = {
   __typename?: 'CourseClass';
@@ -135,6 +79,7 @@ export type CourseClass = {
   number?: Maybe<Scalars['Int']>;
   name?: Maybe<Scalars['String']>;
   videos: Array<CourseClassVideo>;
+  chapterCues: Array<CourseClassChapterCue>;
   courseClassList?: Maybe<CourseClassList>;
   createdAt?: Maybe<Scalars['String']>;
   updatedAt?: Maybe<Scalars['String']>;
@@ -143,10 +88,6 @@ export type CourseClass = {
   updatedBy?: Maybe<User>;
   deletedBy?: Maybe<User>;
 };
-
-export type CourseClassByIdResult = CourseClass | NotFoundError;
-
-export type UpdateCourseClassVideosResult = CourseClass | NotFoundError;
 
 export type CourseClassList = {
   __typename?: 'CourseClassList';
@@ -162,10 +103,6 @@ export type CourseClassList = {
   updatedBy?: Maybe<User>;
   deletedBy?: Maybe<User>;
 };
-
-export type CourseClassListByIdResult = CourseClassList | NotFoundError;
-
-export type CourseClassListByCodeResult = CourseClassList | NotFoundError;
 
 export type CourseClassVideo = {
   __typename?: 'CourseClassVideo';
@@ -211,6 +148,22 @@ export type CourseClassVideoQuality = {
   updatedBy?: Maybe<User>;
 };
 
+export type Course = {
+  __typename?: 'Course';
+  id: Scalars['ID'];
+  code: Scalars['String'];
+  name: Scalars['String'];
+  iconUrl?: Maybe<Scalars['String']>;
+  eva?: Maybe<Scalars['String']>;
+  editions: Array<CourseEdition>;
+  createdAt?: Maybe<Scalars['String']>;
+  updatedAt?: Maybe<Scalars['String']>;
+  deletedAt?: Maybe<Scalars['String']>;
+  createdBy?: Maybe<User>;
+  updatedBy?: Maybe<User>;
+  deletedBy?: Maybe<User>;
+};
+
 export type CourseEdition = {
   __typename?: 'CourseEdition';
   id: Scalars['ID'];
@@ -227,8 +180,6 @@ export type CourseEdition = {
   deletedBy?: Maybe<User>;
 };
 
-export type CourseEditionByIdResult = CourseEdition | NotFoundError;
-
 export type Faq = {
   __typename?: 'Faq';
   id: Scalars['ID'];
@@ -241,6 +192,51 @@ export type Faq = {
   updatedBy?: Maybe<User>;
   deletedAt?: Maybe<Scalars['String']>;
   deletedBy?: Maybe<User>;
+};
+
+export type Query = {
+  __typename?: 'Query';
+  _?: Maybe<Scalars['Void']>;
+  courseByCode: CourseByCodeResult;
+  courseById: CourseByIdResult;
+  courseClassById: CourseClassByIdResult;
+  courseClassListByCode: CourseClassListByCodeResult;
+  courseClassListById: CourseClassListByIdResult;
+  courseEditionById: CourseEditionByIdResult;
+  courses: Array<Course>;
+  faqs: Array<Faq>;
+  latestCourseClasses: Array<CourseClass>;
+  userRoles: Array<UserRole>;
+};
+
+
+export type QueryCourseByCodeArgs = {
+  code: Scalars['String'];
+};
+
+
+export type QueryCourseByIdArgs = {
+  id: Scalars['ID'];
+};
+
+
+export type QueryCourseClassByIdArgs = {
+  id: Scalars['ID'];
+};
+
+
+export type QueryCourseClassListByCodeArgs = {
+  code: Scalars['String'];
+};
+
+
+export type QueryCourseClassListByIdArgs = {
+  id: Scalars['ID'];
+};
+
+
+export type QueryCourseEditionByIdArgs = {
+  id: Scalars['ID'];
 };
 
 export type User = {
@@ -260,6 +256,37 @@ export type UserRole = {
   id: Scalars['ID'];
   code: Scalars['String'];
 };
+
+export type CourseByCodeResult = Course | NotFoundError;
+
+export type CourseByIdResult = Course | NotFoundError;
+
+export type CourseClassByIdResult = CourseClass | NotFoundError;
+
+export type CourseClassListByCodeResult = CourseClassList | NotFoundError;
+
+export type CourseClassListByIdResult = CourseClassList | NotFoundError;
+
+export type CourseEditionByIdResult = CourseEdition | NotFoundError;
+
+export type CreateCourseInputVisibility = 
+  | 'PUBLIC'
+  | 'HIDDEN'
+  | 'DISABLED';
+
+export type CreateCourseInput = {
+  code: Scalars['String'];
+  name: Scalars['String'];
+  eva?: Maybe<Scalars['String']>;
+  visibility?: Maybe<CreateCourseInputVisibility>;
+};
+
+export type CreateCoursePayload = {
+  __typename?: 'CreateCoursePayload';
+  course: Course;
+};
+
+export type CreateCourseResult = CreateCoursePayload | GenericError | AuthenticationError;
 
 export type CacheControlScope = 
   | 'PUBLIC'
@@ -332,34 +359,37 @@ export type DirectiveResolverFn<TResult = {}, TParent = {}, TContext = {}, TArgs
 /** Mapping between all available schema types and the resolvers types */
 export type ResolversTypes = {
   Void: ResolverTypeWrapper<Scalars['Void']>;
-  Query: ResolverTypeWrapper<{}>;
-  ID: ResolverTypeWrapper<Scalars['ID']>;
-  String: ResolverTypeWrapper<Scalars['String']>;
   Mutation: ResolverTypeWrapper<{}>;
+  String: ResolverTypeWrapper<Scalars['String']>;
+  ID: ResolverTypeWrapper<Scalars['ID']>;
   GenericError: ResolverTypeWrapper<GenericError>;
   NotFoundError: ResolverTypeWrapper<NotFoundError>;
   AuthenticationError: ResolverTypeWrapper<AuthenticationError>;
-  Course: ResolverTypeWrapper<Course>;
-  CourseByIdResult: ResolversTypes['Course'] | ResolversTypes['NotFoundError'];
-  CourseByCodeResult: ResolversTypes['Course'] | ResolversTypes['NotFoundError'];
-  CreateCourseInput: CreateCourseInput;
-  Int: ResolverTypeWrapper<Scalars['Int']>;
-  CreateCoursePayload: ResolversTypes['GenericError'] | ResolversTypes['NotFoundError'];
+  CourseClassChapterCue: ResolverTypeWrapper<CourseClassChapterCue>;
+  Float: ResolverTypeWrapper<Scalars['Float']>;
   CourseClass: ResolverTypeWrapper<CourseClass>;
-  CourseClassByIdResult: ResolversTypes['CourseClass'] | ResolversTypes['NotFoundError'];
-  UpdateCourseClassVideosResult: ResolversTypes['CourseClass'] | ResolversTypes['NotFoundError'];
+  Int: ResolverTypeWrapper<Scalars['Int']>;
   CourseClassList: ResolverTypeWrapper<CourseClassList>;
-  CourseClassListByIdResult: ResolversTypes['CourseClassList'] | ResolversTypes['NotFoundError'];
-  CourseClassListByCodeResult: ResolversTypes['CourseClassList'] | ResolversTypes['NotFoundError'];
   CourseClassVideo: ResolverTypeWrapper<CourseClassVideo>;
   CourseClassVideoFormat: ResolverTypeWrapper<CourseClassVideoFormat>;
   Boolean: ResolverTypeWrapper<Scalars['Boolean']>;
   CourseClassVideoQuality: ResolverTypeWrapper<CourseClassVideoQuality>;
+  Course: ResolverTypeWrapper<Course>;
   CourseEdition: ResolverTypeWrapper<CourseEdition>;
-  CourseEditionByIdResult: ResolversTypes['CourseEdition'] | ResolversTypes['NotFoundError'];
   Faq: ResolverTypeWrapper<Faq>;
+  Query: ResolverTypeWrapper<{}>;
   User: ResolverTypeWrapper<User>;
   UserRole: ResolverTypeWrapper<UserRole>;
+  CourseByCodeResult: ResolversTypes['Course'] | ResolversTypes['NotFoundError'];
+  CourseByIdResult: ResolversTypes['Course'] | ResolversTypes['NotFoundError'];
+  CourseClassByIdResult: ResolversTypes['CourseClass'] | ResolversTypes['NotFoundError'];
+  CourseClassListByCodeResult: ResolversTypes['CourseClassList'] | ResolversTypes['NotFoundError'];
+  CourseClassListByIdResult: ResolversTypes['CourseClassList'] | ResolversTypes['NotFoundError'];
+  CourseEditionByIdResult: ResolversTypes['CourseEdition'] | ResolversTypes['NotFoundError'];
+  CreateCourseInputVisibility: CreateCourseInputVisibility;
+  CreateCourseInput: CreateCourseInput;
+  CreateCoursePayload: ResolverTypeWrapper<CreateCoursePayload>;
+  CreateCourseResult: ResolversTypes['CreateCoursePayload'] | ResolversTypes['GenericError'] | ResolversTypes['AuthenticationError'];
   CacheControlScope: CacheControlScope;
   Upload: ResolverTypeWrapper<Scalars['Upload']>;
 };
@@ -367,34 +397,36 @@ export type ResolversTypes = {
 /** Mapping between all available schema types and the resolvers parents */
 export type ResolversParentTypes = {
   Void: Scalars['Void'];
-  Query: {};
-  ID: Scalars['ID'];
-  String: Scalars['String'];
   Mutation: {};
+  String: Scalars['String'];
+  ID: Scalars['ID'];
   GenericError: GenericError;
   NotFoundError: NotFoundError;
   AuthenticationError: AuthenticationError;
-  Course: Course;
-  CourseByIdResult: ResolversParentTypes['Course'] | ResolversParentTypes['NotFoundError'];
-  CourseByCodeResult: ResolversParentTypes['Course'] | ResolversParentTypes['NotFoundError'];
-  CreateCourseInput: CreateCourseInput;
-  Int: Scalars['Int'];
-  CreateCoursePayload: ResolversParentTypes['GenericError'] | ResolversParentTypes['NotFoundError'];
+  CourseClassChapterCue: CourseClassChapterCue;
+  Float: Scalars['Float'];
   CourseClass: CourseClass;
-  CourseClassByIdResult: ResolversParentTypes['CourseClass'] | ResolversParentTypes['NotFoundError'];
-  UpdateCourseClassVideosResult: ResolversParentTypes['CourseClass'] | ResolversParentTypes['NotFoundError'];
+  Int: Scalars['Int'];
   CourseClassList: CourseClassList;
-  CourseClassListByIdResult: ResolversParentTypes['CourseClassList'] | ResolversParentTypes['NotFoundError'];
-  CourseClassListByCodeResult: ResolversParentTypes['CourseClassList'] | ResolversParentTypes['NotFoundError'];
   CourseClassVideo: CourseClassVideo;
   CourseClassVideoFormat: CourseClassVideoFormat;
   Boolean: Scalars['Boolean'];
   CourseClassVideoQuality: CourseClassVideoQuality;
+  Course: Course;
   CourseEdition: CourseEdition;
-  CourseEditionByIdResult: ResolversParentTypes['CourseEdition'] | ResolversParentTypes['NotFoundError'];
   Faq: Faq;
+  Query: {};
   User: User;
   UserRole: UserRole;
+  CourseByCodeResult: ResolversParentTypes['Course'] | ResolversParentTypes['NotFoundError'];
+  CourseByIdResult: ResolversParentTypes['Course'] | ResolversParentTypes['NotFoundError'];
+  CourseClassByIdResult: ResolversParentTypes['CourseClass'] | ResolversParentTypes['NotFoundError'];
+  CourseClassListByCodeResult: ResolversParentTypes['CourseClassList'] | ResolversParentTypes['NotFoundError'];
+  CourseClassListByIdResult: ResolversParentTypes['CourseClassList'] | ResolversParentTypes['NotFoundError'];
+  CourseEditionByIdResult: ResolversParentTypes['CourseEdition'] | ResolversParentTypes['NotFoundError'];
+  CreateCourseInput: CreateCourseInput;
+  CreateCoursePayload: CreateCoursePayload;
+  CreateCourseResult: ResolversParentTypes['CreateCoursePayload'] | ResolversParentTypes['GenericError'] | ResolversParentTypes['AuthenticationError'];
   Upload: Scalars['Upload'];
 };
 
@@ -406,24 +438,11 @@ export interface VoidScalarConfig extends GraphQLScalarTypeConfig<ResolversTypes
   name: 'Void';
 }
 
-export type QueryResolvers<ContextType = Context, ParentType extends ResolversParentTypes['Query'] = ResolversParentTypes['Query']> = {
-  _: Resolver<Maybe<ResolversTypes['Void']>, ParentType, ContextType>;
-  courses: Resolver<Array<ResolversTypes['Course']>, ParentType, ContextType>;
-  courseById: Resolver<ResolversTypes['CourseByIdResult'], ParentType, ContextType, RequireFields<QueryCourseByIdArgs, 'id'>>;
-  courseByCode: Resolver<ResolversTypes['CourseByCodeResult'], ParentType, ContextType, RequireFields<QueryCourseByCodeArgs, 'code'>>;
-  courseClassById: Resolver<ResolversTypes['CourseClassByIdResult'], ParentType, ContextType, RequireFields<QueryCourseClassByIdArgs, 'id'>>;
-  latestCourseClasses: Resolver<Array<ResolversTypes['CourseClass']>, ParentType, ContextType>;
-  courseClassListById: Resolver<ResolversTypes['CourseClassListByIdResult'], ParentType, ContextType, RequireFields<QueryCourseClassListByIdArgs, 'id'>>;
-  courseClassListByCode: Resolver<ResolversTypes['CourseClassListByCodeResult'], ParentType, ContextType, RequireFields<QueryCourseClassListByCodeArgs, 'code'>>;
-  courseEditionById: Resolver<ResolversTypes['CourseEditionByIdResult'], ParentType, ContextType, RequireFields<QueryCourseEditionByIdArgs, 'id'>>;
-  faqs: Resolver<Array<ResolversTypes['Faq']>, ParentType, ContextType>;
-  userRoles: Resolver<Array<ResolversTypes['UserRole']>, ParentType, ContextType>;
-};
-
 export type MutationResolvers<ContextType = Context, ParentType extends ResolversParentTypes['Mutation'] = ResolversParentTypes['Mutation']> = {
   _: Resolver<Maybe<ResolversTypes['Void']>, ParentType, ContextType>;
-  createCourse: Resolver<ResolversTypes['CreateCoursePayload'], ParentType, ContextType, RequireFields<MutationCreateCourseArgs, 'input'>>;
-  updateCourseClassVideos: Resolver<ResolversTypes['NotFoundError'], ParentType, ContextType, RequireFields<MutationUpdateCourseClassVideosArgs, 'courseClassId' | 'secret'>>;
+  backupDb: Resolver<Maybe<ResolversTypes['Void']>, ParentType, ContextType, RequireFields<MutationBackupDbArgs, 'secret'>>;
+  createCourse: Resolver<ResolversTypes['CreateCourseResult'], ParentType, ContextType, RequireFields<MutationCreateCourseArgs, 'input' | 'secret'>>;
+  updateCourseClassVideos: Resolver<Maybe<ResolversTypes['NotFoundError']>, ParentType, ContextType, RequireFields<MutationUpdateCourseClassVideosArgs, 'courseClassId' | 'secret'>>;
 };
 
 export type GenericErrorResolvers<ContextType = Context, ParentType extends ResolversParentTypes['GenericError'] = ResolversParentTypes['GenericError']> = {
@@ -441,32 +460,19 @@ export type AuthenticationErrorResolvers<ContextType = Context, ParentType exten
   __isTypeOf?: IsTypeOfResolverFn<ParentType>;
 };
 
-export type CourseResolvers<ContextType = Context, ParentType extends ResolversParentTypes['Course'] = ResolversParentTypes['Course']> = {
+export type CourseClassChapterCueResolvers<ContextType = Context, ParentType extends ResolversParentTypes['CourseClassChapterCue'] = ResolversParentTypes['CourseClassChapterCue']> = {
   id: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
-  code: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   name: Resolver<ResolversTypes['String'], ParentType, ContextType>;
-  iconUrl: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  eva: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  editions: Resolver<Array<ResolversTypes['CourseEdition']>, ParentType, ContextType>;
+  startSeconds: Resolver<ResolversTypes['Float'], ParentType, ContextType>;
+  endSeconds: Resolver<ResolversTypes['Float'], ParentType, ContextType>;
+  courseClass: Resolver<Maybe<ResolversTypes['CourseClass']>, ParentType, ContextType>;
   createdAt: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   updatedAt: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   deletedAt: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   createdBy: Resolver<Maybe<ResolversTypes['User']>, ParentType, ContextType>;
-  updatedBy: Resolver<Maybe<ResolversTypes['User']>, ParentType, ContextType>;
   deletedBy: Resolver<Maybe<ResolversTypes['User']>, ParentType, ContextType>;
+  updatedBy: Resolver<Maybe<ResolversTypes['User']>, ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType>;
-};
-
-export type CourseByIdResultResolvers<ContextType = Context, ParentType extends ResolversParentTypes['CourseByIdResult'] = ResolversParentTypes['CourseByIdResult']> = {
-  __resolveType: TypeResolveFn<'Course' | 'NotFoundError', ParentType, ContextType>;
-};
-
-export type CourseByCodeResultResolvers<ContextType = Context, ParentType extends ResolversParentTypes['CourseByCodeResult'] = ResolversParentTypes['CourseByCodeResult']> = {
-  __resolveType: TypeResolveFn<'Course' | 'NotFoundError', ParentType, ContextType>;
-};
-
-export type CreateCoursePayloadResolvers<ContextType = Context, ParentType extends ResolversParentTypes['CreateCoursePayload'] = ResolversParentTypes['CreateCoursePayload']> = {
-  __resolveType: TypeResolveFn<'GenericError' | 'NotFoundError', ParentType, ContextType>;
 };
 
 export type CourseClassResolvers<ContextType = Context, ParentType extends ResolversParentTypes['CourseClass'] = ResolversParentTypes['CourseClass']> = {
@@ -474,6 +480,7 @@ export type CourseClassResolvers<ContextType = Context, ParentType extends Resol
   number: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
   name: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   videos: Resolver<Array<ResolversTypes['CourseClassVideo']>, ParentType, ContextType>;
+  chapterCues: Resolver<Array<ResolversTypes['CourseClassChapterCue']>, ParentType, ContextType>;
   courseClassList: Resolver<Maybe<ResolversTypes['CourseClassList']>, ParentType, ContextType>;
   createdAt: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   updatedAt: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
@@ -482,14 +489,6 @@ export type CourseClassResolvers<ContextType = Context, ParentType extends Resol
   updatedBy: Resolver<Maybe<ResolversTypes['User']>, ParentType, ContextType>;
   deletedBy: Resolver<Maybe<ResolversTypes['User']>, ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType>;
-};
-
-export type CourseClassByIdResultResolvers<ContextType = Context, ParentType extends ResolversParentTypes['CourseClassByIdResult'] = ResolversParentTypes['CourseClassByIdResult']> = {
-  __resolveType: TypeResolveFn<'CourseClass' | 'NotFoundError', ParentType, ContextType>;
-};
-
-export type UpdateCourseClassVideosResultResolvers<ContextType = Context, ParentType extends ResolversParentTypes['UpdateCourseClassVideosResult'] = ResolversParentTypes['UpdateCourseClassVideosResult']> = {
-  __resolveType: TypeResolveFn<'CourseClass' | 'NotFoundError', ParentType, ContextType>;
 };
 
 export type CourseClassListResolvers<ContextType = Context, ParentType extends ResolversParentTypes['CourseClassList'] = ResolversParentTypes['CourseClassList']> = {
@@ -505,14 +504,6 @@ export type CourseClassListResolvers<ContextType = Context, ParentType extends R
   updatedBy: Resolver<Maybe<ResolversTypes['User']>, ParentType, ContextType>;
   deletedBy: Resolver<Maybe<ResolversTypes['User']>, ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType>;
-};
-
-export type CourseClassListByIdResultResolvers<ContextType = Context, ParentType extends ResolversParentTypes['CourseClassListByIdResult'] = ResolversParentTypes['CourseClassListByIdResult']> = {
-  __resolveType: TypeResolveFn<'CourseClassList' | 'NotFoundError', ParentType, ContextType>;
-};
-
-export type CourseClassListByCodeResultResolvers<ContextType = Context, ParentType extends ResolversParentTypes['CourseClassListByCodeResult'] = ResolversParentTypes['CourseClassListByCodeResult']> = {
-  __resolveType: TypeResolveFn<'CourseClassList' | 'NotFoundError', ParentType, ContextType>;
 };
 
 export type CourseClassVideoResolvers<ContextType = Context, ParentType extends ResolversParentTypes['CourseClassVideo'] = ResolversParentTypes['CourseClassVideo']> = {
@@ -559,6 +550,22 @@ export type CourseClassVideoQualityResolvers<ContextType = Context, ParentType e
   __isTypeOf?: IsTypeOfResolverFn<ParentType>;
 };
 
+export type CourseResolvers<ContextType = Context, ParentType extends ResolversParentTypes['Course'] = ResolversParentTypes['Course']> = {
+  id: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
+  code: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  name: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  iconUrl: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  eva: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  editions: Resolver<Array<ResolversTypes['CourseEdition']>, ParentType, ContextType>;
+  createdAt: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  updatedAt: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  deletedAt: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  createdBy: Resolver<Maybe<ResolversTypes['User']>, ParentType, ContextType>;
+  updatedBy: Resolver<Maybe<ResolversTypes['User']>, ParentType, ContextType>;
+  deletedBy: Resolver<Maybe<ResolversTypes['User']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType>;
+};
+
 export type CourseEditionResolvers<ContextType = Context, ParentType extends ResolversParentTypes['CourseEdition'] = ResolversParentTypes['CourseEdition']> = {
   id: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
   name: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
@@ -575,10 +582,6 @@ export type CourseEditionResolvers<ContextType = Context, ParentType extends Res
   __isTypeOf?: IsTypeOfResolverFn<ParentType>;
 };
 
-export type CourseEditionByIdResultResolvers<ContextType = Context, ParentType extends ResolversParentTypes['CourseEditionByIdResult'] = ResolversParentTypes['CourseEditionByIdResult']> = {
-  __resolveType: TypeResolveFn<'CourseEdition' | 'NotFoundError', ParentType, ContextType>;
-};
-
 export type FaqResolvers<ContextType = Context, ParentType extends ResolversParentTypes['Faq'] = ResolversParentTypes['Faq']> = {
   id: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
   title: Resolver<ResolversTypes['String'], ParentType, ContextType>;
@@ -591,6 +594,20 @@ export type FaqResolvers<ContextType = Context, ParentType extends ResolversPare
   deletedAt: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   deletedBy: Resolver<Maybe<ResolversTypes['User']>, ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType>;
+};
+
+export type QueryResolvers<ContextType = Context, ParentType extends ResolversParentTypes['Query'] = ResolversParentTypes['Query']> = {
+  _: Resolver<Maybe<ResolversTypes['Void']>, ParentType, ContextType>;
+  courseByCode: Resolver<ResolversTypes['CourseByCodeResult'], ParentType, ContextType, RequireFields<QueryCourseByCodeArgs, 'code'>>;
+  courseById: Resolver<ResolversTypes['CourseByIdResult'], ParentType, ContextType, RequireFields<QueryCourseByIdArgs, 'id'>>;
+  courseClassById: Resolver<ResolversTypes['CourseClassByIdResult'], ParentType, ContextType, RequireFields<QueryCourseClassByIdArgs, 'id'>>;
+  courseClassListByCode: Resolver<ResolversTypes['CourseClassListByCodeResult'], ParentType, ContextType, RequireFields<QueryCourseClassListByCodeArgs, 'code'>>;
+  courseClassListById: Resolver<ResolversTypes['CourseClassListByIdResult'], ParentType, ContextType, RequireFields<QueryCourseClassListByIdArgs, 'id'>>;
+  courseEditionById: Resolver<ResolversTypes['CourseEditionByIdResult'], ParentType, ContextType, RequireFields<QueryCourseEditionByIdArgs, 'id'>>;
+  courses: Resolver<Array<ResolversTypes['Course']>, ParentType, ContextType>;
+  faqs: Resolver<Array<ResolversTypes['Faq']>, ParentType, ContextType>;
+  latestCourseClasses: Resolver<Array<ResolversTypes['CourseClass']>, ParentType, ContextType>;
+  userRoles: Resolver<Array<ResolversTypes['UserRole']>, ParentType, ContextType>;
 };
 
 export type UserResolvers<ContextType = Context, ParentType extends ResolversParentTypes['User'] = ResolversParentTypes['User']> = {
@@ -611,35 +628,69 @@ export type UserRoleResolvers<ContextType = Context, ParentType extends Resolver
   __isTypeOf?: IsTypeOfResolverFn<ParentType>;
 };
 
+export type CourseByCodeResultResolvers<ContextType = Context, ParentType extends ResolversParentTypes['CourseByCodeResult'] = ResolversParentTypes['CourseByCodeResult']> = {
+  __resolveType: TypeResolveFn<'Course' | 'NotFoundError', ParentType, ContextType>;
+};
+
+export type CourseByIdResultResolvers<ContextType = Context, ParentType extends ResolversParentTypes['CourseByIdResult'] = ResolversParentTypes['CourseByIdResult']> = {
+  __resolveType: TypeResolveFn<'Course' | 'NotFoundError', ParentType, ContextType>;
+};
+
+export type CourseClassByIdResultResolvers<ContextType = Context, ParentType extends ResolversParentTypes['CourseClassByIdResult'] = ResolversParentTypes['CourseClassByIdResult']> = {
+  __resolveType: TypeResolveFn<'CourseClass' | 'NotFoundError', ParentType, ContextType>;
+};
+
+export type CourseClassListByCodeResultResolvers<ContextType = Context, ParentType extends ResolversParentTypes['CourseClassListByCodeResult'] = ResolversParentTypes['CourseClassListByCodeResult']> = {
+  __resolveType: TypeResolveFn<'CourseClassList' | 'NotFoundError', ParentType, ContextType>;
+};
+
+export type CourseClassListByIdResultResolvers<ContextType = Context, ParentType extends ResolversParentTypes['CourseClassListByIdResult'] = ResolversParentTypes['CourseClassListByIdResult']> = {
+  __resolveType: TypeResolveFn<'CourseClassList' | 'NotFoundError', ParentType, ContextType>;
+};
+
+export type CourseEditionByIdResultResolvers<ContextType = Context, ParentType extends ResolversParentTypes['CourseEditionByIdResult'] = ResolversParentTypes['CourseEditionByIdResult']> = {
+  __resolveType: TypeResolveFn<'CourseEdition' | 'NotFoundError', ParentType, ContextType>;
+};
+
+export type CreateCoursePayloadResolvers<ContextType = Context, ParentType extends ResolversParentTypes['CreateCoursePayload'] = ResolversParentTypes['CreateCoursePayload']> = {
+  course: Resolver<ResolversTypes['Course'], ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType>;
+};
+
+export type CreateCourseResultResolvers<ContextType = Context, ParentType extends ResolversParentTypes['CreateCourseResult'] = ResolversParentTypes['CreateCourseResult']> = {
+  __resolveType: TypeResolveFn<'CreateCoursePayload' | 'GenericError' | 'AuthenticationError', ParentType, ContextType>;
+};
+
 export interface UploadScalarConfig extends GraphQLScalarTypeConfig<ResolversTypes['Upload'], any> {
   name: 'Upload';
 }
 
 export type Resolvers<ContextType = Context> = {
   Void: GraphQLScalarType;
-  Query: QueryResolvers<ContextType>;
   Mutation: MutationResolvers<ContextType>;
   GenericError: GenericErrorResolvers<ContextType>;
   NotFoundError: NotFoundErrorResolvers<ContextType>;
   AuthenticationError: AuthenticationErrorResolvers<ContextType>;
-  Course: CourseResolvers<ContextType>;
-  CourseByIdResult: CourseByIdResultResolvers<ContextType>;
-  CourseByCodeResult: CourseByCodeResultResolvers<ContextType>;
-  CreateCoursePayload: CreateCoursePayloadResolvers<ContextType>;
+  CourseClassChapterCue: CourseClassChapterCueResolvers<ContextType>;
   CourseClass: CourseClassResolvers<ContextType>;
-  CourseClassByIdResult: CourseClassByIdResultResolvers<ContextType>;
-  UpdateCourseClassVideosResult: UpdateCourseClassVideosResultResolvers<ContextType>;
   CourseClassList: CourseClassListResolvers<ContextType>;
-  CourseClassListByIdResult: CourseClassListByIdResultResolvers<ContextType>;
-  CourseClassListByCodeResult: CourseClassListByCodeResultResolvers<ContextType>;
   CourseClassVideo: CourseClassVideoResolvers<ContextType>;
   CourseClassVideoFormat: CourseClassVideoFormatResolvers<ContextType>;
   CourseClassVideoQuality: CourseClassVideoQualityResolvers<ContextType>;
+  Course: CourseResolvers<ContextType>;
   CourseEdition: CourseEditionResolvers<ContextType>;
-  CourseEditionByIdResult: CourseEditionByIdResultResolvers<ContextType>;
   Faq: FaqResolvers<ContextType>;
+  Query: QueryResolvers<ContextType>;
   User: UserResolvers<ContextType>;
   UserRole: UserRoleResolvers<ContextType>;
+  CourseByCodeResult: CourseByCodeResultResolvers<ContextType>;
+  CourseByIdResult: CourseByIdResultResolvers<ContextType>;
+  CourseClassByIdResult: CourseClassByIdResultResolvers<ContextType>;
+  CourseClassListByCodeResult: CourseClassListByCodeResultResolvers<ContextType>;
+  CourseClassListByIdResult: CourseClassListByIdResultResolvers<ContextType>;
+  CourseEditionByIdResult: CourseEditionByIdResultResolvers<ContextType>;
+  CreateCoursePayload: CreateCoursePayloadResolvers<ContextType>;
+  CreateCourseResult: CreateCourseResultResolvers<ContextType>;
   Upload: GraphQLScalarType;
 };
 

@@ -7,6 +7,7 @@ import { useAppStore } from "../../modules/App";
 import { useCourseClassPlayerStore } from "../../modules/CourseClassPlayer";
 import { CourseClassPlayerButton } from "../CourseClassPlayerButton";
 import { CourseClassPlayerPlaybackRateButton } from "../CourseClassPlayerPlaybackRateButton";
+import { CourseClassPlayerShowChaptersButton } from "../CourseClassPlayerShowChaptersButton";
 import { CourseClassPlayerTrack } from "../CourseClassPlayerTrack";
 import { CourseClassPlayerVolumeButton } from "../CourseClassPlayerVolumeButton";
 import {
@@ -24,17 +25,20 @@ export const CourseClassPlayerControlsBottomControlsBase = (props: CourseClassPl
 	const { styles, theme } = props as Required<Pick<typeof props, "styles" | "theme">>;
 
 	const courseClassPlayerStore = useCourseClassPlayerStore();
-	const observedCourseClassPlayerStore = useObserveProperties(courseClassPlayerStore, ["showControls"]);
+	const { showControls, chapterTextTracks } = useObserveProperties(courseClassPlayerStore, [
+		"showControls",
+		"chapterTextTracks",
+	]);
 
-	const [wasVisible, setWasVisible] = React.useState(observedCourseClassPlayerStore.showControls);
+	const [wasVisible, setWasVisible] = React.useState(showControls);
 	const classNames = getClassNames(styles, {
 		theme,
-		visible: wasVisible && observedCourseClassPlayerStore.showControls,
+		visible: wasVisible && showControls,
 	});
 
 	React.useEffect(() => {
-		if (observedCourseClassPlayerStore.showControls) setWasVisible(true);
-	}, [observedCourseClassPlayerStore.showControls]);
+		if (showControls) setWasVisible(true);
+	}, [showControls]);
 
 	const handlePlayClick = React.useCallback<React.MouseEventHandler<unknown>>((e) => {
 		if (e?.defaultPrevented) return;
@@ -111,6 +115,8 @@ export const CourseClassPlayerControlsBottomControlsBase = (props: CourseClassPl
 				/>
 
 				<div style={{ flex: 1 }} />
+
+				{chapterTextTracks.length > 0 && <CourseClassPlayerShowChaptersButton />}
 
 				<CourseClassPlayerPlaybackRateButton />
 

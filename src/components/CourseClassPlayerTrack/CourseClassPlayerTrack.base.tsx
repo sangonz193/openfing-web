@@ -155,6 +155,10 @@ const TimeSlider = React.memo((props: { classNames: IProcessedStyleSet<CourseCla
 		setTimeout(() => unblockTooltip("hover"));
 	}, []);
 
+	const handleSliderButtonFocus = React.useCallback(() => {
+		courseClassPlayerStore.htmlVideoWrapperElement?.focus();
+	}, []);
+
 	return (
 		<div className={classNames.sliderWrapper}>
 			{tooltipPositionData && typeof tooltipTimePosition === "number" && (
@@ -197,6 +201,7 @@ const TimeSlider = React.memo((props: { classNames: IProcessedStyleSet<CourseCla
 					onMouseEnter: handleSliderButtonMouseEnter,
 					onMouseMove: handleSliderButtonMouseMove,
 					onMouseLeave: handleSliderButtonMouseLeave,
+					onFocus: handleSliderButtonFocus,
 				}}
 			/>
 		</div>

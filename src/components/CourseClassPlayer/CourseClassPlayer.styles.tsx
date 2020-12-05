@@ -33,6 +33,7 @@ export const getStyles = (props: CourseClassPlayerStyleProps): CourseClassPlayer
 			bottom: 0,
 			left: 0,
 			pointerEvents: "none",
+			overflow: "hidden",
 			selectors: {
 				"> *": {
 					pointerEvents: "auto",
