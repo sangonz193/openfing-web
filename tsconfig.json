@@ -26,5 +26,5 @@
 		"target": "es2019",
 	},
 	"exclude": ["build", "node_modules"],
-	"include": ["./**/*.ts*", "./.**/*.ts*", "_cli/**/*.ts"]
+	"include": ["./**/*.ts*", "./.**/*.ts*", "cli/**/*.ts"]
 }
