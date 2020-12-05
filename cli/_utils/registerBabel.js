@@ -11,6 +11,3 @@ require("@babel/register")({
 	plugins: ["@babel/plugin-transform-runtime"],
 	extensions: [".js", ".ts"],
 });
-require("./_utils/configEnv");
-
-require("./_index");
