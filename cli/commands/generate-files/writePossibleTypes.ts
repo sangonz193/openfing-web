@@ -1,4 +1,5 @@
 import axios from "axios";
+import chalk from "chalk";
 import path from "path";
 
 import { fs } from "../../_utils/fs";
@@ -8,6 +9,11 @@ import { generateFilesConfig } from "./_utils/generateFilesConfig";
 
 export const writePossibleTypes = async () => {
 	const { graphqlEndpoint, generatedFolderPath } = generateFilesConfig;
+
+	if (!graphqlEndpoint) {
+		console.log(chalk.yellow("Can't connect to server. Skipping fragments request."));
+		return;
+	}
 
 	const fragmentsResponse = await axios(graphqlEndpoint, {
 		method: "POST",

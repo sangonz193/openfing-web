@@ -25,7 +25,7 @@ export const courseClassById = gql`
 			... on CourseClass {
 				id
 				name
-				createdAt
+				publishedAt
 
 				videos {
 					id

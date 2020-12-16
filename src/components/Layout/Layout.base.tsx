@@ -1,6 +1,7 @@
 import { classNamesFunction } from "@fluentui/react/lib/Utilities";
 import React from "react";
 
+import { RecursivePartial } from "../../typings/utils";
 import { Header } from "../Header";
 import { NavBar } from "../NavBar";
 import { LayoutContext, LayoutContextValue } from "./Layout.context";
