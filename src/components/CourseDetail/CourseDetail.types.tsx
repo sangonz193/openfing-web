@@ -6,8 +6,6 @@ import type { IStyle, ITheme } from "@fluentui/react/lib/Styling";
 import type { ITextProps } from "@fluentui/react/lib/Text";
 import type { IStyleFunctionOrObject } from "@fluentui/react/lib/Utilities";
 
-import { LinkProps } from "../Link";
-
 export type CourseDetailProps = {
 	theme?: ITheme;
 	className?: string;
@@ -29,8 +27,6 @@ export type CourseDetailStyles = {
 		courseClassName: Required<ITextProps>["styles"];
 		courseClassDate: Required<ITextProps>["styles"];
 		separator: Required<ISeparatorProps>["styles"];
-		downloadNotice: Required<ITextProps>["styles"];
-		downloadNoticeLink: Required<LinkProps>["styles"];
 		commandBar: Required<ICommandBarProps>["styles"];
 	};
 };

@@ -5,7 +5,12 @@ export const remoteSchema = gql`scalar Void
 type Mutation {
   _: Void
   backupDb(secret: String!): Void
+  createCourseClass(input: CreateCourseClassInput!, secret: String!): CreateCourseClassResult!
+  createCourseClassList(input: CreateCourseClassListInput!, secret: String!): CreateCourseClassListResult!
   createCourse(input: CreateCourseInput!, secret: String!): CreateCourseResult!
+  resetDatabaseFromBackup(secret: String!): String
+  updateCourseClass(ref: CourseClassRef!, input: UpdateCourseClassInput!, secret: String!): UpdateCourseClassResult!
+  updateCourseClassList(ref: CourseClassListRef!, input: UpdateCourseClassListInput!, secret: String!): UpdateCourseClassListResult!
   updateCourseClassVideos(courseClassId: ID!, secret: String!): NotFoundError
 }
 
@@ -42,12 +47,25 @@ type CourseClass {
   videos: [CourseClassVideo!]!
   chapterCues: [CourseClassChapterCue!]!
   courseClassList: CourseClassList
+  publishedAt: String
   createdAt: String
   updatedAt: String
-  deletedAt: String
   createdBy: User
   updatedBy: User
-  deletedBy: User
+}
+
+input CourseClassRefById {
+  id: ID!
+}
+
+input CourseClassRefByNumber {
+  courseClassList: CourseClassListRef!
+  number: Int!
+}
+
+input CourseClassRef {
+  byId: CourseClassRefById
+  byNumber: CourseClassRefByNumber
 }
 
 type CourseClassList {
@@ -62,6 +80,19 @@ type CourseClassList {
   createdBy: User
   updatedBy: User
   deletedBy: User
+}
+
+input CourseClassListRefById {
+  id: ID!
+}
+
+input CourseClassListRefByCode {
+  code: String!
+}
+
+input CourseClassListRef {
+  byId: CourseClassListRefById
+  byCode: CourseClassListRefByCode
 }
 
 type CourseClassVideo {
@@ -190,6 +221,46 @@ union CourseClassListByIdResult = CourseClassList | NotFoundError
 
 union CourseEditionByIdResult = CourseEdition | NotFoundError
 
+enum CreateCourseClassInputVisibility {
+  PUBLIC
+  HIDDEN
+  DISABLED
+}
+
+input CreateCourseClassInput {
+  courseClassListRef: CourseClassListRef!
+  name: String!
+  number: Int!
+  visibility: CreateCourseClassInputVisibility
+}
+
+type CreateCourseClassPayload {
+  courseClass: CourseClass!
+}
+
+union CreateCourseClassResult = CreateCourseClassPayload | GenericError | AuthenticationError
+
+enum CreateCourseClassListInputVisibility {
+  PUBLIC
+  HIDDEN
+  DISABLED
+}
+
+input CreateCourseClassListInput {
+  courseCode: String!
+  code: String!
+  name: String!
+  semester: Int!
+  year: Int!
+  visibility: CreateCourseClassListInputVisibility
+}
+
+type CreateCourseClassListPayload {
+  courseClassList: CourseClassList!
+}
+
+union CreateCourseClassListResult = CreateCourseClassListPayload | GenericError | AuthenticationError
+
 enum CreateCourseInputVisibility {
   PUBLIC
   HIDDEN
@@ -208,6 +279,41 @@ type CreateCoursePayload {
 }
 
 union CreateCourseResult = CreateCoursePayload | GenericError | AuthenticationError
+
+enum UpdateCourseClassInputVisibility {
+  PUBLIC
+  HIDDEN
+  DISABLED
+}
+
+input UpdateCourseClassInput {
+  name: String
+  number: Int
+  visibility: UpdateCourseClassInputVisibility
+}
+
+type UpdateCourseClassPayload {
+  courseClass: CourseClass!
+}
+
+union UpdateCourseClassResult = UpdateCourseClassPayload | GenericError | AuthenticationError | NotFoundError
+
+enum UpdateCourseClassListInputVisibility {
+  PUBLIC
+  HIDDEN
+  DISABLED
+}
+
+input UpdateCourseClassListInput {
+  name: String
+  visibility: UpdateCourseClassListInputVisibility
+}
+
+type UpdateCourseClassListPayload {
+  courseClassList: CourseClassList!
+}
+
+union UpdateCourseClassListResult = UpdateCourseClassListPayload | GenericError | AuthenticationError | NotFoundError
 
 enum CacheControlScope {
   PUBLIC

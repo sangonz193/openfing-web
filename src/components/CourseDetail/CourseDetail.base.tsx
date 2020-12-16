@@ -14,7 +14,6 @@ import { CourseClassDownloadButton } from "../CourseClassDownloadButton";
 import { CourseClassPlayer } from "../CourseClassPlayer";
 import { CourseClassShareButton } from "../CourseClassShareButton";
 import { CreativeCommonsFooter } from "../CreativeCommonsFooter";
-import { Link } from "../Link";
 import { useCourseClassByIdQuery, useCourseClassListByIdQuery } from "./CourseDetail.graphql.generated";
 import { CourseDetailProps, CourseDetailStyleProps, CourseDetailStyles } from "./CourseDetail.types";
 
@@ -73,18 +72,19 @@ export const CourseDetailBase = (props: CourseDetailProps) => {
 		return undefined;
 	}, [htmlVideoElement, courseClass?.chapterCues]);
 
-	const createdAt = React.useMemo(() => (courseClass?.createdAt ? new Date(courseClass.createdAt) : undefined), [
-		courseClass?.createdAt,
-	]);
-	const createdAtText = React.useMemo(
+	const publishedAt = React.useMemo(
+		() => (courseClass?.publishedAt ? new Date(courseClass.publishedAt) : undefined),
+		[courseClass?.publishedAt]
+	);
+	const publishedAtText = React.useMemo(
 		() =>
-			createdAt &&
-			`Publicado el ${createdAt.getDate().toString().padStart(2, "0")} de ${new Intl.DateTimeFormat("es-UY", {
+			publishedAt &&
+			`Publicado el ${publishedAt.getDate().toString().padStart(2, "0")} de ${new Intl.DateTimeFormat("es-UY", {
 				month: "long",
 			})
-				.format(createdAt)
-				.toLowerCase()} de ${createdAt.getFullYear()}`,
-		[createdAt]
+				.format(publishedAt)
+				.toLowerCase()} de ${publishedAt.getFullYear()}`,
+		[publishedAt]
 	);
 
 	const course =
@@ -117,7 +117,7 @@ export const CourseDetailBase = (props: CourseDetailProps) => {
 									{courseClass.name}
 								</Text>
 
-								<Text styles={classNames.subComponentStyles.courseClassDate}>{createdAtText}</Text>
+								<Text styles={classNames.subComponentStyles.courseClassDate}>{publishedAtText}</Text>
 
 								<Separator styles={classNames.subComponentStyles.separator} />
 
@@ -128,19 +128,6 @@ export const CourseDetailBase = (props: CourseDetailProps) => {
 									]}
 									styles={classNames.subComponentStyles.commandBar}
 								/>
-
-								<Text styles={classNames.subComponentStyles.downloadNotice}>
-									Estamos cambiando la forma en la que funcionan las descargas.{" "}
-									<Link
-										styles={classNames.subComponentStyles.downloadNoticeLink}
-										anchorProps={{
-											href: "https://www.facebook.com/openfing/posts/1893398094125397",
-											target: "__blank",
-										}}
-									>
-										Ver más
-									</Link>
-								</Text>
 							</>
 						)}
 					</>

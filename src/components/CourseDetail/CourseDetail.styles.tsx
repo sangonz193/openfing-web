@@ -91,19 +91,6 @@ export const getStyles = (props: CourseDetailStyleProps): CourseDetailStyles => 
 				root: [itemStyle],
 				primarySet: { fontSize: theme.fonts.mediumPlus.fontSize },
 			},
-
-			downloadNotice: {
-				root: [
-					itemStyle,
-					{
-						marginBottom: 60,
-
-						color: theme.semanticColors.bodyText,
-					},
-				],
-			},
-
-			downloadNoticeLink: {},
 		},
 	};
 };

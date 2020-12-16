@@ -1,5 +1,6 @@
 import React from "react";
 
+import { RecursivePartial } from "../../typings/utils";
 import { LayoutOptions } from "./Layout.types";
 
 export type LayoutContextValue = {

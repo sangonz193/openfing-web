@@ -18,7 +18,12 @@ export type Mutation = {
   __typename: 'Mutation';
   _?: Maybe<Scalars['Void']>;
   backupDb?: Maybe<Scalars['Void']>;
+  createCourseClass: CreateCourseClassResult;
+  createCourseClassList: CreateCourseClassListResult;
   createCourse: CreateCourseResult;
+  resetDatabaseFromBackup?: Maybe<Scalars['String']>;
+  updateCourseClass: UpdateCourseClassResult;
+  updateCourseClassList: UpdateCourseClassListResult;
   updateCourseClassVideos?: Maybe<NotFoundError>;
 };
 
@@ -28,8 +33,39 @@ export type MutationBackupDbArgs = {
 };
 
 
+export type MutationCreateCourseClassArgs = {
+  input: CreateCourseClassInput;
+  secret: Scalars['String'];
+};
+
+
+export type MutationCreateCourseClassListArgs = {
+  input: CreateCourseClassListInput;
+  secret: Scalars['String'];
+};
+
+
 export type MutationCreateCourseArgs = {
   input: CreateCourseInput;
+  secret: Scalars['String'];
+};
+
+
+export type MutationResetDatabaseFromBackupArgs = {
+  secret: Scalars['String'];
+};
+
+
+export type MutationUpdateCourseClassArgs = {
+  ref: CourseClassRef;
+  input: UpdateCourseClassInput;
+  secret: Scalars['String'];
+};
+
+
+export type MutationUpdateCourseClassListArgs = {
+  ref: CourseClassListRef;
+  input: UpdateCourseClassListInput;
   secret: Scalars['String'];
 };
 
@@ -77,12 +113,25 @@ export type CourseClass = {
   videos: Array<CourseClassVideo>;
   chapterCues: Array<CourseClassChapterCue>;
   courseClassList?: Maybe<CourseClassList>;
+  publishedAt?: Maybe<Scalars['String']>;
   createdAt?: Maybe<Scalars['String']>;
   updatedAt?: Maybe<Scalars['String']>;
-  deletedAt?: Maybe<Scalars['String']>;
   createdBy?: Maybe<User>;
   updatedBy?: Maybe<User>;
-  deletedBy?: Maybe<User>;
+};
+
+export type CourseClassRefById = {
+  id: Scalars['ID'];
+};
+
+export type CourseClassRefByNumber = {
+  courseClassList: CourseClassListRef;
+  number: Scalars['Int'];
+};
+
+export type CourseClassRef = {
+  byId?: Maybe<CourseClassRefById>;
+  byNumber?: Maybe<CourseClassRefByNumber>;
 };
 
 export type CourseClassList = {
@@ -98,6 +147,19 @@ export type CourseClassList = {
   createdBy?: Maybe<User>;
   updatedBy?: Maybe<User>;
   deletedBy?: Maybe<User>;
+};
+
+export type CourseClassListRefById = {
+  id: Scalars['ID'];
+};
+
+export type CourseClassListRefByCode = {
+  code: Scalars['String'];
+};
+
+export type CourseClassListRef = {
+  byId?: Maybe<CourseClassListRefById>;
+  byCode?: Maybe<CourseClassListRefByCode>;
 };
 
 export type CourseClassVideo = {
@@ -265,6 +327,46 @@ export type CourseClassListByIdResult = CourseClassList | NotFoundError;
 
 export type CourseEditionByIdResult = CourseEdition | NotFoundError;
 
+export type CreateCourseClassInputVisibility = 
+  | 'PUBLIC'
+  | 'HIDDEN'
+  | 'DISABLED';
+
+export type CreateCourseClassInput = {
+  courseClassListRef: CourseClassListRef;
+  name: Scalars['String'];
+  number: Scalars['Int'];
+  visibility?: Maybe<CreateCourseClassInputVisibility>;
+};
+
+export type CreateCourseClassPayload = {
+  __typename: 'CreateCourseClassPayload';
+  courseClass: CourseClass;
+};
+
+export type CreateCourseClassResult = CreateCourseClassPayload | GenericError | AuthenticationError;
+
+export type CreateCourseClassListInputVisibility = 
+  | 'PUBLIC'
+  | 'HIDDEN'
+  | 'DISABLED';
+
+export type CreateCourseClassListInput = {
+  courseCode: Scalars['String'];
+  code: Scalars['String'];
+  name: Scalars['String'];
+  semester: Scalars['Int'];
+  year: Scalars['Int'];
+  visibility?: Maybe<CreateCourseClassListInputVisibility>;
+};
+
+export type CreateCourseClassListPayload = {
+  __typename: 'CreateCourseClassListPayload';
+  courseClassList: CourseClassList;
+};
+
+export type CreateCourseClassListResult = CreateCourseClassListPayload | GenericError | AuthenticationError;
+
 export type CreateCourseInputVisibility = 
   | 'PUBLIC'
   | 'HIDDEN'
@@ -283,6 +385,41 @@ export type CreateCoursePayload = {
 };
 
 export type CreateCourseResult = CreateCoursePayload | GenericError | AuthenticationError;
+
+export type UpdateCourseClassInputVisibility = 
+  | 'PUBLIC'
+  | 'HIDDEN'
+  | 'DISABLED';
+
+export type UpdateCourseClassInput = {
+  name?: Maybe<Scalars['String']>;
+  number?: Maybe<Scalars['Int']>;
+  visibility?: Maybe<UpdateCourseClassInputVisibility>;
+};
+
+export type UpdateCourseClassPayload = {
+  __typename: 'UpdateCourseClassPayload';
+  courseClass: CourseClass;
+};
+
+export type UpdateCourseClassResult = UpdateCourseClassPayload | GenericError | AuthenticationError | NotFoundError;
+
+export type UpdateCourseClassListInputVisibility = 
+  | 'PUBLIC'
+  | 'HIDDEN'
+  | 'DISABLED';
+
+export type UpdateCourseClassListInput = {
+  name?: Maybe<Scalars['String']>;
+  visibility?: Maybe<UpdateCourseClassListInputVisibility>;
+};
+
+export type UpdateCourseClassListPayload = {
+  __typename: 'UpdateCourseClassListPayload';
+  courseClassList: CourseClassList;
+};
+
+export type UpdateCourseClassListResult = UpdateCourseClassListPayload | GenericError | AuthenticationError | NotFoundError;
 
 export type CacheControlScope = 
   | 'PUBLIC'
