@@ -26,6 +26,6 @@ export type UpdateItemStyles = {
 	subComponentStyles: {
 		image: Required<IImageProps>["styles"];
 		courseName: Required<ITextProps>["styles"];
-		createdAt: Required<ITextProps>["styles"];
+		publishedAt: Required<ITextProps>["styles"];
 	};
 };
