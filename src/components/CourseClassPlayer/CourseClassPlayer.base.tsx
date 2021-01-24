@@ -6,9 +6,9 @@ import keyboardKey from "keyboard-key";
 import throttle from "lodash/throttle";
 import React from "react";
 import ReactResizeDetector from "react-resize-detector";
-import { useObserveProperties } from "src/hooks/useObserveProperties";
 
 import { getCourseClassPlayerShortcuts } from "../../_utils/getCourseClassPlayerShortcuts";
+import { useReactiveVars } from "../../hooks/useReactiveVars";
 import { useAppStore } from "../../modules/App";
 import { CourseClassPlayerStore, useCourseClassPlayerStore } from "../../modules/CourseClassPlayer";
 import { useRootEventListener } from "../../modules/RootEventListeners";
@@ -54,7 +54,7 @@ export const CourseClassPlayerBase = (props: CourseClassPlayerProps) => {
 	}, []);
 	useRootEventListener("onKeyDown", handleKeyDown);
 
-	const observedCourseClassPlayerStore = useObserveProperties(courseClassPlayerStore, [
+	const { isFullscreen, loaded, seeking, showControls, waiting } = useReactiveVars(courseClassPlayerStore, [
 		"isFullscreen",
 		"showControls",
 		"loaded",
@@ -64,8 +64,8 @@ export const CourseClassPlayerBase = (props: CourseClassPlayerProps) => {
 
 	const classNames = getClassNames(styles, {
 		theme,
-		isFullscreen: observedCourseClassPlayerStore.isFullscreen,
-		hideCursor: !observedCourseClassPlayerStore.showControls && observedCourseClassPlayerStore.isFullscreen,
+		isFullscreen: isFullscreen,
+		hideCursor: !showControls && isFullscreen,
 	});
 
 	const showControlsForId = "controls-player";
@@ -111,13 +111,13 @@ export const CourseClassPlayerBase = (props: CourseClassPlayerProps) => {
 	}, []);
 
 	React.useLayoutEffect(() => {
-		if (courseClassPlayerStore.htmlVideoWrapperElement)
-			handleResize(courseClassPlayerStore.htmlVideoWrapperElement.getBoundingClientRect().width);
+		const htmlVideoWrapperElement = courseClassPlayerStore.htmlVideoWrapperElement();
+		if (htmlVideoWrapperElement) handleResize(htmlVideoWrapperElement.getBoundingClientRect().width);
 	}, []);
 
 	React.useEffect(() => {
-		if (courseClassPlayerStore.loaded) courseClassPlayerStore.showControlsFor("player", 2000);
-	}, [courseClassPlayerStore.loaded]);
+		if (loaded) courseClassPlayerStore.showControlsFor("player", 2000);
+	}, [loaded]);
 
 	return (
 		<div
@@ -128,19 +128,17 @@ export const CourseClassPlayerBase = (props: CourseClassPlayerProps) => {
 			onMouseMove={inputType !== "TOUCH" ? handleMouseMove : undefined}
 			tabIndex={0}
 			onFocus={handleFocus}
-			style={observedCourseClassPlayerStore.isFullscreen ? undefined : { height }}
+			style={isFullscreen ? undefined : { height }}
 		>
 			{!!courseClassVideo.qualities?.length && (
 				<CourseClassPlayerVideo formats={courseClassVideo.qualities[0].formats} />
 			)}
 
-			{(!observedCourseClassPlayerStore.loaded ||
-				observedCourseClassPlayerStore.waiting ||
-				observedCourseClassPlayerStore.seeking) && (
+			{(!loaded || waiting || seeking) && (
 				<Spinner size={SpinnerSize.large} styles={classNames.subComponentStyles.spinner} />
 			)}
 
-			{courseClassPlayerStore.loaded && (
+			{loaded && (
 				<div className={classNames.controlsWrapper}>
 					<CourseClassPlayerControlsBottomControls styles={classNames.subComponentStyles.bottomControls} />
 

@@ -1,10 +1,10 @@
 import { useReactiveVar } from "@apollo/client";
 import { classNamesFunction } from "@fluentui/react/lib/Utilities";
-import { Observer } from "mobx-react-lite";
 import React from "react";
 import { useMediaQuery } from "react-responsive";
-import { useObserveProperties } from "src/hooks/useObserveProperties";
 
+import { useComponent } from "../../hooks/useComponent";
+import { useReactiveVars } from "../../hooks/useReactiveVars";
 import { useAppStore } from "../../modules/App";
 import { useCourseClassPlayerStore } from "../../modules/CourseClassPlayer";
 import { Breakpoint } from "../../style";
@@ -28,7 +28,7 @@ export const CourseClassPlayerControlsBottomControlsBase = (props: CourseClassPl
 	const { styles, theme } = props as Required<Pick<typeof props, "styles" | "theme">>;
 
 	const courseClassPlayerStore = useCourseClassPlayerStore();
-	const { showControls, chapterTextTracks } = useObserveProperties(courseClassPlayerStore, [
+	const { showControls, chapterTextTracks } = useReactiveVars(courseClassPlayerStore, [
 		"showControls",
 		"chapterTextTracks",
 	]);
@@ -72,15 +72,48 @@ export const CourseClassPlayerControlsBottomControlsBase = (props: CourseClassPl
 	const handleMouseLeave = React.useCallback(() => courseClassPlayerStore.unblockShowControls(blockControlsId), []);
 
 	const handleBackClick = React.useCallback(
-		() => courseClassPlayerStore.setCurrentTime((courseClassPlayerStore.currentTime || 0) - 10),
+		() => courseClassPlayerStore.setCurrentTime((courseClassPlayerStore.currentTime() || 0) - 10),
 		[]
 	);
 	const handleForwardClick = React.useCallback(
-		() => courseClassPlayerStore.setCurrentTime((courseClassPlayerStore.currentTime || 0) + 10),
+		() => courseClassPlayerStore.setCurrentTime((courseClassPlayerStore.currentTime() || 0) + 10),
 		[]
 	);
 
 	const isSM = useMediaQuery({ minWidth: Breakpoint.sm });
+
+	const PauseButton = useComponent(() => {
+		const { paused } = useReactiveVars(courseClassPlayerStore, ["paused"]);
+
+		return (
+			<CourseClassPlayerButton iconName={paused ? "Play" : "Pause"} buttonProps={{ onClick: handlePlayClick }} />
+		);
+	}, {});
+
+	const PinCourseClassListButton = useComponent(() => {
+		const { pinCourseClassList } = useReactiveVars(courseClassPlayerStore, ["pinCourseClassList"]);
+
+		return (
+			<CourseClassPlayerButton
+				iconName={pinCourseClassList ? "Landscape" : "Square"}
+				buttonProps={{
+					title: pinCourseClassList ? "Ocultar barra lateral" : "Mostrar barra lateral",
+					onClick: () => courseClassPlayerStore.pinCourseClassList(!pinCourseClassList),
+				}}
+			/>
+		);
+	}, {});
+
+	const FullScreenButton = useComponent(() => {
+		const { isFullscreen } = useReactiveVars(courseClassPlayerStore, ["isFullscreen"]);
+
+		return (
+			<CourseClassPlayerButton
+				iconName={isFullscreen ? "ContractTwoArrows" : "Resize"}
+				buttonProps={{ onClick: handleFullscreenClick }}
+			/>
+		);
+	}, {});
 
 	return (
 		<div
@@ -93,14 +126,7 @@ export const CourseClassPlayerControlsBottomControlsBase = (props: CourseClassPl
 			<CourseClassPlayerTrack />
 
 			<div className={classNames.buttonsContainer}>
-				<Observer>
-					{() => (
-						<CourseClassPlayerButton
-							iconName={courseClassPlayerStore.paused ? "Play" : "Pause"}
-							buttonProps={{ onClick: handlePlayClick }}
-						/>
-					)}
-				</Observer>
+				<PauseButton />
 
 				<CourseClassPlayerVolumeButton />
 
@@ -124,31 +150,9 @@ export const CourseClassPlayerControlsBottomControlsBase = (props: CourseClassPl
 
 				<CourseClassPlayerPlaybackRateButton />
 
-				{isSM && (
-					<Observer>
-						{() => (
-							<CourseClassPlayerButton
-								iconName={courseClassPlayerStore.pinCourseClassList ? "Landscape" : "Square"}
-								buttonProps={{
-									title: courseClassPlayerStore.pinCourseClassList
-										? "Ocultar barra lateral"
-										: "Mostrar barra lateral",
-									onClick: () =>
-										(courseClassPlayerStore.pinCourseClassList = !courseClassPlayerStore.pinCourseClassList),
-								}}
-							/>
-						)}
-					</Observer>
-				)}
+				{isSM && <PinCourseClassListButton />}
 
-				<Observer>
-					{() => (
-						<CourseClassPlayerButton
-							iconName={courseClassPlayerStore.isFullscreen ? "ContractTwoArrows" : "Resize"}
-							buttonProps={{ onClick: handleFullscreenClick }}
-						/>
-					)}
-				</Observer>
+				<FullScreenButton />
 			</div>
 		</div>
 	);

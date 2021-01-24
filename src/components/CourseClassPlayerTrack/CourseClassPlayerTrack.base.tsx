@@ -6,9 +6,9 @@ import { Text } from "@fluentui/react/lib/Text";
 import { classNamesFunction, Point } from "@fluentui/react/lib/Utilities";
 import throttle from "lodash/throttle";
 import React from "react";
-import { useObserveProperties } from "src/hooks/useObserveProperties";
 
 import { secondsToString } from "../../_utils/secondsToString";
+import { useReactiveVars } from "../../hooks/useReactiveVars";
 import { useCourseClassPlayerStore } from "../../modules/CourseClassPlayer";
 import {
 	CourseClassPlayerTrackProps,
@@ -19,19 +19,19 @@ import {
 const getClassNames = classNamesFunction<CourseClassPlayerTrackStyleProps, CourseClassPlayerTrackStyles>();
 
 const CurrentTime = React.memo(() => {
-	const { currentTime } = useObserveProperties(useCourseClassPlayerStore(), ["currentTime"]);
+	const { currentTime } = useReactiveVars(useCourseClassPlayerStore(), ["currentTime"]);
 
 	return <>{secondsToString(currentTime || 0)}</>;
 });
 
 const Duration = React.memo(() => {
-	const { duration } = useObserveProperties(useCourseClassPlayerStore(), ["duration"]);
+	const { duration } = useReactiveVars(useCourseClassPlayerStore(), ["duration"]);
 
 	return <>{secondsToString(duration || 0)}</>;
 });
 
 const RemainingTime = React.memo(() => {
-	const { currentTime, duration } = useObserveProperties(useCourseClassPlayerStore(), ["currentTime", "duration"]);
+	const { currentTime, duration } = useReactiveVars(useCourseClassPlayerStore(), ["currentTime", "duration"]);
 
 	return <>{secondsToString((duration || 0) - (currentTime || 0))}</>;
 });
@@ -39,7 +39,7 @@ const RemainingTime = React.memo(() => {
 const TimeSlider = React.memo((props: { classNames: IProcessedStyleSet<CourseClassPlayerTrackStyles> }) => {
 	const { classNames } = props;
 	const courseClassPlayerStore = useCourseClassPlayerStore();
-	const { duration, currentTime, isFullscreen } = useObserveProperties(courseClassPlayerStore, [
+	const { duration, currentTime, isFullscreen } = useReactiveVars(courseClassPlayerStore, [
 		"duration",
 		"currentTime",
 		"isFullscreen",
@@ -72,7 +72,7 @@ const TimeSlider = React.memo((props: { classNames: IProcessedStyleSet<CourseCla
 		setTooltipPositionData({
 			point: {
 				top: wrapperBounds.top,
-				left: wrapperBounds.left + (value * wrapperBounds.width) / courseClassPlayerStore.duration,
+				left: wrapperBounds.left + (value * wrapperBounds.width) / courseClassPlayerStore.duration(),
 			},
 			bounds: {
 				left: wrapperBounds.left,
@@ -156,7 +156,7 @@ const TimeSlider = React.memo((props: { classNames: IProcessedStyleSet<CourseCla
 	}, []);
 
 	const handleSliderButtonFocus = React.useCallback(() => {
-		courseClassPlayerStore.htmlVideoWrapperElement?.focus();
+		courseClassPlayerStore.htmlVideoWrapperElement()?.focus();
 	}, []);
 
 	return (
@@ -182,7 +182,7 @@ const TimeSlider = React.memo((props: { classNames: IProcessedStyleSet<CourseCla
 					style={{
 						width: `${
 							(tooltipTimePosition && sliderValueSource.type === "store"
-								? (tooltipTimePosition * 100) / (courseClassPlayerStore.duration || 1)
+								? (tooltipTimePosition * 100) / (duration || 1)
 								: courseClassPlayerStore.loadedPercentage) || 0
 						}%`,
 					}}

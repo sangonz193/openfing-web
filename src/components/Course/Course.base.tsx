@@ -1,3 +1,4 @@
+import { useReactiveVar } from "@apollo/client";
 import { classNamesFunction } from "@fluentui/react/lib/Utilities";
 import React from "react";
 import { useMediaQuery } from "react-responsive";
@@ -7,15 +8,14 @@ import { Link } from "src/components/Link";
 import { useQueryParams } from "src/hooks";
 import { useDocumentTitle } from "src/hooks/useDocumentTitle";
 import { useHistory } from "src/hooks/useHistory";
-import { useObserveProperties } from "src/hooks/useObserveProperties";
 import { Breakpoint } from "src/style";
 
 import { useLayoutOptions } from "../../_utils/useLayoutOptions";
+import { useReactiveVars } from "../../hooks/useReactiveVars";
 import { useCourseClassPlayerStore } from "../../modules/CourseClassPlayer";
 import { useCourseSelectionStore } from "../../modules/CourseSelection";
 import { useCourseClassListByCodeQuery } from "./Course.graphql.generated";
 import { CourseProps, CourseStyleProps, CourseStyles } from "./Course.types";
-import { useReactiveVar } from "@apollo/client";
 
 const getClassNames = classNamesFunction<CourseStyleProps, CourseStyles>();
 
@@ -28,7 +28,7 @@ export const CourseBase = (props: CourseProps) => {
 	const history = useHistory();
 	const queryParams = useQueryParams<CourseQueryParams>();
 	const courseClassPlayerStore = useCourseClassPlayerStore();
-	const { pinCourseClassList } = useObserveProperties(courseClassPlayerStore, ["pinCourseClassList"]);
+	const { pinCourseClassList } = useReactiveVars(courseClassPlayerStore, ["pinCourseClassList"]);
 
 	const selection = useReactiveVar(useCourseSelectionStore().selection);
 
@@ -49,7 +49,7 @@ export const CourseBase = (props: CourseProps) => {
 	useDocumentTitle(`${courseName || "Curso"} - OpenFING`);
 
 	React.useEffect(() => {
-		courseClassPlayerStore.setUrlHash(queryParams.t ? "#t=" + queryParams.t : history.location.hash);
+		courseClassPlayerStore.urlHash(queryParams.t ? "#t=" + queryParams.t : history.location.hash);
 	}, [queryParams.t, history.location.hash]);
 
 	const isSM = useMediaQuery({ minWidth: Breakpoint.sm });

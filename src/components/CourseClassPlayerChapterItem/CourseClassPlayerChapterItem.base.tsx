@@ -1,8 +1,8 @@
 import { Text } from "@fluentui/react";
 import { classNamesFunction } from "@fluentui/react/lib/Utilities";
-import { autorun } from "mobx";
 import React from "react";
 
+import { listenVar } from "../../_utils/listenVar";
 import { secondsToString } from "../../_utils/secondsToString";
 import { useReactiveVars } from "../../hooks/useReactiveVars";
 import { useCourseClassPlayerStore } from "../../modules/CourseClassPlayer";
@@ -24,10 +24,8 @@ export const CourseClassPlayerChapterItemBase = (props: CourseClassPlayerChapter
 	const [isActive, setIsActive] = React.useState(false);
 
 	React.useEffect(() => {
-		const listener = autorun(() => {
-			const newIsActive = courseClassPlayerStore.activeChapterTextTracks.some(
-				(activeTextTrack) => activeTextTrack.id === vttCue.id
-			);
+		const listener = listenVar(courseClassPlayerStore.activeChapterTextTracks, (newValue) => {
+			const newIsActive = newValue.some((activeTextTrack) => activeTextTrack.id === vttCue.id);
 
 			if (isActive !== newIsActive) setIsActive(newIsActive);
 		});

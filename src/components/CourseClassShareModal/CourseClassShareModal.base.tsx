@@ -209,7 +209,7 @@ export const CourseClassShareModalBase = (props: CourseClassShareModalProps) => 
 					type: "reset",
 					courseClassListCode: courseClass.courseClassList.code,
 					courseClassNo: courseClass.number,
-					seconds: courseClassPlayerStore.currentTime,
+					seconds: courseClassPlayerStore.currentTime(),
 				});
 			else dispatch({ type: "reset", courseClassListCode: undefined, courseClassNo: undefined, seconds: 0 });
 

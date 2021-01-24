@@ -3,7 +3,7 @@ import { classNamesFunction } from "@fluentui/react/lib/Utilities";
 import React from "react";
 import { useMediaQuery } from "react-responsive";
 
-import { useObserveProperties } from "../../hooks/useObserveProperties";
+import { useReactiveVars } from "../../hooks/useReactiveVars";
 import { useCourseClassPlayerStore } from "../../modules/CourseClassPlayer";
 import { Breakpoint } from "../../style";
 import { CourseClassPlayerButton } from "../CourseClassPlayerButton";
@@ -24,7 +24,7 @@ export const CourseClassPlayerShowChaptersButtonBase = (props: CourseClassPlayer
 	const classNames = getClassNames(styles, { theme, className: props.className });
 
 	const courseClassPlayerStore = useCourseClassPlayerStore();
-	const { chapterTextTracks, isFullscreen } = useObserveProperties(courseClassPlayerStore, [
+	const { chapterTextTracks, isFullscreen } = useReactiveVars(courseClassPlayerStore, [
 		"isFullscreen",
 		"chapterTextTracks",
 	]);

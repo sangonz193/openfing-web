@@ -1,6 +1,6 @@
 import React from "react";
 
-import { useObserveProperties } from "../../hooks/useObserveProperties";
+import { useReactiveVars } from "../../hooks/useReactiveVars";
 import { InitializationStore } from "./Initialization.store";
 
 export const InitializationContext = React.createContext<InitializationStore>((null as unknown) as InitializationStore);
@@ -16,7 +16,7 @@ export const InitializationProvider: React.FC = ({ children }) => {
 		setTimeout(() => store.unblock());
 	});
 
-	const { childrenKey } = useObserveProperties(store, ["childrenKey"]);
+	const { childrenKey } = useReactiveVars(store, ["childrenKey"]);
 
 	return (
 		<InitializationContext.Provider key={childrenKey.toString()} value={store}>

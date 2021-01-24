@@ -1,35 +1,39 @@
-import { observer, useForceUpdate } from "mobx-react-lite";
 import React from "react";
 
 export const useComponent = <TProps extends {}, TDeps extends {} = {}>(
-	Component: React.ComponentType<TProps & TDeps>,
+	Component: React.FC<TProps & TDeps>,
 	deps: TDeps
 ): React.FC<TProps> => {
 	const depsRef = React.useRef(deps);
 	const forceUpdateRef = React.useRef(() => {});
 
 	const [Result] = React.useState(() => {
-		const ObserverComponent = observer((props: TProps & TDeps) => <Component {...props} />);
+		const MemoComponent = React.memo((props: TProps & TDeps) => <Component {...props} />);
 
 		return (props: TProps) => {
-			const forceUpdate = useForceUpdate();
+			const [, forceUpdate] = React.useState<{}>();
 
 			React.useEffect(() => {
-				forceUpdateRef.current = forceUpdate;
+				forceUpdateRef.current = () => forceUpdate({});
 
 				return () => {
 					forceUpdateRef.current = () => {};
 				};
 			}, []);
 
-			return <ObserverComponent {...props} {...depsRef.current} />;
+			const mergedProps = {
+				...props,
+				...depsRef.current,
+			};
+
+			return <MemoComponent {...(mergedProps as any)} />;
 		};
 	});
 
 	React.useLayoutEffect(() => {
 		depsRef.current = deps;
 		forceUpdateRef.current();
-	});
+	}, Object.values(deps));
 
 	return Result;
 };

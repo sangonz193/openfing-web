@@ -5,11 +5,11 @@ import { CourseClassPlayerStore } from "../modules/CourseClassPlayer";
 export const getCourseClassPlayerShortcuts = (
 	courseClassPlayerStore: CourseClassPlayerStore
 ): Partial<Record<keyof typeof keyboardKey, () => void | boolean>> => {
-	const rewind = () => courseClassPlayerStore.setCurrentTime((courseClassPlayerStore.currentTime || 0) - 10);
-	const forward = () => courseClassPlayerStore.setCurrentTime((courseClassPlayerStore.currentTime || 0) + 10);
+	const rewind = () => courseClassPlayerStore.setCurrentTime((courseClassPlayerStore.currentTime() || 0) - 10);
+	const forward = () => courseClassPlayerStore.setCurrentTime((courseClassPlayerStore.currentTime() || 0) + 10);
 	const togglePlay = () => courseClassPlayerStore.togglePlay();
 	const getHandleNumber = (number: number) => () => {
-		const duration = courseClassPlayerStore.duration;
+		const duration = courseClassPlayerStore.duration();
 		if (duration) courseClassPlayerStore.setCurrentTime(number * (duration / 10));
 	};
 
@@ -20,23 +20,23 @@ export const getCourseClassPlayerShortcuts = (
 		l: forward,
 		ArrowUp: () =>
 			courseClassPlayerStore.setVolume(
-				Math.floor(Math.max(0, Math.min(10, (courseClassPlayerStore.volume || 0) * 10 + 1))) / 10
+				Math.floor(Math.max(0, Math.min(10, (courseClassPlayerStore.volume() || 0) * 10 + 1))) / 10
 			),
 		ArrowDown: () =>
 			courseClassPlayerStore.setVolume(
-				Math.floor(Math.max(0, Math.min(10, (courseClassPlayerStore.volume || 0) * 10 - 1))) / 10
+				Math.floor(Math.max(0, Math.min(10, (courseClassPlayerStore.volume() || 0) * 10 - 1))) / 10
 			),
 		" ": togglePlay,
 		Spacebar: togglePlay,
 		k: togglePlay,
-		"+": () => courseClassPlayerStore.setPlaybackRate((courseClassPlayerStore.playbackRate || 0) + 0.25),
-		"-": () => courseClassPlayerStore.setPlaybackRate((courseClassPlayerStore.playbackRate || 0) - 0.25),
+		"+": () => courseClassPlayerStore.setPlaybackRate((courseClassPlayerStore.playbackRate() || 0) + 0.25),
+		"-": () => courseClassPlayerStore.setPlaybackRate((courseClassPlayerStore.playbackRate() || 0) - 0.25),
 		"*": () => courseClassPlayerStore.setPlaybackRate(1),
 		Home: () => courseClassPlayerStore.setCurrentTime(0),
-		End: () => courseClassPlayerStore.setCurrentTime(courseClassPlayerStore.duration || 0),
+		End: () => courseClassPlayerStore.setCurrentTime(courseClassPlayerStore.duration() || 0),
 		f: () => {
 			courseClassPlayerStore.toggleFullscreen();
-			courseClassPlayerStore.htmlVideoWrapperElement?.focus();
+			courseClassPlayerStore.htmlVideoWrapperElement()?.focus();
 		},
 		"0": getHandleNumber(0),
 		Digit0: getHandleNumber(0),
