@@ -26,6 +26,7 @@ export const useComponent = <TProps extends {}, TDeps extends {} = {}>(
 				...depsRef.current,
 			};
 
+			// eslint-disable-next-line @typescript-eslint/no-explicit-any
 			return <MemoComponent {...(mergedProps as any)} />;
 		};
 	});

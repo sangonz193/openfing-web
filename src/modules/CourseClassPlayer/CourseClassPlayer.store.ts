@@ -47,6 +47,7 @@ export class CourseClassPlayerStore {
 					? {
 							key: K;
 							getValue: () => T;
+							// eslint-disable-next-line @typescript-eslint/no-explicit-any
 							dependencies: Array<ReactiveVar<any>>;
 					  }
 					: never;
@@ -109,6 +110,7 @@ export class CourseClassPlayerStore {
 					return listenVar(dependency, () => reactiveVar(config.getValue()));
 				});
 
+				// eslint-disable-next-line @typescript-eslint/no-explicit-any
 				this[config.key] = reactiveVar as any;
 				return () => listeners.forEach((listener) => listener());
 			})
