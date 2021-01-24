@@ -10,6 +10,7 @@ import { CopyIcon } from "./CopyIcon";
 import { DownloadIcon } from "./DownloadIcon";
 import { HelpCircleIcon } from "./HelpCircleIcon";
 import { HomeIcon } from "./HomeIcon";
+import { LandscapeIcon } from "./LandscapeIcon";
 import { ListIcon } from "./ListIcon";
 import { PauseIcon } from "./PauseIcon";
 import { PlayIcon } from "./PlayIcon";
@@ -19,6 +20,7 @@ import { ReturnUpForwardIcon } from "./ReturnUpForwardIcon";
 import { SearchIcon } from "./SearchIcon";
 import { SettingsIcon } from "./SettingsIcon";
 import { ShareSocialIcon } from "./ShareSocialIcon";
+import { SquareIcon } from "./SquareIcon";
 import { TimeIcon } from "./TimeIcon";
 import { VideoCameraIcon } from "./VideoCameraIcon";
 import { VolumeHighIcon } from "./VolumeHighIcon";
@@ -38,6 +40,7 @@ export const registerIcons = () => {
 			Download: <DownloadIcon />,
 			HelpCircle: <HelpCircleIcon />,
 			Home: <HomeIcon />,
+			Landscape: <LandscapeIcon />,
 			List: <ListIcon />,
 			Pause: <PauseIcon />,
 			Play: <PlayIcon />,
@@ -47,6 +50,7 @@ export const registerIcons = () => {
 			Search: <SearchIcon />,
 			Settings: <SettingsIcon />,
 			ShareSocial: <ShareSocialIcon />,
+			Square: <SquareIcon />,
 			Time: <TimeIcon />,
 			VideoCamera: <VideoCameraIcon />,
 			VolumeHigh: <VolumeHighIcon />,

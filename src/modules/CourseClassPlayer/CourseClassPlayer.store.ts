@@ -23,6 +23,7 @@ export class CourseClassPlayerStore {
 	@observable buffered: TimeRanges | undefined = undefined;
 	@observable chapterTextTracks: VTTCue[] = [];
 	@observable activeChapterTextTracks: VTTCue[] = [];
+	@observable pinCourseClassList: boolean = true;
 
 	track: TextTrack | undefined = undefined;
 

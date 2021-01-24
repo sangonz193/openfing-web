@@ -27,6 +27,7 @@ export const CourseBase = (props: CourseProps) => {
 	const history = useHistory();
 	const queryParams = useQueryParams<CourseQueryParams>();
 	const courseClassPlayerStore = useCourseClassPlayerStore();
+	const { pinCourseClassList } = useObserveProperties(courseClassPlayerStore, ["pinCourseClassList"]);
 
 	const selection = useObserveProperties(useObserveProperties(useCourseSelectionStore(), ["selection"]).selection, [
 		"courseClassListCode",
@@ -70,13 +71,15 @@ export const CourseBase = (props: CourseProps) => {
 		)
 	);
 
+	const showCourseDetail = (props.courseClassNo && course) || (isSM && pinCourseClassList);
+
 	return (
 		<div className={classNames.root}>
-			<CourseMaster key="master" styles={classNames.subComponentStyles.courseMaster} />
-
-			{((props.courseClassNo && course) || isSM) && (
-				<CourseDetail key="detail" styles={classNames.subComponentStyles.courseDetails} />
+			{(!props.courseClassNo || pinCourseClassList) && (
+				<CourseMaster key="master" styles={classNames.subComponentStyles.courseMaster} />
 			)}
+
+			{showCourseDetail && <CourseDetail key="detail" styles={classNames.subComponentStyles.courseDetails} />}
 		</div>
 	);
 };

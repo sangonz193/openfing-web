@@ -7,6 +7,7 @@ export const courseClassListByCode = gql`
 
 			... on CourseClassList {
 				id
+				code
 
 				courseEdition {
 					id
@@ -16,6 +17,11 @@ export const courseClassListByCode = gql`
 						name
 						eva
 					}
+				}
+
+				classes {
+					id
+					number
 				}
 			}
 		}
