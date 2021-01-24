@@ -12,6 +12,7 @@ import { useObserveProperties } from "src/hooks/useObserveProperties";
 
 import { pick } from "../../_utils/pick";
 import { secondsToString } from "../../_utils/secondsToString";
+import { appConfig } from "../../appConfig";
 import { useCourseClassPlayerStore } from "../../modules/CourseClassPlayer";
 import { useCourseSelectionStore } from "../../modules/CourseSelection";
 import { routeConfigMap } from "../../routeConfigMap";
@@ -221,14 +222,17 @@ export const CourseClassShareModalBase = (props: CourseClassShareModalProps) => 
 
 		if (!courseClassListCode || !courseClassNo) return "";
 
-		return routeConfigMap.course.path({
-			courseClassListCode,
-			courseClassNo,
-			...(state.startOn && {
-				startOnSeconds: startOnSeconds,
-				endOnSeconds: state.endOn ? endOnSeconds : undefined,
-			}),
-		});
+		return (
+			appConfig.baseUrl +
+			routeConfigMap.course.path({
+				courseClassListCode,
+				courseClassNo,
+				...(state.startOn && {
+					startOnSeconds: startOnSeconds,
+					endOnSeconds: state.endOn ? endOnSeconds : undefined,
+				}),
+			})
+		);
 	}, Object.values(pick(state, ["courseClassListCode", "courseClassNo", "startOn", "startOnSeconds", "endOn", "endOnSeconds"])));
 
 	const handleCopy = React.useCallback(() => {
