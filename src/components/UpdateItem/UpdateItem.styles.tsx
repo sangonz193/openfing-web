@@ -64,7 +64,7 @@ export const getStyles = (props: UpdateItemStyleProps): UpdateItemStyles => {
 				},
 			},
 
-			createdAt: {
+			publishedAt: {
 				root: {
 					marginTop: "auto",
 					marginLeft: "auto",

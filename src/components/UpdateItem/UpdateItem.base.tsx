@@ -37,15 +37,15 @@ export const UpdateItemBase = (props: UpdateItemProps) => {
 		return `${courseClass.number} - ${courseClass.name}`;
 	}, [courseClass.number, courseClass.name]);
 
-	const createdAt = React.useMemo(
+	const publishedAt = React.useMemo(
 		() =>
-			(courseClass.createdAt &&
+			(courseClass.publishedAt &&
 				new Intl.DateTimeFormat("es-UY", {
 					day: "numeric",
 					month: "numeric",
-				}).format(new Date(courseClass.createdAt))) ||
+				}).format(new Date(courseClass.publishedAt))) ||
 			null,
-		[courseClass.createdAt]
+		[courseClass.publishedAt]
 	);
 
 	return (
@@ -65,7 +65,7 @@ export const UpdateItemBase = (props: UpdateItemProps) => {
 
 				<Text variant="large">{name}</Text>
 
-				{createdAt && <Text styles={classNames.subComponentStyles.createdAt}>{createdAt}</Text>}
+				{publishedAt && <Text styles={classNames.subComponentStyles.publishedAt}>{publishedAt}</Text>}
 			</div>
 		</Link>
 	);
