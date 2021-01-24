@@ -1,40 +1,48 @@
-import { action, computed, observable } from "mobx";
+import { makeVar } from "@apollo/client";
+
+import { listenVar } from "../../_utils/listenVar";
 
 export class InitializationStore {
-	@observable blockers = 0;
+	blockers = makeVar(0);
+	resetCallbacks = makeVar<Array<() => void>>([]);
+	childrenKey = makeVar(false);
 
-	@observable resetCallbacks: Array<() => void> = [];
+	initializating = makeVar(false);
 
-	@observable childrenKey = false;
+	listeners: Array<() => void> = [];
 
-	@computed get initializating() {
-		return this.blockers > 0;
+	constructor() {
+		this.listeners.push(listenVar(this.blockers, (newValue) => this.initializating(newValue > 0)));
 	}
 
-	@action block() {
-		this.blockers++;
+	block() {
+		this.blockers(this.blockers() + 1);
 	}
 
-	@action unblock() {
-		this.blockers--;
+	unblock() {
+		this.blockers(this.blockers() - 1);
 	}
 
-	@action reset() {
-		const { resetCallbacks } = this;
+	reset() {
+		const resetCallbacks = this.resetCallbacks();
 
-		this.childrenKey = !this.childrenKey;
+		this.childrenKey(!this.childrenKey());
 
-		this.resetCallbacks = [];
+		this.resetCallbacks([]);
 		resetCallbacks.forEach((callback) => callback());
 	}
 
-	@action addResetListener(listener: () => void) {
-		this.resetCallbacks.push(listener);
+	addResetListener(listener: () => void) {
+		this.resetCallbacks([...this.resetCallbacks(), listener]);
 	}
 
-	@action removeResetListener(listener: () => void) {
-		const indexOf = this.resetCallbacks.indexOf(listener);
+	removeResetListener(listener: () => void) {
+		const indexOf = this.resetCallbacks().indexOf(listener);
 
-		if (indexOf >= 0) this.resetCallbacks.splice(indexOf, 1);
+		if (indexOf >= 0) this.resetCallbacks(this.resetCallbacks().splice(indexOf, 1));
+	}
+
+	dispose() {
+		this.listeners.forEach((listener) => listener());
 	}
 }
