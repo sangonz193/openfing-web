@@ -1,4 +1,4 @@
-import { observable } from "mobx";
+import { makeVar } from "@apollo/client";
 
 export type TeachingKey = "dark-theme";
 
@@ -9,10 +9,13 @@ export type TeachingStatus =
 	| "waiting"; // The TeachingKey has not been dismissed yet, but there's no active handler
 
 export class TeachingStore {
-	@observable currentTeachingKey: TeachingKey | undefined;
-	@observable teachingStatusByKey: Map<TeachingKey, TeachingStatus> = new Map();
+	currentTeachingKey = makeVar<TeachingKey | undefined>(undefined);
+	teachingStatusByKey = makeVar<Partial<Record<TeachingKey, TeachingStatus>>>({});
 
 	setStatusFor(teachingKey: TeachingKey, status: TeachingStatus) {
-		this.teachingStatusByKey.set(teachingKey, status);
+		this.teachingStatusByKey({
+			...this.teachingStatusByKey(),
+			[teachingKey]: status,
+		});
 	}
 }

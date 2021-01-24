@@ -8,11 +8,11 @@ import { ITextFieldProps, TextField } from "@fluentui/react/lib/TextField";
 import { classNamesFunction } from "@fluentui/react/lib/Utilities";
 import React from "react";
 import { copyToClipboard } from "src/_utils/copyToClipboard";
-import { useObserveProperties } from "src/hooks/useObserveProperties";
 
 import { pick } from "../../_utils/pick";
 import { secondsToString } from "../../_utils/secondsToString";
 import { appConfig } from "../../appConfig";
+import { useReactiveVars } from "../../hooks/useReactiveVars";
 import { useCourseClassPlayerStore } from "../../modules/CourseClassPlayer";
 import { useCourseSelectionStore } from "../../modules/CourseSelection";
 import { routeConfigMap } from "../../routeConfigMap";
@@ -187,7 +187,7 @@ export const CourseClassShareModalBase = (props: CourseClassShareModalProps) => 
 	);
 	const [successfulMessageVisible, setSuccessfulMessageVisible] = React.useState(false);
 
-	const courseClassId = useObserveProperties(useCourseSelectionStore(), ["selection"]).selection.courseClassId;
+	const courseClassId = useReactiveVars(useCourseSelectionStore(), ["selection"]).selection.courseClassId;
 	const courseClassListResponse = useCourseClassByIdQuery({
 		skip: !courseClassId,
 		variables: courseClassId
@@ -209,7 +209,7 @@ export const CourseClassShareModalBase = (props: CourseClassShareModalProps) => 
 					type: "reset",
 					courseClassListCode: courseClass.courseClassList.code,
 					courseClassNo: courseClass.number,
-					seconds: courseClassPlayerStore.currentTime,
+					seconds: courseClassPlayerStore.currentTime(),
 				});
 			else dispatch({ type: "reset", courseClassListCode: undefined, courseClassNo: undefined, seconds: 0 });
 

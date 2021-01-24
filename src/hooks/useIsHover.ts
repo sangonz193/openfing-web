@@ -1,7 +1,7 @@
+import { useReactiveVar } from "@apollo/client";
 import React from "react";
 
 import { useAppStore } from "../modules/App";
-import { useObserveProperties } from "./useObserveProperties";
 
 export const useIsHover = (): [
 	boolean,
@@ -14,8 +14,7 @@ export const useIsHover = (): [
 	>
 ] => {
 	const appStore = useAppStore();
-	const { inputType } = appStore;
-	useObserveProperties(appStore, ["inputType"]);
+	const inputType = useReactiveVar(appStore.inputType);
 
 	const [state, setState] = React.useState(false);
 

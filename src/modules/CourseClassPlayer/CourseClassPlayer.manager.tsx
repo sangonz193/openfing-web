@@ -1,7 +1,7 @@
 import throttle from "lodash/throttle";
 import React from "react";
 
-import { useObserveProperties } from "../../hooks/useObserveProperties";
+import { useReactiveVars } from "../../hooks/useReactiveVars";
 import { useBlockInitialization, useIsInitializing } from "../Initialization";
 import { courseClassPlayerLocalStorage, migrateCourseClassPlayerLocalStorage } from "./CourseClassPlayer.storage";
 import { useCourseClassPlayerStore } from "./useCourseClassPlayerStore";
@@ -11,20 +11,18 @@ export const CourseClassPlayerManager: React.FC = () => {
 	const unblockInitialization = useBlockInitialization();
 	const isInitializing = useIsInitializing();
 
-	const { pinCourseClassList } = useObserveProperties(store, [
+	const { pinCourseClassList, htmlVideoElement, htmlVideoWrapperElement } = useReactiveVars(store, [
 		"htmlVideoElement",
 		"htmlVideoWrapperElement",
 		"pinCourseClassList",
 	]);
-	const video = store.htmlVideoElement;
-	const wrapper = store.htmlVideoWrapperElement;
 
 	React.useState(() => {
 		(async () => {
 			await migrateCourseClassPlayerLocalStorage();
 
 			const pinCourseClassList = await courseClassPlayerLocalStorage.getItem("pinCourseClassList");
-			if (pinCourseClassList !== null) store.pinCourseClassList = pinCourseClassList;
+			if (pinCourseClassList !== null) store.pinCourseClassList(pinCourseClassList);
 
 			unblockInitialization();
 		})();
@@ -37,7 +35,7 @@ export const CourseClassPlayerManager: React.FC = () => {
 	React.useEffect(() => {
 		store.syncVideoState();
 
-		if (!video) return;
+		if (!htmlVideoElement) return;
 
 		const throttleSyncState = throttle(() => store.syncVideoState(), 300);
 
@@ -128,21 +126,21 @@ export const CourseClassPlayerManager: React.FC = () => {
 			]);
 		}
 
-		for (const [key, eventListener] of eventListeners) video.addEventListener(key, eventListener);
+		for (const [key, eventListener] of eventListeners) htmlVideoElement.addEventListener(key, eventListener);
 
 		return () => {
-			for (const [key, eventListener] of eventListeners) video.removeEventListener(key, eventListener);
+			for (const [key, eventListener] of eventListeners) htmlVideoElement.removeEventListener(key, eventListener);
 		};
-	}, [video]);
+	}, [htmlVideoElement]);
 
 	React.useEffect(() => {
-		const syncFullscreenState = () => store.setIsFullscreen(wrapper === document.fullscreenElement);
+		const syncFullscreenState = () => store.isFullscreen(htmlVideoWrapperElement === document.fullscreenElement);
 		syncFullscreenState();
 
 		document.addEventListener("fullscreenchange", syncFullscreenState);
 
 		return () => document.removeEventListener("fullscreenchange", syncFullscreenState);
-	}, [wrapper]);
+	}, [htmlVideoWrapperElement]);
 
 	return null;
 };

@@ -1,10 +1,10 @@
 import { Text } from "@fluentui/react";
 import { classNamesFunction } from "@fluentui/react/lib/Utilities";
-import { autorun } from "mobx";
 import React from "react";
 
+import { listenVar } from "../../_utils/listenVar";
 import { secondsToString } from "../../_utils/secondsToString";
-import { useObserveProperties } from "../../hooks/useObserveProperties";
+import { useReactiveVars } from "../../hooks/useReactiveVars";
 import { useCourseClassPlayerStore } from "../../modules/CourseClassPlayer";
 import { useCourseSelectionStore } from "../../modules/CourseSelection";
 import { routeConfigMap } from "../../routeConfigMap";
@@ -24,10 +24,8 @@ export const CourseClassPlayerChapterItemBase = (props: CourseClassPlayerChapter
 	const [isActive, setIsActive] = React.useState(false);
 
 	React.useEffect(() => {
-		const listener = autorun(() => {
-			const newIsActive = courseClassPlayerStore.activeChapterTextTracks.some(
-				(activeTextTrack) => activeTextTrack.id === vttCue.id
-			);
+		const listener = listenVar(courseClassPlayerStore.activeChapterTextTracks, (newValue) => {
+			const newIsActive = newValue.some((activeTextTrack) => activeTextTrack.id === vttCue.id);
 
 			if (isActive !== newIsActive) setIsActive(newIsActive);
 		});
@@ -39,11 +37,7 @@ export const CourseClassPlayerChapterItemBase = (props: CourseClassPlayerChapter
 	const classNames = getClassNames(styles, { theme, className: props.className, isActive });
 
 	const courseSelectionStore = useCourseSelectionStore();
-	const { selection } = useObserveProperties(courseSelectionStore, ["selection"]);
-	const { courseClassListCode, courseClassNumber } = useObserveProperties(selection, [
-		"courseClassListCode",
-		"courseClassNumber",
-	]);
+	const { courseClassListCode, courseClassNumber } = useReactiveVars(courseSelectionStore, ["selection"]).selection;
 
 	const href = React.useMemo(
 		() =>

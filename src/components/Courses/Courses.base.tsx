@@ -1,3 +1,4 @@
+import { useReactiveVar } from "@apollo/client";
 import { FocusZone, FocusZoneDirection } from "@fluentui/react/lib/FocusZone";
 import { List } from "@fluentui/react/lib/List";
 import { SearchBox } from "@fluentui/react/lib/SearchBox";
@@ -11,7 +12,6 @@ import { useDocumentTitle } from "src/hooks/useDocumentTitle";
 
 import { useLayoutOptions } from "../../_utils/useLayoutOptions";
 import { useComponent } from "../../hooks/useComponent";
-import { useObserveProperties } from "../../hooks/useObserveProperties";
 import { useCourseSearchStore } from "../../modules/CourseSearch";
 import { useCoursesQuery } from "./Courses.graphql.generated";
 import { CoursesProps, CoursesStyleProps, CoursesStyles } from "./Courses.types";
@@ -30,10 +30,10 @@ export const CoursesBase = (props: CoursesProps) => {
 	const [courseSearch, setCourseSearch] = React.useState("");
 
 	const courseSearchStore = useCourseSearchStore();
-	const { searchResults } = useObserveProperties(courseSearchStore, ["searchResults"]);
+	const searchResults = useReactiveVar(courseSearchStore.searchResults);
 
 	React.useEffect(() => {
-		courseSearchStore.setSource(courses);
+		courseSearchStore.source(courses);
 	}, [coursesResponse.data?.courses]);
 
 	const CourseSearchBox = useComponent(
@@ -76,7 +76,7 @@ export const CoursesBase = (props: CoursesProps) => {
 			await new Promise((r) => setTimeout(r, 300));
 			if (canceled) return;
 
-			courseSearchStore.setSearchValue(courseSearch);
+			courseSearchStore.searchValue(courseSearch);
 		})();
 
 		return () => {

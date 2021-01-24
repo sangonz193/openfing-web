@@ -49,7 +49,7 @@ export const CourseSelectionManager: React.FC = () => {
 	React.useEffect(() => {
 		if (!courseClassListByCodeResponse.data || !courseClassListClassesByCodeResponse.data)
 			if (courseClassListCode)
-				store.setSelection(
+				store.selection(
 					courseClassNumber
 						? {
 								courseClassListCode,
@@ -59,7 +59,7 @@ export const CourseSelectionManager: React.FC = () => {
 								courseClassListCode,
 						  }
 				);
-			else store.setSelection({});
+			else store.selection({});
 		else if (courseClassListByCodeResponse.data.courseClassListByCode.__typename === "CourseClassList") {
 			if (courseClassListByCodeResponse.variables?.code !== courseClassListCode) return;
 
@@ -74,7 +74,7 @@ export const CourseSelectionManager: React.FC = () => {
 					  )
 					: undefined;
 
-			store.setSelection({
+			store.selection({
 				courseClassListCode: variableCode,
 				courseClassListId: courseClassListByCode.id,
 				...(courseClass

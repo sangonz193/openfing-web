@@ -7,10 +7,10 @@ import identity from "lodash/identity";
 import React from "react";
 import { appConfig } from "src/appConfig";
 import { useDocumentTitle } from "src/hooks/useDocumentTitle";
-import { useObserveProperties } from "src/hooks/useObserveProperties";
 import { isThemeKey, ThemeKey } from "src/style/themes";
 
 import { useLayoutOptions } from "../../_utils/useLayoutOptions";
+import { useReactiveVars } from "../../hooks/useReactiveVars";
 import { useAppearanceStore } from "../../modules/Appearance";
 import { SettingsProps, SettingsStyleProps, SettingsStyles } from "./Settings.types";
 
@@ -33,7 +33,7 @@ export const SettingsBase = (props: SettingsProps) => {
 	);
 
 	const appearanceStore = useAppearanceStore();
-	const { themeKey: selectedThemeKey } = useObserveProperties(appearanceStore, ["themeKey"]);
+	const { themeKey: selectedThemeKey } = useReactiveVars(appearanceStore, ["themeKey"]);
 	const options = React.useMemo<Array<Omit<IChoiceGroupOption, "key"> & { key: ThemeKey }>>(
 		() =>
 			Object.values(

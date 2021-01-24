@@ -1,5 +1,4 @@
 import identity from "lodash/identity";
-import { runInAction } from "mobx";
 import React from "react";
 
 import { dangerousKeysOf } from "../../_utils/dangerousKeysOf";
@@ -43,13 +42,11 @@ export const TeachingManager: React.FC = () => {
 
 			await wait(1000);
 
-			runInAction(() => {
-				dangerousKeysOf(teachingKeyLocalStorageStatusMap).forEach((key) => {
-					store.setStatusFor(
-						key,
-						teachingKeyLocalStorageStatusMap[key] === "dismissed" ? "dismissed" : "waiting"
-					);
-				});
+			dangerousKeysOf(teachingKeyLocalStorageStatusMap).forEach((key) => {
+				store.setStatusFor(
+					key,
+					teachingKeyLocalStorageStatusMap[key] === "dismissed" ? "dismissed" : "waiting"
+				);
 			});
 
 			unblockInitialization();

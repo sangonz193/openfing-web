@@ -1,165 +1,224 @@
-import { action, computed, observable } from "mobx";
+import { makeVar, ReactiveVar } from "@apollo/client";
 
 import { dangerousKeysOf } from "../../_utils/dangerousKeysOf";
+import { listenVar } from "../../_utils/listenVar";
 
 export class CourseClassPlayerStore {
-	@observable htmlVideoElement: HTMLVideoElement | null = null;
-	@observable htmlVideoWrapperElement: HTMLDivElement | null = null;
-	@observable isFullscreen = false;
-	@observable urlHash = "";
-	@observable readyState = 0;
-	@observable seeking = false;
-	@observable paused = false;
-	@observable ended = false;
-	@observable error = false;
-	@observable currentTime = NaN;
-	@observable duration = NaN;
-	@observable playbackRate = 1;
-	@observable volume = 1;
-	@observable showControlsBlockers = new Map<string, { timeout: NodeJS.Timeout | undefined }>();
-	@observable setCurrentTimeTimeoutRef: React.MutableRefObject<number | undefined> = {
+	htmlVideoElement = makeVar<HTMLVideoElement | null>(null);
+	htmlVideoWrapperElement = makeVar<HTMLDivElement | null>(null);
+	isFullscreen = makeVar(false);
+	urlHash = makeVar("");
+	readyState = makeVar(0);
+	seeking = makeVar(false);
+	paused = makeVar(false);
+	ended = makeVar(false);
+	error = makeVar(false);
+	currentTime = makeVar(NaN);
+	duration = makeVar(NaN);
+	playbackRate = makeVar(1);
+	volume = makeVar(1);
+	showControlsBlockers = makeVar<Partial<Record<string, { timeout: NodeJS.Timeout | undefined }>>>({});
+	setCurrentTimeTimeoutRef: React.MutableRefObject<number | undefined> = {
 		current: undefined,
 	};
-	@observable buffered: TimeRanges | undefined = undefined;
-	@observable chapterTextTracks: VTTCue[] = [];
-	@observable activeChapterTextTracks: VTTCue[] = [];
-	@observable pinCourseClassList: boolean = true;
+	buffered = makeVar<TimeRanges | undefined>(undefined);
+	chapterTextTracks = makeVar<VTTCue[]>([]);
+	activeChapterTextTracks = makeVar<VTTCue[]>([]);
+	pinCourseClassList = makeVar(true);
 
 	track: TextTrack | undefined = undefined;
 
+	showControls!: ReactiveVar<boolean>;
+	isPlaying!: ReactiveVar<boolean>;
+	loaded!: ReactiveVar<boolean>;
+	waiting!: ReactiveVar<boolean>;
+	loadedPercentage!: ReactiveVar<number>;
+
 	private trackCueChangeHandler: (() => void) | undefined = undefined;
 
-	@computed get showControls() {
-		return this.showControlsBlockers.size > 0;
-	}
+	listeners: Array<() => void> = [];
 
-	@computed get isPlaying() {
-		return !this.paused && this.readyState > 2 && !this.ended && !this.error;
-	}
+	constructor() {
+		const { listeners } = this;
 
-	@computed get loaded() {
-		return this.readyState > 0;
-	}
+		const computedVarsConfig: Array<
+			{
+				[K in keyof CourseClassPlayerStore]: CourseClassPlayerStore[K] extends ReactiveVar<infer T>
+					? {
+							key: K;
+							getValue: () => T;
+							// eslint-disable-next-line @typescript-eslint/no-explicit-any
+							dependencies: Array<ReactiveVar<any>>;
+					  }
+					: never;
+			}[keyof CourseClassPlayerStore]
+		> = [
+			{
+				key: "showControls",
+				getValue: () => Object.keys(this.showControlsBlockers()).length > 0,
+				dependencies: [this.showControlsBlockers],
+			},
+			{
+				key: "isPlaying",
+				getValue: () => !this.paused() && this.readyState() > 2 && !this.ended() && !this.error(),
+				dependencies: [this.paused, this.readyState, this.ended, this.error],
+			},
+			{
+				key: "loaded",
+				getValue: () => this.readyState() > 0,
+				dependencies: [this.readyState],
+			},
+			{
+				key: "waiting",
+				getValue: () => this.readyState() < 3,
+				dependencies: [this.readyState],
+			},
+			{
+				key: "loadedPercentage",
+				getValue: () => {
+					const buffered = this.buffered();
+					const currentTime = this.currentTime();
+					const duration = this.duration();
 
-	@computed get waiting() {
-		return this.readyState < 3;
-	}
+					if (!buffered || Number.isNaN(currentTime) || Number.isNaN(duration)) return NaN;
 
-	@computed get loadedPercentage() {
-		const { buffered, currentTime, duration } = this;
+					if (buffered.length === 0) return 0;
 
-		if (!buffered || Number.isNaN(currentTime) || Number.isNaN(duration)) return NaN;
+					let i;
+					let bufferedEnd = buffered.end(0);
 
-		if (buffered.length === 0) return 0;
+					for (
+						i = 0;
+						i < buffered.length - 1 &&
+						!(buffered.start(i) <= currentTime && currentTime <= buffered.end(i));
+						i++
+					)
+						i++;
+					if (i < buffered.length) bufferedEnd = buffered.end(i);
 
-		let i;
-		let bufferedEnd = buffered.end(0);
+					return (bufferedEnd * 100) / duration || 0;
+				},
+				dependencies: [this.buffered, this.currentTime, this.duration],
+			},
+		];
 
-		for (
-			i = 0;
-			i < buffered.length - 1 && !(buffered.start(i) <= currentTime && currentTime <= buffered.end(i));
-			i++
-		)
-			i++;
-		if (i < buffered.length) bufferedEnd = buffered.end(i);
+		listeners.push(
+			...computedVarsConfig.map((config) => {
+				const reactiveVar = makeVar(config.getValue());
 
-		return (bufferedEnd * 100) / duration || 0;
+				const listeners: Array<() => void> = config.dependencies.map((dependency) => {
+					return listenVar(dependency, () => reactiveVar(config.getValue()));
+				});
+
+				// eslint-disable-next-line @typescript-eslint/no-explicit-any
+				this[config.key] = reactiveVar as any;
+				return () => listeners.forEach((listener) => listener());
+			})
+		);
 	}
 
 	isBlockingShowControls(id: string): boolean {
-		return this.showControlsBlockers.has(id);
+		return !!this.showControlsBlockers()[id];
 	}
 
-	@action play() {
-		this.htmlVideoElement?.play();
+	play() {
+		this.htmlVideoElement()?.play();
 	}
 
-	@action pause() {
-		this.htmlVideoElement?.pause();
+	pause() {
+		this.htmlVideoElement()?.pause();
 	}
 
-	@action togglePlay() {
-		if (this.isPlaying) this.pause();
+	togglePlay() {
+		if (this.isPlaying()) this.pause();
 		else this.play();
 	}
 
-	@action.bound blockShowControls(id: string) {
-		const currentValue = this.showControlsBlockers.get(id);
+	blockShowControls = (id: string) => {
+		const currentValue = this.showControlsBlockers()[id];
 
 		if (currentValue?.timeout) clearTimeout(currentValue.timeout);
 
-		this.showControlsBlockers.set(id, { timeout: undefined });
-	}
+		this.showControlsBlockers({
+			...this.showControlsBlockers(),
+			[id]: { timeout: undefined },
+		});
+	};
 
-	@action.bound unblockShowControls(id: string) {
-		const currentValue = this.showControlsBlockers.get(id);
+	unblockShowControls = (id: string) => {
+		const showControlsBlockers = this.showControlsBlockers();
+		const currentValue = showControlsBlockers[id];
 
 		if (currentValue?.timeout) clearTimeout(currentValue.timeout);
 
-		this.showControlsBlockers.delete(id);
-	}
+		const showControlsBlockersCopy = { ...showControlsBlockers };
+		delete showControlsBlockersCopy[id];
 
-	@action.bound showControlsFor(id: string, ms: number) {
-		const currentValue = this.showControlsBlockers.get(id);
+		this.showControlsBlockers(showControlsBlockersCopy);
+	};
+
+	showControlsFor = (id: string, ms: number) => {
+		const currentValue = this.showControlsBlockers()[id];
 
 		if (currentValue?.timeout) {
 			clearTimeout(currentValue.timeout);
 			currentValue.timeout = setTimeout(() => this.unblockShowControls(id), ms);
 		} else if (!currentValue)
-			this.showControlsBlockers.set(id, {
-				timeout: setTimeout(() => this.unblockShowControls(id), ms),
+			this.showControlsBlockers({
+				...this.showControlsBlockers(),
+				[id]: {
+					timeout: setTimeout(() => this.unblockShowControls(id), ms),
+				},
 			});
-	}
+	};
 
-	@action.bound setCurrentTime(s: number) {
-		const { htmlVideoElement, setCurrentTimeTimeoutRef } = this;
+	setCurrentTime = (s: number) => {
+		const htmlVideoElement = this.htmlVideoElement();
+		const { setCurrentTimeTimeoutRef } = this;
 
 		clearTimeout(setCurrentTimeTimeoutRef.current);
 
 		if (!htmlVideoElement) return;
 
 		s = Math.max(0, Math.min(htmlVideoElement.duration || 0, s));
-		this.currentTime = htmlVideoElement.currentTime = s;
-	}
+		this.currentTime((htmlVideoElement.currentTime = s));
+	};
 
-	@action setVolume(volume: number) {
-		const { htmlVideoElement } = this;
-
-		if (!htmlVideoElement) return;
-
-		this.volume = htmlVideoElement.volume = Math.max(0, Math.min(volume, 1));
-	}
-
-	@action.bound setPlaybackRate(playbackRate: number) {
-		const { htmlVideoElement } = this;
+	setVolume = (volume: number) => {
+		const htmlVideoElement = this.htmlVideoElement();
 
 		if (!htmlVideoElement) return;
 
-		this.playbackRate = htmlVideoElement.playbackRate = playbackRate;
-	}
+		this.volume((htmlVideoElement.volume = Math.max(0, Math.min(volume, 1))));
+	};
 
-	@action.bound setFullscreen() {
-		this.htmlVideoWrapperElement?.requestFullscreen();
-	}
+	setPlaybackRate = (playbackRate: number) => {
+		const htmlVideoElement = this.htmlVideoElement();
 
-	@action.bound exitFullscreen() {
+		if (!htmlVideoElement) return;
+
+		this.playbackRate((htmlVideoElement.playbackRate = playbackRate));
+	};
+
+	setFullscreen = () => {
+		this.htmlVideoWrapperElement()?.requestFullscreen();
+	};
+
+	exitFullscreen = () => {
 		document.exitFullscreen();
-	}
+	};
 
-	@action.bound toggleFullscreen() {
-		const { htmlVideoWrapperElement } = this;
+	toggleFullscreen = () => {
+		const htmlVideoWrapperElement = this.htmlVideoWrapperElement();
 
 		if (!!document.fullscreenElement && document.fullscreenElement === htmlVideoWrapperElement)
 			this.exitFullscreen();
 		else this.setFullscreen();
-	}
+	};
 
-	@action.bound setUrlHash(urlHash: string) {
-		this.urlHash = urlHash;
-	}
-
-	@action.bound setVideoInstance(video: HTMLVideoElement | null) {
-		if (this.htmlVideoElement === video) return;
+	setVideoInstance = (video: HTMLVideoElement | null) => {
+		const htmlVideoElement = this.htmlVideoElement();
+		if (htmlVideoElement === video) return;
 
 		if (this.track && this.trackCueChangeHandler)
 			this.track.removeEventListener("cuechange", this.trackCueChangeHandler);
@@ -167,22 +226,17 @@ export class CourseClassPlayerStore {
 		this.track = undefined;
 		this.trackCueChangeHandler = undefined;
 
-		this.htmlVideoElement = video;
-		this.chapterTextTracks = [];
-		this.activeChapterTextTracks = [];
-	}
+		this.htmlVideoElement(video);
+		this.chapterTextTracks([]);
+		this.activeChapterTextTracks([]);
+	};
 
-	@action.bound setVideoWrapperInstance(wrapper: HTMLDivElement | null) {
-		this.htmlVideoWrapperElement = wrapper;
-	}
+	setVideoWrapperInstance = (wrapper: HTMLDivElement | null) => {
+		this.htmlVideoWrapperElement(wrapper);
+	};
 
-	@action.bound setIsFullscreen(isFullscreen: boolean) {
-		this.isFullscreen = isFullscreen;
-	}
-
-	@action.bound setChapterTextTracks(vttCues: VTTCue[]) {
-		const { htmlVideoElement } = this;
-
+	setChapterTextTracks = (vttCues: VTTCue[]) => {
+		const htmlVideoElement = this.htmlVideoElement();
 		if (!htmlVideoElement) return;
 
 		const track = htmlVideoElement.addTextTrack("chapters", "Índice", "es");
@@ -194,31 +248,18 @@ export class CourseClassPlayerStore {
 			if (track.activeCues)
 				for (let i = 0; i < (track.activeCues.length || 0); i++) activeCues.push(track.activeCues[i] as VTTCue);
 
-			this.activeChapterTextTracks = activeCues;
+			this.activeChapterTextTracks(activeCues);
 		};
 
 		track.addEventListener("cuechange", this.trackCueChangeHandler);
 
-		this.chapterTextTracks = vttCues;
-	}
+		this.chapterTextTracks(vttCues);
+	};
 
-	@action.bound syncVideoState() {
-		const { htmlVideoElement } = this;
+	syncVideoState = () => {
+		const htmlVideoElement = this.htmlVideoElement();
 
-		const defaultValues = {
-			currentTime: NaN,
-			duration: NaN,
-			ended: false,
-			error: null,
-			paused: false,
-			buffered: undefined,
-			playbackRate: 1,
-			readyState: 0,
-			seeking: false,
-			volume: 1,
-		} as const;
-
-		const video: Pick<
+		const defaultValues: Pick<
 			HTMLVideoElement,
 			| "currentTime"
 			| "duration"
@@ -229,12 +270,24 @@ export class CourseClassPlayerStore {
 			| "readyState"
 			| "seeking"
 			| "volume"
-		> & { buffered: TimeRanges | undefined } = htmlVideoElement || defaultValues;
+		> & { buffered: TimeRanges | undefined } = {
+			currentTime: NaN,
+			duration: NaN,
+			ended: false,
+			error: null,
+			paused: false,
+			buffered: undefined,
+			playbackRate: 1,
+			readyState: 0,
+			seeking: false,
+			volume: 1,
+		};
+
+		const video = htmlVideoElement || defaultValues;
 
 		dangerousKeysOf(defaultValues).forEach((key) => {
-			// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-			// @ts-ignore
-			this[key] = video[key] as unknown;
+			// eslint-disable-next-line @typescript-eslint/no-explicit-any
+			this[key](video[key] as any);
 		});
-	}
+	};
 }

@@ -3,11 +3,10 @@ import { Slider } from "@fluentui/react/lib/Slider";
 import { Stack } from "@fluentui/react/lib/Stack";
 import { IProcessedStyleSet } from "@fluentui/react/lib/Styling";
 import { classNamesFunction } from "@fluentui/react/lib/Utilities";
-import { Observer } from "mobx-react-lite";
 import React from "react";
 
-import { useComponentWithProps } from "../../hooks/useComponent";
-import { useObserveProperties } from "../../hooks/useObserveProperties";
+import { useComponent, useComponentWithProps } from "../../hooks/useComponent";
+import { useReactiveVars } from "../../hooks/useReactiveVars";
 import { useAppStore } from "../../modules/App";
 import { useCourseClassPlayerStore } from "../../modules/CourseClassPlayer";
 import { CourseClassPlayerButton } from "../CourseClassPlayerButton";
@@ -25,7 +24,7 @@ const getClassNames = classNamesFunction<
 const RenderPlainCard = React.memo((props: { classNames: IProcessedStyleSet<CourseClassPlayerVolumeButtonStyles> }) => {
 	const { classNames } = props;
 	const courseClassPlayerStore = useCourseClassPlayerStore();
-	const { volume } = useObserveProperties(courseClassPlayerStore, ["volume"]);
+	const { volume } = useReactiveVars(courseClassPlayerStore, ["volume"]);
 
 	const handleChange = React.useCallback((v: number) => {
 		courseClassPlayerStore.setVolume(v / 100);
@@ -50,10 +49,9 @@ export const CourseClassPlayerVolumeButtonBase = (props: CourseClassPlayerVolume
 	const classNames = getClassNames(styles, { theme });
 
 	const appStore = useAppStore();
-	const observedAppStore = useObserveProperties(appStore, ["inputType"]);
 
 	const courseClassPlayerStore = useCourseClassPlayerStore();
-	const { isFullscreen } = useObserveProperties(courseClassPlayerStore, ["isFullscreen"]);
+	const { isFullscreen } = useReactiveVars(courseClassPlayerStore, ["isFullscreen"]);
 
 	const RenderPlainCardWithProps = useComponentWithProps(RenderPlainCard, { classNames });
 	const handleRenderPlainCard = React.useCallback(() => <RenderPlainCardWithProps />, []);
@@ -72,24 +70,40 @@ export const CourseClassPlayerVolumeButtonBase = (props: CourseClassPlayerVolume
 	);
 
 	const [previousVolume, setPreviousVolume] = React.useState(0);
-	const handleClick = React.useCallback(
-		(e) => {
-			const { volume } = courseClassPlayerStore;
-			if (observedAppStore.inputType !== "POINTER") return;
+	const handleClick = React.useCallback((e) => {
+		const volume = courseClassPlayerStore.volume();
+		if (appStore.inputType() !== "POINTER") return;
 
-			e?.preventDefault();
-			if (volume === 0) {
-				if (previousVolume !== 0) {
-					courseClassPlayerStore.setVolume(previousVolume);
-					setPreviousVolume(0);
-				}
-			} else {
-				courseClassPlayerStore.setVolume(0);
-				setPreviousVolume(volume);
+		e?.preventDefault();
+		if (volume === 0) {
+			if (previousVolume !== 0) {
+				courseClassPlayerStore.setVolume(previousVolume);
+				setPreviousVolume(0);
 			}
-		},
-		[observedAppStore.inputType]
-	);
+		} else {
+			courseClassPlayerStore.setVolume(0);
+			setPreviousVolume(volume);
+		}
+	}, []);
+
+	const CourseClassPlayerButtonWithIcon = useComponent(() => {
+		const { volume } = useReactiveVars(courseClassPlayerStore, ["volume"]);
+
+		return (
+			<CourseClassPlayerButton
+				iconName={
+					volume === 0
+						? "VolumeMute"
+						: (volume ?? 1) < 0.4
+						? "VolumeLow"
+						: (volume ?? 1) < 0.75
+						? "VolumeMedium"
+						: "VolumeHigh"
+				}
+				buttonProps={{ onClick: handleClick }}
+			/>
+		);
+	}, {});
 
 	return (
 		<>
@@ -102,22 +116,7 @@ export const CourseClassPlayerVolumeButtonBase = (props: CourseClassPlayerVolume
 				onCardVisible={() => courseClassPlayerStore.blockShowControls("controls-volume")}
 				onCardHide={() => courseClassPlayerStore.unblockShowControls("controls-volume")}
 			>
-				<Observer>
-					{() => (
-						<CourseClassPlayerButton
-							iconName={
-								courseClassPlayerStore.volume === 0
-									? "VolumeMute"
-									: (courseClassPlayerStore.volume ?? 1) < 0.4
-									? "VolumeLow"
-									: (courseClassPlayerStore.volume ?? 1) < 0.75
-									? "VolumeMedium"
-									: "VolumeHigh"
-							}
-							buttonProps={{ onClick: handleClick }}
-						/>
-					)}
-				</Observer>
+				<CourseClassPlayerButtonWithIcon />
 			</HoverCard>
 		</>
 	);

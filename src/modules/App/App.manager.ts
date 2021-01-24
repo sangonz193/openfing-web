@@ -11,9 +11,9 @@ export const AppManager: React.FC = () => {
 
 	const { handleFocus, handleBlur } = useFocus(
 		{
-			defaultFocus: store.isFocused,
-			onFocus: () => store.setIsFocused(true),
-			onBlur: () => store.setIsFocused(false),
+			defaultFocus: store.isFocused(),
+			onFocus: () => store.isFocused(true),
+			onBlur: () => store.isFocused(false),
 		},
 		[]
 	);
@@ -24,13 +24,13 @@ export const AppManager: React.FC = () => {
 	const isTouchTimeoutRef = React.useRef<NodeJS.Timeout>();
 	const isTouchRef = React.useRef<boolean>();
 	React.useEffect(() => {
-		if (store.inputType === "POINTER" && "ontouchstart" in window) store.setInputType("TOUCH");
+		if (store.inputType() === "POINTER" && "ontouchstart" in window) store.inputType("TOUCH");
 
 		const handleTouchStart = () => {
 			if (isTouchTimeoutRef.current) clearTimeout(isTouchTimeoutRef.current);
 			isTouchRef.current = true;
 
-			store.setInputType("TOUCH");
+			store.inputType("TOUCH");
 
 			isTouchTimeoutRef.current = setTimeout(() => (isTouchRef.current = false), 500);
 		};
@@ -38,7 +38,7 @@ export const AppManager: React.FC = () => {
 		const handleMouseOver = () => {
 			if (isTouchRef.current) return;
 
-			store.setInputType("POINTER");
+			store.inputType("POINTER");
 		};
 
 		window.addEventListener("touchstart", handleTouchStart);
@@ -53,10 +53,10 @@ export const AppManager: React.FC = () => {
 	React.useEffect(() => {
 		return observe(`body.${IsFocusVisibleClassName}`, {
 			add() {
-				store.setIsFocusVisible(true);
+				store.isFocusVisible(true);
 			},
 			remove() {
-				store.setIsFocusVisible(false);
+				store.isFocusVisible(false);
 			},
 		}).abort;
 	}, []);

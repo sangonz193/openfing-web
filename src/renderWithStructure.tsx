@@ -1,6 +1,5 @@
 import { ApolloProvider } from "@apollo/client";
 import { createBrowserHistory } from "history";
-import { observable } from "mobx";
 import PiwikReactRouter from "piwik-react-router";
 import React from "react";
 import ReactGA from "react-ga";
@@ -24,11 +23,8 @@ const WithWrappers = withWrappers(
 		InitializationProvider,
 		({ children }) => <ApolloProvider client={React.useState(createGraphqlClient)[0]}>{children}</ApolloProvider>,
 		({ children }) => {
-			const [observableHistory] = React.useState(() => {
+			const [history] = React.useState(() => {
 				const history = createBrowserHistory({ basename: appConfig.historyBasename });
-				history.listen((location1) => (observableHistory.location = location1));
-
-				const observableHistory = observable(history);
 
 				if (process.env.NODE_ENV === "production") {
 					const piwik = PiwikReactRouter({
@@ -43,10 +39,10 @@ const WithWrappers = withWrappers(
 					});
 				}
 
-				return observableHistory;
+				return history;
 			});
 
-			return <HistoryProvider history={observableHistory}>{children}</HistoryProvider>;
+			return <HistoryProvider history={history}>{children}</HistoryProvider>;
 		},
 		RootEventListenersProvider,
 		AppProvider,

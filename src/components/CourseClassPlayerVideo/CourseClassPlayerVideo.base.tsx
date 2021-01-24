@@ -1,7 +1,7 @@
 import { classNamesFunction } from "@fluentui/react/lib/Utilities";
 import React from "react";
-import { useObserveProperties } from "src/hooks/useObserveProperties";
 
+import { useReactiveVars } from "../../hooks/useReactiveVars";
 import { useCourseClassPlayerStore } from "../../modules/CourseClassPlayer";
 import {
 	CourseClassPlayerVideoProps,
@@ -14,7 +14,7 @@ const getClassNames = classNamesFunction<CourseClassPlayerVideoStyleProps, Cours
 export const CourseClassPlayerVideoBase = (props: CourseClassPlayerVideoProps) => {
 	const { formats } = props;
 	const courseClassPlayerStore = useCourseClassPlayerStore();
-	const { isFullscreen, urlHash } = useObserveProperties(courseClassPlayerStore, ["isFullscreen", "urlHash"]);
+	const { isFullscreen, urlHash } = useReactiveVars(courseClassPlayerStore, ["isFullscreen", "urlHash"]);
 
 	const videoRef = React.useRef<HTMLVideoElement>(null);
 

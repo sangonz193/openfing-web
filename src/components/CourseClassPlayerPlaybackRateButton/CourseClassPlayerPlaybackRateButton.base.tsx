@@ -17,10 +17,10 @@ import keyboardKey from "keyboard-key";
 import debounce from "lodash/debounce";
 import React from "react";
 import { useComponentWithProps } from "src/hooks/useComponent";
-import { useObserveProperties } from "src/hooks/useObserveProperties";
 
 import { getCourseClassPlayerShortcuts } from "../../_utils/getCourseClassPlayerShortcuts";
 import { secondsToString } from "../../_utils/secondsToString";
+import { useReactiveVars } from "../../hooks/useReactiveVars";
 import { useAppStore } from "../../modules/App";
 import { useCourseClassPlayerStore } from "../../modules/CourseClassPlayer";
 import { CourseClassPlayerButton } from "../CourseClassPlayerButton";
@@ -46,11 +46,11 @@ const PlaybackRateMenuItem: React.FC<{
 	const playbackRate = props.contextualMenuItemProps.item.data as number;
 	const { classNames } = props;
 
-	const {
-		currentTime,
-		duration,
-		playbackRate: currentPlaybackRate,
-	} = useObserveProperties(useCourseClassPlayerStore(), ["currentTime", "duration", "playbackRate"]);
+	const { currentTime, duration, playbackRate: currentPlaybackRate } = useReactiveVars(useCourseClassPlayerStore(), [
+		"currentTime",
+		"duration",
+		"playbackRate",
+	]);
 
 	const text = React.useMemo(
 		() =>
@@ -85,7 +85,7 @@ const ContextMenuSlider: React.FC<{
 }> = React.memo((props) => {
 	const { classNames } = props;
 	const courseClassPlayerStore = useCourseClassPlayerStore();
-	const { playbackRate } = useObserveProperties(courseClassPlayerStore, ["playbackRate"]);
+	const { playbackRate } = useReactiveVars(courseClassPlayerStore, ["playbackRate"]);
 	const [valueSource, setValueSource] = React.useState<{ type: "store" } | { type: "local"; value: number }>({
 		type: "store",
 	});
@@ -153,7 +153,7 @@ const RenderMenuList: React.FC<{
 const CommandBarButtonIcon: React.FC<{ classNames: IProcessedStyleSet<CourseClassPlayerPlaybackRateButtonStyles> }> = (
 	props
 ) => {
-	const { playbackRate } = useObserveProperties(useCourseClassPlayerStore(), ["playbackRate"]);
+	const { playbackRate } = useReactiveVars(useCourseClassPlayerStore(), ["playbackRate"]);
 
 	return (
 		<Text styles={props.classNames.subComponentStyles?.commandButtonText}>
@@ -170,7 +170,7 @@ export const CourseClassPlayerPlaybackRateButtonBase = (props: CourseClassPlayer
 
 	const appStore = useAppStore();
 	const courseClassPlayerStore = useCourseClassPlayerStore();
-	const observedCourseClassPlayerStore = useObserveProperties(courseClassPlayerStore, ["isFullscreen"]);
+	const { isFullscreen } = useReactiveVars(courseClassPlayerStore, ["isFullscreen"]);
 
 	const menuItems: IContextualMenuItem[] = React.useMemo(
 		() =>
@@ -207,10 +207,10 @@ export const CourseClassPlayerPlaybackRateButtonBase = (props: CourseClassPlayer
 	const calloutProps: Partial<ICalloutProps> = React.useMemo(
 		() => ({
 			layerProps: {
-				hostId: observedCourseClassPlayerStore.isFullscreen ? "course-class-player-controls" : undefined,
+				hostId: isFullscreen ? "course-class-player-controls" : undefined,
 			},
 		}),
-		[observedCourseClassPlayerStore.isFullscreen]
+		[isFullscreen]
 	);
 
 	const menuProps: IContextualMenuProps = {
@@ -229,7 +229,7 @@ export const CourseClassPlayerPlaybackRateButtonBase = (props: CourseClassPlayer
 	const handleKeyDown = React.useCallback<React.KeyboardEventHandler<unknown>>((e) => {
 		if (e.defaultPrevented || e.altKey || e.ctrlKey || e.metaKey || e.shiftKey) return;
 
-		if (appStore.isFocusVisible) {
+		if (appStore.isFocusVisible()) {
 			const spacebarKey: keyof typeof keyboardKey = " ";
 
 			if (keyboardKey.getKey(e) === spacebarKey) {

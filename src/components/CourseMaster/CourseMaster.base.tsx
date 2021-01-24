@@ -6,8 +6,8 @@ import { Spinner, SpinnerSize } from "@fluentui/react/lib/Spinner";
 import { classNamesFunction } from "@fluentui/react/lib/Utilities";
 import React from "react";
 import { useHistory } from "src/hooks/useHistory";
-import { useObserveProperties } from "src/hooks/useObserveProperties";
 
+import { useReactiveVars } from "../../hooks/useReactiveVars";
 import { useCourseSelectionStore } from "../../modules/CourseSelection";
 import { routeConfigMap } from "../../routeConfigMap";
 import { CourseClassItem } from "../CourseClassItem";
@@ -21,11 +21,9 @@ export const CourseMasterBase = (props: CourseMasterProps) => {
 	const { styles, theme } = props as Required<Pick<typeof props, "styles" | "theme">>;
 
 	const history = useHistory();
-	const { selection } = useObserveProperties(useCourseSelectionStore(), ["selection"]);
-	const { courseClassListCode, courseClassListId } = useObserveProperties(selection, [
-		"courseClassListCode",
-		"courseClassListId",
-	]);
+	const { courseClassListCode, courseClassListId } = useReactiveVars(useCourseSelectionStore(), [
+		"selection",
+	]).selection;
 
 	const courseEditionsResponse = useCourseClassListByCodeQuery({
 		variables: courseClassListCode
