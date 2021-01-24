@@ -1,4 +1,4 @@
-import { observable } from "mobx";
+import { makeVar, ReactiveVar } from "@apollo/client";
 
 import { ThemeKey } from "../../style/themes";
 import { appearanceLocalStorage } from "./Appearance.storage";
@@ -8,16 +8,16 @@ export type AppearanceStoreInitData = {
 };
 
 export class AppearanceStore {
-	@observable themeKey: ThemeKey;
+	themeKey: ReactiveVar<ThemeKey>;
 
 	constructor(initData: AppearanceStoreInitData) {
 		const { themeKey } = initData;
 
-		this.themeKey = themeKey;
+		this.themeKey = makeVar(themeKey);
 	}
 
 	setTheme(themeKey: ThemeKey) {
-		this.themeKey = themeKey;
+		this.themeKey(themeKey);
 		appearanceLocalStorage.setItem("theme", themeKey);
 	}
 }

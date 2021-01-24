@@ -1,12 +1,12 @@
 import { ITheme, loadTheme } from "@fluentui/react/lib/Styling";
 import React from "react";
 import { useMediaQuery } from "react-responsive";
-import { useObserveProperties } from "src/hooks/useObserveProperties";
 import { ThemeKey } from "src/style/themes";
 import { blackTheme } from "src/style/themes/blackTheme";
 import { darkTheme } from "src/style/themes/darkTheme";
 import { lightTheme } from "src/style/themes/lightTheme";
 
+import { useReactiveVars } from "../../hooks/useReactiveVars";
 import { useBlockInitialization } from "../Initialization";
 import { AppearanceContext } from "./Appearance.context";
 import { appearanceLocalStorage, migrateAppearanceLocalStorage } from "./Appearance.storage";
@@ -43,7 +43,7 @@ export const AppearanceManager: React.FC = () => {
 };
 
 const ThemeSync = (props: { onAfterLoad?: () => void }) => {
-	const { themeKey } = useObserveProperties(useAppearanceStore(), ["themeKey"]);
+	const { themeKey } = useReactiveVars(useAppearanceStore(), ["themeKey"]);
 
 	const browserDarkMode = useMediaQuery({ query: "(prefers-color-scheme: dark)" });
 	React.useEffect(() => {
