@@ -4,7 +4,7 @@ export const UpdateItemCourseClassFragmentDoc = gql`
 	fragment UpdateItemCourseClass on CourseClass {
 		id
 		number
-		createdAt
+		publishedAt
 		name
 
 		courseClassList {
