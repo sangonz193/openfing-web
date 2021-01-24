@@ -229,7 +229,7 @@ export const CourseClassPlayerPlaybackRateButtonBase = (props: CourseClassPlayer
 	const handleKeyDown = React.useCallback<React.KeyboardEventHandler<unknown>>((e) => {
 		if (e.defaultPrevented || e.altKey || e.ctrlKey || e.metaKey || e.shiftKey) return;
 
-		if (appStore.isFocusVisible) {
+		if (appStore.isFocusVisible()) {
 			const spacebarKey: keyof typeof keyboardKey = " ";
 
 			if (keyboardKey.getKey(e) === spacebarKey) {

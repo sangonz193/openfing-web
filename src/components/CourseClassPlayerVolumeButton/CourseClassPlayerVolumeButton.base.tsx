@@ -50,7 +50,6 @@ export const CourseClassPlayerVolumeButtonBase = (props: CourseClassPlayerVolume
 	const classNames = getClassNames(styles, { theme });
 
 	const appStore = useAppStore();
-	const observedAppStore = useObserveProperties(appStore, ["inputType"]);
 
 	const courseClassPlayerStore = useCourseClassPlayerStore();
 	const { isFullscreen } = useObserveProperties(courseClassPlayerStore, ["isFullscreen"]);
@@ -72,24 +71,21 @@ export const CourseClassPlayerVolumeButtonBase = (props: CourseClassPlayerVolume
 	);
 
 	const [previousVolume, setPreviousVolume] = React.useState(0);
-	const handleClick = React.useCallback(
-		(e) => {
-			const { volume } = courseClassPlayerStore;
-			if (observedAppStore.inputType !== "POINTER") return;
+	const handleClick = React.useCallback((e) => {
+		const { volume } = courseClassPlayerStore;
+		if (appStore.inputType() !== "POINTER") return;
 
-			e?.preventDefault();
-			if (volume === 0) {
-				if (previousVolume !== 0) {
-					courseClassPlayerStore.setVolume(previousVolume);
-					setPreviousVolume(0);
-				}
-			} else {
-				courseClassPlayerStore.setVolume(0);
-				setPreviousVolume(volume);
+		e?.preventDefault();
+		if (volume === 0) {
+			if (previousVolume !== 0) {
+				courseClassPlayerStore.setVolume(previousVolume);
+				setPreviousVolume(0);
 			}
-		},
-		[observedAppStore.inputType]
-	);
+		} else {
+			courseClassPlayerStore.setVolume(0);
+			setPreviousVolume(volume);
+		}
+	}, []);
 
 	return (
 		<>

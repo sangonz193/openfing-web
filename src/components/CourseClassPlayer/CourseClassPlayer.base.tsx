@@ -1,3 +1,4 @@
+import { useReactiveVar } from "@apollo/client";
 import { LayerHost } from "@fluentui/react/lib/Layer";
 import { Spinner, SpinnerSize } from "@fluentui/react/lib/Spinner";
 import { classNamesFunction } from "@fluentui/react/lib/Utilities";
@@ -42,7 +43,7 @@ export const CourseClassPlayerBase = (props: CourseClassPlayerProps) => {
 
 	const { courseClassVideo } = props;
 	const appStore = useAppStore();
-	const observedAppStore = useObserveProperties(appStore, ["inputType", "isFocusVisible"]);
+	const inputType = useReactiveVar(appStore.inputType);
 	const courseClassPlayerStore = useCourseClassPlayerStore();
 
 	const handleKeyDown = React.useCallback<React.KeyboardEventHandler>((e) => {
@@ -83,7 +84,7 @@ export const CourseClassPlayerBase = (props: CourseClassPlayerProps) => {
 			courseClassPlayerStore.toggleFullscreen();
 		} else {
 			const newTimeout = setTimeout(() => {
-				if (appStore.inputType === "TOUCH")
+				if (appStore.inputType() === "TOUCH")
 					if (courseClassPlayerStore.isBlockingShowControls(showControlsForId))
 						courseClassPlayerStore.unblockShowControls(showControlsForId);
 					else showControlsFor();
@@ -101,7 +102,7 @@ export const CourseClassPlayerBase = (props: CourseClassPlayerProps) => {
 	}, []);
 
 	const handleFocus = React.useCallback<React.FocusEventHandler>(() => {
-		if (appStore.isFocusVisible) courseClassPlayerStore.showControlsFor("controls-keyboard", 2000);
+		if (appStore.isFocusVisible()) courseClassPlayerStore.showControlsFor("controls-keyboard", 2000);
 	}, []);
 
 	const [height, setHeight] = React.useState(0);
@@ -124,7 +125,7 @@ export const CourseClassPlayerBase = (props: CourseClassPlayerProps) => {
 			className={classNames.root}
 			onKeyDown={handleKeyDown}
 			onClick={handleWrapperClick}
-			onMouseMove={observedAppStore.inputType !== "TOUCH" ? handleMouseMove : undefined}
+			onMouseMove={inputType !== "TOUCH" ? handleMouseMove : undefined}
 			tabIndex={0}
 			onFocus={handleFocus}
 			style={observedCourseClassPlayerStore.isFullscreen ? undefined : { height }}

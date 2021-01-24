@@ -1,3 +1,4 @@
+import { useReactiveVar } from "@apollo/client";
 import { classNamesFunction } from "@fluentui/react/lib/Utilities";
 import { Observer } from "mobx-react-lite";
 import React from "react";
@@ -50,8 +51,7 @@ export const CourseClassPlayerControlsBottomControlsBase = (props: CourseClassPl
 	}, []);
 
 	const appStore = useAppStore();
-	const { inputType } = appStore;
-	useObserveProperties(appStore, ["inputType"]);
+	const inputType = useReactiveVar(appStore.inputType);
 
 	const handleFullscreenClick = React.useCallback<React.MouseEventHandler<unknown>>((e) => {
 		if (e?.defaultPrevented) return;
