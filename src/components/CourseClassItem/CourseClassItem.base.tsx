@@ -1,8 +1,8 @@
 import { Text } from "@fluentui/react/lib/Text";
 import { classNamesFunction } from "@fluentui/react/lib/Utilities";
 import React from "react";
-import { useObserveProperties } from "src/hooks/useObserveProperties";
 
+import { useReactiveVars } from "../../hooks/useReactiveVars";
 import { useCourseSelectionStore } from "../../modules/CourseSelection";
 import { routeConfigMap } from "../../routeConfigMap";
 import { Link } from "../Link";
@@ -27,7 +27,7 @@ export const CourseClassItemBase = (props: CourseClassItemProps) => {
 	);
 
 	const isActive =
-		courseClass.id === useObserveProperties(useCourseSelectionStore(), ["selection"]).selection.courseClassId;
+		courseClass.id === useReactiveVars(useCourseSelectionStore(), ["selection"]).selection.courseClassId;
 
 	const { styles, theme } = props as Required<Pick<typeof props, "styles" | "theme">>;
 	const classNames = getClassNames(styles, { theme, isActive });

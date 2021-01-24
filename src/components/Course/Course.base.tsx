@@ -15,6 +15,7 @@ import { useCourseClassPlayerStore } from "../../modules/CourseClassPlayer";
 import { useCourseSelectionStore } from "../../modules/CourseSelection";
 import { useCourseClassListByCodeQuery } from "./Course.graphql.generated";
 import { CourseProps, CourseStyleProps, CourseStyles } from "./Course.types";
+import { useReactiveVar } from "@apollo/client";
 
 const getClassNames = classNamesFunction<CourseStyleProps, CourseStyles>();
 
@@ -29,9 +30,8 @@ export const CourseBase = (props: CourseProps) => {
 	const courseClassPlayerStore = useCourseClassPlayerStore();
 	const { pinCourseClassList } = useObserveProperties(courseClassPlayerStore, ["pinCourseClassList"]);
 
-	const selection = useObserveProperties(useObserveProperties(useCourseSelectionStore(), ["selection"]).selection, [
-		"courseClassListCode",
-	]);
+	const selection = useReactiveVar(useCourseSelectionStore().selection);
+
 	const courseClassListByCodeQueryResult = useCourseClassListByCodeQuery({
 		variables: selection.courseClassListCode
 			? {

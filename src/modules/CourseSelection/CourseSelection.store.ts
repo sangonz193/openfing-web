@@ -1,4 +1,4 @@
-import { action, observable } from "mobx";
+import { makeVar } from "@apollo/client";
 
 export type CompleteCourseSelectionStoreSelection = {
 	courseClassListId: string;
@@ -40,7 +40,7 @@ export type CourseSelectionStoreSelection =
 			Pick<CompleteCourseSelectionStoreSelection, "videoId" | "videoQualityId" | "videoFormatId">);
 
 export class CourseSelectionStore {
-	@observable selection: CourseSelectionStoreSelection = {
+	selection = makeVar<CourseSelectionStoreSelection>({
 		courseClassListId: undefined,
 		courseClassListCode: undefined,
 		courseClassId: undefined,
@@ -48,9 +48,5 @@ export class CourseSelectionStore {
 		videoId: undefined,
 		videoQualityId: undefined,
 		videoFormatId: undefined,
-	};
-
-	@action setSelection(selection: CourseSelectionStoreSelection) {
-		this.selection = selection;
-	}
+	});
 }

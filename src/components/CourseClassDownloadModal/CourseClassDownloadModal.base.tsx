@@ -1,17 +1,17 @@
+import { useReactiveVar } from "@apollo/client";
 import { PrimaryButton } from "@fluentui/react/lib/Button";
 import { Dialog, DialogFooter } from "@fluentui/react/lib/Dialog";
 import { Dropdown, IDropdownOption, ResponsiveMode } from "@fluentui/react/lib/Dropdown";
 import { Spinner, SpinnerSize } from "@fluentui/react/lib/Spinner";
 import React from "react";
 import { downloadFromUrl } from "src/_utils/downloadFromUrl";
-import { useObserveProperties } from "src/hooks/useObserveProperties";
 
 import { useCourseSelectionStore } from "../../modules/CourseSelection";
 import { useCourseClassByIdQuery } from "./CourseClassDownloadModal.graphql.generated";
 import { CourseClassDownloadModalProps } from "./CourseClassDownloadModal.types";
 
 export const CourseClassDownloadModalBase = (props: CourseClassDownloadModalProps) => {
-	const { selection } = useObserveProperties(useCourseSelectionStore(), ["selection"]);
+	const selection = useReactiveVar(useCourseSelectionStore().selection);
 	const { courseClassId } = selection;
 
 	const [dismissed, setDismissed] = React.useState(!props.visible);

@@ -8,6 +8,7 @@ import { classNamesFunction } from "@fluentui/react/lib/Utilities";
 import React from "react";
 import { useObserveProperties } from "src/hooks/useObserveProperties";
 
+import { useReactiveVars } from "../../hooks/useReactiveVars";
 import { useCourseClassPlayerStore } from "../../modules/CourseClassPlayer";
 import { useCourseSelectionStore } from "../../modules/CourseSelection";
 import { CourseClassDownloadButton } from "../CourseClassDownloadButton";
@@ -26,7 +27,7 @@ export const CourseDetailBase = (props: CourseDetailProps) => {
 	const courseClassPlayerStore = useCourseClassPlayerStore();
 
 	const { htmlVideoElement } = useObserveProperties(courseClassPlayerStore, ["htmlVideoElement"]);
-	const { selection } = useObserveProperties(useCourseSelectionStore(), ["selection"]);
+	const { selection } = useReactiveVars(useCourseSelectionStore(), ["selection"]);
 
 	const courseClassResult = useCourseClassByIdQuery({
 		variables: selection.courseClassId

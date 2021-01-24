@@ -4,7 +4,7 @@ import { autorun } from "mobx";
 import React from "react";
 
 import { secondsToString } from "../../_utils/secondsToString";
-import { useObserveProperties } from "../../hooks/useObserveProperties";
+import { useReactiveVars } from "../../hooks/useReactiveVars";
 import { useCourseClassPlayerStore } from "../../modules/CourseClassPlayer";
 import { useCourseSelectionStore } from "../../modules/CourseSelection";
 import { routeConfigMap } from "../../routeConfigMap";
@@ -39,11 +39,7 @@ export const CourseClassPlayerChapterItemBase = (props: CourseClassPlayerChapter
 	const classNames = getClassNames(styles, { theme, className: props.className, isActive });
 
 	const courseSelectionStore = useCourseSelectionStore();
-	const { selection } = useObserveProperties(courseSelectionStore, ["selection"]);
-	const { courseClassListCode, courseClassNumber } = useObserveProperties(selection, [
-		"courseClassListCode",
-		"courseClassNumber",
-	]);
+	const { courseClassListCode, courseClassNumber } = useReactiveVars(courseSelectionStore, ["selection"]).selection;
 
 	const href = React.useMemo(
 		() =>
