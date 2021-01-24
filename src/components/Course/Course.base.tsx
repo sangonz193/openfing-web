@@ -71,7 +71,7 @@ export const CourseBase = (props: CourseProps) => {
 		)
 	);
 
-	const showCourseDetail = (props.courseClassNo && course) || (isSM && pinCourseClassList);
+	const showCourseDetail = (props.courseClassNo && course) || isSM;
 
 	return (
 		<div className={classNames.root}>

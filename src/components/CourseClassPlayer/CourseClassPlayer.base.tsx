@@ -8,6 +8,7 @@ import React from "react";
 import ReactResizeDetector from "react-resize-detector";
 
 import { getCourseClassPlayerShortcuts } from "../../_utils/getCourseClassPlayerShortcuts";
+import { useDoubleClick } from "../../hooks/useDoubleClick";
 import { useReactiveVars } from "../../hooks/useReactiveVars";
 import { useAppStore } from "../../modules/App";
 import { CourseClassPlayerStore, useCourseClassPlayerStore } from "../../modules/CourseClassPlayer";
@@ -71,29 +72,18 @@ export const CourseClassPlayerBase = (props: CourseClassPlayerProps) => {
 	const showControlsForId = "controls-player";
 	const showControlsFor = () => courseClassPlayerStore.showControlsFor(showControlsForId, 3000);
 
-	const togglePlayTimeoutRef = React.useRef<NodeJS.Timeout>();
-	const handleWrapperClick = React.useCallback<React.MouseEventHandler>((e) => {
-		if (e.defaultPrevented) return;
-		e.preventDefault();
-
-		if (typeof togglePlayTimeoutRef.current === "number") {
-			// double click
-			clearTimeout(togglePlayTimeoutRef.current);
-			togglePlayTimeoutRef.current = undefined;
-
+	const handleWrapperClick = useDoubleClick({
+		onDoubleClick: React.useCallback(() => {
 			courseClassPlayerStore.toggleFullscreen();
-		} else {
-			const newTimeout = setTimeout(() => {
-				if (appStore.inputType() === "TOUCH")
-					if (courseClassPlayerStore.isBlockingShowControls(showControlsForId))
-						courseClassPlayerStore.unblockShowControls(showControlsForId);
-					else showControlsFor();
-				else courseClassPlayerStore.togglePlay();
+		}, []),
+		onClick: React.useCallback(() => courseClassPlayerStore.togglePlay(), []),
+	});
+	const handleWrapperTap = React.useCallback<React.MouseEventHandler>((e) => {
+		if (e.defaultPrevented) return;
 
-				if (newTimeout === togglePlayTimeoutRef.current) togglePlayTimeoutRef.current = undefined;
-			}, 300);
-			togglePlayTimeoutRef.current = newTimeout;
-		}
+		if (courseClassPlayerStore.isBlockingShowControls(showControlsForId))
+			courseClassPlayerStore.unblockShowControls(showControlsForId);
+		else showControlsFor();
 	}, []);
 
 	const [throttleShowControlsFor] = React.useState(() => throttle(() => showControlsFor(), 1000));
@@ -119,12 +109,44 @@ export const CourseClassPlayerBase = (props: CourseClassPlayerProps) => {
 		if (loaded) courseClassPlayerStore.showControlsFor("player", 2000);
 	}, [loaded]);
 
+	const handleLeftClick = useDoubleClick({
+		onDoubleClick: React.useCallback(() => {
+			const isBlockingControls = courseClassPlayerStore.isBlockingShowControls(showControlsForId);
+
+			courseClassPlayerStore.setCurrentTime(courseClassPlayerStore.currentTime() - 10);
+
+			if (isBlockingControls) courseClassPlayerStore.showControlsFor(showControlsForId, 3000);
+		}, []),
+		onClick: React.useCallback(() => {
+			const isBlockingControls = courseClassPlayerStore.isBlockingShowControls(showControlsForId);
+
+			if (isBlockingControls) courseClassPlayerStore.unblockShowControls(showControlsForId);
+			else courseClassPlayerStore.showControlsFor(showControlsForId, 3000);
+		}, []),
+	});
+
+	const handleRightClick = useDoubleClick({
+		onDoubleClick: React.useCallback(() => {
+			const isBlockingControls = courseClassPlayerStore.isBlockingShowControls(showControlsForId);
+
+			courseClassPlayerStore.setCurrentTime(courseClassPlayerStore.currentTime() + 10);
+
+			if (isBlockingControls) courseClassPlayerStore.showControlsFor(showControlsForId, 3000);
+		}, []),
+		onClick: React.useCallback(() => {
+			const isBlockingControls = courseClassPlayerStore.isBlockingShowControls(showControlsForId);
+
+			if (isBlockingControls) courseClassPlayerStore.unblockShowControls(showControlsForId);
+			else courseClassPlayerStore.showControlsFor(showControlsForId, 3000);
+		}, []),
+	});
+
 	return (
 		<div
 			ref={courseClassPlayerStore.setVideoWrapperInstance}
 			className={classNames.root}
 			onKeyDown={handleKeyDown}
-			onClick={handleWrapperClick}
+			onClick={inputType === "TOUCH" ? handleWrapperTap : handleWrapperClick}
 			onMouseMove={inputType !== "TOUCH" ? handleMouseMove : undefined}
 			tabIndex={0}
 			onFocus={handleFocus}
@@ -140,6 +162,13 @@ export const CourseClassPlayerBase = (props: CourseClassPlayerProps) => {
 
 			{loaded && (
 				<div className={classNames.controlsWrapper}>
+					{inputType === "TOUCH" && (
+						<>
+							<button className={classNames.leftTapArea} onClick={handleLeftClick} />
+							<button className={classNames.rightTapArea} onClick={handleRightClick} />
+						</>
+					)}
+
 					<CourseClassPlayerControlsBottomControls styles={classNames.subComponentStyles.bottomControls} />
 
 					<LayerHost id="course-class-player-controls" className={classNames.layerHost} />

@@ -1,6 +1,6 @@
 {
 	"name": "openfing-web",
-	"version": "1.4.0",
+	"version": "1.5.4",
 	"scripts": {
 		"start": "node cli start",
 		"generate-files": "node cli generate-files",

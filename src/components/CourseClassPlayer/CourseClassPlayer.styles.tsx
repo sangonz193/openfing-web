@@ -1,6 +1,21 @@
+import { IStyle } from "@fluentui/react";
+
 import { CourseClassPlayerStyleProps, CourseClassPlayerStyles } from "./CourseClassPlayer.types";
 
 export const getStyles = (props: CourseClassPlayerStyleProps): CourseClassPlayerStyles => {
+	const commonSideArea: IStyle = {
+		position: "absolute",
+		top: 0,
+		bottom: 0,
+		width: "50%",
+		display: "flex",
+
+		background: "none",
+		border: "none",
+
+		outline: "none",
+	};
+
 	return {
 		root: [
 			{
@@ -24,6 +39,16 @@ export const getStyles = (props: CourseClassPlayerStyleProps): CourseClassPlayer
 			bottom: 0,
 			left: 0,
 			display: "flex",
+		},
+
+		leftTapArea: {
+			...commonSideArea,
+			left: 0,
+		},
+
+		rightTapArea: {
+			...commonSideArea,
+			right: 0,
 		},
 
 		layerHost: {

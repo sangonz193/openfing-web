@@ -24,6 +24,8 @@ export type CourseClassPlayerStyleProps = {
 export type CourseClassPlayerStyles = {
 	root: IStyle;
 	controlsWrapper: IStyle;
+	leftTapArea: IStyle;
+	rightTapArea: IStyle;
 	layerHost: IStyle;
 
 	subComponentStyles: {
