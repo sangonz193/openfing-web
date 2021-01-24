@@ -21,9 +21,11 @@ export const CourseMasterBase = (props: CourseMasterProps) => {
 	const { styles, theme } = props as Required<Pick<typeof props, "styles" | "theme">>;
 
 	const history = useHistory();
-	const { courseClassListCode, courseClassListId } = useObserveProperties(useCourseSelectionStore(), [
-		"selection",
-	]).selection;
+	const { selection } = useObserveProperties(useCourseSelectionStore(), ["selection"]);
+	const { courseClassListCode, courseClassListId } = useObserveProperties(selection, [
+		"courseClassListCode",
+		"courseClassListId",
+	]);
 
 	const courseEditionsResponse = useCourseClassListByCodeQuery({
 		variables: courseClassListCode

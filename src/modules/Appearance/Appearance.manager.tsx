@@ -19,7 +19,7 @@ export const AppearanceManager: React.FC = () => {
 
 	const [handleAfterLoad, setHandleAfterLoad] = React.useState<(() => void) | undefined>(() => {
 		let resolve: () => void = () => {};
-		const promise = new Promise((r) => (resolve = r));
+		const promise = new Promise<void>((r) => (resolve = r));
 
 		(async () => {
 			await migrateAppearanceLocalStorage();

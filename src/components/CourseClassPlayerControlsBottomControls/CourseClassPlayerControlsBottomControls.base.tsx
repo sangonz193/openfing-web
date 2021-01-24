@@ -1,10 +1,12 @@
 import { classNamesFunction } from "@fluentui/react/lib/Utilities";
 import { Observer } from "mobx-react-lite";
 import React from "react";
+import { useMediaQuery } from "react-responsive";
 import { useObserveProperties } from "src/hooks/useObserveProperties";
 
 import { useAppStore } from "../../modules/App";
 import { useCourseClassPlayerStore } from "../../modules/CourseClassPlayer";
+import { Breakpoint } from "../../style";
 import { CourseClassPlayerButton } from "../CourseClassPlayerButton";
 import { CourseClassPlayerPlaybackRateButton } from "../CourseClassPlayerPlaybackRateButton";
 import { CourseClassPlayerShowChaptersButton } from "../CourseClassPlayerShowChaptersButton";
@@ -78,6 +80,8 @@ export const CourseClassPlayerControlsBottomControlsBase = (props: CourseClassPl
 		[]
 	);
 
+	const isSM = useMediaQuery({ minWidth: Breakpoint.sm });
+
 	return (
 		<div
 			className={classNames.root}
@@ -119,6 +123,23 @@ export const CourseClassPlayerControlsBottomControlsBase = (props: CourseClassPl
 				{chapterTextTracks.length > 0 && <CourseClassPlayerShowChaptersButton />}
 
 				<CourseClassPlayerPlaybackRateButton />
+
+				{isSM && (
+					<Observer>
+						{() => (
+							<CourseClassPlayerButton
+								iconName={courseClassPlayerStore.pinCourseClassList ? "Landscape" : "Square"}
+								buttonProps={{
+									title: courseClassPlayerStore.pinCourseClassList
+										? "Ocultar barra lateral"
+										: "Mostrar barra lateral",
+									onClick: () =>
+										(courseClassPlayerStore.pinCourseClassList = !courseClassPlayerStore.pinCourseClassList),
+								}}
+							/>
+						)}
+					</Observer>
+				)}
 
 				<Observer>
 					{() => (

@@ -4,13 +4,15 @@ import React from "react";
 
 import { dangerousKeysOf } from "../../_utils/dangerousKeysOf";
 import { wait } from "../../_utils/wait";
+import { useBlockInitialization } from "../Initialization";
 import { getTeachingStorageKeyByTeachingKey } from "./getTeachingStorageKeyByTeachingKey";
-import { teachingLocalStorage } from "./Teaching.storage";
+import { migrateTeachingLocalStorage, teachingLocalStorage } from "./Teaching.storage";
 import { TeachingKey } from "./Teaching.store";
 import { useTeachingStore } from "./useTeachingStore";
 
 export const TeachingManager: React.FC = () => {
 	const store = useTeachingStore();
+	const unblockInitialization = useBlockInitialization();
 
 	const didRanRef = React.useRef(false);
 	React.useEffect(() => {
@@ -24,6 +26,7 @@ export const TeachingManager: React.FC = () => {
 		);
 
 		(async () => {
+			await migrateTeachingLocalStorage();
 			const teachingKeyLocalStorageStatusMap = (
 				await Promise.all(
 					teachingKeys.map(async (teachingKey) => ({
@@ -48,6 +51,8 @@ export const TeachingManager: React.FC = () => {
 					);
 				});
 			});
+
+			unblockInitialization();
 		})();
 	}, []);
 

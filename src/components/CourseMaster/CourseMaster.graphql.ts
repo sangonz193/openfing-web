@@ -41,6 +41,7 @@ export const courseClassListClassesByCode = gql`
 		courseClassListByCode(code: $code) {
 			... on CourseClassList {
 				id
+				code
 
 				classes {
 					id

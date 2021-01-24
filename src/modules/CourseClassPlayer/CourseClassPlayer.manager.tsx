@@ -2,14 +2,37 @@ import throttle from "lodash/throttle";
 import React from "react";
 
 import { useObserveProperties } from "../../hooks/useObserveProperties";
+import { useBlockInitialization, useIsInitializing } from "../Initialization";
+import { courseClassPlayerLocalStorage, migrateCourseClassPlayerLocalStorage } from "./CourseClassPlayer.storage";
 import { useCourseClassPlayerStore } from "./useCourseClassPlayerStore";
 
 export const CourseClassPlayerManager: React.FC = () => {
 	const store = useCourseClassPlayerStore();
+	const unblockInitialization = useBlockInitialization();
+	const isInitializing = useIsInitializing();
 
-	useObserveProperties(store, ["htmlVideoElement", "htmlVideoWrapperElement"]);
+	const { pinCourseClassList } = useObserveProperties(store, [
+		"htmlVideoElement",
+		"htmlVideoWrapperElement",
+		"pinCourseClassList",
+	]);
 	const video = store.htmlVideoElement;
 	const wrapper = store.htmlVideoWrapperElement;
+
+	React.useState(() => {
+		(async () => {
+			await migrateCourseClassPlayerLocalStorage();
+
+			const pinCourseClassList = await courseClassPlayerLocalStorage.getItem("pinCourseClassList");
+			if (pinCourseClassList !== null) store.pinCourseClassList = pinCourseClassList;
+
+			unblockInitialization();
+		})();
+	});
+
+	React.useEffect(() => {
+		if (!isInitializing) courseClassPlayerLocalStorage.setItem("pinCourseClassList", pinCourseClassList);
+	}, [isInitializing, pinCourseClassList]);
 
 	React.useEffect(() => {
 		store.syncVideoState();
