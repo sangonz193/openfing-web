@@ -14,14 +14,5 @@ export type HomeStyleProps = {
 
 export type HomeStyles = {
 	root: IStyle;
-	backgroundContainer: IStyle;
-	backgroundImage: IStyle;
 	contentWrapper: IStyle;
-	topContentContainer: IStyle;
-	title: IStyle;
-	newItemList: IStyle;
-	newItem: IStyle;
-	helpWanted: IStyle;
-	suggestions: IStyle;
-	suggestionsEmail: IStyle;
 };

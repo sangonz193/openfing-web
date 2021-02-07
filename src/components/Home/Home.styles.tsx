@@ -9,82 +9,63 @@ export const getStyles = (props: HomeStyleProps): HomeStyles => {
 			{
 				position: "relative",
 				flex: "1 1 100%",
+
+				overflow: "auto",
 			},
 		],
 
-		backgroundContainer: {
-			position: "absolute",
-			top: 0,
-			right: 0,
-			bottom: 0,
-			left: 0,
-		},
-
-		backgroundImage: {
-			height: "100%",
-
-			backgroundColor: theme.palette.themeSecondary,
-		},
-
 		contentWrapper: {
-			height: "100%",
-
-			overflow: "auto",
+			width: 720,
+			maxWidth: "90%",
+			alignSelf: "center",
 		},
 
-		topContentContainer: {
-			margin: "auto",
-			maxWidth: 920,
-			width: "80%",
-			padding: "20px 0",
+		itemWrapper: {
+			display: "flex",
+			flexDirection: "column",
+			marginTop: 30,
 
-			zIndex: 1,
+			borderWidth: 1,
+			borderColor: theme.semanticColors.bodyDivider,
+			borderStyle: "solid",
+			backgroundColor: theme.semanticColors.bodyStandoutBackground,
+			borderRadius: theme.effects.roundedCorner4,
+			overflow: "hidden",
 		},
 
-		title: {
-			color: "rgb(241, 212, 153)",
-
-			textAlign: "center",
+		itemSeparator: {
+			height: 1,
+			// backgroundColor: theme.semanticColors.bodyDivider,
+			marginTop: 30,
+			marginLeft: "auto",
+			marginRight: "auto",
+			width: "50%",
 		},
 
-		newItemList: {},
+		itemImage: {
+			height: 350,
+			backgroundImage:
+				'url("https://img-prod-cms-rt-microsoft-com.akamaized.net/cms/api/am/imageFileData/RE4wpol?ver=f329")',
+			backgroundSize: "cover",
+		},
 
-		newItem: {
-			display: "list-item",
-			margin: "20px 12px 0 32px",
-
-			color: "white",
-
-			listStyle: "disc outside none",
-
-			selectors: {
-				"> span": {
-					color: "white",
+		subComponentStyles: {
+			itemTitle: {
+				root: {
+					margin: "10px 0px 0px 0",
+					paddingLeft: 20,
+					paddingRight: 20,
 				},
 			},
-		},
 
-		helpWanted: {
-			paddingTop: "32px",
-
-			color: "rgb(241, 212, 153)",
-
-			textAlign: "center",
-		},
-
-		suggestions: {
-			paddingTop: "32px",
-
-			color: "white",
-
-			textAlign: "center",
-			textTransform: "uppercase",
-		},
-
-		suggestionsEmail: {
-			display: "inline-block",
-
-			color: "white",
+			itemContent: {
+				root: {
+					marginTop: 0,
+					paddingLeft: 20,
+					paddingBottom: 20,
+					paddingRight: 20,
+				},
+			},
 		},
 	};
 };
