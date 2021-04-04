@@ -1,6 +1,6 @@
 import React from "react"
-import { ThemeKey } from "src/style/themes"
 
+import { ThemeKey } from "../../style/themes"
 import { useBlockInitialization } from "../Initialization"
 import { AppearanceContext } from "./Appearance.context"
 import { appearanceLocalStorage, migrateAppearanceLocalStorage } from "./Appearance.storage"
