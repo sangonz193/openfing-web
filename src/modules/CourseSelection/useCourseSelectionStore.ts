@@ -1,5 +1,5 @@
-import React from "react"
+import React from "react";
 
-import { CourseSelectionContext } from "./CourseSelection.context"
+import { CourseSelectionContext } from "./CourseSelection.context";
 
-export const useCourseSelectionStore = () => React.useContext(CourseSelectionContext)
+export const useCourseSelectionStore = () => React.useContext(CourseSelectionContext);

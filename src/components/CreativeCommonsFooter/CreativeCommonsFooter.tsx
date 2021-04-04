@@ -1,19 +1,19 @@
-import { Image, Link, Text } from "@fluentui/react"
-import React from "react"
+import { Image, Link, Text } from "@fluentui/react";
+import React from "react";
 
-import { Div } from "../Div"
-import CCImage from "./CreativeCommons.svg"
-import { useCreativeCommonsFooterStyles } from "./useCreativeCommonsFooterStyles"
+import { Div } from "../Div";
+import CCImage from "./CreativeCommons.svg";
+import { useCreativeCommonsFooterStyles } from "./useCreativeCommonsFooterStyles";
 
 export type CreativeCommonsFooterProps = {
-	children?: undefined
-	className?: string
-}
+	children?: undefined;
+	className?: string;
+};
 
 const CreativeCommonsFooterComponent: React.FC<CreativeCommonsFooterProps> = ({ className }) => {
 	const styles = useCreativeCommonsFooterStyles({
 		className,
-	})
+	});
 
 	return (
 		<Div className={styles.wrapper}>
@@ -34,7 +34,7 @@ const CreativeCommonsFooterComponent: React.FC<CreativeCommonsFooterProps> = ({ 
 				.
 			</Text>
 		</Div>
-	)
-}
+	);
+};
 
-export const CreativeCommonsFooter = React.memo(CreativeCommonsFooterComponent)
+export const CreativeCommonsFooter = React.memo(CreativeCommonsFooterComponent);

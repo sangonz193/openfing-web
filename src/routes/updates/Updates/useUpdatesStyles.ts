@@ -1,11 +1,11 @@
-import { css, makeStyles } from "@fluentui/react"
+import { css, makeStyles } from "@fluentui/react";
 
-import { getMaxWidthSelector } from "../../../styles/getMaxWidthSelector"
-import { getMinWidthSelector } from "../../../styles/getMinWidthSelector"
+import { getMaxWidthSelector } from "../../../styles/getMaxWidthSelector";
+import { getMinWidthSelector } from "../../../styles/getMinWidthSelector";
 
 export type UpdatesStyleProps = {
-	className: string | undefined
-}
+	className: string | undefined;
+};
 
 const useStyles = makeStyles((theme) => {
 	return {
@@ -60,16 +60,16 @@ const useStyles = makeStyles((theme) => {
 				height: 1,
 			},
 		},
-	}
-})
+	};
+});
 
 export function useUpdatesStyles({ className }: UpdatesStyleProps) {
-	const styles = useStyles()
+	const styles = useStyles();
 
 	return {
 		wrapper: css(styles.wrapper, className),
 		content: styles.content,
 		spinner: styles.spinner,
 		separator: styles.separator,
-	}
+	};
 }

@@ -1,4 +1,4 @@
-import { registerIcons } from "@fluentui/style-utilities"
+import { registerIcons } from "@fluentui/style-utilities";
 
 function SearchIcon() {
 	return (
@@ -19,13 +19,13 @@ function SearchIcon() {
 				d="M338.29 338.29L448 448"
 			></path>
 		</svg>
-	)
+	);
 }
 
-export const SEARCH_ICON_NAME = "Search"
+export const SEARCH_ICON_NAME = "Search";
 
 registerIcons({
 	icons: {
 		[SEARCH_ICON_NAME]: <SearchIcon />,
 	},
-})
+});

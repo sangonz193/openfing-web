@@ -1,14 +1,14 @@
-import { CommandModule } from "yargs"
+import { CommandModule } from "yargs";
 
-import { runPlopInterface } from "../../plop/runPlopInterface"
-import { ComponentPlopGeneratorAnswers } from "./component.plop-generator"
+import { runPlopInterface } from "../../plop/runPlopInterface";
+import { ComponentPlopGeneratorAnswers } from "./component.plop-generator";
 
 const command: CommandModule<
 	{},
 	{
-		name?: string
-		relativePath?: string
-		interactive?: boolean
+		name?: string;
+		relativePath?: string;
+		interactive?: boolean;
 	}
 > = {
 	command: "component [name] [relativePath]",
@@ -38,7 +38,7 @@ const command: CommandModule<
 		let config: Partial<ComponentPlopGeneratorAnswers> = {
 			name: args.name,
 			relativePath: args.relativePath,
-		}
+		};
 
 		if (!args.interactive) {
 			config = {
@@ -46,14 +46,14 @@ const command: CommandModule<
 				relativePath: args.relativePath ?? "src/components",
 				withChildren: config.withChildren ?? false,
 				withStyles: config.withStyles ?? true,
-			}
+			};
 		}
 
 		runPlopInterface({
 			generator: "component",
 			config,
-		})
+		});
 	},
-}
+};
 
-export default command
+export default command;

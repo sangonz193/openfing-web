@@ -1,10 +1,10 @@
-import { css, makeStyles } from "@fluentui/react"
+import { css, makeStyles } from "@fluentui/react";
 
-import { getMinWidthSelector } from "../../../../styles/getMinWidthSelector"
+import { getMinWidthSelector } from "../../../../styles/getMinWidthSelector";
 
 export type UpdateItemStyleProps = {
-	className: string | undefined
-}
+	className: string | undefined;
+};
 
 const useStyles = makeStyles((theme) => {
 	return {
@@ -64,11 +64,11 @@ const useStyles = makeStyles((theme) => {
 			marginTop: "auto",
 			marginLeft: "auto",
 		},
-	}
-})
+	};
+});
 
 export function useUpdateItemStyles({ className }: UpdateItemStyleProps) {
-	const styles = useStyles()
+	const styles = useStyles();
 
 	return {
 		wrapper: css(styles.wrapper, className),
@@ -78,5 +78,5 @@ export function useUpdateItemStyles({ className }: UpdateItemStyleProps) {
 		image: styles.image,
 		courseName: styles.courseName,
 		publishedAt: styles.publishedAt,
-	}
+	};
 }

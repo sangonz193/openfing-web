@@ -1,9 +1,9 @@
-import { makeVar } from "@apollo/client"
+import { makeVar } from "@apollo/client";
 
-export type InputType = "POINTER" | "TOUCH"
+export type InputType = "POINTER" | "TOUCH";
 
 export class AppStore {
-	inputType = makeVar<InputType>("POINTER")
-	isFocused = makeVar(true)
-	isFocusVisible = makeVar(false)
+	inputType = makeVar<InputType>("POINTER");
+	isFocused = makeVar(true);
+	isFocusVisible = makeVar(false);
 }

@@ -1,5 +1,5 @@
-import React from "react"
+import React from "react";
 
-import { NavigationContext } from "./Navigation.context"
+import { NavigationContext } from "./Navigation.context";
 
-export const useNavigationStore = () => React.useContext(NavigationContext)
+export const useNavigationStore = () => React.useContext(NavigationContext);

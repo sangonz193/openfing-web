@@ -1,8 +1,8 @@
-import identity from "lodash/identity"
+import identity from "lodash/identity";
 
-import { hasProperty } from "../../_utils/hasProperty"
+import { hasProperty } from "../../_utils/hasProperty";
 
-export type ThemeKey = "light" | "dark" | "black" | "auto"
+export type ThemeKey = "light" | "dark" | "black" | "auto";
 
 export const isThemeKey = (value: string): value is ThemeKey => {
 	return hasProperty(
@@ -13,5 +13,5 @@ export const isThemeKey = (value: string): value is ThemeKey => {
 			dark: 0,
 		}),
 		value
-	)
-}
+	);
+};

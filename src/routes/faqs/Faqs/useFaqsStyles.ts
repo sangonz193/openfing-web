@@ -1,10 +1,10 @@
-import { css, makeStyles } from "@fluentui/react"
+import { css, makeStyles } from "@fluentui/react";
 
-import { getMinWidthSelector } from "../../../styles/getMinWidthSelector"
+import { getMinWidthSelector } from "../../../styles/getMinWidthSelector";
 
 export type FaqsStyleProps = {
-	className: string | undefined
-}
+	className: string | undefined;
+};
 
 const useStyles = makeStyles((theme) => {
 	return {
@@ -46,16 +46,16 @@ const useStyles = makeStyles((theme) => {
 				maxWidth: 720,
 			},
 		},
-	}
-})
+	};
+});
 
 export function useFaqsStyles({ className }: FaqsStyleProps) {
-	const styles = useStyles()
+	const styles = useStyles();
 
 	return {
 		wrapper: css(styles.wrapper, className),
 		content: styles.content,
 		spinnerRoot: styles.spinnerRoot,
 		separator: styles.separator,
-	}
+	};
 }

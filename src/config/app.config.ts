@@ -1,4 +1,4 @@
-import * as yup from "yup"
+import * as yup from "yup";
 
 const { BACKEND_URL, PUBLIC_URL } = yup
 	.object({
@@ -6,7 +6,7 @@ const { BACKEND_URL, PUBLIC_URL } = yup
 		PUBLIC_URL: yup.string().required(),
 	})
 	.required()
-	.validateSync(process.env)
+	.validateSync(process.env);
 
 export const appConfig = {
 	production: process.env.NODE_ENV === "production",
@@ -15,4 +15,4 @@ export const appConfig = {
 	storageScope: PUBLIC_URL,
 	historyBasename: process.env.PUBLIC_URL as string,
 	baseUrl: (location.origin + process.env.PUBLIC_URL).replace(/\/$/, ""),
-}
+};

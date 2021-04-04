@@ -1,19 +1,19 @@
-import { Link, Stack, Text } from "@fluentui/react"
-import React from "react"
+import { Link, Stack, Text } from "@fluentui/react";
+import React from "react";
 
-import { useLayoutOptions } from "../../../components/Layout/useLayoutOptions"
-import { useHomeStyles } from "./useHomeStyles"
+import { useLayoutOptions } from "../../../components/Layout/useLayoutOptions";
+import { useHomeStyles } from "./useHomeStyles";
 
 export type HomeProps = {
-	children?: undefined
-}
+	children?: undefined;
+};
 
 const HomeComponent: React.FC<HomeProps> = () => {
-	const styles = useHomeStyles()
+	const styles = useHomeStyles();
 
 	useLayoutOptions({
 		showHeader: false,
-	})
+	});
 
 	return (
 		<div className={styles.wrapper}>
@@ -60,7 +60,7 @@ const HomeComponent: React.FC<HomeProps> = () => {
 				</Stack>
 			</Stack>
 		</div>
-	)
-}
+	);
+};
 
-export const Home = React.memo(HomeComponent)
+export const Home = React.memo(HomeComponent);

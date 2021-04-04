@@ -21,4 +21,4 @@ export const possibleTypes = {
 		"AuthenticationError",
 		"NotFoundError",
 	],
-}
+};

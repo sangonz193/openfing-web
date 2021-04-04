@@ -1,21 +1,21 @@
-import { makeVar } from "@apollo/client"
+import { makeVar } from "@apollo/client";
 
 import {
 	CourseSelectionCourseClassListByCodeWithClassesFragment,
 	CourseSelectionCourseClassListByCodeWithIdFragment,
-} from "./CourseSelection.graphql.generated"
+} from "./CourseSelection.graphql.generated";
 
 export type CompleteCourseSelectionStoreSelection = {
-	courseClassListId: string
-	courseClassListCode: string
-	courseClassId: string
-	courseClassNumber: number
-	videoId: string
-	videoQualityId: string
-	videoFormatId: string
-}
+	courseClassListId: string;
+	courseClassListCode: string;
+	courseClassId: string;
+	courseClassNumber: number;
+	videoId: string;
+	videoQualityId: string;
+	videoFormatId: string;
+};
 
-export type EmptyCourseSelectionStoreSelection = Partial<CompleteCourseSelectionStoreSelection>
+export type EmptyCourseSelectionStoreSelection = Partial<CompleteCourseSelectionStoreSelection>;
 
 export type SelectedCourseClassListCourseSelectionStoreSelection =
 	| (Omit<EmptyCourseSelectionStoreSelection, "courseClassListId"> &
@@ -23,7 +23,7 @@ export type SelectedCourseClassListCourseSelectionStoreSelection =
 	| (Omit<EmptyCourseSelectionStoreSelection, "courseClassListCode"> &
 			Pick<CompleteCourseSelectionStoreSelection, "courseClassListCode">)
 	| (Omit<EmptyCourseSelectionStoreSelection, "courseClassListId" | "courseClassListCode"> &
-			Pick<CompleteCourseSelectionStoreSelection, "courseClassListId" | "courseClassListCode">)
+			Pick<CompleteCourseSelectionStoreSelection, "courseClassListId" | "courseClassListCode">);
 
 export type SelectedCourseClassCourseSelectionStoreSelection =
 	| (Omit<SelectedCourseClassListCourseSelectionStoreSelection, "courseClassId"> &
@@ -31,7 +31,7 @@ export type SelectedCourseClassCourseSelectionStoreSelection =
 	| (Omit<SelectedCourseClassListCourseSelectionStoreSelection, "courseClassNumber"> &
 			Pick<CompleteCourseSelectionStoreSelection, "courseClassNumber">)
 	| (Omit<EmptyCourseSelectionStoreSelection, "courseClassId" | "courseClassNumber"> &
-			Pick<CompleteCourseSelectionStoreSelection, "courseClassId" | "courseClassNumber">)
+			Pick<CompleteCourseSelectionStoreSelection, "courseClassId" | "courseClassNumber">);
 
 export type CourseSelectionStoreSelection =
 	| EmptyCourseSelectionStoreSelection
@@ -42,7 +42,7 @@ export type CourseSelectionStoreSelection =
 	| (Omit<SelectedCourseClassCourseSelectionStoreSelection, "videoId" | "videoQualityId"> &
 			Pick<CompleteCourseSelectionStoreSelection, "videoId" | "videoQualityId">)
 	| (Omit<SelectedCourseClassCourseSelectionStoreSelection, "videoId" | "videoQualityId" | "videoFormatId"> &
-			Pick<CompleteCourseSelectionStoreSelection, "videoId" | "videoQualityId" | "videoFormatId">)
+			Pick<CompleteCourseSelectionStoreSelection, "videoId" | "videoQualityId" | "videoFormatId">);
 
 export class CourseSelectionStore {
 	selection = makeVar<CourseSelectionStoreSelection>({
@@ -53,10 +53,10 @@ export class CourseSelectionStore {
 		videoId: undefined,
 		videoQualityId: undefined,
 		videoFormatId: undefined,
-	})
+	});
 
-	courseClassListByCodeWithId = makeVar<CourseSelectionCourseClassListByCodeWithIdFragment | undefined>(undefined)
+	courseClassListByCodeWithId = makeVar<CourseSelectionCourseClassListByCodeWithIdFragment | undefined>(undefined);
 	courseClassListByCodeWithClasses = makeVar<CourseSelectionCourseClassListByCodeWithClassesFragment | undefined>(
 		undefined
-	)
+	);
 }

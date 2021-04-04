@@ -1,4 +1,4 @@
-import gql from "graphql-tag"
+import gql from "graphql-tag";
 
 export const FaqItemFragmentDoc = gql`
 	fragment FaqItemFaq on Faq {
@@ -7,4 +7,4 @@ export const FaqItemFragmentDoc = gql`
 		content
 		isHtml
 	}
-`
+`;

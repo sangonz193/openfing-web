@@ -1,34 +1,34 @@
-import { DirectionalHint, FocusZone, FocusZoneDirection, TeachingBubble } from "@fluentui/react"
-import React from "react"
-import { useMediaQuery } from "react-responsive"
+import { DirectionalHint, FocusZone, FocusZoneDirection, TeachingBubble } from "@fluentui/react";
+import React from "react";
+import { useMediaQuery } from "react-responsive";
 
-import { useTeachingKeyStatus } from "../../modules/Teaching"
-import { coursesRouteConfig } from "../../routes/courses/courses.route.config"
-import { faqsRouteConfig } from "../../routes/faqs/faqs.route.config"
-import { homeRouteConfig } from "../../routes/home/home.route.config"
-import { settingsRouteConfig } from "../../routes/settings/settings.route.config"
-import { updatesRouteConfig } from "../../routes/updates/updates.route.config"
-import { Breakpoint } from "../../styles/Breakpoint"
-import { HELP_CIRCLE_ICON_NAME } from "../Icon/HelpCircle.icon"
-import { HOME_ICON_NAME } from "../Icon/Home.icon"
-import { SETTINGS_ICON_NAME } from "../Icon/Settings.icon"
-import { TIME_ICON_NAME } from "../Icon/Time.icon"
-import { VIDEO_CAMERA_ICON_NAME } from "../Icon/VideoCamera.icon"
-import { NavbarButton } from "../NavbarButton"
-import { useNavbarStyles } from "./useNavbarStyles"
+import { useTeachingKeyStatus } from "../../modules/Teaching";
+import { coursesRouteConfig } from "../../routes/courses/courses.route.config";
+import { faqsRouteConfig } from "../../routes/faqs/faqs.route.config";
+import { homeRouteConfig } from "../../routes/home/home.route.config";
+import { settingsRouteConfig } from "../../routes/settings/settings.route.config";
+import { updatesRouteConfig } from "../../routes/updates/updates.route.config";
+import { Breakpoint } from "../../styles/Breakpoint";
+import { HELP_CIRCLE_ICON_NAME } from "../Icon/HelpCircle.icon";
+import { HOME_ICON_NAME } from "../Icon/Home.icon";
+import { SETTINGS_ICON_NAME } from "../Icon/Settings.icon";
+import { TIME_ICON_NAME } from "../Icon/Time.icon";
+import { VIDEO_CAMERA_ICON_NAME } from "../Icon/VideoCamera.icon";
+import { NavbarButton } from "../NavbarButton";
+import { useNavbarStyles } from "./useNavbarStyles";
 
 export type NavbarProps = {
-	children?: undefined
-}
+	children?: undefined;
+};
 
 const NavbarComponent: React.FC<NavbarProps> = () => {
-	const styles = useNavbarStyles()
-	const isMd = useMediaQuery({ minWidth: Breakpoint.md })
+	const styles = useNavbarStyles();
+	const isMd = useMediaQuery({ minWidth: Breakpoint.md });
 
-	const [teachingDarkThemeStatus, handleTeachingDarkThemeDismissed] = useTeachingKeyStatus("dark-theme")
+	const [teachingDarkThemeStatus, handleTeachingDarkThemeDismissed] = useTeachingKeyStatus("dark-theme");
 
-	const browserDarkMode = useMediaQuery({ query: "(prefers-color-scheme: dark)" })
-	const navBarSettingsId = "nav-bar-settings"
+	const browserDarkMode = useMediaQuery({ query: "(prefers-color-scheme: dark)" });
+	const navBarSettingsId = "nav-bar-settings";
 
 	return (
 		<FocusZone
@@ -87,7 +87,7 @@ const NavbarComponent: React.FC<NavbarProps> = () => {
 				</TeachingBubble>
 			)}
 		</FocusZone>
-	)
-}
+	);
+};
 
-export const Navbar = React.memo(NavbarComponent)
+export const Navbar = React.memo(NavbarComponent);

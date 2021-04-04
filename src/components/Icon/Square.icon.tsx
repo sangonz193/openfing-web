@@ -1,4 +1,4 @@
-import { registerIcons } from "@fluentui/style-utilities"
+import { registerIcons } from "@fluentui/style-utilities";
 
 function SquareIcon() {
 	return (
@@ -12,13 +12,13 @@ function SquareIcon() {
 				strokeWidth="32"
 			/>
 		</svg>
-	)
+	);
 }
 
-export const SQUARE_ICON_NAME = "Square"
+export const SQUARE_ICON_NAME = "Square";
 
 registerIcons({
 	icons: {
 		[SQUARE_ICON_NAME]: <SquareIcon />,
 	},
-})
+});

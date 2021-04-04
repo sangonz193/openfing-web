@@ -1,5 +1,5 @@
-import { History } from "history"
+import { History } from "history";
 
-import { useNavigationStore } from "./useNavigationStore"
+import { useNavigationStore } from "./useNavigationStore";
 
-export const useHistory: () => History = () => useNavigationStore()
+export const useHistory: () => History = () => useNavigationStore();

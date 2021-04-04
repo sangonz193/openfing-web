@@ -1,24 +1,24 @@
-import identity from "lodash/identity"
-import path from "path"
-import { AddManyActionConfig } from "plop"
+import identity from "lodash/identity";
+import path from "path";
+import { AddManyActionConfig } from "plop";
 
-import { getFormattedCode } from "../../../../_utils/getFormattedCode"
-import { projectPath } from "../../../../_utils/projectPath"
-import { GetPlopGeneratorConfig } from "../../plop/GetPlopGeneratorConfig"
+import { getFormattedCode } from "../../../../_utils/getFormattedCode";
+import { projectPath } from "../../../../_utils/projectPath";
+import { GetPlopGeneratorConfig } from "../../plop/GetPlopGeneratorConfig";
 
 export type ComponentPlopGeneratorAnswers = {
-	name: string
-	relativePath: string
-	withStyles: boolean
-	withChildren: boolean
-}
+	name: string;
+	relativePath: string;
+	withStyles: boolean;
+	withChildren: boolean;
+};
 
 export const getComponentPlopGeneratorBypassArgsFromAnswers = (answers: Partial<ComponentPlopGeneratorAnswers>) => [
 	answers.name ?? "_",
 	answers.relativePath ?? "_",
 	answers.withStyles?.toString() ?? "_",
 	answers.withChildren?.toString() ?? "_",
-]
+];
 
 const getConfig: GetPlopGeneratorConfig = (plop) => ({
 	description: "Create a new component.",
@@ -37,15 +37,15 @@ const getConfig: GetPlopGeneratorConfig = (plop) => ({
 			message: "Relative path where to place the component:",
 			default: "src/components",
 			validate: (input: string) => {
-				const srcPath = path.resolve(projectPath, "src")
-				const absoluteInputPath = path.resolve(projectPath, input)
+				const srcPath = path.resolve(projectPath, "src");
+				const absoluteInputPath = path.resolve(projectPath, input);
 
-				const relative = path.relative(srcPath, absoluteInputPath)
+				const relative = path.relative(srcPath, absoluteInputPath);
 
 				return (
 					(relative && !relative.startsWith("..") && !path.isAbsolute(relative)) ||
 					"The folder must be inside the src folder."
-				)
+				);
 			},
 		},
 		{
@@ -62,21 +62,21 @@ const getConfig: GetPlopGeneratorConfig = (plop) => ({
 
 	actions: (_answers) => {
 		if (!_answers) {
-			return []
+			return [];
 		}
-		const answers = _answers as ComponentPlopGeneratorAnswers
+		const answers = _answers as ComponentPlopGeneratorAnswers;
 		const renderString = (text: string): string => {
-			return plop.renderString(text, answers)
-		}
+			return plop.renderString(text, answers);
+		};
 
-		const handlebarsFolderPath = path.resolve(__dirname, "handlebars")
-		const handlebarsFilePathPattern = path.resolve(handlebarsFolderPath, "**", "*")
-		const destination = renderString(path.resolve(projectPath, answers.relativePath))
+		const handlebarsFolderPath = path.resolve(__dirname, "handlebars");
+		const handlebarsFilePathPattern = path.resolve(handlebarsFolderPath, "**", "*");
+		const destination = renderString(path.resolve(projectPath, answers.relativePath));
 
-		const templateFiles: string[] = [handlebarsFilePathPattern]
+		const templateFiles: string[] = [handlebarsFilePathPattern];
 
 		if (!answers.withStyles) {
-			templateFiles.push("!**/use*Styles.ts.hbs")
+			templateFiles.push("!**/use*Styles.ts.hbs");
 		}
 
 		return [
@@ -101,8 +101,8 @@ const getConfig: GetPlopGeneratorConfig = (plop) => ({
 				path: "",
 				transform: getFormattedCode,
 			}),
-		]
+		];
 	},
-})
+});
 
-export default getConfig
+export default getConfig;

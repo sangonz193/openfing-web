@@ -1,23 +1,23 @@
-import { makeVar } from "@apollo/client"
-import FuzzySearch from "fuzzy-search"
+import { makeVar } from "@apollo/client";
+import FuzzySearch from "fuzzy-search";
 
-import { listenVar } from "../../_utils/listenVar"
-import { CourseFragment_CourseSearchFragment } from "./CourseSearch.graphql.generated"
+import { listenVar } from "../../_utils/listenVar";
+import { CourseFragment_CourseSearchFragment } from "./CourseSearch.graphql.generated";
 
 export class CourseSearchStore {
-	source = makeVar<CourseFragment_CourseSearchFragment[]>([])
-	searchValue = makeVar<string>("")
-	searchResults = makeVar<CourseFragment_CourseSearchFragment[]>([])
+	source = makeVar<CourseFragment_CourseSearchFragment[]>([]);
+	searchValue = makeVar<string>("");
+	searchResults = makeVar<CourseFragment_CourseSearchFragment[]>([]);
 
-	protected listeners: Array<() => void> = []
+	protected listeners: Array<() => void> = [];
 
 	constructor() {
-		this.listeners.push(listenVar(this.source, this.updateSearchResults))
-		this.listeners.push(listenVar(this.searchValue, this.updateSearchResults))
+		this.listeners.push(listenVar(this.source, this.updateSearchResults));
+		this.listeners.push(listenVar(this.searchValue, this.updateSearchResults));
 	}
 
 	dispose() {
-		this.listeners.forEach((listener) => listener())
+		this.listeners.forEach((listener) => listener());
 	}
 
 	protected getSearcher() {
@@ -37,11 +37,11 @@ export class CourseSearchStore {
 			{
 				sort: true,
 			}
-		)
+		);
 	}
 
 	private updateSearchResults = () => {
-		const searcher = this.getSearcher()
+		const searcher = this.getSearcher();
 		this.searchResults(
 			searcher.search(
 				this.searchValue()
@@ -52,6 +52,6 @@ export class CourseSearchStore {
 					.replace(/ó/g, "o")
 					.replace(/ú/g, "u")
 			)
-		)
-	}
+		);
+	};
 }

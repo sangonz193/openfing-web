@@ -1,4 +1,4 @@
-import { registerIcons } from "@fluentui/style-utilities"
+import { registerIcons } from "@fluentui/style-utilities";
 
 function ShareSocialIcon() {
 	return (
@@ -50,13 +50,13 @@ function ShareSocialIcon() {
 				d="M342.17 135.53L169.83 232.47"
 			></path>
 		</svg>
-	)
+	);
 }
 
-export const SHARE_SOCIAL_ICON_NAME = "ShareSocial"
+export const SHARE_SOCIAL_ICON_NAME = "ShareSocial";
 
 registerIcons({
 	icons: {
 		[SHARE_SOCIAL_ICON_NAME]: <ShareSocialIcon />,
 	},
-})
+});

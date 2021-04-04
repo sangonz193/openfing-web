@@ -1,4 +1,4 @@
-import { registerIcons } from "@fluentui/style-utilities"
+import { registerIcons } from "@fluentui/style-utilities";
 
 function TimeIcon() {
 	return (
@@ -19,13 +19,13 @@ function TimeIcon() {
 				d="M256 128L256 272 352 272"
 			></path>
 		</svg>
-	)
+	);
 }
 
-export const TIME_ICON_NAME = "Time"
+export const TIME_ICON_NAME = "Time";
 
 registerIcons({
 	icons: {
 		[TIME_ICON_NAME]: <TimeIcon />,
 	},
-})
+});

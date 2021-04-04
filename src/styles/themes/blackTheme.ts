@@ -1,4 +1,4 @@
-import { createTheme, IPartialTheme } from "@fluentui/react/lib/Styling"
+import { createTheme, IPartialTheme } from "@fluentui/react/lib/Styling";
 
 const palette: IPartialTheme["palette"] = {
 	themePrimary: "#4796e6",
@@ -23,7 +23,7 @@ const palette: IPartialTheme["palette"] = {
 	neutralDark: "#fcfcfc",
 	black: "#fdfdfd",
 	white: "#000000",
-}
+};
 
 export const blackTheme = createTheme({
 	defaultFontStyle: {
@@ -32,4 +32,4 @@ export const blackTheme = createTheme({
 	},
 	palette,
 	isInverted: true,
-})
+});

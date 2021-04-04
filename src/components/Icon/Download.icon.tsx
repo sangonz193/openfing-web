@@ -1,4 +1,4 @@
-import { registerIcons } from "@fluentui/style-utilities"
+import { registerIcons } from "@fluentui/style-utilities";
 
 function DownloadIcon() {
 	return (
@@ -28,13 +28,13 @@ function DownloadIcon() {
 				d="M256 48L256 336"
 			></path>
 		</svg>
-	)
+	);
 }
 
-export const DOWNLOAD_ICON_NAME = "Download"
+export const DOWNLOAD_ICON_NAME = "Download";
 
 registerIcons({
 	icons: {
 		[DOWNLOAD_ICON_NAME]: <DownloadIcon />,
 	},
-})
+});

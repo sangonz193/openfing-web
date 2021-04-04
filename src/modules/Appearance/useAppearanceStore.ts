@@ -1,10 +1,10 @@
-import React from "react"
+import React from "react";
 
-import { AppearanceContext } from "./Appearance.context"
-import { AppearanceStore } from "./Appearance.store"
+import { AppearanceContext } from "./Appearance.context";
+import { AppearanceStore } from "./Appearance.store";
 
 export const useAppearanceStore = (): AppearanceStore => {
-	const context = React.useContext(AppearanceContext)
+	const context = React.useContext(AppearanceContext);
 
-	return context as Exclude<typeof context, Function>
-}
+	return context as Exclude<typeof context, Function>;
+};

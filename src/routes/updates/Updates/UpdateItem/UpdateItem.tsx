@@ -1,25 +1,25 @@
-import { Image, ImageFit, Link, Text } from "@fluentui/react"
-import React from "react"
+import { Image, ImageFit, Link, Text } from "@fluentui/react";
+import React from "react";
 
-import { Div } from "../../../../components/Div"
-import { useLocalLinkProps } from "../../../../hooks/useLocalLinkProps"
-import { courseRouteConfig } from "../../../courses/course/course.route.config"
-import { UpdateItemCourseClassFragment } from "./UpdateItem.graphql.generated"
-import { useUpdateItemStyles } from "./useUpdateItemStyles"
+import { Div } from "../../../../components/Div";
+import { useLocalLinkProps } from "../../../../hooks/useLocalLinkProps";
+import { courseRouteConfig } from "../../../courses/course/course.route.config";
+import { UpdateItemCourseClassFragment } from "./UpdateItem.graphql.generated";
+import { useUpdateItemStyles } from "./useUpdateItemStyles";
 
 export type UpdateItemProps = {
-	children?: undefined
-	className?: string
-	courseClass: UpdateItemCourseClassFragment
-}
+	children?: undefined;
+	className?: string;
+	courseClass: UpdateItemCourseClassFragment;
+};
 
 const UpdateItemComponent: React.FC<UpdateItemProps> = ({ className, courseClass }) => {
 	const styles = useUpdateItemStyles({
 		className,
-	})
+	});
 
-	const { courseClassList } = courseClass
-	const course = courseClassList?.courseEdition?.course
+	const { courseClassList } = courseClass;
+	const course = courseClassList?.courseEdition?.course;
 
 	const url = React.useMemo(
 		() =>
@@ -30,19 +30,19 @@ const UpdateItemComponent: React.FC<UpdateItemProps> = ({ className, courseClass
 				  })
 				: "",
 		[courseClassList?.code, courseClass.number]
-	)
+	);
 
 	const name = React.useMemo(() => {
 		if (!courseClass.name) {
-			return ""
+			return "";
 		}
 
 		if (!courseClass.number) {
-			return courseClass.name
+			return courseClass.name;
 		}
 
-		return `${courseClass.number} - ${courseClass.name}`
-	}, [courseClass.number, courseClass.name])
+		return `${courseClass.number} - ${courseClass.name}`;
+	}, [courseClass.number, courseClass.name]);
 
 	const publishedAt = React.useMemo(
 		() =>
@@ -53,7 +53,7 @@ const UpdateItemComponent: React.FC<UpdateItemProps> = ({ className, courseClass
 				}).format(new Date(courseClass.publishedAt))) ||
 			null,
 		[courseClass.publishedAt]
-	)
+	);
 
 	return (
 		<Div className={styles.wrapper}>
@@ -73,7 +73,7 @@ const UpdateItemComponent: React.FC<UpdateItemProps> = ({ className, courseClass
 				</Div>
 			</Link>
 		</Div>
-	)
-}
+	);
+};
 
-export const UpdateItem = React.memo(UpdateItemComponent)
+export const UpdateItem = React.memo(UpdateItemComponent);

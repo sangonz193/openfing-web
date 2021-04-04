@@ -8,41 +8,41 @@ import {
 	PrimaryButton,
 	Stack,
 	TextField,
-} from "@fluentui/react"
-import pick from "lodash/pick"
-import React from "react"
+} from "@fluentui/react";
+import pick from "lodash/pick";
+import React from "react";
 
-import { copyToClipboard } from "../../../../../_utils/copyToClipboard"
-import { CANCEL_ICON_NAME } from "../../../../../components/Icon/Cancel.icon"
-import { CHECKMARK_CIRCLE_ICON_NAME } from "../../../../../components/Icon/CheckmarkCircle.icon"
-import { COPY_ICON_NAME } from "../../../../../components/Icon/Copy.icon"
-import { appConfig } from "../../../../../config/app.config"
-import { useReactiveVars } from "../../../../../hooks/useReactiveVars"
-import { useCourseClassPlayerStore } from "../../../../../modules/CourseClassPlayer"
-import { useCourseSelectionStore } from "../../../../../modules/CourseSelection"
-import { courseRouteConfig, CourseRouteConfigGetPathParams } from "../../course.route.config"
-import { useCourseClassByIdQuery } from "./CourseClassShareModal.graphql.generated"
-import { courseClassShareModalReducer, initCourseClassShareModalReducer } from "./CourseClassShareModal.reducer"
-import { useCourseClassShareModalStyles } from "./useCourseClassShareModalStyles"
+import { copyToClipboard } from "../../../../../_utils/copyToClipboard";
+import { CANCEL_ICON_NAME } from "../../../../../components/Icon/Cancel.icon";
+import { CHECKMARK_CIRCLE_ICON_NAME } from "../../../../../components/Icon/CheckmarkCircle.icon";
+import { COPY_ICON_NAME } from "../../../../../components/Icon/Copy.icon";
+import { appConfig } from "../../../../../config/app.config";
+import { useReactiveVars } from "../../../../../hooks/useReactiveVars";
+import { useCourseClassPlayerStore } from "../../../../../modules/CourseClassPlayer";
+import { useCourseSelectionStore } from "../../../../../modules/CourseSelection";
+import { courseRouteConfig, CourseRouteConfigGetPathParams } from "../../course.route.config";
+import { useCourseClassByIdQuery } from "./CourseClassShareModal.graphql.generated";
+import { courseClassShareModalReducer, initCourseClassShareModalReducer } from "./CourseClassShareModal.reducer";
+import { useCourseClassShareModalStyles } from "./useCourseClassShareModalStyles";
 
 export type CourseClassShareModalProps = {
-	children?: undefined
-	visible: Boolean
-	onClose?: () => void
-}
+	children?: undefined;
+	visible: Boolean;
+	onClose?: () => void;
+};
 
 const CourseClassShareModalComponent: React.FC<CourseClassShareModalProps> = ({ visible, onClose }) => {
-	const styles = useCourseClassShareModalStyles({})
+	const styles = useCourseClassShareModalStyles({});
 	const [state, dispatch] = React.useReducer(courseClassShareModalReducer, undefined, () =>
 		initCourseClassShareModalReducer({
 			seconds: 0,
 			courseClassListCode: undefined,
 			courseClassNo: undefined,
 		})
-	)
-	const [successfulMessageVisible, setSuccessfulMessageVisible] = React.useState(false)
+	);
+	const [successfulMessageVisible, setSuccessfulMessageVisible] = React.useState(false);
 
-	const courseClassId = useReactiveVars(useCourseSelectionStore(), ["selection"]).selection.courseClassId
+	const courseClassId = useReactiveVars(useCourseSelectionStore(), ["selection"]).selection.courseClassId;
 	const courseClassListResponse = useCourseClassByIdQuery({
 		skip: !courseClassId,
 		variables: courseClassId
@@ -50,13 +50,13 @@ const CourseClassShareModalComponent: React.FC<CourseClassShareModalProps> = ({ 
 					id: courseClassId,
 			  }
 			: undefined,
-	})
+	});
 
-	const courseClassPlayerStore = useCourseClassPlayerStore()
+	const courseClassPlayerStore = useCourseClassPlayerStore();
 	const courseClass =
 		courseClassListResponse.data?.courseClassById.__typename === "CourseClass"
 			? courseClassListResponse.data.courseClassById
-			: undefined
+			: undefined;
 	React.useEffect(() => {
 		if (visible) {
 			if (courseClass?.courseClassList?.code && courseClass.number) {
@@ -65,26 +65,26 @@ const CourseClassShareModalComponent: React.FC<CourseClassShareModalProps> = ({ 
 					courseClassListCode: courseClass.courseClassList.code,
 					courseClassNo: courseClass.number,
 					seconds: courseClassPlayerStore.currentTime(),
-				})
+				});
 			} else {
-				dispatch({ type: "reset", courseClassListCode: undefined, courseClassNo: undefined, seconds: 0 })
+				dispatch({ type: "reset", courseClassListCode: undefined, courseClassNo: undefined, seconds: 0 });
 			}
 
-			setSuccessfulMessageVisible(false)
+			setSuccessfulMessageVisible(false);
 		}
-	}, [visible, courseClass])
+	}, [visible, courseClass]);
 
 	const url = React.useMemo(() => {
-		const { courseClassListCode, courseClassNo, startOnSeconds, endOnSeconds } = state
+		const { courseClassListCode, courseClassNo, startOnSeconds, endOnSeconds } = state;
 
 		if (!courseClassListCode || !courseClassNo) {
-			return ""
+			return "";
 		}
 
 		let getPathParams: CourseRouteConfigGetPathParams = {
 			code: courseClassListCode,
 			courseClassNumber: courseClassNo,
-		}
+		};
 
 		if (state.startOn && typeof getPathParams.courseClassNumber === "number") {
 			getPathParams = {
@@ -92,38 +92,38 @@ const CourseClassShareModalComponent: React.FC<CourseClassShareModalProps> = ({ 
 				courseClassNumber: getPathParams.courseClassNumber,
 				startOnSeconds: startOnSeconds,
 				endOnSeconds: state.endOn ? endOnSeconds : undefined,
-			}
+			};
 		}
 
-		return appConfig.baseUrl + courseRouteConfig.path(getPathParams)
-	}, Object.values(pick(state, ["courseClassListCode", "courseClassNo", "startOn", "startOnSeconds", "endOn", "endOnSeconds"])))
+		return appConfig.baseUrl + courseRouteConfig.path(getPathParams);
+	}, Object.values(pick(state, ["courseClassListCode", "courseClassNo", "startOn", "startOnSeconds", "endOn", "endOnSeconds"])));
 
 	const handleCopy = React.useCallback(() => {
-		copyToClipboard(url)
-		setSuccessfulMessageVisible(true)
-	}, [url])
+		copyToClipboard(url);
+		setSuccessfulMessageVisible(true);
+	}, [url]);
 
-	const handleStartOnCheckboxChange = React.useCallback(() => dispatch({ type: "toggle-start-on" }), [])
+	const handleStartOnCheckboxChange = React.useCallback(() => dispatch({ type: "toggle-start-on" }), []);
 
 	const handleStartOnInputChange = React.useCallback<Required<ITextFieldProps>["onChange"]>((_, value) => {
 		if (typeof value === "string") {
-			dispatch({ type: "update-start-on-input-value", value })
+			dispatch({ type: "update-start-on-input-value", value });
 		}
-	}, [])
+	}, []);
 	const handleStartOnInputBlur = React.useCallback<Required<ITextFieldProps>["onBlur"]>(() => {
-		dispatch({ type: "calculate-url" })
-	}, [])
+		dispatch({ type: "calculate-url" });
+	}, []);
 
-	const handleEndOnCheckboxChange = React.useCallback(() => dispatch({ type: "toggle-end-on" }), [])
+	const handleEndOnCheckboxChange = React.useCallback(() => dispatch({ type: "toggle-end-on" }), []);
 
 	const handleEndOnInputChange = React.useCallback<Required<ITextFieldProps>["onChange"]>((_, value) => {
 		if (typeof value === "string") {
-			dispatch({ type: "update-end-on-input-value", value })
+			dispatch({ type: "update-end-on-input-value", value });
 		}
-	}, [])
+	}, []);
 	const handleEndOnInputBlur = React.useCallback<Required<ITextFieldProps>["onBlur"]>(() => {
-		dispatch({ type: "calculate-url" })
-	}, [])
+		dispatch({ type: "calculate-url" });
+	}, []);
 
 	return (
 		<Dialog
@@ -207,7 +207,7 @@ const CourseClassShareModalComponent: React.FC<CourseClassShareModalProps> = ({ 
 				</Stack>
 			</Stack>
 		</Dialog>
-	)
-}
+	);
+};
 
-export const CourseClassShareModal = React.memo(CourseClassShareModalComponent)
+export const CourseClassShareModal = React.memo(CourseClassShareModalComponent);

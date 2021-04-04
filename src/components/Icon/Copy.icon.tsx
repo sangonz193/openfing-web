@@ -1,4 +1,4 @@
-import { registerIcons } from "@fluentui/style-utilities"
+import { registerIcons } from "@fluentui/style-utilities";
 
 function CopyIcon() {
 	return (
@@ -24,13 +24,13 @@ function CopyIcon() {
 				d="M383.5 128l.5-24a56.16 56.16 0 00-56-56H112a64.19 64.19 0 00-64 64v216a56.16 56.16 0 0056 56h24"
 			></path>
 		</svg>
-	)
+	);
 }
 
-export const COPY_ICON_NAME = "Copy"
+export const COPY_ICON_NAME = "Copy";
 
 registerIcons({
 	icons: {
 		[COPY_ICON_NAME]: <CopyIcon />,
 	},
-})
+});

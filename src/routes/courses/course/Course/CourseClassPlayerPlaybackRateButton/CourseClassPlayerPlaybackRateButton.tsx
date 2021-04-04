@@ -6,36 +6,36 @@ import {
 	IContextualMenuProps,
 	Stack,
 	Text,
-} from "@fluentui/react"
-import keyboardKey from "keyboard-key"
-import React from "react"
+} from "@fluentui/react";
+import keyboardKey from "keyboard-key";
+import React from "react";
 
-import { getCourseClassPlayerShortcuts } from "../../../../../_utils/getCourseClassPlayerShortcuts"
-import { useReactiveVars } from "../../../../../hooks/useReactiveVars"
-import { useAppStore } from "../../../../../modules/App"
-import { useCourseClassPlayerStore } from "../../../../../modules/CourseClassPlayer"
-import { CourseClassPlayerButton, CourseClassPlayerButtonProps } from "../CourseClassPlayerButton"
-import { CourseClassPlayerPlaybackRateContextMenuSlider } from "../CourseClassPlayerPlaybackRateContextMenuSlider"
-import { CourseClassPlayerPlaybackRateMenuItem } from "../CourseClassPlayerPlaybackRateMenuItem"
-import { useCourseClassPlayerPlaybackRateButtonStyles } from "./useCourseClassPlayerPlaybackRateButtonStyles"
+import { getCourseClassPlayerShortcuts } from "../../../../../_utils/getCourseClassPlayerShortcuts";
+import { useReactiveVars } from "../../../../../hooks/useReactiveVars";
+import { useAppStore } from "../../../../../modules/App";
+import { useCourseClassPlayerStore } from "../../../../../modules/CourseClassPlayer";
+import { CourseClassPlayerButton, CourseClassPlayerButtonProps } from "../CourseClassPlayerButton";
+import { CourseClassPlayerPlaybackRateContextMenuSlider } from "../CourseClassPlayerPlaybackRateContextMenuSlider";
+import { CourseClassPlayerPlaybackRateMenuItem } from "../CourseClassPlayerPlaybackRateMenuItem";
+import { useCourseClassPlayerPlaybackRateButtonStyles } from "./useCourseClassPlayerPlaybackRateButtonStyles";
 
-const courseClassPlayerControlsBlockerId = "course-class-player-controls"
+const courseClassPlayerControlsBlockerId = "course-class-player-controls";
 
 export type CourseClassPlayerPlaybackRateButtonProps = {
-	children?: undefined
-}
+	children?: undefined;
+};
 
-const playbackRates: number[] = []
+const playbackRates: number[] = [];
 for (let i = 8; i > 0; i--) {
-	playbackRates.push(i * 0.25)
+	playbackRates.push(i * 0.25);
 }
 
 const CourseClassPlayerPlaybackRateButtonComponent: React.FC<CourseClassPlayerPlaybackRateButtonProps> = ({}) => {
-	const styles = useCourseClassPlayerPlaybackRateButtonStyles({})
+	const styles = useCourseClassPlayerPlaybackRateButtonStyles({});
 
-	const appStore = useAppStore()
-	const courseClassPlayerStore = useCourseClassPlayerStore()
-	const { isFullscreen, playbackRate } = useReactiveVars(courseClassPlayerStore, ["isFullscreen", "playbackRate"])
+	const appStore = useAppStore();
+	const courseClassPlayerStore = useCourseClassPlayerStore();
+	const { isFullscreen, playbackRate } = useReactiveVars(courseClassPlayerStore, ["isFullscreen", "playbackRate"]);
 
 	const menuItems: IContextualMenuItem[] = React.useMemo(
 		() =>
@@ -45,15 +45,15 @@ const CourseClassPlayerPlaybackRateButtonComponent: React.FC<CourseClassPlayerPl
 				onClick: () => courseClassPlayerStore.setPlaybackRate(r),
 			})),
 		[]
-	)
+	);
 
 	const contextualMenuItemAs: IContextualMenuProps["contextualMenuItemAs"] = React.useCallback(
 		(props) => <CourseClassPlayerPlaybackRateMenuItem contextualMenuItemProps={props} />,
 		[]
-	)
+	);
 
-	const handleMenuDismiss = React.useCallback(() => courseClassPlayerStore.unblockShowControls("volume"), [])
-	const handleMenuOpened = React.useCallback(() => courseClassPlayerStore.blockShowControls("volume"), [])
+	const handleMenuDismiss = React.useCallback(() => courseClassPlayerStore.unblockShowControls("volume"), []);
+	const handleMenuOpened = React.useCallback(() => courseClassPlayerStore.blockShowControls("volume"), []);
 
 	const handleRenderMenuList: IContextualMenuProps["onRenderMenuList"] = React.useCallback(
 		(props, defaultRenderer) =>
@@ -71,7 +71,7 @@ const CourseClassPlayerPlaybackRateButtonComponent: React.FC<CourseClassPlayerPl
 				</FocusTrapZone>
 			) : null,
 		[styles]
-	)
+	);
 
 	const calloutProps: Partial<ICalloutProps> = React.useMemo(
 		() => ({
@@ -80,7 +80,7 @@ const CourseClassPlayerPlaybackRateButtonComponent: React.FC<CourseClassPlayerPl
 			},
 		}),
 		[isFullscreen]
-	)
+	);
 
 	const _menuProps: IContextualMenuProps = {
 		items: menuItems,
@@ -91,33 +91,33 @@ const CourseClassPlayerPlaybackRateButtonComponent: React.FC<CourseClassPlayerPl
 		onRenderMenuList: handleRenderMenuList,
 		className: styles.menu,
 		calloutProps,
-	}
-	const menuProps = React.useMemo(() => _menuProps, Object.values(_menuProps))
+	};
+	const menuProps = React.useMemo(() => _menuProps, Object.values(_menuProps));
 
 	const handleKeyDown = React.useCallback<React.KeyboardEventHandler<unknown>>((e) => {
 		if (e.defaultPrevented || e.altKey || e.ctrlKey || e.metaKey || e.shiftKey) {
-			return
+			return;
 		}
 
 		if (appStore.isFocusVisible()) {
-			const spaceBarKey: keyof typeof keyboardKey = " "
+			const spaceBarKey: keyof typeof keyboardKey = " ";
 
 			if (keyboardKey.getKey(e) === spaceBarKey) {
-				;(e.currentTarget as HTMLButtonElement).click()
-				e.preventDefault()
+				(e.currentTarget as HTMLButtonElement).click();
+				e.preventDefault();
 			}
 
-			return
+			return;
 		}
 
-		const shortcuts = getCourseClassPlayerShortcuts(courseClassPlayerStore)
-		const shortcut = shortcuts[keyboardKey.getKey(e) as keyof typeof keyboardKey]
+		const shortcuts = getCourseClassPlayerShortcuts(courseClassPlayerStore);
+		const shortcut = shortcuts[keyboardKey.getKey(e) as keyof typeof keyboardKey];
 
 		if (shortcut) {
-			shortcut()
-			e.preventDefault()
+			shortcut();
+			e.preventDefault();
 		}
-	}, [])
+	}, []);
 
 	const buttonProps = React.useMemo<CourseClassPlayerButtonProps["buttonProps"]>(
 		() => ({
@@ -126,7 +126,7 @@ const CourseClassPlayerPlaybackRateButtonComponent: React.FC<CourseClassPlayerPl
 			onRenderMenuIcon: () => null,
 		}),
 		[menuProps, handleKeyDown]
-	)
+	);
 
 	return (
 		<CourseClassPlayerButton className={styles.button} buttonProps={buttonProps}>
@@ -134,7 +134,7 @@ const CourseClassPlayerPlaybackRateButtonComponent: React.FC<CourseClassPlayerPl
 				{playbackRate.toLocaleString(undefined, { minimumFractionDigits: 1 }).replace(",", ".")}x
 			</Text>
 		</CourseClassPlayerButton>
-	)
-}
+	);
+};
 
-export const CourseClassPlayerPlaybackRateButton = React.memo(CourseClassPlayerPlaybackRateButtonComponent)
+export const CourseClassPlayerPlaybackRateButton = React.memo(CourseClassPlayerPlaybackRateButtonComponent);

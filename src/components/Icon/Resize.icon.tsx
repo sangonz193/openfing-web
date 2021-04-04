@@ -1,4 +1,4 @@
-import { registerIcons } from "@fluentui/style-utilities"
+import { registerIcons } from "@fluentui/style-utilities";
 
 function ResizeIcon() {
 	return (
@@ -28,13 +28,13 @@ function ResizeIcon() {
 				d="M208 416L96 416 96 304"
 			></path>
 		</svg>
-	)
+	);
 }
 
-export const RESIZE_ICON_NAME = "Resize"
+export const RESIZE_ICON_NAME = "Resize";
 
 registerIcons({
 	icons: {
 		[RESIZE_ICON_NAME]: <ResizeIcon />,
 	},
-})
+});

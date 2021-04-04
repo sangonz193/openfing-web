@@ -1,12 +1,12 @@
-import React from "react"
+import React from "react";
 
-const SENTINEL = {}
+const SENTINEL = {};
 
 export const useRefWithInitializer = <T>(initializer: () => T): React.MutableRefObject<T> => {
-	const ref = React.useRef<T | typeof SENTINEL>(SENTINEL)
+	const ref = React.useRef<T | typeof SENTINEL>(SENTINEL);
 	if (ref.current === SENTINEL) {
-		ref.current = initializer()
+		ref.current = initializer();
 	}
 
-	return ref as React.MutableRefObject<T>
-}
+	return ref as React.MutableRefObject<T>;
+};

@@ -1,8 +1,8 @@
-import { createTypedStorage } from "../../storage/createTypedStorage"
+import { createTypedStorage } from "../../storage/createTypedStorage";
 
 export type CourseClassPlayerLocalStorageKeyValue = {
-	pinCourseClassList: boolean
-}
+	pinCourseClassList: boolean;
+};
 
 export const courseClassPlayerLocalStorage = createTypedStorage<CourseClassPlayerLocalStorageKeyValue>({
 	scope: "courseClassPlayer",
@@ -20,6 +20,6 @@ export const courseClassPlayerLocalStorage = createTypedStorage<CourseClassPlaye
 	keyKeys: {
 		pinCourseClassList: 0,
 	},
-})
+});
 
-export const migrateCourseClassPlayerLocalStorage = async () => {}
+export const migrateCourseClassPlayerLocalStorage = async () => {};

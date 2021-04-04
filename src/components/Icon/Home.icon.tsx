@@ -1,4 +1,4 @@
-import { registerIcons } from "@fluentui/style-utilities"
+import { registerIcons } from "@fluentui/style-utilities";
 
 function HomeIcon() {
 	return (
@@ -28,13 +28,13 @@ function HomeIcon() {
 				d="M400 179L400 64 352 64 352 133"
 			></path>
 		</svg>
-	)
+	);
 }
 
-export const HOME_ICON_NAME = "Home"
+export const HOME_ICON_NAME = "Home";
 
 registerIcons({
 	icons: {
 		[HOME_ICON_NAME]: <HomeIcon />,
 	},
-})
+});

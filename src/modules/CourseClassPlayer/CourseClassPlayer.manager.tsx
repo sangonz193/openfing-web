@@ -1,49 +1,49 @@
-import throttle from "lodash/throttle"
-import React from "react"
+import throttle from "lodash/throttle";
+import React from "react";
 
-import { useReactiveVars } from "../../hooks/useReactiveVars"
-import { useRefWithInitializer } from "../../hooks/useRefWithInitializer"
-import { useBlockInitialization, useIsInitializing } from "../Initialization"
-import { courseClassPlayerLocalStorage, migrateCourseClassPlayerLocalStorage } from "./CourseClassPlayer.storage"
-import { useCourseClassPlayerStore } from "./useCourseClassPlayerStore"
+import { useReactiveVars } from "../../hooks/useReactiveVars";
+import { useRefWithInitializer } from "../../hooks/useRefWithInitializer";
+import { useBlockInitialization, useIsInitializing } from "../Initialization";
+import { courseClassPlayerLocalStorage, migrateCourseClassPlayerLocalStorage } from "./CourseClassPlayer.storage";
+import { useCourseClassPlayerStore } from "./useCourseClassPlayerStore";
 
 export const CourseClassPlayerManager: React.FC = () => {
-	const store = useCourseClassPlayerStore()
-	const unblockInitialization = useBlockInitialization()
-	const isInitializing = useIsInitializing()
+	const store = useCourseClassPlayerStore();
+	const unblockInitialization = useBlockInitialization();
+	const isInitializing = useIsInitializing();
 
 	const { pinCourseClassList, htmlVideoElement, htmlVideoWrapperElement } = useReactiveVars(store, [
 		"htmlVideoElement",
 		"htmlVideoWrapperElement",
 		"pinCourseClassList",
-	])
+	]);
 
 	useRefWithInitializer(async () => {
-		await migrateCourseClassPlayerLocalStorage()
+		await migrateCourseClassPlayerLocalStorage();
 
-		const pinCourseClassList = await courseClassPlayerLocalStorage.getItem("pinCourseClassList")
+		const pinCourseClassList = await courseClassPlayerLocalStorage.getItem("pinCourseClassList");
 		if (pinCourseClassList !== null) {
-			store.pinCourseClassList(pinCourseClassList)
+			store.pinCourseClassList(pinCourseClassList);
 		}
 
-		unblockInitialization()
-		return {}
-	})
+		unblockInitialization();
+		return {};
+	});
 
 	React.useEffect(() => {
 		if (!isInitializing) {
-			courseClassPlayerLocalStorage.setItem("pinCourseClassList", pinCourseClassList)
+			courseClassPlayerLocalStorage.setItem("pinCourseClassList", pinCourseClassList);
 		}
-	}, [isInitializing, pinCourseClassList])
+	}, [isInitializing, pinCourseClassList]);
 
 	React.useEffect(() => {
-		store.syncVideoState()
+		store.syncVideoState();
 
 		if (!htmlVideoElement) {
-			return
+			return;
 		}
 
-		const throttleSyncState = throttle(() => store.syncVideoState(), 300)
+		const throttleSyncState = throttle(() => store.syncVideoState(), 300);
 
 		const eventMap: Partial<Record<keyof HTMLMediaElementEventMap, (e: Event) => boolean>> = {
 			encrypted: undefined,
@@ -115,47 +115,47 @@ export const CourseClassPlayerManager: React.FC = () => {
 			copy: undefined,
 			cut: undefined,
 			paste: undefined,
-		}
+		};
 
-		const eventListeners: Array<[keyof HTMLMediaElementEventMap, (e: Event) => void]> = []
+		const eventListeners: Array<[keyof HTMLMediaElementEventMap, (e: Event) => void]> = [];
 
 		for (const key in eventMap) {
-			const typedKey = key as keyof HTMLMediaElementEventMap
+			const typedKey = key as keyof HTMLMediaElementEventMap;
 
 			eventListeners.push([
 				typedKey,
 				(e: Event) => {
-					const value = eventMap[key as keyof HTMLMediaElementEventMap]
+					const value = eventMap[key as keyof HTMLMediaElementEventMap];
 
 					if (!value || value(e)) {
-						throttleSyncState()
+						throttleSyncState();
 					}
 				},
-			])
+			]);
 		}
 
 		for (const [key, eventListener] of eventListeners) {
-			htmlVideoElement.addEventListener(key, eventListener)
+			htmlVideoElement.addEventListener(key, eventListener);
 		}
 
 		return () => {
 			for (const [key, eventListener] of eventListeners) {
-				htmlVideoElement.removeEventListener(key, eventListener)
+				htmlVideoElement.removeEventListener(key, eventListener);
 			}
-		}
-	}, [htmlVideoElement])
+		};
+	}, [htmlVideoElement]);
 
 	React.useEffect(() => {
 		const syncFullscreenState = () => {
-			store.isFullscreen(!!document.fullscreenElement && htmlVideoWrapperElement === document.fullscreenElement)
-		}
+			store.isFullscreen(!!document.fullscreenElement && htmlVideoWrapperElement === document.fullscreenElement);
+		};
 
-		syncFullscreenState()
+		syncFullscreenState();
 
-		document.addEventListener("fullscreenchange", syncFullscreenState)
+		document.addEventListener("fullscreenchange", syncFullscreenState);
 
-		return () => document.removeEventListener("fullscreenchange", syncFullscreenState)
-	}, [htmlVideoWrapperElement])
+		return () => document.removeEventListener("fullscreenchange", syncFullscreenState);
+	}, [htmlVideoWrapperElement]);
 
-	return null
-}
+	return null;
+};

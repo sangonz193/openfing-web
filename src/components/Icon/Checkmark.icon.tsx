@@ -1,4 +1,4 @@
-import { registerIconAlias, registerIcons } from "@fluentui/style-utilities"
+import { registerIconAlias, registerIcons } from "@fluentui/style-utilities";
 
 function CheckmarkIcon() {
 	return (
@@ -12,15 +12,15 @@ function CheckmarkIcon() {
 				d="M416 128L192 384 96 288"
 			></path>
 		</svg>
-	)
+	);
 }
 
-export const CHECKMARK_ICON_NAME = "Checkmark"
+export const CHECKMARK_ICON_NAME = "Checkmark";
 
 registerIcons({
 	icons: {
 		[CHECKMARK_ICON_NAME]: <CheckmarkIcon />,
 	},
-})
+});
 
-registerIconAlias("checkmark", CHECKMARK_ICON_NAME)
+registerIconAlias("checkmark", CHECKMARK_ICON_NAME);

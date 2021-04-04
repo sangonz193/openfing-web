@@ -1,9 +1,9 @@
-import { css, makeStyles } from "@fluentui/react"
+import { css, makeStyles } from "@fluentui/react";
 
 export type CourseMasterStyleProps = {
-	className: string | undefined
-	showCourseClassListDropdown: boolean
-}
+	className: string | undefined;
+	showCourseClassListDropdown: boolean;
+};
 
 const useStyles = makeStyles((theme) => {
 	return {
@@ -35,11 +35,11 @@ const useStyles = makeStyles((theme) => {
 		editionDropdown: {
 			marginRight: 10,
 		},
-	}
-})
+	};
+});
 
 export function useCourseMasterStyles({ className, showCourseClassListDropdown }: CourseMasterStyleProps) {
-	const styles = useStyles()
+	const styles = useStyles();
 
 	return {
 		wrapper: css(styles.wrapper, className),
@@ -47,5 +47,5 @@ export function useCourseMasterStyles({ className, showCourseClassListDropdown }
 		editionsSpinner: styles.editionsSpinner,
 		itemSeparator: styles.itemSeparator,
 		editionDropdown: css(showCourseClassListDropdown && styles.editionDropdown),
-	}
+	};
 }

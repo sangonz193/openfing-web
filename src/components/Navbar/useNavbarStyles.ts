@@ -1,8 +1,8 @@
-import { css, makeStyles } from "@fluentui/react"
+import { css, makeStyles } from "@fluentui/react";
 
-import { getMinWidthSelector } from "../../styles/getMinWidthSelector"
+import { getMinWidthSelector } from "../../styles/getMinWidthSelector";
 
-export type NavbarStyleProps = {}
+export type NavbarStyleProps = {};
 
 const useStyles = makeStyles((theme) => {
 	return {
@@ -31,15 +31,15 @@ const useStyles = makeStyles((theme) => {
 		iconSettings: {
 			marginTop: "auto",
 		},
-	}
-})
+	};
+});
 
 export function useNavbarStyles({}: NavbarStyleProps = {}) {
-	const styles = useStyles()
+	const styles = useStyles();
 
 	return {
 		focusZone: styles.focusZone,
 		navbarButton: styles.navbarButton,
 		settings: css(styles.navbarButton, styles.iconSettings),
-	}
+	};
 }

@@ -1,10 +1,10 @@
-import { css, makeStyles } from "@fluentui/react"
+import { css, makeStyles } from "@fluentui/react";
 
-import { getMinWidthSelector } from "../../styles/getMinWidthSelector"
+import { getMinWidthSelector } from "../../styles/getMinWidthSelector";
 
 export type CreativeCommonsFooterStyleProps = {
-	className: string | undefined
-}
+	className: string | undefined;
+};
 
 const useStyles = makeStyles((theme) => {
 	return {
@@ -44,16 +44,16 @@ const useStyles = makeStyles((theme) => {
 		link: {
 			color: theme.semanticColors.link,
 		},
-	}
-})
+	};
+});
 
 export function useCreativeCommonsFooterStyles({ className }: CreativeCommonsFooterStyleProps) {
-	const styles = useStyles()
+	const styles = useStyles();
 
 	return {
 		wrapper: css(styles.wrapper, className),
 		imageContainer: styles.imageContainer,
 		image: styles.image,
 		link: styles.link,
-	}
+	};
 }

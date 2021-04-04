@@ -1,55 +1,55 @@
-import { makeVar, ReactiveVar } from "@apollo/client"
-import { Map } from "immutable"
+import { makeVar, ReactiveVar } from "@apollo/client";
+import { Map } from "immutable";
 
-import { makeComputedVar } from "../../_utils/makeComputedVar"
+import { makeComputedVar } from "../../_utils/makeComputedVar";
 
-export const initialBlockerId = "initial-blocker"
+export const initialBlockerId = "initial-blocker";
 
 export class InitializationStore {
-	blockers = makeVar(Map([[initialBlockerId as string, true as const]]))
-	resetCallbacks = makeVar<Array<() => void>>([])
-	childrenKey = makeVar(false)
+	blockers = makeVar(Map([[initialBlockerId as string, true as const]]));
+	resetCallbacks = makeVar<Array<() => void>>([]);
+	childrenKey = makeVar(false);
 
-	initializing: ReactiveVar<boolean>
+	initializing: ReactiveVar<boolean>;
 
-	listeners: Array<() => void> = []
+	listeners: Array<() => void> = [];
 
 	constructor() {
 		this.initializing = makeComputedVar([this.blockers], ([map]) => {
-			return map.size > 0
-		})
+			return map.size > 0;
+		});
 	}
 
 	block(id: string) {
-		this.blockers(this.blockers().set(id, true))
+		this.blockers(this.blockers().set(id, true));
 	}
 
 	unblock(id: string) {
-		this.blockers(this.blockers().remove(id))
+		this.blockers(this.blockers().remove(id));
 	}
 
 	reset() {
-		const resetCallbacks = this.resetCallbacks()
+		const resetCallbacks = this.resetCallbacks();
 
-		this.childrenKey(!this.childrenKey())
+		this.childrenKey(!this.childrenKey());
 
-		this.resetCallbacks([])
-		resetCallbacks.forEach((callback) => callback())
+		this.resetCallbacks([]);
+		resetCallbacks.forEach((callback) => callback());
 	}
 
 	addResetListener(listener: () => void) {
-		this.resetCallbacks([...this.resetCallbacks(), listener])
+		this.resetCallbacks([...this.resetCallbacks(), listener]);
 	}
 
 	removeResetListener(listener: () => void) {
-		const indexOf = this.resetCallbacks().indexOf(listener)
+		const indexOf = this.resetCallbacks().indexOf(listener);
 
 		if (indexOf >= 0) {
-			this.resetCallbacks(this.resetCallbacks().splice(indexOf, 1))
+			this.resetCallbacks(this.resetCallbacks().splice(indexOf, 1));
 		}
 	}
 
 	dispose() {
-		this.listeners.forEach((listener) => listener())
+		this.listeners.forEach((listener) => listener());
 	}
 }

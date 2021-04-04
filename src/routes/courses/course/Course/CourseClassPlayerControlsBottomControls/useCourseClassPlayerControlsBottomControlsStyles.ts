@@ -1,9 +1,9 @@
-import { AnimationStyles, css, makeStyles } from "@fluentui/react"
+import { AnimationStyles, css, makeStyles } from "@fluentui/react";
 
 export type CourseClassPlayerControlsBottomControlsStyleProps = {
-	className: string | undefined
-	visible: boolean
-}
+	className: string | undefined;
+	visible: boolean;
+};
 
 const useStyles = makeStyles((theme) => {
 	return {
@@ -37,19 +37,19 @@ const useStyles = makeStyles((theme) => {
 				height: 8,
 			},
 		},
-	}
-})
+	};
+});
 
 export function useCourseClassPlayerControlsBottomControlsStyles({
 	className,
 	visible,
 }: CourseClassPlayerControlsBottomControlsStyleProps) {
-	const styles = useStyles()
+	const styles = useStyles();
 
 	return {
 		wrapper: css(styles.wrapper, className, visible ? styles.wrapperVisible : styles.wrapperInvisible),
 		buttonsContainer: styles.buttonsContainer,
 		button: styles.button,
 		returnButton: styles.returnButton,
-	}
+	};
 }

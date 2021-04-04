@@ -1,4 +1,4 @@
-import { registerIcons } from "@fluentui/style-utilities"
+import { registerIcons } from "@fluentui/style-utilities";
 
 function CancelIcon() {
 	return (
@@ -20,13 +20,13 @@ function CancelIcon() {
 				d="M368 144L144 368"
 			></path>
 		</svg>
-	)
+	);
 }
 
-export const CANCEL_ICON_NAME = "Cancel"
+export const CANCEL_ICON_NAME = "Cancel";
 
 registerIcons({
 	icons: {
 		[CANCEL_ICON_NAME]: <CancelIcon />,
 	},
-})
+});

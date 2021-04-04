@@ -1,6 +1,6 @@
-import { makeVar, ReactiveVar } from "@apollo/client"
+import { makeVar, ReactiveVar } from "@apollo/client";
 
-import { listenVar } from "./listenVar"
+import { listenVar } from "./listenVar";
 
 export function makeComputedVar<ArrT extends readonly [ReactiveVar<any>, ...Array<ReactiveVar<any>>], TReturn>(
 	reactiveVars: ArrT,
@@ -9,21 +9,21 @@ export function makeComputedVar<ArrT extends readonly [ReactiveVar<any>, ...Arra
 	) => TReturn
 ) {
 	const listenersParams = reactiveVars.map((reactiveVar) => reactiveVar()) as {
-		-readonly [i in keyof ArrT]: ArrT[i] extends ReactiveVar<infer TVar> ? TVar : never
-	}
+		-readonly [i in keyof ArrT]: ArrT[i] extends ReactiveVar<infer TVar> ? TVar : never;
+	};
 
-	const result = makeVar(listener(listenersParams))
-	let timeout: number
+	const result = makeVar(listener(listenersParams));
+	let timeout: number;
 	reactiveVars.forEach((reactiveVar, index) => {
 		listenVar(reactiveVar, (newValue) => {
-			listenersParams[index] = newValue
+			listenersParams[index] = newValue;
 
-			window.clearTimeout(timeout)
+			window.clearTimeout(timeout);
 			timeout = window.setTimeout(() => {
-				result(listener(listenersParams))
-			})
-		})
-	})
+				result(listener(listenersParams));
+			});
+		});
+	});
 
-	return result
+	return result;
 }

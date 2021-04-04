@@ -1,4 +1,4 @@
-import { registerIcons } from "@fluentui/style-utilities"
+import { registerIcons } from "@fluentui/style-utilities";
 
 function VolumeMuteIcon() {
 	return (
@@ -20,13 +20,13 @@ function VolumeMuteIcon() {
 				d="M480 256c0-74.26-20.19-121.11-50.51-168.61a16 16 0 10-27 17.22C429.82 147.38 448 189.5 448 256c0 47.45-8.9 82.12-23.59 113a4 4 0 00.77 4.55L443 391.39a4 4 0 006.4-1C470.88 348.22 480 307 480 256z"
 			></path>
 		</svg>
-	)
+	);
 }
 
-export const VOLUME_MUTE_ICON_NAME = "VolumeMute"
+export const VOLUME_MUTE_ICON_NAME = "VolumeMute";
 
 registerIcons({
 	icons: {
 		[VOLUME_MUTE_ICON_NAME]: <VolumeMuteIcon />,
 	},
-})
+});

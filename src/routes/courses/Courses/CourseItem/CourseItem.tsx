@@ -1,28 +1,28 @@
-import { Image, ImageFit, Link, Text } from "@fluentui/react"
-import React from "react"
+import { Image, ImageFit, Link, Text } from "@fluentui/react";
+import React from "react";
 
-import { Div } from "../../../../components/Div"
-import { useLocalLinkProps } from "../../../../hooks/useLocalLinkProps"
-import { courseRouteConfig } from "../../course/course.route.config"
-import { CourseItemCourseFragment } from "./CourseItem.graphql.generated"
-import { useCourseItemStyles } from "./useCourseItemStyles"
+import { Div } from "../../../../components/Div";
+import { useLocalLinkProps } from "../../../../hooks/useLocalLinkProps";
+import { courseRouteConfig } from "../../course/course.route.config";
+import { CourseItemCourseFragment } from "./CourseItem.graphql.generated";
+import { useCourseItemStyles } from "./useCourseItemStyles";
 
 export type CourseItemProps = {
-	children?: undefined
-	className?: string
-	course: CourseItemCourseFragment
-}
+	children?: undefined;
+	className?: string;
+	course: CourseItemCourseFragment;
+};
 
 const CourseItemComponent: React.FC<CourseItemProps> = ({ className, course }) => {
 	const styles = useCourseItemStyles({
 		className,
-	})
+	});
 
-	const courseClassListCode = course.editions[0]?.courseClassLists[0]?.code
-	const url = React.useMemo(() => courseRouteConfig.path({ code: courseClassListCode }), [courseClassListCode])
+	const courseClassListCode = course.editions[0]?.courseClassLists[0]?.code;
+	const url = React.useMemo(() => courseRouteConfig.path({ code: courseClassListCode }), [courseClassListCode]);
 	const latestEdition = course.editions.length
 		? course.editions.reduce((e1, e2) => (e1.year && e2.year && e1.year > e2.year ? e1 : e2))
-		: undefined
+		: undefined;
 
 	return (
 		<Link className={styles.wrapper} {...useLocalLinkProps({ href: url })}>
@@ -38,7 +38,7 @@ const CourseItemComponent: React.FC<CourseItemProps> = ({ className, course }) =
 				<Text className={styles.year}>{latestEdition?.year}</Text>
 			</Div>
 		</Link>
-	)
-}
+	);
+};
 
-export const CourseItem = React.memo(CourseItemComponent)
+export const CourseItem = React.memo(CourseItemComponent);

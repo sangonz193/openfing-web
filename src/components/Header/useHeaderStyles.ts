@@ -1,8 +1,8 @@
-import { css, makeStyles } from "@fluentui/react"
+import { css, makeStyles } from "@fluentui/react";
 
 export type HeaderStyleProps = {
-	className: string | undefined
-}
+	className: string | undefined;
+};
 
 const useStyles = makeStyles((theme) => {
 	return {
@@ -31,14 +31,14 @@ const useStyles = makeStyles((theme) => {
 				color: theme.semanticColors.bodyText,
 			},
 		],
-	}
-})
+	};
+});
 
 export function useHeaderStyles({ className }: HeaderStyleProps) {
-	const styles = useStyles()
+	const styles = useStyles();
 
 	return {
 		wrapper: css(styles.wrapper, className),
 		title: styles.title,
-	}
+	};
 }

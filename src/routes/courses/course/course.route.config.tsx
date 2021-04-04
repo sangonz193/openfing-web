@@ -1,51 +1,51 @@
-import { RouteConfig } from "../../_utils/RouteConfig"
-import { Course } from "./Course"
+import { RouteConfig } from "../../_utils/RouteConfig";
+import { Course } from "./Course";
 
 export type CourseRouteConfigParams = {
-	code: string
-	courseClassNumber?: string
-}
+	code: string;
+	courseClassNumber?: string;
+};
 
 export type CourseRouteConfigGetPathParams =
 	| {
-			code: string
-			courseClassNumber?: number
-			startOnSeconds?: undefined
-			endOnSeconds?: undefined
+			code: string;
+			courseClassNumber?: number;
+			startOnSeconds?: undefined;
+			endOnSeconds?: undefined;
 	  }
 	| {
-			code: string
-			courseClassNumber: number
-			startOnSeconds?: number
-			endOnSeconds?: undefined
+			code: string;
+			courseClassNumber: number;
+			startOnSeconds?: number;
+			endOnSeconds?: undefined;
 	  }
 	| {
-			code: string
-			courseClassNumber: number
-			startOnSeconds: number
-			endOnSeconds?: number
-	  }
+			code: string;
+			courseClassNumber: number;
+			startOnSeconds: number;
+			endOnSeconds?: number;
+	  };
 
 export const courseRouteConfig: RouteConfig<CourseRouteConfigParams, CourseRouteConfigGetPathParams> = {
 	path: ({ code, courseClassNumber, startOnSeconds, endOnSeconds }) => {
-		let result = `/courses/${code}`
+		let result = `/courses/${code}`;
 
 		if (typeof courseClassNumber !== "number") {
-			return result
+			return result;
 		}
-		result += `/${courseClassNumber}`
+		result += `/${courseClassNumber}`;
 
 		if (typeof startOnSeconds !== "number") {
-			return result
+			return result;
 		}
-		result += `?t=${startOnSeconds}`
+		result += `?t=${startOnSeconds}`;
 
 		if (typeof endOnSeconds !== "number") {
-			return result
+			return result;
 		}
-		result += `,${endOnSeconds}`
+		result += `,${endOnSeconds}`;
 
-		return result
+		return result;
 	},
 	element: ({ code, courseClassNumber }) => (
 		<Course courseClassListCode={code} courseClassNumber={courseClassNumber} />
@@ -53,4 +53,4 @@ export const courseRouteConfig: RouteConfig<CourseRouteConfigParams, CourseRoute
 	matchConfig: {
 		path: `/courses/:code/:courseClassNumber?`,
 	},
-}
+};

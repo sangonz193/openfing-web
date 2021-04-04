@@ -1,32 +1,32 @@
-import { createBrowserHistory, History } from "history"
-import PiwikReactRouter from "piwik-react-router"
-import React from "react"
-import ReactGA from "react-ga"
+import { createBrowserHistory, History } from "history";
+import PiwikReactRouter from "piwik-react-router";
+import React from "react";
+import ReactGA from "react-ga";
 
-import { appConfig } from "../../config/app.config"
-import { useRefWithInitializer } from "../../hooks/useRefWithInitializer"
+import { appConfig } from "../../config/app.config";
+import { useRefWithInitializer } from "../../hooks/useRefWithInitializer";
 
-export const NavigationContext = React.createContext<History>((null as unknown) as History)
+export const NavigationContext = React.createContext<History>((null as unknown) as History);
 
 export const NavigationProvider: React.FC = ({ children }) => {
 	const history = useRefWithInitializer(() => {
-		const history = createBrowserHistory()
+		const history = createBrowserHistory();
 
 		if (appConfig.production) {
 			const piwik = PiwikReactRouter({
 				siteId: 5,
 				url: "https://www.fing.edu.uy/matomo",
-			})
-			piwik.connectToHistory(history)
+			});
+			piwik.connectToHistory(history);
 
-			ReactGA.initialize("UA-141045691-1", {})
+			ReactGA.initialize("UA-141045691-1", {});
 			history.listen(() => {
-				ReactGA.pageview(window.location.pathname + window.location.search)
-			})
+				ReactGA.pageview(window.location.pathname + window.location.search);
+			});
 		}
 
-		return history
-	}).current
+		return history;
+	}).current;
 
-	return <NavigationContext.Provider value={history}>{children}</NavigationContext.Provider>
-}
+	return <NavigationContext.Provider value={history}>{children}</NavigationContext.Provider>;
+};

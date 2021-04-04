@@ -1,8 +1,8 @@
-import { makeStyles } from "@fluentui/react"
+import { makeStyles } from "@fluentui/react";
 
 export type CourseClassPlayerVolumeButtonStyleProps = {
-	className: string | undefined
-}
+	className: string | undefined;
+};
 
 const useStyles = makeStyles((theme) => {
 	return {
@@ -26,13 +26,13 @@ const useStyles = makeStyles((theme) => {
 			marginRight: 5,
 			marginLeft: 5,
 		},
-	}
-})
+	};
+});
 
 export function useCourseClassPlayerVolumeButtonStyles({}: CourseClassPlayerVolumeButtonStyleProps) {
-	const styles = useStyles()
+	const styles = useStyles();
 
 	return {
 		...styles,
-	}
+	};
 }

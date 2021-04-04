@@ -1,41 +1,41 @@
-import { ApolloClient, ApolloLink, Resolvers, TypePolicy } from "@apollo/client"
-import { InMemoryCache } from "@apollo/client/cache"
-import { BatchHttpLink } from "@apollo/client/link/batch-http"
-import { setContext } from "@apollo/client/link/context"
-import { GraphQLError } from "graphql/error/GraphQLError"
-import { execute } from "graphql/execution/execute"
-import { print } from "graphql/language/printer"
-import { buildSchema } from "graphql/utilities/buildASTSchema"
+import { ApolloClient, ApolloLink, Resolvers, TypePolicy } from "@apollo/client";
+import { InMemoryCache } from "@apollo/client/cache";
+import { BatchHttpLink } from "@apollo/client/link/batch-http";
+import { setContext } from "@apollo/client/link/context";
+import { GraphQLError } from "graphql/error/GraphQLError";
+import { execute } from "graphql/execution/execute";
+import { print } from "graphql/language/printer";
+import { buildSchema } from "graphql/utilities/buildASTSchema";
 
-import { hasProperty } from "../_utils/hasProperty"
-import { isObject } from "../_utils/isObject"
-import { graphqlConfig } from "./graphql.config"
-import { Mutation, Query, Scalars } from "./remoteSchema.types"
-import { possibleTypes } from "./remoteSchemaPossibleTypes"
+import { hasProperty } from "../_utils/hasProperty";
+import { isObject } from "../_utils/isObject";
+import { graphqlConfig } from "./graphql.config";
+import { Mutation, Query, Scalars } from "./remoteSchema.types";
+import { possibleTypes } from "./remoteSchemaPossibleTypes";
 
 type _ResolversParentTypes = {
-	Query: Query
-	Mutation: Mutation
-}
+	Query: Query;
+	Mutation: Mutation;
+};
 
-const schemaPromise = import("./remoteSchema.graphql")
+const schemaPromise = import("./remoteSchema.graphql");
 
 const getSchemaLink = setContext(async () => {
 	return {
 		schema: (await schemaPromise).remoteSchema,
-	}
-})
+	};
+});
 
 let getSchema = (context: Record<string, any>) => {
-	const schema = buildSchema(print(context.schema))
-	getSchema = () => schema
+	const schema = buildSchema(print(context.schema));
+	getSchema = () => schema;
 
-	return schema
-}
+	return schema;
+};
 
 export const ValidationAndCacheLink = () => {
 	return new ApolloLink((operation, forward) => {
-		const schema = getSchema(operation.getContext())
+		const schema = getSchema(operation.getContext());
 
 		return forward(operation).map((value) => {
 			const execResult = execute({
@@ -43,12 +43,12 @@ export const ValidationAndCacheLink = () => {
 				document: operation.query,
 				rootValue: value.data,
 				variableValues: operation.variables,
-			})
+			});
 
 			const isPromise = (value: unknown): value is Promise<unknown> =>
-				isObject(value) && hasProperty(value, "then") && typeof value.then === "function"
+				isObject(value) && hasProperty(value, "then") && typeof value.then === "function";
 
-			value.errors = [new GraphQLError("Unexpected promise returned from `execute`")]
+			value.errors = [new GraphQLError("Unexpected promise returned from `execute`")];
 
 			return isPromise(execResult)
 				? {
@@ -58,14 +58,14 @@ export const ValidationAndCacheLink = () => {
 				: {
 						data: execResult.data ?? {},
 						errors: execResult.errors,
-				  }
-		})
-	})
-}
+				  };
+		});
+	});
+};
 
 type TypePolicies = {
-	[K in keyof Omit<_ResolversParentTypes, keyof Scalars>]?: K extends keyof Resolvers ? TypePolicy : {}
-}
+	[K in keyof Omit<_ResolversParentTypes, keyof Scalars>]?: K extends keyof Resolvers ? TypePolicy : {};
+};
 
 export const createGraphqlClient = () => {
 	const typePolicies: TypePolicies = {
@@ -79,14 +79,14 @@ export const createGraphqlClient = () => {
 				courseByCode: {
 					read: (existing, options) => {
 						if (existing) {
-							return existing
+							return existing;
 						}
 
 						const id = Object.values(cache.extract()).find(
 							(i) => i?.__typename === "Course" && (i.code ?? "") === options.args?.code
-						)?.id
+						)?.id;
 
-						return options.toReference({ __typename: "Course", id })
+						return options.toReference({ __typename: "Course", id });
 					},
 				},
 
@@ -103,14 +103,14 @@ export const createGraphqlClient = () => {
 				courseClassListByCode: {
 					read: (existing, options) => {
 						if (existing) {
-							return existing
+							return existing;
 						}
 
 						const id = Object.values(cache.extract()).find(
 							(i) => i?.__typename === "CourseClassList" && (i.code ?? "") === options.args?.code
-						)?.id
+						)?.id;
 
-						return options.toReference({ __typename: "CourseClassList", id })
+						return options.toReference({ __typename: "CourseClassList", id });
 					},
 				},
 
@@ -120,19 +120,19 @@ export const createGraphqlClient = () => {
 				},
 			},
 		},
-	}
+	};
 
 	const cache: InMemoryCache = new InMemoryCache({
 		addTypename: true,
 		possibleTypes,
 		typePolicies: typePolicies as Required<typeof typePolicies>,
-	})
+	});
 
 	const apolloClient = new ApolloClient({
 		connectToDevTools: true,
 		link: ApolloLink.from([getSchemaLink, ValidationAndCacheLink(), new BatchHttpLink({ uri: graphqlConfig.uri })]),
 		cache,
-	})
+	});
 
-	return apolloClient
-}
+	return apolloClient;
+};

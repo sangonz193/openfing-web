@@ -1,4 +1,4 @@
-import React from "react"
+import React from "react";
 
 export const withSiblings = <TProps extends {}>(
 	siblings: React.FC[],
@@ -12,4 +12,4 @@ export const withSiblings = <TProps extends {}>(
 
 			<Component ref={ref} {...props} />
 		</>
-	))
+	));

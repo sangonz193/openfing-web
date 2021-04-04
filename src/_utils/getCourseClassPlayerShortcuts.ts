@@ -1,19 +1,19 @@
-import keyboardKey from "keyboard-key"
+import keyboardKey from "keyboard-key";
 
-import { CourseClassPlayerStore } from "../modules/CourseClassPlayer"
+import { CourseClassPlayerStore } from "../modules/CourseClassPlayer";
 
 export const getCourseClassPlayerShortcuts = (
 	courseClassPlayerStore: CourseClassPlayerStore
 ): Partial<Record<keyof typeof keyboardKey, () => void | boolean>> => {
-	const rewind = () => courseClassPlayerStore.setCurrentTime((courseClassPlayerStore.currentTime() || 0) - 10)
-	const forward = () => courseClassPlayerStore.setCurrentTime((courseClassPlayerStore.currentTime() || 0) + 10)
-	const togglePlay = () => courseClassPlayerStore.togglePlay()
+	const rewind = () => courseClassPlayerStore.setCurrentTime((courseClassPlayerStore.currentTime() || 0) - 10);
+	const forward = () => courseClassPlayerStore.setCurrentTime((courseClassPlayerStore.currentTime() || 0) + 10);
+	const togglePlay = () => courseClassPlayerStore.togglePlay();
 	const getHandleNumber = (number: number) => () => {
-		const duration = courseClassPlayerStore.duration()
+		const duration = courseClassPlayerStore.duration();
 		if (duration) {
-			courseClassPlayerStore.setCurrentTime(number * (duration / 10))
+			courseClassPlayerStore.setCurrentTime(number * (duration / 10));
 		}
-	}
+	};
 
 	return {
 		ArrowLeft: rewind,
@@ -37,8 +37,8 @@ export const getCourseClassPlayerShortcuts = (
 		Home: () => courseClassPlayerStore.setCurrentTime(0),
 		End: () => courseClassPlayerStore.setCurrentTime(courseClassPlayerStore.duration() || 0),
 		f: () => {
-			courseClassPlayerStore.toggleFullscreen()
-			courseClassPlayerStore.htmlVideoWrapperElement()?.focus()
+			courseClassPlayerStore.toggleFullscreen();
+			courseClassPlayerStore.htmlVideoWrapperElement()?.focus();
 		},
 		"0": getHandleNumber(0),
 		Digit0: getHandleNumber(0),
@@ -60,5 +60,5 @@ export const getCourseClassPlayerShortcuts = (
 		Digit8: getHandleNumber(8),
 		"9": getHandleNumber(9),
 		Digit9: getHandleNumber(9),
-	}
-}
+	};
+};

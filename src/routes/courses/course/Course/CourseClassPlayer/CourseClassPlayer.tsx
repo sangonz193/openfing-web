@@ -1,59 +1,59 @@
-import { useReactiveVar } from "@apollo/client"
-import { LayerHost, Spinner, SpinnerSize } from "@fluentui/react"
-import keyboardKey from "keyboard-key"
-import throttle from "lodash/throttle"
-import React from "react"
-import { useResizeDetector } from "react-resize-detector"
+import { useReactiveVar } from "@apollo/client";
+import { LayerHost, Spinner, SpinnerSize } from "@fluentui/react";
+import keyboardKey from "keyboard-key";
+import throttle from "lodash/throttle";
+import React from "react";
+import { useResizeDetector } from "react-resize-detector";
 
-import { getCourseClassPlayerShortcuts } from "../../../../../_utils/getCourseClassPlayerShortcuts"
-import { Div } from "../../../../../components/Div"
-import { useReactiveVars } from "../../../../../hooks/useReactiveVars"
-import { useAppStore } from "../../../../../modules/App"
-import { CourseClassPlayerStore, useCourseClassPlayerStore } from "../../../../../modules/CourseClassPlayer"
-import { useRootEventListener } from "../../../../../modules/RootEventListeners"
-import { CourseClassPlayerControlsBottomControls } from "../CourseClassPlayerControlsBottomControls"
-import { CourseClassPlayerVideo } from "../CourseClassPlayerVideo"
-import { CourseClassPlayerCourseClassVideoFragment } from "./CourseClassPlayer.graphql.generated"
-import { useCourseClassPlayerStyles } from "./useCourseClassPlayerStyles"
+import { getCourseClassPlayerShortcuts } from "../../../../../_utils/getCourseClassPlayerShortcuts";
+import { Div } from "../../../../../components/Div";
+import { useReactiveVars } from "../../../../../hooks/useReactiveVars";
+import { useAppStore } from "../../../../../modules/App";
+import { CourseClassPlayerStore, useCourseClassPlayerStore } from "../../../../../modules/CourseClassPlayer";
+import { useRootEventListener } from "../../../../../modules/RootEventListeners";
+import { CourseClassPlayerControlsBottomControls } from "../CourseClassPlayerControlsBottomControls";
+import { CourseClassPlayerVideo } from "../CourseClassPlayerVideo";
+import { CourseClassPlayerCourseClassVideoFragment } from "./CourseClassPlayer.graphql.generated";
+import { useCourseClassPlayerStyles } from "./useCourseClassPlayerStyles";
 
 export type CourseClassPlayerProps = {
-	children?: undefined
-	className?: string
-	courseClassVideo: CourseClassPlayerCourseClassVideoFragment
-}
+	children?: undefined;
+	className?: string;
+	courseClassVideo: CourseClassPlayerCourseClassVideoFragment;
+};
 
 function getEventHandler(
 	courseClassPlayerStore: CourseClassPlayerStore
 ): (e: KeyboardEvent | React.KeyboardEvent) => void {
 	return (e) => {
 		if (e.defaultPrevented || !courseClassPlayerStore.loaded || e.altKey || e.ctrlKey || e.metaKey || e.shiftKey) {
-			return
+			return;
 		}
 
 		const handler = getCourseClassPlayerShortcuts(courseClassPlayerStore)[
 			keyboardKey.getKey(e) as keyof typeof keyboardKey
-		]
+		];
 
 		if (handler) {
-			handler()
-			e.preventDefault()
+			handler();
+			e.preventDefault();
 		}
-	}
+	};
 }
 
 const CourseClassPlayerComponent: React.FC<CourseClassPlayerProps> = ({ className, courseClassVideo }) => {
-	const appStore = useAppStore()
-	const inputType = useReactiveVar(appStore.inputType)
-	const courseClassPlayerStore = useCourseClassPlayerStore()
+	const appStore = useAppStore();
+	const inputType = useReactiveVar(appStore.inputType);
+	const courseClassPlayerStore = useCourseClassPlayerStore();
 
 	const handleKeyDown = React.useCallback<React.KeyboardEventHandler>((e) => {
 		if (!e.defaultPrevented && appStore.isFocusVisible) {
-			courseClassPlayerStore.showControlsFor("controls-keyboard", 1000)
+			courseClassPlayerStore.showControlsFor("controls-keyboard", 1000);
 		}
 
-		getEventHandler(courseClassPlayerStore)(e)
-	}, [])
-	useRootEventListener("onKeyDown", handleKeyDown)
+		getEventHandler(courseClassPlayerStore)(e);
+	}, []);
+	useRootEventListener("onKeyDown", handleKeyDown);
 
 	const { isFullscreen, loaded, seeking, showControls, waiting } = useReactiveVars(courseClassPlayerStore, [
 		"isFullscreen",
@@ -61,90 +61,90 @@ const CourseClassPlayerComponent: React.FC<CourseClassPlayerProps> = ({ classNam
 		"loaded",
 		"waiting",
 		"seeking",
-	])
+	]);
 
-	const showControlsForId = "controls-player"
-	const showControlsFor = () => courseClassPlayerStore.showControlsFor(showControlsForId, 3000)
+	const showControlsForId = "controls-player";
+	const showControlsFor = () => courseClassPlayerStore.showControlsFor(showControlsForId, 3000);
 
-	const togglePlayTimeoutRef = React.useRef<NodeJS.Timeout>()
+	const togglePlayTimeoutRef = React.useRef<NodeJS.Timeout>();
 	const handleWrapperClick = React.useCallback<React.MouseEventHandler>((e) => {
 		if (e.defaultPrevented) {
-			return
+			return;
 		}
-		e.preventDefault()
+		e.preventDefault();
 
 		if (typeof togglePlayTimeoutRef.current === "number") {
 			// double click
-			clearTimeout(togglePlayTimeoutRef.current)
-			togglePlayTimeoutRef.current = undefined
+			clearTimeout(togglePlayTimeoutRef.current);
+			togglePlayTimeoutRef.current = undefined;
 
-			courseClassPlayerStore.toggleFullscreen()
+			courseClassPlayerStore.toggleFullscreen();
 		} else {
 			const newTimeout = setTimeout(() => {
 				if (appStore.inputType() === "TOUCH") {
 					if (courseClassPlayerStore.isBlockingShowControls(showControlsForId)) {
-						courseClassPlayerStore.unblockShowControls(showControlsForId)
+						courseClassPlayerStore.unblockShowControls(showControlsForId);
 					} else {
-						showControlsFor()
+						showControlsFor();
 					}
 				} else {
-					courseClassPlayerStore.togglePlay()
+					courseClassPlayerStore.togglePlay();
 				}
 
 				if (newTimeout === togglePlayTimeoutRef.current) {
-					togglePlayTimeoutRef.current = undefined
+					togglePlayTimeoutRef.current = undefined;
 				}
-			}, 300)
-			togglePlayTimeoutRef.current = newTimeout
+			}, 300);
+			togglePlayTimeoutRef.current = newTimeout;
 		}
-	}, [])
+	}, []);
 
-	const [throttleShowControlsFor] = React.useState(() => throttle(() => showControlsFor(), 1000))
+	const [throttleShowControlsFor] = React.useState(() => throttle(() => showControlsFor(), 1000));
 	const handleMouseMove = React.useCallback(() => {
-		throttleShowControlsFor()
-	}, [])
+		throttleShowControlsFor();
+	}, []);
 
 	const handleFocus = React.useCallback<React.FocusEventHandler>(() => {
 		if (appStore.isFocusVisible()) {
-			courseClassPlayerStore.showControlsFor("controls-keyboard", 2000)
+			courseClassPlayerStore.showControlsFor("controls-keyboard", 2000);
 		}
-	}, [])
+	}, []);
 
-	const [height, setHeight] = React.useState(0)
+	const [height, setHeight] = React.useState(0);
 	const handleResize = React.useCallback<(width?: number) => void>((width) => {
-		setHeight((9 * (width ?? 0)) / 16)
-	}, [])
+		setHeight((9 * (width ?? 0)) / 16);
+	}, []);
 
 	React.useLayoutEffect(() => {
-		const htmlVideoWrapperElement = courseClassPlayerStore.htmlVideoWrapperElement()
+		const htmlVideoWrapperElement = courseClassPlayerStore.htmlVideoWrapperElement();
 		if (htmlVideoWrapperElement) {
-			handleResize(htmlVideoWrapperElement.getBoundingClientRect().width)
+			handleResize(htmlVideoWrapperElement.getBoundingClientRect().width);
 		}
-	}, [])
+	}, []);
 
 	React.useEffect(() => {
 		if (loaded) {
-			courseClassPlayerStore.showControlsFor("player", 2000)
+			courseClassPlayerStore.showControlsFor("player", 2000);
 		}
-	}, [loaded])
+	}, [loaded]);
 
 	const styles = useCourseClassPlayerStyles({
 		className,
 		fullscreen: isFullscreen,
 		hideCursor: !showControls && isFullscreen,
-	})
+	});
 
-	const resizeDetectorTargetRef = React.useRef<HTMLDivElement>(null)
+	const resizeDetectorTargetRef = React.useRef<HTMLDivElement>(null);
 	useResizeDetector({
 		targetRef: resizeDetectorTargetRef,
 		skipOnMount: true,
 		handleWidth: true,
 		onResize: handleResize,
-	})
+	});
 
 	React.useEffect(() => {
-		courseClassPlayerStore.setVideoWrapperInstance(resizeDetectorTargetRef.current)
-	})
+		courseClassPlayerStore.setVideoWrapperInstance(resizeDetectorTargetRef.current);
+	});
 
 	return (
 		<Div
@@ -171,7 +171,7 @@ const CourseClassPlayerComponent: React.FC<CourseClassPlayerProps> = ({ classNam
 				</div>
 			)}
 		</Div>
-	)
-}
+	);
+};
 
-export const CourseClassPlayer = React.memo(CourseClassPlayerComponent)
+export const CourseClassPlayer = React.memo(CourseClassPlayerComponent);

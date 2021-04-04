@@ -1,6 +1,6 @@
-import { makeStyles } from "@fluentui/react"
+import { makeStyles } from "@fluentui/react";
 
-export type CourseClassShareModalStyleProps = {}
+export type CourseClassShareModalStyleProps = {};
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 const useStyles = makeStyles((theme) => {
@@ -29,13 +29,13 @@ const useStyles = makeStyles((theme) => {
 		textField: {
 			fontSize: 16,
 		},
-	}
-})
+	};
+});
 
 export function useCourseClassShareModalStyles({}: CourseClassShareModalStyleProps) {
-	const styles = useStyles()
+	const styles = useStyles();
 
 	return {
 		...styles,
-	}
+	};
 }

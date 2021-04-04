@@ -1,7 +1,7 @@
-import { useReactiveVar } from "@apollo/client"
-import React from "react"
+import { useReactiveVar } from "@apollo/client";
+import React from "react";
 
-import { useAppStore } from "../modules/App"
+import { useAppStore } from "../modules/App";
 
 export const useIsHover = (): [
 	boolean,
@@ -13,46 +13,46 @@ export const useIsHover = (): [
 		() => void
 	>
 ] => {
-	const appStore = useAppStore()
-	const inputType = useReactiveVar(appStore.inputType)
+	const appStore = useAppStore();
+	const inputType = useReactiveVar(appStore.inputType);
 
-	const [state, setState] = React.useState(false)
+	const [state, setState] = React.useState(false);
 
-	const mouseMoveTimeout = React.useRef<NodeJS.Timeout>()
+	const mouseMoveTimeout = React.useRef<NodeJS.Timeout>();
 	const bind = React.useMemo(
 		() => ({
 			onMouseOver: () => inputType === "POINTER" && setState(true),
 			onMouseLeave: () => inputType === "POINTER" && setState(false),
 			onMouseMove: () => {
 				if (mouseMoveTimeout.current) {
-					clearTimeout(mouseMoveTimeout.current)
-					mouseMoveTimeout.current = undefined
+					clearTimeout(mouseMoveTimeout.current);
+					mouseMoveTimeout.current = undefined;
 				}
 			},
 		}),
 		[inputType]
-	)
+	);
 
 	React.useEffect(() => {
 		if (inputType === "TOUCH") {
-			setState(false)
+			setState(false);
 		}
-	}, [inputType])
+	}, [inputType]);
 
 	React.useEffect(() => {
 		if (!state) {
-			return
+			return;
 		}
 
 		const handler = () => {
 			if (!mouseMoveTimeout.current) {
-				mouseMoveTimeout.current = setTimeout(() => setState(false), 1000)
+				mouseMoveTimeout.current = setTimeout(() => setState(false), 1000);
 			}
-		}
-		window.addEventListener("mousemove", handler)
+		};
+		window.addEventListener("mousemove", handler);
 
-		return () => window.removeEventListener("mousemove", handler)
-	}, [state])
+		return () => window.removeEventListener("mousemove", handler);
+	}, [state]);
 
-	return [state, bind]
-}
+	return [state, bind];
+};

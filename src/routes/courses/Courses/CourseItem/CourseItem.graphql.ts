@@ -1,4 +1,4 @@
-import gql from "graphql-tag"
+import gql from "graphql-tag";
 
 export const CourseItemCourseFragmentDoc = gql`
 	fragment CourseItemCourse on Course {
@@ -19,4 +19,4 @@ export const CourseItemCourseFragmentDoc = gql`
 			}
 		}
 	}
-`
+`;

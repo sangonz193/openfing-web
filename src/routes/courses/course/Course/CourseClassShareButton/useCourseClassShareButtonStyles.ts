@@ -1,8 +1,8 @@
-import { css, makeStyles } from "@fluentui/react"
+import { css, makeStyles } from "@fluentui/react";
 
 export type CourseClassShareButtonStyleProps = {
-	className: string | undefined
-}
+	className: string | undefined;
+};
 
 const useStyles = makeStyles((theme) => {
 	return {
@@ -15,13 +15,13 @@ const useStyles = makeStyles((theme) => {
 				fontSize: theme.fonts.xLarge.fontSize,
 			},
 		},
-	}
-})
+	};
+});
 
 export function useCourseClassShareButtonStyles({ className }: CourseClassShareButtonStyleProps) {
-	const styles = useStyles()
+	const styles = useStyles();
 
 	return {
 		commandButton: css(styles.commandButton, className),
-	}
+	};
 }
