@@ -73,6 +73,12 @@ const getConfig: GetPlopGeneratorConfig = (plop) => ({
 		const handlebarsFilePathPattern = path.resolve(handlebarsFolderPath, "**", "*")
 		const destination = renderString(path.resolve(projectPath, answers.relativePath))
 
+		const templateFiles: string[] = [handlebarsFilePathPattern]
+
+		if (!answers.withStyles) {
+			templateFiles.push("!**/use*Styles.ts.hbs")
+		}
+
 		return [
 			identity<AddManyActionConfig>({
 				type: "addMany",
@@ -85,7 +91,7 @@ const getConfig: GetPlopGeneratorConfig = (plop) => ({
 					withChildren: answers.withChildren,
 				},
 				destination,
-				templateFiles: [handlebarsFilePathPattern],
+				templateFiles,
 				globOptions: {
 					dot: true,
 				},

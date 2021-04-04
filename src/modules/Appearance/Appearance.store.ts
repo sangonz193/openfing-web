@@ -1,7 +1,7 @@
 import { makeVar, ReactiveVar } from "@apollo/client"
 import { ITheme } from "@fluentui/style-utilities"
 
-import { ThemeKey } from "../../style/themes"
+import { ThemeKey } from "../../styles/themes"
 import { appearanceLocalStorage } from "./Appearance.storage"
 
 export type AppearanceStoreInitData = {

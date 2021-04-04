@@ -37,11 +37,11 @@ const useStyles = makeStyles((theme) => {
 	}
 })
 
-export function useFaqItemStyles(props: FaqItemStyleProps) {
+export function useFaqItemStyles({ className }: FaqItemStyleProps) {
 	const styles = useStyles()
 
 	return {
-		wrapper: css(styles.wrapper, props.className),
+		wrapper: css(styles.wrapper, className),
 		title: styles.title,
 		content: styles.content,
 	}

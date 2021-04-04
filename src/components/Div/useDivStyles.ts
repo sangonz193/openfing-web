@@ -14,10 +14,10 @@ const useStyles = makeStyles((theme) => {
 	}
 })
 
-export function useDivStyles(props: DivStyleProps) {
+export function useDivStyles({ className }: DivStyleProps) {
 	const styles = useStyles()
 
 	return {
-		wrapper: css(styles.wrapper, props.className),
+		wrapper: css(styles.wrapper, className),
 	}
 }

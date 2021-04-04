@@ -27,8 +27,7 @@ const useStyles = makeStyles((theme) => {
 	}
 })
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-export function useSettingsStyles(props: SettingsStyleProps = {}) {
+export function useSettingsStyles({}: SettingsStyleProps = {}) {
 	const styles = useStyles()
 
 	return {

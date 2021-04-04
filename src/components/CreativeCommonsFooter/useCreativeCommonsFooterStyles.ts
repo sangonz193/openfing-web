@@ -47,11 +47,11 @@ const useStyles = makeStyles((theme) => {
 	}
 })
 
-export function useCreativeCommonsFooterStyles(props: CreativeCommonsFooterStyleProps) {
+export function useCreativeCommonsFooterStyles({ className }: CreativeCommonsFooterStyleProps) {
 	const styles = useStyles()
 
 	return {
-		wrapper: css(styles.wrapper, props.className),
+		wrapper: css(styles.wrapper, className),
 		imageContainer: styles.imageContainer,
 		image: styles.image,
 		link: styles.link,

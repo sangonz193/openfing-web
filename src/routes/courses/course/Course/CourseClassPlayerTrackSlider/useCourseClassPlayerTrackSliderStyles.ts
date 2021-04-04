@@ -51,15 +51,15 @@ const useStyles = makeStyles((theme) => {
 
 			cursor: "pointer",
 			touchAction: "none",
-		}
+		},
 	}
 })
 
-export function useCourseClassPlayerTrackSliderStyles(props: CourseClassPlayerTrackSliderStyleProps) {
+export function useCourseClassPlayerTrackSliderStyles({ className }: CourseClassPlayerTrackSliderStyleProps) {
 	const styles = useStyles()
 
 	return {
 		...styles,
-		wrapper: css(styles.wrapper, props.className),
+		wrapper: css(styles.wrapper, className),
 	}
 }

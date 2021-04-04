@@ -31,12 +31,12 @@ const useStyles = makeStyles((theme) => {
 	}
 })
 
-export function useLayoutStyles(props: LayoutStyleProps) {
+export function useLayoutStyles({ className }: LayoutStyleProps) {
 	const styles = useStyles()
 	const isMd = useMediaQuery({ minWidth: Breakpoint.md })
 
 	return {
-		wrapper: css(styles.wrapper, isMd && styles.wrapperWithRowReverse, props.className),
+		wrapper: css(styles.wrapper, isMd && styles.wrapperWithRowReverse, className),
 		contentAndHeaderContainer: styles.contentAndHeaderContainer,
 		componentContainer: styles.componentContainer,
 	}

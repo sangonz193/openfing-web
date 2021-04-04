@@ -18,10 +18,10 @@ const useStyles = makeStyles((theme) => {
 	}
 })
 
-export function useCourseClassShareButtonStyles(props: CourseClassShareButtonStyleProps) {
+export function useCourseClassShareButtonStyles({ className }: CourseClassShareButtonStyleProps) {
 	const styles = useStyles()
 
 	return {
-		commandButton: css(styles.commandButton, props.className),
+		commandButton: css(styles.commandButton, className),
 	}
 }

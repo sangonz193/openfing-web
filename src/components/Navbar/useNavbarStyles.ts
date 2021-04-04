@@ -34,8 +34,7 @@ const useStyles = makeStyles((theme) => {
 	}
 })
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-export function useNavbarStyles(props: NavbarStyleProps = {}) {
+export function useNavbarStyles({}: NavbarStyleProps = {}) {
 	const styles = useStyles()
 
 	return {

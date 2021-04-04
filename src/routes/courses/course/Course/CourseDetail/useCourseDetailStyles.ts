@@ -89,11 +89,11 @@ const useStyles = makeStyles((theme) => {
 	}
 })
 
-export function useCourseDetailStyles(props: CourseDetailStyleProps) {
+export function useCourseDetailStyles({ className }: CourseDetailStyleProps) {
 	const styles = useStyles()
 
 	return {
-		wrapper: css(styles.wrapper, props.className),
+		wrapper: css(styles.wrapper, className),
 		container: styles.container,
 		spinner: styles.spinner,
 		courseIcon: styles.courseIcon,

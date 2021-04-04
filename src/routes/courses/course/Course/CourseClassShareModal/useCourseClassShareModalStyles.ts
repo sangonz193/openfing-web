@@ -32,8 +32,7 @@ const useStyles = makeStyles((theme) => {
 	}
 })
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-export function useCourseClassShareModalStyles(props: CourseClassShareModalStyleProps) {
+export function useCourseClassShareModalStyles({}: CourseClassShareModalStyleProps) {
 	const styles = useStyles()
 
 	return {

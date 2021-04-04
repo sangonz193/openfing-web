@@ -12,10 +12,10 @@ const useStyles = makeStyles((theme) => {
   }
 })
 
-export function use{{componentName}}Styles(props: {{componentName}}StyleProps) {
+export function use{{componentName}}Styles({ className }: {{componentName}}StyleProps) {
   const styles = useStyles()
   
   return {
-    wrapper: css(styles.wrapper, props.className),
+    wrapper: css(styles.wrapper, className),
   }
 }

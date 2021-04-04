@@ -38,12 +38,11 @@ const useStyles = makeStyles((theme) => {
 	}
 })
 
-export function useCourseMasterStyles(props: CourseMasterStyleProps) {
+export function useCourseMasterStyles({ className, showCourseClassListDropdown }: CourseMasterStyleProps) {
 	const styles = useStyles()
-	const { showCourseClassListDropdown } = props
 
 	return {
-		wrapper: css(styles.wrapper, props.className),
+		wrapper: css(styles.wrapper, className),
 		dropdownListContainer: styles.dropdownListContainer,
 		editionsSpinner: styles.editionsSpinner,
 		itemSeparator: styles.itemSeparator,

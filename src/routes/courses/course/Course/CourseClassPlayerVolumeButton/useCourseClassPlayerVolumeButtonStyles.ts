@@ -29,8 +29,7 @@ const useStyles = makeStyles((theme) => {
 	}
 })
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-export function useCourseClassPlayerVolumeButtonStyles(props: CourseClassPlayerVolumeButtonStyleProps) {
+export function useCourseClassPlayerVolumeButtonStyles({}: CourseClassPlayerVolumeButtonStyleProps) {
 	const styles = useStyles()
 
 	return {

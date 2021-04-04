@@ -67,11 +67,11 @@ const useStyles = makeStyles((theme) => {
 	}
 })
 
-export function useUpdateItemStyles(props: UpdateItemStyleProps) {
+export function useUpdateItemStyles({ className }: UpdateItemStyleProps) {
 	const styles = useStyles()
 
 	return {
-		wrapper: css(styles.wrapper, props.className),
+		wrapper: css(styles.wrapper, className),
 		contentWrapper: styles.contentWrapper,
 		iconContainer: styles.iconContainer,
 		infoContainer: styles.infoContainer,

@@ -54,12 +54,12 @@ const useStyles = makeStyles((theme) => {
 	}
 })
 
-export function useNavbarButtonStyles(props: NavbarButtonStyleProps) {
+export function useNavbarButtonStyles({ className, active }: NavbarButtonStyleProps) {
 	const styles = useStyles()
 
 	return {
-		wrapper: css(styles.wrapper, props.className),
-		icon: css(styles.icon, props.active && styles.iconActive),
+		wrapper: css(styles.wrapper, className),
+		icon: css(styles.icon, active && styles.iconActive),
 		activeIndicator: styles.activeIndicator,
 	}
 }

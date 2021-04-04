@@ -4,33 +4,33 @@ import React from "react"
 import { useHistory } from "../modules/Navigation/useHistory"
 
 export function useLocalLinkProps(props: Partial<ILinkProps>): ILinkProps {
+	const { href, onClick } = props
 	const history = useHistory()
-	const onClick = React.useCallback<Exclude<ILinkProps["onClick"], undefined>>(
+
+	const handleClick = React.useCallback<Exclude<ILinkProps["onClick"], undefined>>(
 		(e) => {
 			e.preventDefault()
 
-			if (props.href) {
+			if (href) {
 				const target = props.target || "_self"
 
-				if (target === "_self" && !props.href.startsWith("http")) {
-					history.push(props.href)
+				if (target === "_self" && !href.startsWith("http")) {
+					history.push(href)
 				} else {
-					window.open(props.href, target)
+					window.open(href, target)
 				}
 			}
 
-			if (props.onClick) {
-				props.onClick(e)
-			}
+			onClick?.(e)
 		},
-		[props.onClick, history]
+		[onClick, history, href]
 	)
 
 	return React.useMemo(
 		() => ({
 			...props,
-			onClick,
+			onClick: handleClick,
 		}),
-		[props, onClick]
+		[props, handleClick]
 	)
 }

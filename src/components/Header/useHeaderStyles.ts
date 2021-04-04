@@ -34,11 +34,11 @@ const useStyles = makeStyles((theme) => {
 	}
 })
 
-export function useHeaderStyles(props: HeaderStyleProps) {
+export function useHeaderStyles({ className }: HeaderStyleProps) {
 	const styles = useStyles()
 
 	return {
-		wrapper: css(styles.wrapper, props.className),
+		wrapper: css(styles.wrapper, className),
 		title: styles.title,
 	}
 }

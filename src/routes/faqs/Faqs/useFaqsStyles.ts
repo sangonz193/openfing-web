@@ -49,11 +49,11 @@ const useStyles = makeStyles((theme) => {
 	}
 })
 
-export function useFaqsStyles(props: FaqsStyleProps) {
+export function useFaqsStyles({ className }: FaqsStyleProps) {
 	const styles = useStyles()
 
 	return {
-		wrapper: css(styles.wrapper, props.className),
+		wrapper: css(styles.wrapper, className),
 		content: styles.content,
 		spinnerRoot: styles.spinnerRoot,
 		separator: styles.separator,

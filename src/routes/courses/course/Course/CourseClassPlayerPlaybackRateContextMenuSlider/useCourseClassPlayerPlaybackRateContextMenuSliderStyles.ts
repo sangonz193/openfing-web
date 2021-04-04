@@ -25,13 +25,13 @@ const useStyles = makeStyles((theme) => {
 	}
 })
 
-export function useCourseClassPlayerPlaybackRateContextMenuSliderStyles(
-	props: CourseClassPlayerPlaybackRateContextMenuSliderStyleProps
-) {
+export function useCourseClassPlayerPlaybackRateContextMenuSliderStyles({
+	className,
+}: CourseClassPlayerPlaybackRateContextMenuSliderStyleProps) {
 	const styles = useStyles()
 
 	return {
-		wrapper: css(styles.wrapper, props.className),
+		wrapper: css(styles.wrapper, className),
 		text: styles.text,
 		slider: styles.slider,
 	}

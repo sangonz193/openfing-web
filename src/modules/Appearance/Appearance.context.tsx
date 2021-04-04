@@ -2,7 +2,7 @@ import { ThemeProvider } from "@fluentui/react"
 import React from "react"
 
 import { listenVar } from "../../_utils/listenVar"
-import { lightTheme } from "../../style/themes/lightTheme"
+import { lightTheme } from "../../styles/themes/lightTheme"
 import { AppearanceStore } from "./Appearance.store"
 
 export type AppearanceContextValue = AppearanceStore | ((store: AppearanceStore) => void)

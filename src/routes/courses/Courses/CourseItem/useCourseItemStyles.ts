@@ -58,11 +58,11 @@ const useStyles = makeStyles((theme) => {
 	}
 })
 
-export function useCourseItemStyles(props: CourseItemStyleProps) {
+export function useCourseItemStyles({ className }: CourseItemStyleProps) {
 	const styles = useStyles()
 
 	return {
 		...styles,
-		wrapper: css(styles.wrapper, props.className),
+		wrapper: css(styles.wrapper, className),
 	}
 }

@@ -9,7 +9,7 @@ const useStyles = makeStyles((theme) => {
 		{ "font-variant-numeric": "tabular-nums" } as IRawStyle,
 		{ padding: "0 10px", color: theme.semanticColors.bodyText },
 		theme.fonts.medium,
-	];
+	]
 
 	return {
 		wrapper: {
@@ -26,7 +26,7 @@ const useStyles = makeStyles((theme) => {
 
 		startTime: timeStyles,
 
-		endTimeWrapper:{
+		endTimeWrapper: {
 			border: "none",
 			height: 36,
 			padding: 0,
@@ -38,11 +38,11 @@ const useStyles = makeStyles((theme) => {
 	}
 })
 
-export function useCourseClassPlayerTrackStyles(props: CourseClassPlayerTrackStyleProps) {
+export function useCourseClassPlayerTrackStyles({ className }: CourseClassPlayerTrackStyleProps) {
 	const styles = useStyles()
 
 	return {
 		...styles,
-		wrapper: css(styles.wrapper, props.className),
+		wrapper: css(styles.wrapper, className),
 	}
 }

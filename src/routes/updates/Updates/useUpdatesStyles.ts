@@ -63,11 +63,11 @@ const useStyles = makeStyles((theme) => {
 	}
 })
 
-export function useUpdatesStyles(props: UpdatesStyleProps) {
+export function useUpdatesStyles({ className }: UpdatesStyleProps) {
 	const styles = useStyles()
 
 	return {
-		wrapper: css(styles.wrapper, props.className),
+		wrapper: css(styles.wrapper, className),
 		content: styles.content,
 		spinner: styles.spinner,
 		separator: styles.separator,

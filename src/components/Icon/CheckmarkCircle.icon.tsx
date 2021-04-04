@@ -1,4 +1,4 @@
-import { registerIconAlias, registerIcons } from "@fluentui/style-utilities"
+import { registerIcons } from "@fluentui/style-utilities"
 
 function CheckmarkCircleIcon() {
 	return (

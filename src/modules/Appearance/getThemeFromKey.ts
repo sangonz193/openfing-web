@@ -1,9 +1,9 @@
 import { ITheme } from "@fluentui/style-utilities"
 
-import { ThemeKey } from "../../style/themes"
-import { blackTheme } from "../../style/themes/blackTheme"
-import { darkTheme } from "../../style/themes/darkTheme"
-import { lightTheme } from "../../style/themes/lightTheme"
+import { ThemeKey } from "../../styles/themes"
+import { blackTheme } from "../../styles/themes/blackTheme"
+import { darkTheme } from "../../styles/themes/darkTheme"
+import { lightTheme } from "../../styles/themes/lightTheme"
 
 export function getThemeFromKey(themeKey: ThemeKey, options: { prefersDarkMode?: boolean }): ITheme {
 	const { prefersDarkMode = false } = options

@@ -8,7 +8,7 @@ import { appConfig } from "../../../config/app.config"
 import { useDocumentTitle } from "../../../hooks/useDocumentTitle"
 import { useReactiveVars } from "../../../hooks/useReactiveVars"
 import { useAppearanceStore } from "../../../modules/Appearance"
-import { isThemeKey, ThemeKey } from "../../../style/themes"
+import { isThemeKey, ThemeKey } from "../../../styles/themes"
 import { useSettingsStyles } from "./useSettingsStyles"
 
 export type SettingsProps = {

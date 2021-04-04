@@ -83,8 +83,7 @@ const useStyles = makeStyles((theme) => {
 	}
 })
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-export function useCourseClassPlayerPlaybackRateButtonStyles(props: CourseClassPlayerPlaybackRateButtonStyleProps) {
+export function useCourseClassPlayerPlaybackRateButtonStyles({}: CourseClassPlayerPlaybackRateButtonStyleProps) {
 	const styles = useStyles()
 
 	return {
