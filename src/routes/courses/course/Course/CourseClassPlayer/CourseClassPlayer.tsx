@@ -155,7 +155,7 @@ const CourseClassPlayerComponent: React.FC<CourseClassPlayerProps> = ({ classNam
 			onMouseMove={inputType !== "TOUCH" ? handleMouseMove : undefined}
 			tabIndex={0}
 			onFocus={handleFocus}
-			style={isFullscreen ? undefined : { height }}
+			style={isFullscreen || !height ? undefined : { height }}
 		>
 			{!!courseClassVideo.qualities?.length && (
 				<CourseClassPlayerVideo formats={courseClassVideo.qualities[0].formats} />
