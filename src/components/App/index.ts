@@ -1,4 +1,6 @@
-export * from "./App.base";
-export * from "./App.styles";
-export * from "./App.types";
-export * from "./App";
+/*
+ * This is an auto-generated file. Changes made to this file will be ignored
+ * next time the file gets generated.
+ */
+
+export * from "./App"

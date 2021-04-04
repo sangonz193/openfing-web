@@ -1,4 +1,6 @@
-export * from "./NavBarButton.base";
-export * from "./NavBarButton.styles";
-export * from "./NavBarButton.types";
-export * from "./NavBarButton";
+/*
+ * This is an auto-generated file. Changes made to this file will be ignored
+ * next time the file gets generated.
+ */
+
+export * from "./NavbarButton"

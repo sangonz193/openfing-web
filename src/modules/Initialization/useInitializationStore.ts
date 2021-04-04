@@ -1,5 +1,5 @@
-import React from "react";
+import React from "react"
 
-import { InitializationContext } from "./Initialization.context";
+import { InitializationContext } from "./Initialization.context"
 
-export const useInitializationStore = () => React.useContext(InitializationContext);
+export const useInitializationStore = () => React.useContext(InitializationContext)

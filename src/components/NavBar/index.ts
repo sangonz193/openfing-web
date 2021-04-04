@@ -1,4 +1,6 @@
-export * from "./NavBar.base";
-export * from "./NavBar.styles";
-export * from "./NavBar.types";
-export * from "./NavBar";
+/*
+ * This is an auto-generated file. Changes made to this file will be ignored
+ * next time the file gets generated.
+ */
+
+export * from "./Navbar"

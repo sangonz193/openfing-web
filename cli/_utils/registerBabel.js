@@ -3,11 +3,11 @@ require("@babel/register")({
 		[
 			"@babel/preset-env",
 			{
-				targets: { node: 12 },
+				targets: { node: 15 },
 			},
 		],
 		"@babel/preset-typescript",
 	],
 	plugins: ["@babel/plugin-transform-runtime"],
 	extensions: [".js", ".ts"],
-});
+})

@@ -1,4 +1,6 @@
-export * from "./Layout.base";
-export * from "./Layout.styles";
-export * from "./Layout.types";
-export * from "./Layout";
+/*
+ * This is an auto-generated file. Changes made to this file will be ignored
+ * next time the file gets generated.
+ */
+
+export * from "./Layout"

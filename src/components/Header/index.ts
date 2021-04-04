@@ -1,4 +1,6 @@
-export * from "./Header.base";
-export * from "./Header.styles";
-export * from "./Header.types";
-export * from "./Header";
+/*
+ * This is an auto-generated file. Changes made to this file will be ignored
+ * next time the file gets generated.
+ */
+
+export * from "./Header"

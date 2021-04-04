@@ -1,11 +1,12 @@
-import React from "react";
+import React from "react"
 
-import { RootEventListenersStore } from "./RootEventListeners.store";
+import { useRefWithInitializer } from "../../hooks/useRefWithInitializer"
+import { RootEventListenersStore } from "./RootEventListeners.store"
 
-export const RootEventListenersContext = React.createContext((null as unknown) as RootEventListenersStore);
+export const RootEventListenersContext = React.createContext((null as unknown) as RootEventListenersStore)
 
 export const RootEventListenersProvider: React.FC = ({ children }) => {
-	const [store] = React.useState(() => new RootEventListenersStore());
+	const store = useRefWithInitializer(() => new RootEventListenersStore()).current
 
-	return <RootEventListenersContext.Provider value={store}>{children}</RootEventListenersContext.Provider>;
-};
+	return <RootEventListenersContext.Provider value={store}>{children}</RootEventListenersContext.Provider>
+}

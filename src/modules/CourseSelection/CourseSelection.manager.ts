@@ -1,93 +1,59 @@
-import React from "react";
+import React from "react"
 
-import { hasProperty } from "../../_utils/hasProperty";
-import { useMatchRouteConfig } from "../../hooks/useMatchRouteConfig";
-import { routeConfigMap } from "../../routeConfigMap";
-import {
-	CourseClassListByCodeWithId_CourseSelectionQueryVariables,
-	useCourseClassListByCodeWithClasses_CourseSelectionQuery,
-	useCourseClassListByCodeWithId_CourseSelectionQuery,
-} from "./CourseSelection.graphql.generated";
-import { useCourseSelectionStore } from "./useCourseSelectionStore";
+import { useReactiveVars } from "../../hooks/useReactiveVars"
+import { courseRouteConfig } from "../../routes/courses/course/course.route.config"
+import { matchRouteConfig } from "../Navigation/matchRouteConfig"
+import { useLocation } from "../Navigation/useLocation"
+import { useCourseSelectionStore } from "./useCourseSelectionStore"
 
 export const CourseSelectionManager: React.FC = () => {
-	const store = useCourseSelectionStore();
-	const match = useMatchRouteConfig(routeConfigMap.course);
+	const location = useLocation()
+	const store = useCourseSelectionStore()
 
-	const courseClassListCode = React.useMemo(
-		() =>
-			match && hasProperty(match.params, "courseClassListCode") ? match.params.courseClassListCode : undefined,
-		[match]
-	);
-	const courseClassNumber = React.useMemo(() => {
-		const courseClassNo =
-			match && hasProperty(match.params, "courseClassNo") && typeof match.params.courseClassNo === "string"
-				? match.params.courseClassNo
-				: undefined;
+	const match = React.useMemo(() => matchRouteConfig(location.pathname, courseRouteConfig), [location.pathname])
+	const { code: courseClassListCode, courseClassNumber } = match?.params ?? {}
+	const parsedCourseClassNo = React.useMemo(() => {
+		const parsedNumber = !!courseClassNumber && Number(courseClassNumber)
 
-		const parsedCourseClassNo = courseClassNo && Number(courseClassNo);
+		return Number.isNaN(parsedNumber) ? undefined : parsedNumber
+	}, [courseClassNumber])
 
-		return parsedCourseClassNo && !isNaN(parsedCourseClassNo) ? parsedCourseClassNo : undefined;
-	}, [match]);
+	const { courseClassListByCodeWithClasses, courseClassListByCodeWithId } = useReactiveVars(store, [
+		"courseClassListByCodeWithId",
+		"courseClassListByCodeWithClasses",
+	])
 
-	const variables: CourseClassListByCodeWithId_CourseSelectionQueryVariables | undefined = courseClassListCode
-		? {
-				code: courseClassListCode,
-		  }
-		: undefined;
-	const courseClassListByCodeResponse = useCourseClassListByCodeWithId_CourseSelectionQuery({
-		variables,
-		skip: !variables,
-		fetchPolicy: "cache-only",
-	});
-	const courseClassListClassesByCodeResponse = useCourseClassListByCodeWithClasses_CourseSelectionQuery({
-		variables,
-		skip: !variables,
-		fetchPolicy: "cache-only",
-	});
-
-	React.useEffect(() => {
-		if (!courseClassListByCodeResponse.data || !courseClassListClassesByCodeResponse.data)
-			if (courseClassListCode)
+	React.useLayoutEffect(() => {
+		if (!courseClassListByCodeWithId || !courseClassListByCodeWithClasses) {
+			if (courseClassListCode) {
 				store.selection(
-					courseClassNumber
+					parsedCourseClassNo
 						? {
 								courseClassListCode,
-								courseClassNumber,
+								courseClassNumber: parsedCourseClassNo,
 						  }
 						: {
 								courseClassListCode,
 						  }
-				);
-			else store.selection({});
-		else if (courseClassListByCodeResponse.data.courseClassListByCode.__typename === "CourseClassList") {
-			if (courseClassListByCodeResponse.variables?.code !== courseClassListCode) return;
-
-			const { courseClassListByCode } = courseClassListByCodeResponse.data;
-			const variableCode = courseClassListByCodeResponse.variables?.code;
+				)
+			} else {
+				store.selection({})
+			}
+		} else {
 			const courseClass =
-				typeof courseClassNumber === "number" &&
-				courseClassListClassesByCodeResponse.data.courseClassListByCode.__typename === "CourseClassList" &&
-				Array.isArray(courseClassListClassesByCodeResponse.data.courseClassListByCode.classes)
-					? courseClassListClassesByCodeResponse.data.courseClassListByCode.classes.find(
-							(c) => c.number === courseClassNumber
-					  )
-					: undefined;
+				!Number.isNaN(parsedCourseClassNo) && Array.isArray(courseClassListByCodeWithClasses.classes)
+					? courseClassListByCodeWithClasses.classes.find((c) => c.number === parsedCourseClassNo)
+					: undefined
 
 			store.selection({
-				courseClassListCode: variableCode,
-				courseClassListId: courseClassListByCode.id,
+				courseClassListCode: courseClassListByCodeWithId.code,
+				courseClassListId: courseClassListByCodeWithId.id,
 				...(courseClass
 					? { courseClassId: courseClass.id, courseClassNumber: courseClass.number || undefined }
 					: {}),
-			});
+			})
 		}
-	}, [
-		courseClassListByCodeResponse.data,
-		courseClassListClassesByCodeResponse.data,
-		courseClassListCode,
-		courseClassNumber,
-	]);
+	}, [courseClassListByCodeWithClasses, courseClassListByCodeWithId, courseClassListCode, courseClassNumber])
 
-	return null;
-};
+	return null
+}

@@ -1,4 +1,6 @@
-export * from "./CreativeCommonsFooter.base";
-export * from "./CreativeCommonsFooter.styles";
-export * from "./CreativeCommonsFooter.types";
-export * from "./CreativeCommonsFooter";
+/*
+ * This is an auto-generated file. Changes made to this file will be ignored
+ * next time the file gets generated.
+ */
+
+export * from "./CreativeCommonsFooter"
