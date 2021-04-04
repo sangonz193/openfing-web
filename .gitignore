@@ -37,3 +37,4 @@ index.tsx
 *.generated.*ts
 *.ttf.d.ts
 *.svg.d.ts
+src/graphql/remoteSchema.types.ts
