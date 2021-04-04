@@ -1,4 +1,4 @@
-import { registerIcons } from "@fluentui/style-utilities"
+import { registerIconAlias, registerIcons } from "@fluentui/style-utilities"
 
 function CheckmarkIcon() {
 	return (
@@ -22,3 +22,5 @@ registerIcons({
 		[CHECKMARK_ICON_NAME]: <CheckmarkIcon />,
 	},
 })
+
+registerIconAlias("checkmark", CHECKMARK_ICON_NAME)

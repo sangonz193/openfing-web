@@ -102,7 +102,7 @@ const CourseClassPlayerControlsBottomControlsComponent: React.FC<CourseClassPlay
 
 				<div style={{ flex: 1 }} />
 
-				{chapterTextTracks.length > -1 && <CourseClassPlayerShowChaptersButton />}
+				{chapterTextTracks.length > 0 && <CourseClassPlayerShowChaptersButton />}
 
 				<CourseClassPlayerPlaybackRateButton />
 

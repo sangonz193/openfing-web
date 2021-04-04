@@ -29,4 +29,3 @@ registerIcons({
 		[CHECKMARK_CIRCLE_ICON_NAME]: <CheckmarkCircleIcon />,
 	},
 })
-registerIconAlias("checkmark", CHECKMARK_CIRCLE_ICON_NAME)
