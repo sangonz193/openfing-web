@@ -12,13 +12,7 @@ export function useLocalLinkProps(props: Partial<ILinkProps>): ILinkProps {
 			e.preventDefault();
 
 			if (href) {
-				const target = props.target || "_self";
-
-				if (target === "_self" && !href.startsWith("http")) {
-					history.push(href);
-				} else {
-					window.open(href, target);
-				}
+				history.push(href);
 			}
 
 			onClick?.(e);
