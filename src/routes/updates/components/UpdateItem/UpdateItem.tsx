@@ -1,9 +1,9 @@
 import { Image, ImageFit, Link, Text } from "@fluentui/react";
 import React from "react";
 
-import { Div } from "../../../../../components/Div";
-import { useLocalLinkProps } from "../../../../../hooks/useLocalLinkProps";
-import { courseRouteConfig } from "../../../../courses/course/course.route.config";
+import { Div } from "../../../../components/Div";
+import { useLocalLinkProps } from "../../../../hooks/useLocalLinkProps";
+import { courseRouteConfig } from "../../../courses/course/course.route.config";
 import { UpdateItemCourseClassFragment } from "./UpdateItem.graphql.generated";
 import { useUpdateItemStyles } from "./useUpdateItemStyles";
 
