@@ -1,4 +1,4 @@
-import { css, makeStyles } from "@fluentui/react"
+import { css, IStyle, makeStyles } from "@fluentui/react"
 
 export type CourseClassPlayerStyleProps = {
 	className: string | undefined
@@ -8,6 +8,19 @@ export type CourseClassPlayerStyleProps = {
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 const useStyles = makeStyles((theme) => {
+	const commonSideTapArea: IStyle = {
+		position: "absolute",
+		top: 0,
+		bottom: 0,
+		width: "50%",
+		display: "flex",
+
+		background: "none",
+		border: "none",
+
+		outline: "none",
+	}
+
 	return {
 		wrapper: {
 			position: "relative",
@@ -30,6 +43,16 @@ const useStyles = makeStyles((theme) => {
 			bottom: 0,
 			left: 0,
 			display: "flex",
+		},
+
+		leftTapArea: {
+			...commonSideTapArea,
+			left: 0,
+		},
+
+		rightTapArea: {
+			...commonSideTapArea,
+			right: 0,
 		},
 
 		layerHost: {
@@ -85,6 +108,8 @@ export function useCourseClassPlayerStyles({ className, fullscreen, hideCursor }
 			hideCursor && styles.wrapperHideCursor
 		),
 		controlsWrapper: styles.controlsWrapper,
+		leftTapArea: styles.leftTapArea,
+		rightTapArea: styles.rightTapArea,
 		layerHost: styles.layerHost,
 		spinner: styles.spinner,
 		bottomControls: css(styles.bottomControls, fullscreen && styles.bottomControlsFullscreen),

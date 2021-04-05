@@ -65,7 +65,7 @@ const CourseComponent: React.FC<CourseProps> = ({ className, courseClassListCode
 
 	const isSM = useMediaQuery({ minWidth: Breakpoint.sm })
 	const headerTitle = !courseClassListByCodeQueryResult.loading && !course ? "Oops" : courseName ? courseName : ""
-	const showCourseDetail = (courseClassNumber && course) || (isSM && pinCourseClassList)
+	const showCourseDetail = (courseClassNumber && course) || isSM
 
 	const styles = useCourseStyles({
 		className,

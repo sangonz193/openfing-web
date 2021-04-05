@@ -7,6 +7,7 @@ import { useResizeDetector } from "react-resize-detector"
 
 import { getCourseClassPlayerShortcuts } from "../../../../../_utils/getCourseClassPlayerShortcuts"
 import { Div } from "../../../../../components/Div"
+import { useDoubleClick } from "../../../../../hooks/useDoubleClick"
 import { useReactiveVars } from "../../../../../hooks/useReactiveVars"
 import { useAppStore } from "../../../../../modules/App"
 import { CourseClassPlayerStore, useCourseClassPlayerStore } from "../../../../../modules/CourseClassPlayer"
@@ -144,6 +145,48 @@ const CourseClassPlayerComponent: React.FC<CourseClassPlayerProps> = ({ classNam
 
 	React.useEffect(() => {
 		courseClassPlayerStore.setVideoWrapperInstance(resizeDetectorTargetRef.current)
+	}, [])
+
+	const handleLeftClick = useDoubleClick({
+		onDoubleClick: React.useCallback(() => {
+			const isBlockingControls = courseClassPlayerStore.isBlockingShowControls(showControlsForId)
+
+			courseClassPlayerStore.setCurrentTime(courseClassPlayerStore.currentTime() - 10)
+
+			if (isBlockingControls) {
+				courseClassPlayerStore.showControlsFor(showControlsForId, 3000)
+			}
+		}, []),
+		onClick: React.useCallback(() => {
+			const isBlockingControls = courseClassPlayerStore.isBlockingShowControls(showControlsForId)
+
+			if (isBlockingControls) {
+				courseClassPlayerStore.unblockShowControls(showControlsForId)
+			} else {
+				courseClassPlayerStore.showControlsFor(showControlsForId, 3000)
+			}
+		}, []),
+	})
+
+	const handleRightClick = useDoubleClick({
+		onDoubleClick: React.useCallback(() => {
+			const isBlockingControls = courseClassPlayerStore.isBlockingShowControls(showControlsForId)
+
+			courseClassPlayerStore.setCurrentTime(courseClassPlayerStore.currentTime() + 10)
+
+			if (isBlockingControls) {
+				courseClassPlayerStore.showControlsFor(showControlsForId, 3000)
+			}
+		}, []),
+		onClick: React.useCallback(() => {
+			const isBlockingControls = courseClassPlayerStore.isBlockingShowControls(showControlsForId)
+
+			if (isBlockingControls) {
+				courseClassPlayerStore.unblockShowControls(showControlsForId)
+			} else {
+				courseClassPlayerStore.showControlsFor(showControlsForId, 3000)
+			}
+		}, []),
 	})
 
 	return (
@@ -165,6 +208,13 @@ const CourseClassPlayerComponent: React.FC<CourseClassPlayerProps> = ({ classNam
 
 			{loaded && (
 				<div className={styles.controlsWrapper}>
+					{inputType === "TOUCH" && (
+						<>
+							<button className={styles.leftTapArea} onClick={handleLeftClick} />
+							<button className={styles.rightTapArea} onClick={handleRightClick} />
+						</>
+					)}
+
 					<CourseClassPlayerControlsBottomControls className={styles.bottomControls} />
 
 					<LayerHost id="course-class-player-controls" className={styles.layerHost} />
