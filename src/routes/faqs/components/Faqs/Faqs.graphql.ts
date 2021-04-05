@@ -1,6 +1,6 @@
 import gql from "graphql-tag";
 
-import { FaqItemFragmentDoc } from "./FaqItem/FaqItem.graphql";
+import { FaqItemFragmentDoc } from "../FaqItem/FaqItem.graphql";
 
 export const faqs = gql`
 	query faqs {

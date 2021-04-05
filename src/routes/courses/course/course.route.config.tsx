@@ -1,5 +1,5 @@
 import { RouteConfig } from "../../_utils/RouteConfig";
-import { Course } from "./Course";
+import { Course } from "./components/Course";
 
 export type CourseRouteConfigParams = {
 	code: string;

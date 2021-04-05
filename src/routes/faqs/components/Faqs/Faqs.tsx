@@ -1,10 +1,10 @@
 import { List, Separator, Spinner } from "@fluentui/react";
 import React from "react";
 
-import { CreativeCommonsFooter } from "../../../components/CreativeCommonsFooter";
-import { useLayoutOptions } from "../../../components/Layout/useLayoutOptions";
-import { useDocumentTitle } from "../../../hooks/useDocumentTitle";
-import { FaqItem } from "./FaqItem/FaqItem";
+import { CreativeCommonsFooter } from "../../../../components/CreativeCommonsFooter";
+import { useLayoutOptions } from "../../../../components/Layout/useLayoutOptions";
+import { useDocumentTitle } from "../../../../hooks/useDocumentTitle";
+import { FaqItem } from "../FaqItem/FaqItem";
 import { useFaqsQuery } from "./Faqs.graphql.generated";
 import { useFaqsStyles } from "./useFaqsStyles";
 

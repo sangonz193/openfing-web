@@ -2,19 +2,19 @@ import { Link } from "@fluentui/react";
 import React from "react";
 import { useMediaQuery } from "react-responsive";
 
-import { Div } from "../../../../components/Div";
-import { useLayoutOptions } from "../../../../components/Layout/useLayoutOptions";
-import { useDocumentTitle } from "../../../../hooks/useDocumentTitle";
-import { useLocalLinkProps } from "../../../../hooks/useLocalLinkProps";
-import { useQueryParams } from "../../../../hooks/useQueryParams";
-import { useReactiveVars } from "../../../../hooks/useReactiveVars";
-import { useCourseClassPlayerStore } from "../../../../modules/CourseClassPlayer";
-import { useCourseSelectionStore } from "../../../../modules/CourseSelection";
-import { useHistory } from "../../../../modules/Navigation/useHistory";
-import { Breakpoint } from "../../../../styles/Breakpoint";
+import { Div } from "../../../../../components/Div";
+import { useLayoutOptions } from "../../../../../components/Layout/useLayoutOptions";
+import { useDocumentTitle } from "../../../../../hooks/useDocumentTitle";
+import { useLocalLinkProps } from "../../../../../hooks/useLocalLinkProps";
+import { useQueryParams } from "../../../../../hooks/useQueryParams";
+import { useReactiveVars } from "../../../../../hooks/useReactiveVars";
+import { useCourseClassPlayerStore } from "../../../../../modules/CourseClassPlayer";
+import { useCourseSelectionStore } from "../../../../../modules/CourseSelection";
+import { useHistory } from "../../../../../modules/Navigation/useHistory";
+import { Breakpoint } from "../../../../../styles/Breakpoint";
+import { CourseDetail } from "../CourseDetail";
+import { CourseMaster } from "../CourseMaster";
 import { CourseClassListByCodeQueryVariables, useCourseClassListByCodeQuery } from "./Course.graphql.generated";
-import { CourseDetail } from "./CourseDetail";
-import { CourseMaster } from "./CourseMaster";
 import { useCourseStyles } from "./useCourseStyles";
 
 export type CourseProps = {

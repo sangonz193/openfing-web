@@ -1,5 +1,5 @@
 import { RouteConfig } from "../_utils/RouteConfig";
-import { Updates } from "./Updates";
+import { Updates } from "./components/Updates";
 
 export const updatesRouteConfig: RouteConfig = {
 	path: `/updates`,

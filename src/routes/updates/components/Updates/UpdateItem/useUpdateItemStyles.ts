@@ -1,6 +1,6 @@
 import { css, makeStyles } from "@fluentui/react";
 
-import { getMinWidthSelector } from "../../../../styles/getMinWidthSelector";
+import { getMinWidthSelector } from "../../../../../styles/getMinWidthSelector";
 
 export type UpdateItemStyleProps = {
 	className: string | undefined;

@@ -2,13 +2,13 @@ import { ChoiceGroup, IChoiceGroupOption, IChoiceGroupProps, Label, Stack, Text 
 import identity from "lodash/identity";
 import React from "react";
 
-import { Div } from "../../../components/Div";
-import { useLayoutOptions } from "../../../components/Layout/useLayoutOptions";
-import { appConfig } from "../../../config/app.config";
-import { useDocumentTitle } from "../../../hooks/useDocumentTitle";
-import { useReactiveVars } from "../../../hooks/useReactiveVars";
-import { useAppearanceStore } from "../../../modules/Appearance";
-import { isThemeKey, ThemeKey } from "../../../styles/themes";
+import { Div } from "../../../../components/Div";
+import { useLayoutOptions } from "../../../../components/Layout/useLayoutOptions";
+import { appConfig } from "../../../../config/app.config";
+import { useDocumentTitle } from "../../../../hooks/useDocumentTitle";
+import { useReactiveVars } from "../../../../hooks/useReactiveVars";
+import { useAppearanceStore } from "../../../../modules/Appearance";
+import { isThemeKey, ThemeKey } from "../../../../styles/themes";
 import { useSettingsStyles } from "./useSettingsStyles";
 
 export type SettingsProps = {

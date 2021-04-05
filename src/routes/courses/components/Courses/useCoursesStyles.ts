@@ -1,7 +1,7 @@
 import { css, makeStyles } from "@fluentui/react";
 
-import { getMaxWidthSelector } from "../../../styles/getMaxWidthSelector";
-import { getMinWidthSelector } from "../../../styles/getMinWidthSelector";
+import { getMaxWidthSelector } from "../../../../styles/getMaxWidthSelector";
+import { getMinWidthSelector } from "../../../../styles/getMinWidthSelector";
 
 export type CoursesStyleProps = {
 	className: string | undefined;

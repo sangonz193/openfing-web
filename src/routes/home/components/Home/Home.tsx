@@ -1,7 +1,7 @@
 import { Link, Stack, Text } from "@fluentui/react";
 import React from "react";
 
-import { useLayoutOptions } from "../../../components/Layout/useLayoutOptions";
+import { useLayoutOptions } from "../../../../components/Layout/useLayoutOptions";
 import { useHomeStyles } from "./useHomeStyles";
 
 export type HomeProps = {

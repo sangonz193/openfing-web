@@ -1,5 +1,5 @@
 import { RouteConfig } from "../_utils/RouteConfig";
-import { Faqs } from "./Faqs";
+import { Faqs } from "./components/Faqs";
 
 export const faqsRouteConfig: RouteConfig = {
 	path: `/faqs`,

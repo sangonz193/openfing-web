@@ -1,9 +1,9 @@
 import { FocusZone, FocusZoneDirection, List, Separator, Spinner } from "@fluentui/react";
 import React from "react";
 
-import { CreativeCommonsFooter } from "../../../components/CreativeCommonsFooter";
-import { useLayoutOptions } from "../../../components/Layout/useLayoutOptions";
-import { useDocumentTitle } from "../../../hooks/useDocumentTitle";
+import { CreativeCommonsFooter } from "../../../../components/CreativeCommonsFooter";
+import { useLayoutOptions } from "../../../../components/Layout/useLayoutOptions";
+import { useDocumentTitle } from "../../../../hooks/useDocumentTitle";
 import { UpdateItem } from "./UpdateItem";
 import { useUpdatesQuery } from "./Updates.graphql.generated";
 import { useUpdatesStyles } from "./useUpdatesStyles";

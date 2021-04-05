@@ -3,15 +3,15 @@ import { List, SearchBox, Separator, Spinner, SpinnerSize } from "@fluentui/reac
 import { FocusZone, FocusZoneDirection } from "@fluentui/react-focus";
 import React from "react";
 
-import { CreativeCommonsFooter } from "../../../components/CreativeCommonsFooter";
-import { Div } from "../../../components/Div";
-import { CANCEL_ICON_NAME } from "../../../components/Icon/Cancel.icon";
-import { SEARCH_ICON_NAME } from "../../../components/Icon/Search.icon";
-import { useLayoutOptions } from "../../../components/Layout/useLayoutOptions";
-import { useComponentWithProps } from "../../../hooks/useComponentWithProps";
-import { useDocumentTitle } from "../../../hooks/useDocumentTitle";
-import { useCourseSearchStore } from "../../../modules/CourseSearch";
-import { CourseItem } from "./CourseItem/CourseItem";
+import { CreativeCommonsFooter } from "../../../../components/CreativeCommonsFooter";
+import { Div } from "../../../../components/Div";
+import { CANCEL_ICON_NAME } from "../../../../components/Icon/Cancel.icon";
+import { SEARCH_ICON_NAME } from "../../../../components/Icon/Search.icon";
+import { useLayoutOptions } from "../../../../components/Layout/useLayoutOptions";
+import { useComponentWithProps } from "../../../../hooks/useComponentWithProps";
+import { useDocumentTitle } from "../../../../hooks/useDocumentTitle";
+import { useCourseSearchStore } from "../../../../modules/CourseSearch";
+import { CourseItem } from "../CourseItem/CourseItem";
 import { useCoursesQuery } from "./Courses.graphql.generated";
 import { useCoursesStyles } from "./useCoursesStyles";
 
