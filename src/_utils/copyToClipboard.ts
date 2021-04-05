@@ -14,10 +14,14 @@ export const copyToClipboard = (value: string) => {
 	if (selected) {
 		// If a selection existed before copying
 		selection = document.getSelection();
-		if (selection !== null) selection.removeAllRanges(); // Unselect everything on the HTML document
+		if (selection !== null) {
+			selection.removeAllRanges();
+		} // Unselect everything on the HTML document
 
 		selection = document.getSelection();
 
-		if (selection !== null) selection.addRange(selected); // Restore the original selection
+		if (selection !== null) {
+			selection.addRange(selected);
+		} // Restore the original selection
 	}
 };

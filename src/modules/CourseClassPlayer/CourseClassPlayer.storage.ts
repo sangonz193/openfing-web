@@ -1,4 +1,4 @@
-import { createTypedStorage } from "src/storage/createTypedStorage";
+import { createTypedStorage } from "../../storage/createTypedStorage";
 
 export type CourseClassPlayerLocalStorageKeyValue = {
 	pinCourseClassList: boolean;

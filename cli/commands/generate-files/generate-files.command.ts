@@ -1,45 +1,51 @@
-import { buildSchema, printSchema } from "graphql";
 import { CommandModule } from "yargs";
 
-import { _fs, fs } from "../../_utils/fs";
-import { generateFilesConfig } from "./_utils/generateFilesConfig";
-import { getRemoteSchema } from "./getRemoteSchema";
-import { getStateSchema } from "./getStateSchema";
-import { typeAssets } from "./typeAssets";
-import { writeOperationFiles } from "./writeOperationFiles";
-import { writePossibleTypes } from "./writePossibleTypes";
-import { writeResolvers } from "./writeResolvers";
+import { generateAssetsTypes } from "./generateAssetsTypes";
+import { generateComponentIndexes } from "./generateComponentIndexes";
+import { generateOperationFiles } from "./generateOperationFiles";
+import { generatePossibleTypes } from "./generatePossibleTypes";
+import { generateRemoteSchema } from "./generateRemoteSchema";
+import { generateRemoteSchemaTypes } from "./generateRemoteSchemaTypes";
 
-const command: CommandModule<{}, {}> = {
-	command: "generate-files" as const,
+const command: CommandModule<{}, { watch: boolean }> = {
+	command: "generate-files",
 
 	describe: "Generates helper files, such as `.d.ts` files for every asset and graphql/typescript related files.",
 
-	builder: (yargs) => yargs,
+	builder: (yargs) =>
+		yargs.option("watch", {
+			alias: "w",
+			type: "boolean",
+			demandOption: false,
+			default: false,
+		}),
 
-	handler: async () => {
-		const { generatedFolderPath } = generateFilesConfig;
+	handler: async (args) => {
+		const { watch } = args;
 
-		if (!_fs.existsSync(generatedFolderPath)) await fs.mkdir(generatedFolderPath);
-
-		const { remoteSchema, fetchedFromRemote } = await getRemoteSchema();
-
-		const stateSchema = getStateSchema({
-			remoteSchema: buildSchema(remoteSchema),
-		});
-
-		await Promise.all([
-			fetchedFromRemote ? writePossibleTypes() : Promise.resolve(undefined),
-			typeAssets(),
-		] as const);
+		const remoteSchemaPromise = generateRemoteSchema();
+		const remoteSchemaTypesPromise = remoteSchemaPromise.then(({ remoteSchemaString }) =>
+			generateRemoteSchemaTypes(remoteSchemaString)
+		);
 
 		await Promise.all([
-			writeResolvers({
-				stateSchema: await stateSchema,
+			generateAssetsTypes(watch),
+			remoteSchemaPromise.then(async ({ remoteSchemaString }) => {
+				const remoteSchemaTypesFilePath = await remoteSchemaTypesPromise;
+				await generateOperationFiles({
+					remoteSchema: remoteSchemaString,
+					remoteSchemaTypesFilePath,
+					watch,
+				});
 			}),
-			writeOperationFiles({
-				stateSchema: printSchema(await stateSchema),
+			remoteSchemaPromise.then(({ updatedFromRemote }) => {
+				if (!updatedFromRemote) {
+					return;
+				}
+
+				return generatePossibleTypes();
 			}),
+			generateComponentIndexes(watch),
 		]);
 	},
 };

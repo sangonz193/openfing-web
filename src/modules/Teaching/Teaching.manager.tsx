@@ -15,7 +15,9 @@ export const TeachingManager: React.FC = () => {
 
 	const didRanRef = React.useRef(false);
 	React.useEffect(() => {
-		if (didRanRef.current) return;
+		if (didRanRef.current) {
+			return;
+		}
 		didRanRef.current = true;
 
 		const teachingKeys = dangerousKeysOf(
@@ -40,6 +42,7 @@ export const TeachingManager: React.FC = () => {
 				{} as Record<TeachingKey, "dismissed" | null>
 			);
 
+			unblockInitialization();
 			await wait(1000);
 
 			dangerousKeysOf(teachingKeyLocalStorageStatusMap).forEach((key) => {
@@ -48,8 +51,6 @@ export const TeachingManager: React.FC = () => {
 					teachingKeyLocalStorageStatusMap[key] === "dismissed" ? "dismissed" : "waiting"
 				);
 			});
-
-			unblockInitialization();
 		})();
 	}, []);
 

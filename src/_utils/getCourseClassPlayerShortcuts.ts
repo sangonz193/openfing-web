@@ -10,7 +10,9 @@ export const getCourseClassPlayerShortcuts = (
 	const togglePlay = () => courseClassPlayerStore.togglePlay();
 	const getHandleNumber = (number: number) => () => {
 		const duration = courseClassPlayerStore.duration();
-		if (duration) courseClassPlayerStore.setCurrentTime(number * (duration / 10));
+		if (duration) {
+			courseClassPlayerStore.setCurrentTime(number * (duration / 10));
+		}
 	};
 
 	return {

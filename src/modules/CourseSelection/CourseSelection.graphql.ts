@@ -1,29 +1,19 @@
-import { gql } from "@apollo/client";
+import gql from "graphql-tag";
 
-// Remember there's no way to handle errors from here
-export const courseClassListByCodeWithId_CourseSelection = gql`
-	query courseClassListByCodeWithId_CourseSelection($code: String!) {
-		courseClassListByCode(code: $code) {
-			... on CourseClassList {
-				id
-				code
-			}
-		}
+export const CourseSelectionCourseClassListByCodeWithId = gql`
+	fragment CourseSelectionCourseClassListByCodeWithId on CourseClassList {
+		id
+		code
 	}
 `;
+export const CourseSelectionCourseClassListByCodeWithClasses = gql`
+	fragment CourseSelectionCourseClassListByCodeWithClasses on CourseClassList {
+		id
+		code
 
-export const courseClassListByCodeWithClasses_CourseSelection = gql`
-	query courseClassListByCodeWithClasses_CourseSelection($code: String!) {
-		courseClassListByCode(code: $code) {
-			... on CourseClassList {
-				id
-				code
-
-				classes {
-					id
-					number
-				}
-			}
+		classes {
+			id
+			number
 		}
 	}
 `;

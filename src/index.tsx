@@ -1,38 +1,16 @@
-import "fullscreen-api-polyfill";
-import "regenerator-runtime/runtime";
+import "./index.css";
 
-import { Stylesheet } from "@fluentui/react/lib/Styling";
-import React from "react";
-import { render } from "react-dom";
+import ReactDOM from "react-dom";
 
-import robotoBold from "./assets/fonts/Roboto-Bold.ttf";
-import robotoRegular from "./assets/fonts/Roboto-Regular.ttf";
 import { App } from "./components/App";
-import { registerIcons } from "./components/Icon/registerIcons";
-import { renderWithStructure } from "./renderWithStructure";
+import { renderWithContext } from "./renderWithContext";
+import reportWebVitals from "./reportWebVitals";
+import { registerFonts } from "./styles/fonts/registerFonts";
 
-registerIcons();
+registerFonts();
+ReactDOM.render(renderWithContext(App), document.getElementById("root"));
 
-// window.addEventListener("keydown", (k) => {
-// 	if (k.code === "Backquote") debugger;
-// });
-
-Stylesheet.getInstance().setConfig({ namespace: "of" });
-
-const wrapper = document.getElementById("root");
-
-const head = document.getElementsByTagName("head")[0];
-const style = document.createElement("style");
-style.innerHTML = `
-    @font-face {
-        font-family: Roboto;
-        src: url("${robotoRegular}");
-    }
-    @font-face {
-        font-family: Roboto;
-        src: url("${robotoBold}");
-        font-weight: bold;
-    }`;
-head.appendChild(style);
-
-render(<>{renderWithStructure(App)}</>, wrapper);
+// If you want to start measuring performance in your app, pass a function
+// to log results (for example: reportWebVitals(console.log))
+// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
+reportWebVitals();

@@ -1,6 +1,7 @@
 import React from "react";
 
 import { AppearanceStore } from "./Appearance.store";
+import { FluentThemeProvider } from "./FluentThemeProvider";
 
 export type AppearanceContextValue = AppearanceStore | ((store: AppearanceStore) => void);
 
@@ -11,5 +12,9 @@ export const AppearanceContext = React.createContext<AppearanceContextValue>(
 export const AppearanceProvider: React.FC = ({ children }) => {
 	const [store, setStore] = React.useState<AppearanceStore>();
 
-	return <AppearanceContext.Provider value={store || setStore}>{children}</AppearanceContext.Provider>;
+	return (
+		<AppearanceContext.Provider value={store || setStore}>
+			<FluentThemeProvider>{children}</FluentThemeProvider>
+		</AppearanceContext.Provider>
+	);
 };

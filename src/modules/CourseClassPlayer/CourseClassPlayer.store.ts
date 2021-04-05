@@ -47,7 +47,7 @@ export class CourseClassPlayerStore {
 					? {
 							key: K;
 							getValue: () => T;
-							// eslint-disable-next-line @typescript-eslint/no-explicit-any
+
 							dependencies: Array<ReactiveVar<any>>;
 					  }
 					: never;
@@ -80,9 +80,13 @@ export class CourseClassPlayerStore {
 					const currentTime = this.currentTime();
 					const duration = this.duration();
 
-					if (!buffered || Number.isNaN(currentTime) || Number.isNaN(duration)) return NaN;
+					if (!buffered || Number.isNaN(currentTime) || Number.isNaN(duration)) {
+						return NaN;
+					}
 
-					if (buffered.length === 0) return 0;
+					if (buffered.length === 0) {
+						return 0;
+					}
 
 					let i;
 					let bufferedEnd = buffered.end(0);
@@ -92,9 +96,12 @@ export class CourseClassPlayerStore {
 						i < buffered.length - 1 &&
 						!(buffered.start(i) <= currentTime && currentTime <= buffered.end(i));
 						i++
-					)
+					) {
 						i++;
-					if (i < buffered.length) bufferedEnd = buffered.end(i);
+					}
+					if (i < buffered.length) {
+						bufferedEnd = buffered.end(i);
+					}
 
 					return (bufferedEnd * 100) / duration || 0;
 				},
@@ -110,7 +117,6 @@ export class CourseClassPlayerStore {
 					return listenVar(dependency, () => reactiveVar(config.getValue()));
 				});
 
-				// eslint-disable-next-line @typescript-eslint/no-explicit-any
 				this[config.key] = reactiveVar as any;
 				return () => listeners.forEach((listener) => listener());
 			})
@@ -130,14 +136,19 @@ export class CourseClassPlayerStore {
 	}
 
 	togglePlay() {
-		if (this.isPlaying()) this.pause();
-		else this.play();
+		if (this.isPlaying()) {
+			this.pause();
+		} else {
+			this.play();
+		}
 	}
 
 	blockShowControls = (id: string) => {
 		const currentValue = this.showControlsBlockers()[id];
 
-		if (currentValue?.timeout) clearTimeout(currentValue.timeout);
+		if (currentValue?.timeout) {
+			clearTimeout(currentValue.timeout);
+		}
 
 		this.showControlsBlockers({
 			...this.showControlsBlockers(),
@@ -149,7 +160,9 @@ export class CourseClassPlayerStore {
 		const showControlsBlockers = this.showControlsBlockers();
 		const currentValue = showControlsBlockers[id];
 
-		if (currentValue?.timeout) clearTimeout(currentValue.timeout);
+		if (currentValue?.timeout) {
+			clearTimeout(currentValue.timeout);
+		}
 
 		const showControlsBlockersCopy = { ...showControlsBlockers };
 		delete showControlsBlockersCopy[id];
@@ -163,13 +176,14 @@ export class CourseClassPlayerStore {
 		if (currentValue?.timeout) {
 			clearTimeout(currentValue.timeout);
 			currentValue.timeout = setTimeout(() => this.unblockShowControls(id), ms);
-		} else if (!currentValue)
+		} else if (!currentValue) {
 			this.showControlsBlockers({
 				...this.showControlsBlockers(),
 				[id]: {
 					timeout: setTimeout(() => this.unblockShowControls(id), ms),
 				},
 			});
+		}
 	};
 
 	setCurrentTime = (s: number) => {
@@ -178,7 +192,9 @@ export class CourseClassPlayerStore {
 
 		clearTimeout(setCurrentTimeTimeoutRef.current);
 
-		if (!htmlVideoElement) return;
+		if (!htmlVideoElement) {
+			return;
+		}
 
 		s = Math.max(0, Math.min(htmlVideoElement.duration || 0, s));
 		this.currentTime((htmlVideoElement.currentTime = s));
@@ -187,15 +203,22 @@ export class CourseClassPlayerStore {
 	setVolume = (volume: number) => {
 		const htmlVideoElement = this.htmlVideoElement();
 
-		if (!htmlVideoElement) return;
+		if (!htmlVideoElement) {
+			return;
+		}
 
-		this.volume((htmlVideoElement.volume = Math.max(0, Math.min(volume, 1))));
+		const newVolume = Math.max(0, Math.min(volume, 1));
+		if (Number.isFinite(newVolume)) {
+			this.volume((htmlVideoElement.volume = newVolume));
+		}
 	};
 
 	setPlaybackRate = (playbackRate: number) => {
 		const htmlVideoElement = this.htmlVideoElement();
 
-		if (!htmlVideoElement) return;
+		if (!htmlVideoElement) {
+			return;
+		}
 
 		this.playbackRate((htmlVideoElement.playbackRate = playbackRate));
 	};
@@ -211,17 +234,22 @@ export class CourseClassPlayerStore {
 	toggleFullscreen = () => {
 		const htmlVideoWrapperElement = this.htmlVideoWrapperElement();
 
-		if (!!document.fullscreenElement && document.fullscreenElement === htmlVideoWrapperElement)
+		if (!!document.fullscreenElement && document.fullscreenElement === htmlVideoWrapperElement) {
 			this.exitFullscreen();
-		else this.setFullscreen();
+		} else {
+			this.setFullscreen();
+		}
 	};
 
 	setVideoInstance = (video: HTMLVideoElement | null) => {
 		const htmlVideoElement = this.htmlVideoElement();
-		if (htmlVideoElement === video) return;
+		if (htmlVideoElement === video) {
+			return;
+		}
 
-		if (this.track && this.trackCueChangeHandler)
+		if (this.track && this.trackCueChangeHandler) {
 			this.track.removeEventListener("cuechange", this.trackCueChangeHandler);
+		}
 
 		this.track = undefined;
 		this.trackCueChangeHandler = undefined;
@@ -237,7 +265,9 @@ export class CourseClassPlayerStore {
 
 	setChapterTextTracks = (vttCues: VTTCue[]) => {
 		const htmlVideoElement = this.htmlVideoElement();
-		if (!htmlVideoElement) return;
+		if (!htmlVideoElement) {
+			return;
+		}
 
 		const track = htmlVideoElement.addTextTrack("chapters", "Índice", "es");
 		vttCues.forEach((vvtCue) => track.addCue(vvtCue));
@@ -245,8 +275,11 @@ export class CourseClassPlayerStore {
 		this.trackCueChangeHandler = () => {
 			const activeCues: VTTCue[] = [];
 
-			if (track.activeCues)
-				for (let i = 0; i < (track.activeCues.length || 0); i++) activeCues.push(track.activeCues[i] as VTTCue);
+			if (track.activeCues) {
+				for (let i = 0; i < (track.activeCues.length || 0); i++) {
+					activeCues.push(track.activeCues[i] as VTTCue);
+				}
+			}
 
 			this.activeChapterTextTracks(activeCues);
 		};
@@ -286,7 +319,6 @@ export class CourseClassPlayerStore {
 		const video = htmlVideoElement || defaultValues;
 
 		dangerousKeysOf(defaultValues).forEach((key) => {
-			// eslint-disable-next-line @typescript-eslint/no-explicit-any
 			this[key](video[key] as any);
 		});
 	};

@@ -34,14 +34,20 @@ export const useIsHover = (): [
 	);
 
 	React.useEffect(() => {
-		if (inputType === "TOUCH") setState(false);
+		if (inputType === "TOUCH") {
+			setState(false);
+		}
 	}, [inputType]);
 
 	React.useEffect(() => {
-		if (!state) return;
+		if (!state) {
+			return;
+		}
 
 		const handler = () => {
-			if (!mouseMoveTimeout.current) mouseMoveTimeout.current = setTimeout(() => setState(false), 1000);
+			if (!mouseMoveTimeout.current) {
+				mouseMoveTimeout.current = setTimeout(() => setState(false), 1000);
+			}
 		};
 		window.addEventListener("mousemove", handler);
 

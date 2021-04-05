@@ -11,7 +11,9 @@ export const useRootEventListener = <TEvent extends keyof EventsMap>(
 	const store = React.useContext(RootEventListenersContext);
 
 	React.useEffect(() => {
-		if (skip) return;
+		if (skip) {
+			return;
+		}
 
 		store.addListener(event, listener);
 

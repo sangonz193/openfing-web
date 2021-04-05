@@ -1,4 +1,4 @@
-import { createTypedStorage } from "src/storage/createTypedStorage";
+import { createTypedStorage } from "../../storage/createTypedStorage";
 
 export type TeachingLocalStorageKeyValue = {
 	darkTheme: "dismissed";
@@ -26,6 +26,8 @@ export const migrateTeachingLocalStorage = async () => {
 	const oldKey = `@of-teaching-darkTheme`;
 	const value = teachingLocalStorage._untypedStorage.getItem(oldKey);
 
-	if (value === "dismissed") await teachingLocalStorage.setItem("darkTheme", value);
+	if (value === "dismissed") {
+		await teachingLocalStorage.setItem("darkTheme", value);
+	}
 	teachingLocalStorage._untypedStorage.removeItem(oldKey);
 };

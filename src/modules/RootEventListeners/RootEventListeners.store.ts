@@ -20,9 +20,7 @@ export class RootEventListenersStore {
 
 			this.listeners(
 				entries.reduce<Partial<EventsMap>>((res, [key, listeners]) => {
-					// eslint-disable-next-line @typescript-eslint/no-explicit-any
 					res[key] = (event: any) => {
-						// eslint-disable-next-line @typescript-eslint/no-explicit-any
 						listeners.forEach((listener: any) => {
 							listener(event);
 						});
@@ -49,12 +47,15 @@ export class RootEventListenersStore {
 		const listeners = listenersMap[event];
 		const listenerIndex = listeners?.indexOf(listener) ?? -1;
 
-		if (listenerIndex >= 0) listeners?.splice(listenerIndex, 1);
+		if (listenerIndex >= 0) {
+			listeners?.splice(listenerIndex, 1);
+		}
 
-		if (listeners)
+		if (listeners) {
 			this.listenersMap({
 				...this.listenersMap(),
 				[event]: listeners,
 			});
+		}
 	}
 }

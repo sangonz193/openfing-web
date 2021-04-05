@@ -1,5 +1,10 @@
 import { makeVar } from "@apollo/client";
 
+import {
+	CourseSelectionCourseClassListByCodeWithClassesFragment,
+	CourseSelectionCourseClassListByCodeWithIdFragment,
+} from "./CourseSelection.graphql.generated";
+
 export type CompleteCourseSelectionStoreSelection = {
 	courseClassListId: string;
 	courseClassListCode: string;
@@ -49,4 +54,9 @@ export class CourseSelectionStore {
 		videoQualityId: undefined,
 		videoFormatId: undefined,
 	});
+
+	courseClassListByCodeWithId = makeVar<CourseSelectionCourseClassListByCodeWithIdFragment | undefined>(undefined);
+	courseClassListByCodeWithClasses = makeVar<CourseSelectionCourseClassListByCodeWithClassesFragment | undefined>(
+		undefined
+	);
 }

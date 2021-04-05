@@ -17,25 +17,31 @@ export const CourseClassPlayerManager: React.FC = () => {
 		"pinCourseClassList",
 	]);
 
-	React.useState(() => {
+	React.useEffect(() => {
 		(async () => {
 			await migrateCourseClassPlayerLocalStorage();
 
 			const pinCourseClassList = await courseClassPlayerLocalStorage.getItem("pinCourseClassList");
-			if (pinCourseClassList !== null) store.pinCourseClassList(pinCourseClassList);
+			if (pinCourseClassList !== null) {
+				store.pinCourseClassList(pinCourseClassList);
+			}
 
 			unblockInitialization();
 		})();
-	});
+	}, []);
 
 	React.useEffect(() => {
-		if (!isInitializing) courseClassPlayerLocalStorage.setItem("pinCourseClassList", pinCourseClassList);
+		if (!isInitializing) {
+			courseClassPlayerLocalStorage.setItem("pinCourseClassList", pinCourseClassList);
+		}
 	}, [isInitializing, pinCourseClassList]);
 
 	React.useEffect(() => {
 		store.syncVideoState();
 
-		if (!htmlVideoElement) return;
+		if (!htmlVideoElement) {
+			return;
+		}
 
 		const throttleSyncState = throttle(() => store.syncVideoState(), 300);
 
@@ -121,20 +127,29 @@ export const CourseClassPlayerManager: React.FC = () => {
 				(e: Event) => {
 					const value = eventMap[key as keyof HTMLMediaElementEventMap];
 
-					if (!value || value(e)) throttleSyncState();
+					if (!value || value(e)) {
+						throttleSyncState();
+					}
 				},
 			]);
 		}
 
-		for (const [key, eventListener] of eventListeners) htmlVideoElement.addEventListener(key, eventListener);
+		for (const [key, eventListener] of eventListeners) {
+			htmlVideoElement.addEventListener(key, eventListener);
+		}
 
 		return () => {
-			for (const [key, eventListener] of eventListeners) htmlVideoElement.removeEventListener(key, eventListener);
+			for (const [key, eventListener] of eventListeners) {
+				htmlVideoElement.removeEventListener(key, eventListener);
+			}
 		};
 	}, [htmlVideoElement]);
 
 	React.useEffect(() => {
-		const syncFullscreenState = () => store.isFullscreen(htmlVideoWrapperElement === document.fullscreenElement);
+		const syncFullscreenState = () => {
+			store.isFullscreen(!!document.fullscreenElement && htmlVideoWrapperElement === document.fullscreenElement);
+		};
+
 		syncFullscreenState();
 
 		document.addEventListener("fullscreenchange", syncFullscreenState);

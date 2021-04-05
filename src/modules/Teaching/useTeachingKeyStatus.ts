@@ -20,16 +20,23 @@ export const useTeachingKeyStatus = (
 			listenVar(store.teachingStatusByKey, () => {
 				const newStatus = getStatus();
 
-				if (status !== newStatus) setStatus(newStatus);
+				if (status !== newStatus) {
+					setStatus(newStatus);
+				}
 			}),
 		[]
 	);
 
 	React.useEffect(() => {
-		if (!status) return;
+		if (!status) {
+			return;
+		}
 
-		if (canHandle && status === "waiting") store.setStatusFor(teachingKey, "ready");
-		else if (status === "ready" && !canHandle) store.setStatusFor(teachingKey, "waiting");
+		if (canHandle && status === "waiting") {
+			store.setStatusFor(teachingKey, "ready");
+		} else if (status === "ready" && !canHandle) {
+			store.setStatusFor(teachingKey, "waiting");
+		}
 	}, [canHandle, teachingKey, status]);
 
 	const handleDismiss = React.useCallback(() => {

@@ -8,9 +8,13 @@ export const secondsToString: (seconds: number, length?: "seconds" | "minutes" |
 
 	let result = secondsLeft.toString().padStart(2, "0");
 
-	if (length !== "seconds") result = `${minutes.toString().padStart(2, "0")}:${result}`;
+	if (length !== "seconds") {
+		result = `${minutes.toString().padStart(2, "0")}:${result}`;
+	}
 
-	if (length !== "minutes") result = `${hours.toString().padStart(2, "0")}:${result}`;
+	if (length !== "minutes") {
+		result = `${hours.toString().padStart(2, "0")}:${result}`;
+	}
 
 	return result;
 };
