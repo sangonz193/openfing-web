@@ -1,4 +1,3 @@
-import { useReactiveVar } from "@apollo/client";
 import { Link, Text } from "@fluentui/react";
 import React from "react";
 

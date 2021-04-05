@@ -2,7 +2,6 @@ import throttle from "lodash/throttle";
 import React from "react";
 
 import { useReactiveVars } from "../../hooks/useReactiveVars";
-import { useRefWithInitializer } from "../../hooks/useRefWithInitializer";
 import { useBlockInitialization, useIsInitializing } from "../Initialization";
 import { courseClassPlayerLocalStorage, migrateCourseClassPlayerLocalStorage } from "./CourseClassPlayer.storage";
 import { useCourseClassPlayerStore } from "./useCourseClassPlayerStore";
@@ -18,16 +17,18 @@ export const CourseClassPlayerManager: React.FC = () => {
 		"pinCourseClassList",
 	]);
 
-	useRefWithInitializer(async () => {
-		await migrateCourseClassPlayerLocalStorage();
+	React.useEffect(() => {
+		(async () => {
+			await migrateCourseClassPlayerLocalStorage();
 
-		const pinCourseClassList = await courseClassPlayerLocalStorage.getItem("pinCourseClassList");
-		if (pinCourseClassList !== null) {
-			store.pinCourseClassList(pinCourseClassList);
-		}
+			const pinCourseClassList = await courseClassPlayerLocalStorage.getItem("pinCourseClassList");
+			if (pinCourseClassList !== null) {
+				store.pinCourseClassList(pinCourseClassList);
+			}
 
-		unblockInitialization();
-	});
+			unblockInitialization();
+		})();
+	}, []);
 
 	React.useEffect(() => {
 		if (!isInitializing) {

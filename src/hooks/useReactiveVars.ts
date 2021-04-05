@@ -10,7 +10,6 @@ export const useReactiveVars = <TStore extends {}, TKeys extends keyof TStore>(
 	} = {} as any;
 	const values = keys.map((key) => {
 		const value = useReactiveVar(store[key] as any);
-
 		result[key] = value as any;
 
 		return value;

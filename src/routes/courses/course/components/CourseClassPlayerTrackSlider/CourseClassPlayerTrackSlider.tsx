@@ -1,4 +1,4 @@
-import { Callout, DirectionalHint, Point, Slider, Text, useTheme } from "@fluentui/react";
+import { Callout, DirectionalHint, Point, Slider, Text } from "@fluentui/react";
 import throttle from "lodash/throttle";
 import React from "react";
 

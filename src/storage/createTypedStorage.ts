@@ -1,4 +1,4 @@
-import { appConfig } from "../config/app.config";
+import { appConfig } from "../app.config";
 
 export type TypedStorageKeyValue = Record<string, unknown>;
 

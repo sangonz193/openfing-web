@@ -13,10 +13,10 @@ import pick from "lodash/pick";
 import React from "react";
 
 import { copyToClipboard } from "../../../../../_utils/copyToClipboard";
+import { appConfig } from "../../../../../app.config";
 import { CANCEL_ICON_NAME } from "../../../../../components/Icon/Cancel.icon";
 import { CHECKMARK_CIRCLE_ICON_NAME } from "../../../../../components/Icon/CheckmarkCircle.icon";
 import { COPY_ICON_NAME } from "../../../../../components/Icon/Copy.icon";
-import { appConfig } from "../../../../../config/app.config";
 import { useReactiveVars } from "../../../../../hooks/useReactiveVars";
 import { useCourseClassPlayerStore } from "../../../../../modules/CourseClassPlayer";
 import { useCourseSelectionStore } from "../../../../../modules/CourseSelection";
