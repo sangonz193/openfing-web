@@ -1,5 +1,5 @@
-import React from "react";
+import React from "react"
 
-import { AppContext } from "./App.context";
+import { AppContext } from "./App.context"
 
-export const useAppStore = () => React.useContext(AppContext);
+export const useAppStore = () => React.useContext(AppContext)

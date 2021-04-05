@@ -1,15 +1,15 @@
-import { DefaultButton, FontIcon, IButtonProps, Text } from "@fluentui/react";
-import React from "react";
+import { DefaultButton, FontIcon, IButtonProps, Text } from "@fluentui/react"
+import React from "react"
 
-import { useCourseClassPlayerButtonStyles } from "./useCourseClassPlayerButtonStyles";
+import { useCourseClassPlayerButtonStyles } from "./useCourseClassPlayerButtonStyles"
 
 export type CourseClassPlayerButtonProps = {
-	children?: React.ReactChild;
-	className?: string;
-	iconName?: string;
-	text?: string;
-	buttonProps?: IButtonProps;
-};
+	children?: React.ReactChild
+	className?: string
+	iconName?: string
+	text?: string
+	buttonProps?: IButtonProps
+}
 
 const CourseClassPlayerButtonComponent: React.FC<CourseClassPlayerButtonProps> = ({
 	children,
@@ -20,14 +20,14 @@ const CourseClassPlayerButtonComponent: React.FC<CourseClassPlayerButtonProps> =
 }) => {
 	const styles = useCourseClassPlayerButtonStyles({
 		className,
-	});
+	})
 
 	return (
 		<DefaultButton className={styles.wrapper} {...buttonProps}>
 			{iconName ? <FontIcon className={styles.icon} iconName={iconName} /> : children}
 			{text && <Text className={styles.text}>{text}</Text>}
 		</DefaultButton>
-	);
-};
+	)
+}
 
-export const CourseClassPlayerButton = React.memo(CourseClassPlayerButtonComponent);
+export const CourseClassPlayerButton = React.memo(CourseClassPlayerButtonComponent)

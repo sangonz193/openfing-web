@@ -1,6 +1,6 @@
-import { makeStyles } from "@fluentui/react";
+import { makeStyles } from "@fluentui/react"
 
-export type HomeStyleProps = {};
+export type HomeStyleProps = {}
 
 const useStyles = makeStyles((theme) => {
 	return {
@@ -79,11 +79,11 @@ const useStyles = makeStyles((theme) => {
 
 			color: "white",
 		},
-	};
-});
+	}
+})
 
 export function useHomeStyles({}: HomeStyleProps = {}) {
-	const styles = useStyles();
+	const styles = useStyles()
 
 	return {
 		wrapper: styles.wrapper,
@@ -96,5 +96,5 @@ export function useHomeStyles({}: HomeStyleProps = {}) {
 		helpWanted: styles.helpWanted,
 		suggestions: styles.suggestions,
 		suggestionsEmail: styles.suggestionsEmail,
-	};
+	}
 }

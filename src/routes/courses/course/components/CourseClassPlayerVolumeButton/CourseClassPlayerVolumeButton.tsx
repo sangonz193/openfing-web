@@ -1,36 +1,36 @@
-import { DirectionalHint, HoverCard, HoverCardType, IPlainCardProps, Slider, Stack } from "@fluentui/react";
-import throttle from "lodash/throttle";
-import React from "react";
+import { DirectionalHint, HoverCard, HoverCardType, IPlainCardProps, Slider, Stack } from "@fluentui/react"
+import throttle from "lodash/throttle"
+import React from "react"
 
-import { listenVar } from "../../../../../_utils/listenVar";
-import { VOLUME_HIGH_ICON_NAME } from "../../../../../components/Icon/VolumeHigh.icon";
-import { VOLUME_LOW_ICON_NAME } from "../../../../../components/Icon/VolumeLow.icon";
-import { VOLUME_MEDIUM_ICON_NAME } from "../../../../../components/Icon/VolumeMedium.icon";
-import { VOLUME_MUTE_ICON_NAME } from "../../../../../components/Icon/VolumeMute.icon";
-import { useReactiveVars } from "../../../../../hooks/useReactiveVars";
-import { useAppStore } from "../../../../../modules/App";
-import { useCourseClassPlayerStore } from "../../../../../modules/CourseClassPlayer";
-import { CourseClassPlayerButton } from "../CourseClassPlayerButton";
-import { useCourseClassPlayerVolumeButtonStyles } from "./useCourseClassPlayerVolumeButtonStyles";
+import { listenVar } from "../../../../../_utils/listenVar"
+import { VOLUME_HIGH_ICON_NAME } from "../../../../../components/Icon/VolumeHigh.icon"
+import { VOLUME_LOW_ICON_NAME } from "../../../../../components/Icon/VolumeLow.icon"
+import { VOLUME_MEDIUM_ICON_NAME } from "../../../../../components/Icon/VolumeMedium.icon"
+import { VOLUME_MUTE_ICON_NAME } from "../../../../../components/Icon/VolumeMute.icon"
+import { useReactiveVars } from "../../../../../hooks/useReactiveVars"
+import { useAppStore } from "../../../../../modules/App"
+import { useCourseClassPlayerStore } from "../../../../../modules/CourseClassPlayer"
+import { CourseClassPlayerButton } from "../CourseClassPlayerButton"
+import { useCourseClassPlayerVolumeButtonStyles } from "./useCourseClassPlayerVolumeButtonStyles"
 
 export type CourseClassPlayerVolumeButtonProps = {
-	children?: undefined;
-	className?: string;
-};
+	children?: undefined
+	className?: string
+}
 
 const CourseClassPlayerVolumeButtonComponent: React.FC<CourseClassPlayerVolumeButtonProps> = ({ className }) => {
 	const styles = useCourseClassPlayerVolumeButtonStyles({
 		className,
-	});
-	const appStore = useAppStore();
-	const courseClassPlayerStore = useCourseClassPlayerStore();
+	})
+	const appStore = useAppStore()
+	const courseClassPlayerStore = useCourseClassPlayerStore()
 
-	const { isFullscreen, volume } = useReactiveVars(courseClassPlayerStore, ["isFullscreen", "volume"]);
+	const { isFullscreen, volume } = useReactiveVars(courseClassPlayerStore, ["isFullscreen", "volume"])
 
 	const handleRenderPlainCard = React.useCallback(() => {
 		const handleChange = (v: number) => {
-			courseClassPlayerStore.setVolume(v / 100);
-		};
+			courseClassPlayerStore.setVolume(v / 100)
+		}
 
 		return (
 			<Stack className={styles.sliderWrapper} horizontal>
@@ -43,8 +43,8 @@ const CourseClassPlayerVolumeButtonComponent: React.FC<CourseClassPlayerVolumeBu
 					onChange={handleChange}
 				/>
 			</Stack>
-		);
-	}, [styles, volume]);
+		)
+	}, [styles, volume])
 
 	const plainCardProps: IPlainCardProps = React.useMemo(
 		() => ({
@@ -58,39 +58,39 @@ const CourseClassPlayerVolumeButtonComponent: React.FC<CourseClassPlayerVolumeBu
 			firstFocus: false,
 		}),
 		[isFullscreen, handleRenderPlainCard]
-	);
+	)
 
-	const [previousVolume, setPreviousVolume] = React.useState(0);
+	const [previousVolume, setPreviousVolume] = React.useState(0)
 	const handleClick = React.useCallback(
 		(e) => {
-			const volume = courseClassPlayerStore.volume();
+			const volume = courseClassPlayerStore.volume()
 			if (appStore.inputType() !== "POINTER") {
-				return;
+				return
 			}
 
-			e?.preventDefault();
+			e?.preventDefault()
 			if (volume === 0) {
 				if (previousVolume !== 0) {
-					courseClassPlayerStore.setVolume(previousVolume);
-					setPreviousVolume(0);
+					courseClassPlayerStore.setVolume(previousVolume)
+					setPreviousVolume(0)
 				}
 			} else {
-				courseClassPlayerStore.setVolume(0);
-				setPreviousVolume(volume);
+				courseClassPlayerStore.setVolume(0)
+				setPreviousVolume(volume)
 			}
 		},
 		[previousVolume]
-	);
+	)
 
 	React.useEffect(() => {
-		const throttleSetPreviousVolume = throttle(setPreviousVolume, 10);
+		const throttleSetPreviousVolume = throttle(setPreviousVolume, 10)
 		const listener = listenVar(courseClassPlayerStore.volume, (newVolume) => {
 			if (newVolume !== 0) {
-				throttleSetPreviousVolume(newVolume);
+				throttleSetPreviousVolume(newVolume)
 			}
-		});
-		return () => listener();
-	}, []);
+		})
+		return () => listener()
+	}, [])
 
 	return (
 		<>
@@ -117,7 +117,7 @@ const CourseClassPlayerVolumeButtonComponent: React.FC<CourseClassPlayerVolumeBu
 				/>
 			</HoverCard>
 		</>
-	);
-};
+	)
+}
 
-export const CourseClassPlayerVolumeButton = React.memo(CourseClassPlayerVolumeButtonComponent);
+export const CourseClassPlayerVolumeButton = React.memo(CourseClassPlayerVolumeButtonComponent)

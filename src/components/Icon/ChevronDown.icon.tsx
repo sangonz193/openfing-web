@@ -1,4 +1,4 @@
-import { registerIcons } from "@fluentui/style-utilities";
+import { registerIcons } from "@fluentui/style-utilities"
 
 function ChevronDownIcon() {
 	return (
@@ -12,13 +12,13 @@ function ChevronDownIcon() {
 				d="M112 184L256 328 400 184"
 			></path>
 		</svg>
-	);
+	)
 }
 
-export const CHEVRON_DOWN_ICON_NAME = "ChevronDown";
+export const CHEVRON_DOWN_ICON_NAME = "ChevronDown"
 
 registerIcons({
 	icons: {
 		[CHEVRON_DOWN_ICON_NAME]: <ChevronDownIcon />,
 	},
-});
+})

@@ -1,42 +1,42 @@
-import { IListProps, List, Panel } from "@fluentui/react";
-import React from "react";
-import { useMediaQuery } from "react-responsive";
+import { IListProps, List, Panel } from "@fluentui/react"
+import React from "react"
+import { useMediaQuery } from "react-responsive"
 
-import { LIST_ICON_NAME } from "../../../../../components/Icon/List.icon";
-import { useReactiveVars } from "../../../../../hooks/useReactiveVars";
-import { useCourseClassPlayerStore } from "../../../../../modules/CourseClassPlayer";
-import { Breakpoint } from "../../../../../styles/Breakpoint";
-import { CourseClassPlayerButton } from "../CourseClassPlayerButton";
-import { CourseClassPlayerChapterItem } from "../CourseClassPlayerChapterItem";
+import { LIST_ICON_NAME } from "../../../../../components/Icon/List.icon"
+import { useReactiveVars } from "../../../../../hooks/useReactiveVars"
+import { useCourseClassPlayerStore } from "../../../../../modules/CourseClassPlayer"
+import { Breakpoint } from "../../../../../styles/Breakpoint"
+import { CourseClassPlayerButton } from "../CourseClassPlayerButton"
+import { CourseClassPlayerChapterItem } from "../CourseClassPlayerChapterItem"
 
 export type CourseClassPlayerShowChaptersButtonProps = {
-	children?: undefined;
-};
+	children?: undefined
+}
 
 const CourseClassPlayerShowChaptersButtonComponent: React.FC<CourseClassPlayerShowChaptersButtonProps> = () => {
-	const courseClassPlayerStore = useCourseClassPlayerStore();
+	const courseClassPlayerStore = useCourseClassPlayerStore()
 	const { chapterTextTracks, isFullscreen } = useReactiveVars(courseClassPlayerStore, [
 		"isFullscreen",
 		"chapterTextTracks",
-	]);
+	])
 
-	const [panelVisible, setPanelVisible] = React.useState(false);
+	const [panelVisible, setPanelVisible] = React.useState(false)
 
-	const handleShowPanelButtonPress = React.useCallback(() => setPanelVisible(true), []);
+	const handleShowPanelButtonPress = React.useCallback(() => setPanelVisible(true), [])
 
-	const handlePanelDismiss = React.useCallback(() => setPanelVisible(false), []);
+	const handlePanelDismiss = React.useCallback(() => setPanelVisible(false), [])
 
 	const handleRenderCell = React.useCallback<Required<IListProps<VTTCue>>["onRenderCell"]>((item) => {
 		if (!item) {
-			return null;
+			return null
 		}
 
-		return <CourseClassPlayerChapterItem vttCue={item} requestClosePanel={handlePanelDismiss} />;
-	}, []);
+		return <CourseClassPlayerChapterItem vttCue={item} requestClosePanel={handlePanelDismiss} />
+	}, [])
 
-	const handleGetKey = React.useCallback<Required<IListProps<VTTCue>>["getKey"]>((item) => item.id, []);
+	const handleGetKey = React.useCallback<Required<IListProps<VTTCue>>["getKey"]>((item) => item.id, [])
 
-	const isMd = useMediaQuery({ minWidth: Breakpoint.md });
+	const isMd = useMediaQuery({ minWidth: Breakpoint.md })
 
 	return (
 		<>
@@ -52,7 +52,7 @@ const CourseClassPlayerShowChaptersButtonComponent: React.FC<CourseClassPlayerSh
 				<List items={chapterTextTracks} onRenderCell={handleRenderCell} getKey={handleGetKey} />
 			</Panel>
 		</>
-	);
-};
+	)
+}
 
-export const CourseClassPlayerShowChaptersButton = React.memo(CourseClassPlayerShowChaptersButtonComponent);
+export const CourseClassPlayerShowChaptersButton = React.memo(CourseClassPlayerShowChaptersButtonComponent)

@@ -1,5 +1,5 @@
-import React from "react";
+import React from "react"
 
-import { TeachingContext } from "./Teaching.context";
+import { TeachingContext } from "./Teaching.context"
 
-export const useTeachingStore = () => React.useContext(TeachingContext);
+export const useTeachingStore = () => React.useContext(TeachingContext)

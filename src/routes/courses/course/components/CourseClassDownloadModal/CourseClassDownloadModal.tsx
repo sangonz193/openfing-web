@@ -1,7 +1,7 @@
-import "../../../../../components/Icon/Cancel.icon";
-import "../../../../../components/Icon/ChevronDown.icon";
+import "../../../../../components/Icon/Cancel.icon"
+import "../../../../../components/Icon/ChevronDown.icon"
 
-import { useReactiveVar } from "@apollo/client";
+import { useReactiveVar } from "@apollo/client"
 import {
 	Dialog,
 	DialogFooter,
@@ -11,30 +11,30 @@ import {
 	ResponsiveMode,
 	Spinner,
 	SpinnerSize,
-} from "@fluentui/react";
-import React from "react";
+} from "@fluentui/react"
+import React from "react"
 
-import { downloadFromUrl } from "../../../../../_utils/downloadFromUrl";
-import { useCourseSelectionStore } from "../../../../../modules/CourseSelection";
-import { useCourseClassByIdQuery } from "../CourseDetail/CourseDetail.graphql.generated";
+import { downloadFromUrl } from "../../../../../_utils/downloadFromUrl"
+import { useCourseSelectionStore } from "../../../../../modules/CourseSelection"
+import { useCourseClassByIdQuery } from "../CourseDetail/CourseDetail.graphql.generated"
 
 export type CourseClassDownloadModalProps = {
-	className?: string;
-	visible: Boolean;
-	onClose?: () => void;
-};
+	className?: string
+	visible: Boolean
+	onClose?: () => void
+}
 
 const CourseClassDownloadModalComponent: React.FC<CourseClassDownloadModalProps> = ({ visible, onClose }) => {
-	const selection = useReactiveVar(useCourseSelectionStore().selection);
-	const { courseClassId } = selection;
+	const selection = useReactiveVar(useCourseSelectionStore().selection)
+	const { courseClassId } = selection
 
-	const [dismissed, setDismissed] = React.useState(!visible);
+	const [dismissed, setDismissed] = React.useState(!visible)
 
 	React.useEffect(() => {
 		if (visible) {
-			setDismissed(false);
+			setDismissed(false)
 		}
-	}, [visible]);
+	}, [visible])
 
 	const courseClassResponse = useCourseClassByIdQuery({
 		skip: !courseClassId || dismissed,
@@ -43,60 +43,60 @@ const CourseClassDownloadModalComponent: React.FC<CourseClassDownloadModalProps>
 					id: courseClassId,
 			  }
 			: undefined,
-	});
+	})
 
 	const { videos } =
 		(courseClassResponse.data?.courseClassById.__typename === "CourseClass" &&
 			courseClassResponse.data?.courseClassById) ||
-		{};
+		{}
 	const quality =
-		(videos && videos.length > 0 && videos[0].qualities.length > 0 && videos[0].qualities[0]) || undefined;
+		(videos && videos.length > 0 && videos[0].qualities.length > 0 && videos[0].qualities[0]) || undefined
 
-	const [selectedFormatId, setSelectedFormatId] = React.useState<string>();
+	const [selectedFormatId, setSelectedFormatId] = React.useState<string>()
 
 	const dropdownOptions = React.useMemo<IDropdownOption[]>(() => {
-		const res: IDropdownOption[] = [];
+		const res: IDropdownOption[] = []
 
 		quality?.formats.forEach((f) => {
 			if (!f.name || !f.url) {
-				return;
+				return
 			}
 
 			const option = {
 				key: f.id,
 				text: (f.name || "") + (f.hasTorrent ? ` (torrent)` : ""),
-			};
+			}
 
 			if (f.hasTorrent) {
-				res.unshift(option);
+				res.unshift(option)
 			} else {
-				res.push(option);
+				res.push(option)
 			}
-		});
+		})
 
-		return res.slice(0, 1);
-	}, [quality?.formats, quality?.formats.length && quality.formats[0].hasTorrent]);
+		return res.slice(0, 1)
+	}, [quality?.formats, quality?.formats.length && quality.formats[0].hasTorrent])
 
 	React.useEffect(() => {
 		if (
 			dropdownOptions.length > 0 &&
 			(!selectedFormatId || !dropdownOptions.find((i) => i.key === selectedFormatId))
 		) {
-			setSelectedFormatId(dropdownOptions[0].key as string);
+			setSelectedFormatId(dropdownOptions[0].key as string)
 		}
-	}, [dropdownOptions]);
+	}, [dropdownOptions])
 
 	const handleDownload = React.useCallback(() => {
 		if (!selectedFormatId) {
-			return;
+			return
 		}
 
-		const selectedFormat = quality?.formats.find((f) => f.id === selectedFormatId);
+		const selectedFormat = quality?.formats.find((f) => f.id === selectedFormatId)
 
 		if (selectedFormat?.url) {
-			downloadFromUrl(selectedFormat.url + (selectedFormat.hasTorrent ? ".torrent" : ""));
+			downloadFromUrl(selectedFormat.url + (selectedFormat.hasTorrent ? ".torrent" : ""))
 		}
-	}, [selectedFormatId, quality?.formats]);
+	}, [selectedFormatId, quality?.formats])
 
 	return (
 		<Dialog
@@ -131,7 +131,7 @@ const CourseClassDownloadModalComponent: React.FC<CourseClassDownloadModalProps>
 				</>
 			)}
 		</Dialog>
-	);
-};
+	)
+}
 
-export const CourseClassDownloadModal = React.memo(CourseClassDownloadModalComponent);
+export const CourseClassDownloadModal = React.memo(CourseClassDownloadModalComponent)

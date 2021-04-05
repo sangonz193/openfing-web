@@ -1,9 +1,9 @@
-import { css, makeStyles } from "@fluentui/react";
+import { css, makeStyles } from "@fluentui/react"
 
 export type CourseClassPlayerChapterItemStyleProps = {
-	className: string | undefined;
-	active: boolean;
-};
+	className: string | undefined
+	active: boolean
+}
 
 const useStyles = makeStyles((theme) => {
 	return {
@@ -30,15 +30,15 @@ const useStyles = makeStyles((theme) => {
 		seconds: {
 			fontWeight: "bold",
 		},
-	};
-});
+	}
+})
 
 export function useCourseClassPlayerChapterItemStyles({ className, active }: CourseClassPlayerChapterItemStyleProps) {
-	const styles = useStyles();
+	const styles = useStyles()
 
 	return {
 		link: css(styles.link, className),
 		activeIndicator: css(styles.activeIndicator, active && styles.activeIndicatorActive),
 		seconds: styles.seconds,
-	};
+	}
 }

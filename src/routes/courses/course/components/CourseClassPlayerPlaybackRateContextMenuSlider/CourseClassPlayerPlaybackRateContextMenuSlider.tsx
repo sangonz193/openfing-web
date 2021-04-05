@@ -1,49 +1,49 @@
-import { Slider, Stack, Text } from "@fluentui/react";
-import throttle from "lodash/throttle";
-import React from "react";
+import { Slider, Stack, Text } from "@fluentui/react"
+import throttle from "lodash/throttle"
+import React from "react"
 
-import { useReactiveVars } from "../../../../../hooks/useReactiveVars";
-import { useRefWithInitializer } from "../../../../../hooks/useRefWithInitializer";
-import { useCourseClassPlayerStore } from "../../../../../modules/CourseClassPlayer";
-import { useCourseClassPlayerPlaybackRateContextMenuSliderStyles } from "./useCourseClassPlayerPlaybackRateContextMenuSliderStyles";
+import { useReactiveVars } from "../../../../../hooks/useReactiveVars"
+import { useRefWithInitializer } from "../../../../../hooks/useRefWithInitializer"
+import { useCourseClassPlayerStore } from "../../../../../modules/CourseClassPlayer"
+import { useCourseClassPlayerPlaybackRateContextMenuSliderStyles } from "./useCourseClassPlayerPlaybackRateContextMenuSliderStyles"
 
 export type CourseClassPlayerPlaybackRateContextMenuSliderProps = {
-	children?: undefined;
-	className?: string;
-};
+	children?: undefined
+	className?: string
+}
 
 const CourseClassPlayerPlaybackRateContextMenuSliderComponent: React.FC<CourseClassPlayerPlaybackRateContextMenuSliderProps> = ({
 	className,
 }) => {
 	const styles = useCourseClassPlayerPlaybackRateContextMenuSliderStyles({
 		className,
-	});
-	const courseClassPlayerStore = useCourseClassPlayerStore();
-	const { playbackRate } = useReactiveVars(courseClassPlayerStore, ["playbackRate"]);
-	const [localValue, setLocalValue] = React.useState(playbackRate);
-	const [dragging, setDragging] = React.useState(false);
+	})
+	const courseClassPlayerStore = useCourseClassPlayerStore()
+	const { playbackRate } = useReactiveVars(courseClassPlayerStore, ["playbackRate"])
+	const [localValue, setLocalValue] = React.useState(playbackRate)
+	const [dragging, setDragging] = React.useState(false)
 
 	const throttleSetPlaybackRate = useRefWithInitializer(() =>
 		throttle((v: number) => courseClassPlayerStore.setPlaybackRate(v), 50)
-	).current;
+	).current
 
 	React.useEffect(() => {
 		if (!dragging) {
-			setLocalValue(playbackRate);
+			setLocalValue(playbackRate)
 		}
-	}, [playbackRate, dragging]);
+	}, [playbackRate, dragging])
 
 	const handleSliderChange = React.useCallback((value: number) => {
-		setDragging(true);
-		setLocalValue(value);
-		throttleSetPlaybackRate(value);
-	}, []);
+		setDragging(true)
+		setLocalValue(value)
+		throttleSetPlaybackRate(value)
+	}, [])
 
 	const handleSliderChanged = React.useCallback(() => {
-		setDragging(false);
-	}, []);
+		setDragging(false)
+	}, [])
 
-	const valueToShow = dragging ? localValue : playbackRate;
+	const valueToShow = dragging ? localValue : playbackRate
 
 	return (
 		<Stack className={styles.wrapper}>
@@ -64,9 +64,9 @@ const CourseClassPlayerPlaybackRateContextMenuSliderComponent: React.FC<CourseCl
 				onChanged={handleSliderChanged}
 			/>
 		</Stack>
-	);
-};
+	)
+}
 
 export const CourseClassPlayerPlaybackRateContextMenuSlider = React.memo(
 	CourseClassPlayerPlaybackRateContextMenuSliderComponent
-);
+)

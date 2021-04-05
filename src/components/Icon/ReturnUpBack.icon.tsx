@@ -1,4 +1,4 @@
-import { registerIcons } from "@fluentui/style-utilities";
+import { registerIcons } from "@fluentui/style-utilities"
 
 function ReturnUpBackIcon() {
 	return (
@@ -20,13 +20,13 @@ function ReturnUpBackIcon() {
 				d="M64 224h294c58.76 0 106 49.33 106 108v20"
 			></path>
 		</svg>
-	);
+	)
 }
 
-export const RETURN_UP_BACK_ICON_NAME = "ReturnUpBack";
+export const RETURN_UP_BACK_ICON_NAME = "ReturnUpBack"
 
 registerIcons({
 	icons: {
 		[RETURN_UP_BACK_ICON_NAME]: <ReturnUpBackIcon />,
 	},
-});
+})

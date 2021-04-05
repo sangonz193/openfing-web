@@ -1,5 +1,5 @@
-import { RouteConfig } from "../_utils/RouteConfig";
-import { Courses } from "./components/Courses";
+import { RouteConfig } from "../_utils/RouteConfig"
+import { Courses } from "./components/Courses"
 
 export const coursesRouteConfig: RouteConfig = {
 	path: `/courses`,
@@ -7,4 +7,4 @@ export const coursesRouteConfig: RouteConfig = {
 	matchConfig: {
 		path: `/courses`,
 	},
-};
+}

@@ -1,8 +1,8 @@
-import { css, makeStyles } from "@fluentui/react";
+import { css, makeStyles } from "@fluentui/react"
 
 export type FaqItemStyleProps = {
-	className: string | undefined;
-};
+	className: string | undefined
+}
 
 const useStyles = makeStyles((theme) => {
 	return {
@@ -34,15 +34,15 @@ const useStyles = makeStyles((theme) => {
 				},
 			},
 		},
-	};
-});
+	}
+})
 
 export function useFaqItemStyles({ className }: FaqItemStyleProps) {
-	const styles = useStyles();
+	const styles = useStyles()
 
 	return {
 		wrapper: css(styles.wrapper, className),
 		title: styles.title,
 		content: styles.content,
-	};
+	}
 }

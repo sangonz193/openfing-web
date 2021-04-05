@@ -1,8 +1,8 @@
-import { css, makeStyles } from "@fluentui/react";
+import { css, makeStyles } from "@fluentui/react"
 
 export type CourseClassPlayerTrackSliderStyleProps = {
-	className: string | undefined;
-};
+	className: string | undefined
+}
 
 const useStyles = makeStyles((theme) => {
 	return {
@@ -52,14 +52,14 @@ const useStyles = makeStyles((theme) => {
 			cursor: "pointer",
 			touchAction: "none",
 		},
-	};
-});
+	}
+})
 
 export function useCourseClassPlayerTrackSliderStyles({ className }: CourseClassPlayerTrackSliderStyleProps) {
-	const styles = useStyles();
+	const styles = useStyles()
 
 	return {
 		...styles,
 		wrapper: css(styles.wrapper, className),
-	};
+	}
 }

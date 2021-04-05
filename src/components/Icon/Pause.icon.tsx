@@ -1,4 +1,4 @@
-import { registerIcons } from "@fluentui/style-utilities";
+import { registerIcons } from "@fluentui/style-utilities"
 
 function PauseIcon() {
 	return (
@@ -26,13 +26,13 @@ function PauseIcon() {
 				strokeWidth={32}
 			/>
 		</svg>
-	);
+	)
 }
 
-export const PAUSE_ICON_NAME = "Pause";
+export const PAUSE_ICON_NAME = "Pause"
 
 registerIcons({
 	icons: {
 		[PAUSE_ICON_NAME]: <PauseIcon />,
 	},
-});
+})

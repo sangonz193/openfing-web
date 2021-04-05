@@ -1,9 +1,9 @@
-import { css, makeStyles } from "@fluentui/react";
+import { css, makeStyles } from "@fluentui/react"
 
 export type CourseClassItemStyleProps = {
-	className: string | undefined;
-	active: boolean;
-};
+	className: string | undefined
+	active: boolean
+}
 
 const useStyles = makeStyles((theme) => {
 	return {
@@ -67,16 +67,16 @@ const useStyles = makeStyles((theme) => {
 		courseClassNameActive: {
 			color: theme.semanticColors.accentButtonText,
 		},
-	};
-});
+	}
+})
 
 export function useCourseClassItemStyles({ className, active }: CourseClassItemStyleProps) {
-	const styles = useStyles();
+	const styles = useStyles()
 
 	return {
 		wrapper: css(styles.wrapper, className, active && styles.wrapperActive),
 		content: styles.content,
 		courseClassNumber: css(styles.courseClassNumber, active && styles.courseClassNumberActive),
 		courseClassName: css(styles.courseClassName, active && styles.courseClassNameActive),
-	};
+	}
 }

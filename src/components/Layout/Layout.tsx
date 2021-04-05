@@ -1,45 +1,45 @@
-import merge from "lodash/merge";
-import React from "react";
+import merge from "lodash/merge"
+import React from "react"
 
-import { useRootEventListeners } from "../../modules/RootEventListeners/useRootEventListeners";
-import { Div } from "../Div";
-import { Header } from "../Header";
-import { Navbar } from "../Navbar";
-import { LayoutContext, LayoutContextValue, LayoutOptions, SetLayoutOptions } from "./Layout.context";
-import { useLayoutStyles } from "./useLayoutStyles";
+import { useRootEventListeners } from "../../modules/RootEventListeners/useRootEventListeners"
+import { Div } from "../Div"
+import { Header } from "../Header"
+import { Navbar } from "../Navbar"
+import { LayoutContext, LayoutContextValue, LayoutOptions, SetLayoutOptions } from "./Layout.context"
+import { useLayoutStyles } from "./useLayoutStyles"
 
 export type LayoutProps = LayoutOptions & {
-	children?: React.ReactNode;
-};
+	children?: React.ReactNode
+}
 
 export const Layout: React.FC<LayoutProps> = (props) => {
-	const { children } = props;
-	const [overriddenLayoutOptions, setOverriddenLayoutOptions] = React.useState<SetLayoutOptions>();
+	const { children } = props
+	const [overriddenLayoutOptions, setOverriddenLayoutOptions] = React.useState<SetLayoutOptions>()
 
 	const contextValue = React.useMemo<LayoutContextValue>(() => {
 		return {
 			setLayoutOptions: setOverriddenLayoutOptions,
-		};
-	}, []);
+		}
+	}, [])
 
 	const layoutOptionsWithOverrides = React.useMemo(() => {
 		const defaultOptions: LayoutOptions = {
 			showHeader: true,
 			headerTitle: "",
-		};
+		}
 		const options =
 			typeof overriddenLayoutOptions === "function"
 				? overriddenLayoutOptions({ ...props })
-				: overriddenLayoutOptions;
+				: overriddenLayoutOptions
 
-		return merge(defaultOptions, options);
-	}, [overriddenLayoutOptions, props]);
+		return merge(defaultOptions, options)
+	}, [overriddenLayoutOptions, props])
 
 	const styles = useLayoutStyles({
 		className: layoutOptionsWithOverrides?.className,
-	});
+	})
 
-	const eventListeners = useRootEventListeners();
+	const eventListeners = useRootEventListeners()
 
 	return (
 		<LayoutContext.Provider value={contextValue}>
@@ -57,5 +57,5 @@ export const Layout: React.FC<LayoutProps> = (props) => {
 				<Navbar />
 			</Div>
 		</LayoutContext.Provider>
-	);
-};
+	)
+}

@@ -1,6 +1,6 @@
-import React from "react";
+import React from "react"
 
-import { matchPath } from "./matchPath";
+import { matchPath } from "./matchPath"
 
 // TODO: improve naming
 export const useMatchPath = (
@@ -13,4 +13,4 @@ export const useMatchPath = (
 		options.exact,
 		options.strict,
 		options.sensitive,
-	]);
+	])

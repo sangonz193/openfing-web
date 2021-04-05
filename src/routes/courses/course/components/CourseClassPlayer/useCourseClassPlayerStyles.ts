@@ -1,10 +1,10 @@
-import { css, makeStyles } from "@fluentui/react";
+import { css, makeStyles } from "@fluentui/react"
 
 export type CourseClassPlayerStyleProps = {
-	className: string | undefined;
-	fullscreen: boolean;
-	hideCursor: boolean;
-};
+	className: string | undefined
+	fullscreen: boolean
+	hideCursor: boolean
+}
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 const useStyles = makeStyles((theme) => {
@@ -71,11 +71,11 @@ const useStyles = makeStyles((theme) => {
 
 			borderRadius: 0,
 		},
-	};
-});
+	}
+})
 
 export function useCourseClassPlayerStyles({ className, fullscreen, hideCursor }: CourseClassPlayerStyleProps) {
-	const styles = useStyles();
+	const styles = useStyles()
 
 	return {
 		wrapper: css(
@@ -88,5 +88,5 @@ export function useCourseClassPlayerStyles({ className, fullscreen, hideCursor }
 		layerHost: styles.layerHost,
 		spinner: styles.spinner,
 		bottomControls: css(styles.bottomControls, fullscreen && styles.bottomControlsFullscreen),
-	};
+	}
 }
