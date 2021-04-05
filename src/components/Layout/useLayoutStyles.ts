@@ -14,7 +14,7 @@ const useStyles = makeStyles((theme) => {
 		},
 
 		wrapperWithRowReverse: {
-			["&&"]: {
+			"&&": {
 				flexDirection: "row-reverse",
 			},
 		},

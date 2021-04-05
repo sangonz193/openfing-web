@@ -18,11 +18,9 @@ const useStyles = makeStyles((theme) => {
 			borderTopWidth: 1,
 			borderTopStyle: "solid",
 
-			selectors: {
-				[getMinWidthSelector("md")]: {
-					flexDirection: "row",
-					alignItems: "center",
-				},
+			[getMinWidthSelector("md")]: {
+				flexDirection: "row",
+				alignItems: "center",
 			},
 		},
 

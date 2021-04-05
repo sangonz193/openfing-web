@@ -52,10 +52,8 @@ const useStyles = makeStyles((theme) => {
 
 			listStyle: "disc outside none",
 
-			selectors: {
-				"> span": {
-					color: "white",
-				},
+			"> span": {
+				color: "white",
 			},
 		},
 

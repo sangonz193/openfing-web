@@ -39,7 +39,7 @@ const useStyles = makeStyles((theme) => {
 		spinner: {
 			marginTop: 10,
 
-			["> div"]: {
+			"> div": {
 				height: 40,
 				width: 40,
 				borderWidth: 3,

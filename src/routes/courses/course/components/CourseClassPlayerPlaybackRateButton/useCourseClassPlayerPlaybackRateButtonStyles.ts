@@ -44,14 +44,13 @@ const useStyles = makeStyles((theme) => {
 			// TODO
 			container: {
 				maxHeight: "100%",
-				selectors: {
-					".ms-FocusZone": {
-						height: "100%",
-					},
 
-					".ms-FocusZone > div": {
-						height: "100%",
-					},
+				".ms-FocusZone": {
+					height: "100%",
+				},
+
+				".ms-FocusZone > div": {
+					height: "100%",
 				},
 			},
 

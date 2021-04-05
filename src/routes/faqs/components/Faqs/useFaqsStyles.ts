@@ -20,11 +20,9 @@ const useStyles = makeStyles((theme) => {
 			minHeight: "100%",
 			flexShrink: 0,
 
-			selectors: {
-				[getMinWidthSelector("sm")]: {
-					paddingTop: 20,
-					paddingBottom: 20,
-				},
+			[getMinWidthSelector("sm")]: {
+				paddingTop: 20,
+				paddingBottom: 20,
 			},
 		},
 

@@ -9,7 +9,7 @@ const useStyles = makeStyles((theme) => {
 		commandButton: {
 			fontSize: theme.fonts.mediumPlus.fontSize,
 
-			["i"]: {
+			i: {
 				height: "auto",
 
 				fontSize: theme.fonts.xLarge.fontSize,
