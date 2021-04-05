@@ -42,7 +42,6 @@ const CourseClassPlayerChapterItemComponent: React.FC<CourseClassPlayerChapterIt
 
 	const courseSelectionStore = useCourseSelectionStore();
 	const { courseClassListCode, courseClassNumber } = useReactiveVars(courseSelectionStore, ["selection"]).selection;
-	console.log(useReactiveVar(courseClassPlayerStore.activeChapterTextTracks));
 
 	const href = React.useMemo(
 		() =>

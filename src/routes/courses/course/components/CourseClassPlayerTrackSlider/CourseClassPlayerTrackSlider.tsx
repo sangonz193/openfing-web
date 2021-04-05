@@ -154,8 +154,6 @@ const CourseClassPlayerTrackSliderComponent: React.FC<CourseClassPlayerTrackSlid
 		courseClassPlayerStore.htmlVideoWrapperElement()?.focus();
 	}, []);
 
-	console.log(useTheme());
-
 	return (
 		<Div className={styles.wrapper}>
 			{tooltipPositionData && typeof tooltipTimePosition === "number" && (
