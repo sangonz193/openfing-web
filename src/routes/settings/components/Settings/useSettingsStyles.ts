@@ -1,0 +1,38 @@
+import { makeStyles } from "@fluentui/react"
+
+export type SettingsStyleProps = {}
+
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+const useStyles = makeStyles((theme) => {
+	const marginLeft = 20
+
+	return {
+		wrapper: {
+			flex: 1,
+			paddingBottom: 20,
+
+			backgroundColor: theme.semanticColors.bodyBackground,
+
+			overflow: "auto",
+		},
+
+		appearanceSection: {
+			marginTop: marginLeft,
+			marginLeft,
+		},
+
+		aboutSection: {
+			marginLeft,
+		},
+	}
+})
+
+export function useSettingsStyles({}: SettingsStyleProps = {}) {
+	const styles = useStyles()
+
+	return {
+		wrapper: styles.wrapper,
+		appearanceSection: styles.appearanceSection,
+		aboutSection: styles.aboutSection,
+	}
+}

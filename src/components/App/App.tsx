@@ -1,7 +1,14 @@
-import { styled } from "@fluentui/react/lib/Utilities";
+import React from "react"
 
-import { AppBase } from "./App.base";
-import { getStyles } from "./App.styles";
-import { AppProps, AppStyleProps, AppStyles } from "./App.types";
+import { useRoutes } from "../../hooks/useRoutes"
+import { Layout } from "../Layout"
 
-export const App = styled<AppProps, AppStyleProps, AppStyles>(AppBase, getStyles, undefined, undefined, true);
+export type AppProps = {
+	children?: never
+}
+
+export const App: React.FC<AppProps> = ({}) => {
+	const [routeConfig, params = {}] = useRoutes() || []
+
+	return <Layout>{routeConfig?.element(params)}</Layout>
+}

@@ -1,26 +1,30 @@
-import React from "react";
+import React from "react"
 
-import { useReactiveVars } from "../../hooks/useReactiveVars";
-import { InitializationStore } from "./Initialization.store";
+import { useReactiveVars } from "../../hooks/useReactiveVars"
+import { useRefWithInitializer } from "../../hooks/useRefWithInitializer"
+import { initialBlockerId, InitializationStore } from "./Initialization.store"
 
-export const InitializationContext = React.createContext<InitializationStore>((null as unknown) as InitializationStore);
+export const InitializationContext = React.createContext<InitializationStore>((null as unknown) as InitializationStore)
 
-const initStore = () => new InitializationStore();
+const initStore = () => new InitializationStore()
 
 export const InitializationProvider: React.FC = ({ children }) => {
-	const [store] = React.useState(initStore);
+	const store = useRefWithInitializer(initStore).current
+	const { childrenKey } = useReactiveVars(store, ["childrenKey"])
 
-	React.useState(() => {
-		store.block();
+	React.useEffect(() => {
+		const timeout = setTimeout(() => {
+			store.unblock(initialBlockerId)
+		})
 
-		setTimeout(() => store.unblock());
-	});
-
-	const { childrenKey } = useReactiveVars(store, ["childrenKey"]);
+		return () => {
+			clearTimeout(timeout)
+		}
+	}, [])
 
 	return (
 		<InitializationContext.Provider key={childrenKey.toString()} value={store}>
 			{children}
 		</InitializationContext.Provider>
-	);
-};
+	)
+}

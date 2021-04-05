@@ -1,23 +1,19 @@
-import webpack from "webpack";
-import { CommandModule } from "yargs";
+import { spawn } from "promisify-child-process"
+import { CommandModule } from "yargs"
 
-import { webpackConfigFactory } from "../../_utils/webpack";
+import { projectPath } from "../../_utils/projectPath"
 
 const command: CommandModule<{}, {}> = {
-	command: "build" as const,
+	command: "build",
 
 	describe: "Bundles the app to be deployed",
 
-	builder: (yargs) => yargs,
-
 	handler: async () => {
-		const handler: webpack.Compiler.Handler = (err, stats) => {
-			if (err) console.error(err);
-			if (stats) console.log(stats.toString({ colors: true }));
-		};
-
-		webpack(webpackConfigFactory("production"), handler);
+		await spawn("npx", ["react-scripts", "build"], {
+			stdio: "inherit",
+			cwd: projectPath,
+		})
 	},
-};
+}
 
-export default command;
+export default command

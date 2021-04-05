@@ -1,5 +1,3 @@
 /node_modules
-/dist
 /build
-*.generated.ts
-/src/generated/*
+package-lock.json
