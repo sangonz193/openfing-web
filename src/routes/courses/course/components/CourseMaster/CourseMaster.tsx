@@ -10,29 +10,29 @@ import {
 	Separator,
 	Spinner,
 	SpinnerSize,
-} from "@fluentui/react";
-import React from "react";
+} from "@fluentui/react"
+import React from "react"
 
-import { Div } from "../../../../../components/Div";
-import { useReactiveVars } from "../../../../../hooks/useReactiveVars";
-import { useCourseSelectionStore } from "../../../../../modules/CourseSelection";
-import { useHistory } from "../../../../../modules/Navigation/useHistory";
-import { courseRouteConfig } from "../../course.route.config";
-import { CourseClassItem } from "../CourseClassItem";
-import { CourseClassItemCourseClassFragment } from "../CourseClassItem/CourseClassItem.graphql.generated";
-import { useCourseClassListByCodeQuery, useCourseClassListClassesByCodeQuery } from "./CourseMaster.graphql.generated";
-import { useCourseMasterStyles } from "./useCourseMasterStyles";
+import { Div } from "../../../../../components/Div"
+import { useReactiveVars } from "../../../../../hooks/useReactiveVars"
+import { useCourseSelectionStore } from "../../../../../modules/CourseSelection"
+import { useHistory } from "../../../../../modules/Navigation/useHistory"
+import { courseRouteConfig } from "../../course.route.config"
+import { CourseClassItem } from "../CourseClassItem"
+import { CourseClassItemCourseClassFragment } from "../CourseClassItem/CourseClassItem.graphql.generated"
+import { useCourseClassListByCodeQuery, useCourseClassListClassesByCodeQuery } from "./CourseMaster.graphql.generated"
+import { useCourseMasterStyles } from "./useCourseMasterStyles"
 
 export type CourseMasterProps = {
-	children?: undefined;
-	className?: string;
-};
+	children?: undefined
+	className?: string
+}
 
 const CourseMasterComponent: React.FC<CourseMasterProps> = ({ className }) => {
-	const history = useHistory();
+	const history = useHistory()
 	const { courseClassListCode, courseClassListId } = useReactiveVars(useCourseSelectionStore(), [
 		"selection",
-	]).selection;
+	]).selection
 
 	const courseEditionsResponse = useCourseClassListByCodeQuery({
 		variables: courseClassListCode
@@ -41,44 +41,44 @@ const CourseMasterComponent: React.FC<CourseMasterProps> = ({ className }) => {
 			  }
 			: undefined,
 		skip: !courseClassListCode,
-	});
+	})
 
 	const courseEditions =
 		courseEditionsResponse.data?.courseClassListByCode?.__typename === "CourseClassList"
 			? courseEditionsResponse.data?.courseClassListByCode?.courseEdition?.course?.editions
-			: undefined;
+			: undefined
 	const editionsDropdownOptions: IDropdownOption[] = React.useMemo(
 		() => (courseEditions ? courseEditions.map((e) => ({ key: e.id, text: e.name || "" })) : []),
 		[courseEditions]
-	);
+	)
 
 	const _courseEdition =
 		courseEditionsResponse.data?.courseClassListByCode?.__typename === "CourseClassList"
 			? courseEditionsResponse.data?.courseClassListByCode.courseEdition
-			: undefined;
-	const courseEdition = _courseEdition && courseEditions && courseEditions.find((c) => c.id === _courseEdition.id);
+			: undefined
+	const courseEdition = _courseEdition && courseEditions && courseEditions.find((c) => c.id === _courseEdition.id)
 
 	const handleCourseEditionChange = React.useCallback<Required<IDropdownProps>["onChange"]>(
 		(_, option) => {
 			if (!option) {
-				return;
+				return
 			}
 
-			const courseEdition = (courseEditions || undefined)?.find((ce) => ce.id === option.key);
-			const courseClassList = courseEdition?.courseClassLists?.length && courseEdition.courseClassLists[0];
+			const courseEdition = (courseEditions || undefined)?.find((ce) => ce.id === option.key)
+			const courseClassList = courseEdition?.courseClassLists?.length && courseEdition.courseClassLists[0]
 
 			if (!courseClassList) {
-				return;
+				return
 			}
 
 			history.replace(
 				courseRouteConfig.path({
 					code: courseClassList.code,
 				})
-			);
+			)
 		},
 		[courseEditions]
-	);
+	)
 
 	const courseClassesResponse = useCourseClassListClassesByCodeQuery({
 		variables: courseClassListCode
@@ -87,48 +87,48 @@ const CourseMasterComponent: React.FC<CourseMasterProps> = ({ className }) => {
 			  }
 			: undefined,
 		skip: !courseClassListCode,
-	});
+	})
 
-	const courseClassLists = (courseEdition || undefined)?.courseClassLists;
+	const courseClassLists = (courseEdition || undefined)?.courseClassLists
 	const courseClassListsDropdownOptions: IDropdownOption[] = React.useMemo(
 		() => (courseClassLists ? courseClassLists.map((e) => ({ key: e.id, text: e.name || "" })) : []),
 		[courseClassLists]
-	);
+	)
 
-	const showEditionDropdown = editionsDropdownOptions.length > 1;
-	const showCourseClassListDropdown = courseClassListsDropdownOptions.length > 1;
+	const showEditionDropdown = editionsDropdownOptions.length > 1
+	const showCourseClassListDropdown = courseClassListsDropdownOptions.length > 1
 
 	const handleCourseClassListChange = React.useCallback<Required<IDropdownProps>["onChange"]>(
 		(_, option) => {
 			if (!option) {
-				return;
+				return
 			}
 
-			const courseClassList = courseClassLists?.find((i) => i.id === option.key);
+			const courseClassList = courseClassLists?.find((i) => i.id === option.key)
 
 			if (!courseClassList) {
-				return;
+				return
 			}
 
 			history.replace(
 				courseRouteConfig.path({
 					code: courseClassList.code,
 				})
-			);
+			)
 		},
 		[courseClassLists]
-	);
+	)
 
 	const courseClasses =
 		courseClassesResponse.data?.courseClassListByCode?.__typename === "CourseClassList" &&
-		courseClassesResponse.data.courseClassListByCode.classes;
+		courseClassesResponse.data.courseClassListByCode.classes
 
-	const listGetKey = React.useCallback((c: CourseClassItemCourseClassFragment) => c.id, []);
+	const listGetKey = React.useCallback((c: CourseClassItemCourseClassFragment) => c.id, [])
 
 	const styles = useCourseMasterStyles({
 		className,
 		showCourseClassListDropdown,
-	});
+	})
 
 	const listRenderCell = React.useCallback<Required<IListProps<CourseClassItemCourseClassFragment>>["onRenderCell"]>(
 		(item, index) =>
@@ -142,7 +142,7 @@ const CourseMasterComponent: React.FC<CourseMasterProps> = ({ className }) => {
 				</>
 			),
 		[styles.itemSeparator, courseClasses && courseClasses.length]
-	);
+	)
 
 	return (
 		<Div className={styles.wrapper} data-is-scrollable>
@@ -195,7 +195,7 @@ const CourseMasterComponent: React.FC<CourseMasterProps> = ({ className }) => {
 				</>
 			)}
 		</Div>
-	);
-};
+	)
+}
 
-export const CourseMaster = React.memo(CourseMasterComponent);
+export const CourseMaster = React.memo(CourseMasterComponent)

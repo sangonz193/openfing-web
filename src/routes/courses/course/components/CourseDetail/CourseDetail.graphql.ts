@@ -1,4 +1,4 @@
-import { gql } from "@apollo/client";
+import { gql } from "@apollo/client"
 
 export const courseClassListById = gql`
 	query courseClassListById($id: ID!) {
@@ -16,7 +16,7 @@ export const courseClassListById = gql`
 			}
 		}
 	}
-`;
+`
 
 export const courseClassById = gql`
 	query courseClassById($id: ID!) {
@@ -53,4 +53,4 @@ export const courseClassById = gql`
 			}
 		}
 	}
-`;
+`

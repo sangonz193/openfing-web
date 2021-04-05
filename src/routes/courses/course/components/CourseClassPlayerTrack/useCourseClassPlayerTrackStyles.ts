@@ -1,15 +1,15 @@
-import { css, IRawStyle, IStyle, makeStyles } from "@fluentui/react";
+import { css, IRawStyle, IStyle, makeStyles } from "@fluentui/react"
 
 export type CourseClassPlayerTrackStyleProps = {
-	className: string | undefined;
-};
+	className: string | undefined
+}
 
 const useStyles = makeStyles((theme) => {
 	const timeStyles: IStyle = [
 		{ "font-variant-numeric": "tabular-nums" } as IRawStyle,
 		{ padding: "0 10px", color: theme.semanticColors.bodyText },
 		theme.fonts.medium,
-	];
+	]
 
 	return {
 		wrapper: {
@@ -35,14 +35,14 @@ const useStyles = makeStyles((theme) => {
 		},
 
 		endTime: timeStyles,
-	};
-});
+	}
+})
 
 export function useCourseClassPlayerTrackStyles({ className }: CourseClassPlayerTrackStyleProps) {
-	const styles = useStyles();
+	const styles = useStyles()
 
 	return {
 		...styles,
 		wrapper: css(styles.wrapper, className),
-	};
+	}
 }

@@ -1,8 +1,8 @@
-import { css, IRawStyle, makeStyles } from "@fluentui/react";
+import { css, IRawStyle, makeStyles } from "@fluentui/react"
 
 export type CourseDetailStyleProps = {
-	className: string | undefined;
-};
+	className: string | undefined
+}
 
 const useStyles = makeStyles((theme) => {
 	const itemStyle: IRawStyle = {
@@ -10,7 +10,7 @@ const useStyles = makeStyles((theme) => {
 		maxWidth: "100%",
 		width: 1280,
 		padding: "0 16px",
-	};
+	}
 
 	return {
 		wrapper: {
@@ -86,11 +86,11 @@ const useStyles = makeStyles((theme) => {
 		commandBarPrimarySet: {
 			fontSize: theme.fonts.mediumPlus.fontSize,
 		},
-	};
-});
+	}
+})
 
 export function useCourseDetailStyles({ className }: CourseDetailStyleProps) {
-	const styles = useStyles();
+	const styles = useStyles()
 
 	return {
 		wrapper: css(styles.wrapper, className),
@@ -102,5 +102,5 @@ export function useCourseDetailStyles({ className }: CourseDetailStyleProps) {
 		courseClassDate: styles.courseClassDate,
 		separator: styles.separator,
 		commandBar: styles.commandBar,
-	};
+	}
 }

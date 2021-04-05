@@ -1,19 +1,19 @@
-import { Stack, Text } from "@fluentui/react";
-import React from "react";
+import { Stack, Text } from "@fluentui/react"
+import React from "react"
 
-import { FaqItemFaqFragment } from "./FaqItem.graphql.generated";
-import { useFaqItemStyles } from "./useFaqItemStyles";
+import { FaqItemFaqFragment } from "./FaqItem.graphql.generated"
+import { useFaqItemStyles } from "./useFaqItemStyles"
 
 export type FaqItemProps = {
-	children?: undefined;
-	className?: string;
-	faq: FaqItemFaqFragment;
-};
+	children?: undefined
+	className?: string
+	faq: FaqItemFaqFragment
+}
 
 const FaqItemComponent: React.FC<FaqItemProps> = ({ className, faq }) => {
 	const styles = useFaqItemStyles({
 		className,
-	});
+	})
 
 	return (
 		<Stack className={styles.wrapper} tokens={{ childrenGap: 30 }}>
@@ -32,7 +32,7 @@ const FaqItemComponent: React.FC<FaqItemProps> = ({ className, faq }) => {
 				)}
 			</Text>
 		</Stack>
-	);
-};
+	)
+}
 
-export const FaqItem = React.memo(FaqItemComponent);
+export const FaqItem = React.memo(FaqItemComponent)

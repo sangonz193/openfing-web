@@ -1,53 +1,53 @@
-import { Callout, DirectionalHint, Point, Slider, Text } from "@fluentui/react";
-import throttle from "lodash/throttle";
-import React from "react";
+import { Callout, DirectionalHint, Point, Slider, Text } from "@fluentui/react"
+import throttle from "lodash/throttle"
+import React from "react"
 
-import { secondsToString } from "../../../../../_utils/secondsToString";
-import { Div } from "../../../../../components/Div";
-import { useReactiveVars } from "../../../../../hooks/useReactiveVars";
-import { useCourseClassPlayerStore } from "../../../../../modules/CourseClassPlayer";
-import { useCourseClassPlayerTrackSliderStyles } from "./useCourseClassPlayerTrackSliderStyles";
+import { secondsToString } from "../../../../../_utils/secondsToString"
+import { Div } from "../../../../../components/Div"
+import { useReactiveVars } from "../../../../../hooks/useReactiveVars"
+import { useCourseClassPlayerStore } from "../../../../../modules/CourseClassPlayer"
+import { useCourseClassPlayerTrackSliderStyles } from "./useCourseClassPlayerTrackSliderStyles"
 
 export type CourseClassPlayerTrackSliderProps = {
-	children?: undefined;
-	className?: string;
-};
+	children?: undefined
+	className?: string
+}
 
 const CourseClassPlayerTrackSliderComponent: React.FC<CourseClassPlayerTrackSliderProps> = ({ className }) => {
 	const styles = useCourseClassPlayerTrackSliderStyles({
 		className,
-	});
-	const courseClassPlayerStore = useCourseClassPlayerStore();
+	})
+	const courseClassPlayerStore = useCourseClassPlayerStore()
 	const { duration, currentTime, isFullscreen } = useReactiveVars(courseClassPlayerStore, [
 		"duration",
 		"currentTime",
 		"isFullscreen",
-	]);
+	])
 
-	const [blockTooltipIds, setBlockTooltipIds] = React.useState<string[]>([]);
-	const backgroundTrackRef = React.useRef<HTMLDivElement>(null);
+	const [blockTooltipIds, setBlockTooltipIds] = React.useState<string[]>([])
+	const backgroundTrackRef = React.useRef<HTMLDivElement>(null)
 
 	const blockTooltip = (id: string) => {
-		setBlockTooltipIds((e) => [...e.filter((i) => i !== id), id]);
-	};
+		setBlockTooltipIds((e) => [...e.filter((i) => i !== id), id])
+	}
 	const unblockTooltip = (id: string) => {
-		setBlockTooltipIds((e) => [...e.filter((i) => i !== id)]);
-	};
+		setBlockTooltipIds((e) => [...e.filter((i) => i !== id)])
+	}
 
 	const [sliderValue, setSliderValueSource] = React.useState<{ type: "store" } | { type: "local"; value: number }>({
 		type: "store",
-	});
+	})
 	const [tooltipPositionData, setTooltipPositionData] = React.useState<
 		{ point: Required<Pick<Point, "left" | "top">>; bounds: { left: number; width: number } } | false
-	>();
+	>()
 
 	const handleChange = React.useCallback((value: number) => {
-		blockTooltip("drag");
+		blockTooltip("drag")
 		if (!backgroundTrackRef.current) {
-			return;
+			return
 		}
 
-		const wrapperBounds = backgroundTrackRef.current.getBoundingClientRect();
+		const wrapperBounds = backgroundTrackRef.current.getBoundingClientRect()
 		setTooltipPositionData({
 			point: {
 				top: wrapperBounds.top,
@@ -57,32 +57,32 @@ const CourseClassPlayerTrackSliderComponent: React.FC<CourseClassPlayerTrackSlid
 				left: wrapperBounds.left,
 				width: wrapperBounds.width,
 			},
-		});
-		setSliderValueSource({ type: "local", value });
-	}, []);
-	const [throttleHandleChange] = React.useState(() => throttle(handleChange, 200));
+		})
+		setSliderValueSource({ type: "local", value })
+	}, [])
+	const [throttleHandleChange] = React.useState(() => throttle(handleChange, 200))
 
-	const sliderValueRef = React.useRef(sliderValue);
-	sliderValueRef.current = sliderValue;
+	const sliderValueRef = React.useRef(sliderValue)
+	sliderValueRef.current = sliderValue
 
 	const handleChanged = React.useCallback(() => {
-		const sliderValue = sliderValueRef.current;
-		setTimeout(() => unblockTooltip("drag"), 300);
+		const sliderValue = sliderValueRef.current
+		setTimeout(() => unblockTooltip("drag"), 300)
 
 		if (sliderValue.type === "local") {
-			courseClassPlayerStore.setCurrentTime(sliderValue.value);
+			courseClassPlayerStore.setCurrentTime(sliderValue.value)
 		}
 
-		throttleHandleChange.cancel();
-		setSliderValueSource({ type: "store" });
-	}, [sliderValue]);
+		throttleHandleChange.cancel()
+		setSliderValueSource({ type: "store" })
+	}, [sliderValue])
 
 	const handleTooltipPositionFromEvent = React.useCallback((e: { clientX: number }) => {
 		if (!backgroundTrackRef.current) {
-			return;
+			return
 		}
 
-		const wrapperBounds = backgroundTrackRef.current.getBoundingClientRect();
+		const wrapperBounds = backgroundTrackRef.current.getBoundingClientRect()
 		setTooltipPositionData({
 			point: {
 				top: wrapperBounds.top,
@@ -92,36 +92,36 @@ const CourseClassPlayerTrackSliderComponent: React.FC<CourseClassPlayerTrackSlid
 				left: wrapperBounds.left,
 				width: wrapperBounds.width,
 			},
-		});
-	}, []);
-	const [throttleHandleTooltipPositionFromEvent] = React.useState(() => throttle(handleTooltipPositionFromEvent, 50));
+		})
+	}, [])
+	const [throttleHandleTooltipPositionFromEvent] = React.useState(() => throttle(handleTooltipPositionFromEvent, 50))
 
-	const [showTooltip, setShowTooltip] = React.useState(false);
-	const hideTooltipTimeoutRef = React.useRef<NodeJS.Timeout>();
+	const [showTooltip, setShowTooltip] = React.useState(false)
+	const hideTooltipTimeoutRef = React.useRef<NodeJS.Timeout>()
 	React.useEffect(() => {
-		const shouldShowTooltip = !!blockTooltipIds.length;
+		const shouldShowTooltip = !!blockTooltipIds.length
 
 		if (shouldShowTooltip) {
 			if (hideTooltipTimeoutRef.current) {
-				clearTimeout(hideTooltipTimeoutRef.current);
-				hideTooltipTimeoutRef.current = undefined;
+				clearTimeout(hideTooltipTimeoutRef.current)
+				hideTooltipTimeoutRef.current = undefined
 			}
 
 			if (!showTooltip) {
-				setShowTooltip(true);
+				setShowTooltip(true)
 			}
 		} else if (showTooltip !== shouldShowTooltip) {
-			hideTooltipTimeoutRef.current = setTimeout(() => setShowTooltip(shouldShowTooltip), 300);
+			hideTooltipTimeoutRef.current = setTimeout(() => setShowTooltip(shouldShowTooltip), 300)
 		}
-	}, [blockTooltipIds]);
+	}, [blockTooltipIds])
 
 	React.useEffect(() => {
 		if (showTooltip) {
-			courseClassPlayerStore.blockShowControls("track");
+			courseClassPlayerStore.blockShowControls("track")
 		} else {
-			courseClassPlayerStore.unblockShowControls("track");
+			courseClassPlayerStore.unblockShowControls("track")
 		}
-	}, [showTooltip, tooltipPositionData]);
+	}, [showTooltip, tooltipPositionData])
 
 	const tooltipTimePosition =
 		showTooltip &&
@@ -133,26 +133,26 @@ const CourseClassPlayerTrackSliderComponent: React.FC<CourseClassPlayerTrackSlid
 					(tooltipPositionData.bounds.width || 1),
 				duration
 			)
-		);
+		)
 
 	const handleSliderButtonMouseEnter = React.useCallback<React.MouseEventHandler>((e) => {
-		blockTooltip("hover");
-		throttleHandleTooltipPositionFromEvent.cancel();
-		handleTooltipPositionFromEvent({ clientX: e.clientX });
-	}, []);
+		blockTooltip("hover")
+		throttleHandleTooltipPositionFromEvent.cancel()
+		handleTooltipPositionFromEvent({ clientX: e.clientX })
+	}, [])
 
 	const handleSliderButtonMouseMove = React.useCallback<React.MouseEventHandler>((e) => {
-		throttleHandleTooltipPositionFromEvent({ clientX: e.clientX });
-	}, []);
+		throttleHandleTooltipPositionFromEvent({ clientX: e.clientX })
+	}, [])
 
 	const handleSliderButtonMouseLeave = React.useCallback<React.MouseEventHandler>(() => {
-		throttleHandleTooltipPositionFromEvent.cancel();
-		setTimeout(() => unblockTooltip("hover"));
-	}, []);
+		throttleHandleTooltipPositionFromEvent.cancel()
+		setTimeout(() => unblockTooltip("hover"))
+	}, [])
 
 	const handleSliderButtonFocus = React.useCallback(() => {
-		courseClassPlayerStore.htmlVideoWrapperElement()?.focus();
-	}, []);
+		courseClassPlayerStore.htmlVideoWrapperElement()?.focus()
+	}, [])
 
 	return (
 		<Div className={styles.wrapper}>
@@ -198,7 +198,7 @@ const CourseClassPlayerTrackSliderComponent: React.FC<CourseClassPlayerTrackSlid
 				}}
 			/>
 		</Div>
-	);
-};
+	)
+}
 
-export const CourseClassPlayerTrackSlider = React.memo(CourseClassPlayerTrackSliderComponent);
+export const CourseClassPlayerTrackSlider = React.memo(CourseClassPlayerTrackSliderComponent)

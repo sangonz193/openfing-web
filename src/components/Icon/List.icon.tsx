@@ -1,4 +1,4 @@
-import { registerIcons } from "@fluentui/style-utilities";
+import { registerIcons } from "@fluentui/style-utilities"
 
 function ListIcon() {
 	return (
@@ -67,13 +67,13 @@ function ListIcon() {
 				strokeWidth={32}
 			/>
 		</svg>
-	);
+	)
 }
 
-export const LIST_ICON_NAME = "List";
+export const LIST_ICON_NAME = "List"
 
 registerIcons({
 	icons: {
 		[LIST_ICON_NAME]: <ListIcon />,
 	},
-});
+})

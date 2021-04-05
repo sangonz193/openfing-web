@@ -1,4 +1,4 @@
-import { registerIcons } from "@fluentui/style-utilities";
+import { registerIcons } from "@fluentui/style-utilities"
 
 function HelpCircleIcon() {
 	return (
@@ -20,13 +20,13 @@ function HelpCircleIcon() {
 			></path>
 			<circle fill="currentColor" cx="250" cy="348" r="20"></circle>
 		</svg>
-	);
+	)
 }
 
-export const HELP_CIRCLE_ICON_NAME = "HelpCircle";
+export const HELP_CIRCLE_ICON_NAME = "HelpCircle"
 
 registerIcons({
 	icons: {
 		[HELP_CIRCLE_ICON_NAME]: <HelpCircleIcon />,
 	},
-});
+})

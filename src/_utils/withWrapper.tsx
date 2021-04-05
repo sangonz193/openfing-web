@@ -1,4 +1,4 @@
-import React from "react";
+import React from "react"
 
 export const withWrappers = <TProps extends {}>(
 	wrappers: React.FC[],
@@ -9,4 +9,4 @@ export const withWrappers = <TProps extends {}>(
 			(previousValue, CurrentValue) => <CurrentValue>{previousValue}</CurrentValue>,
 			<Component ref={ref} {...props} />
 		)
-	);
+	)

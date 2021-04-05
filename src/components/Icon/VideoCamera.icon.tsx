@@ -1,4 +1,4 @@
-import { registerIcons } from "@fluentui/style-utilities";
+import { registerIcons } from "@fluentui/style-utilities"
 
 function VideoCameraIcon() {
 	return (
@@ -19,13 +19,13 @@ function VideoCameraIcon() {
 				d="M268 384H84a52.15 52.15 0 01-52-52V180a52.15 52.15 0 0152-52h184.48A51.68 51.68 0 01320 179.52V332a52.15 52.15 0 01-52 52z"
 			></path>
 		</svg>
-	);
+	)
 }
 
-export const VIDEO_CAMERA_ICON_NAME = "VideoCamera";
+export const VIDEO_CAMERA_ICON_NAME = "VideoCamera"
 
 registerIcons({
 	icons: {
 		[VIDEO_CAMERA_ICON_NAME]: <VideoCameraIcon />,
 	},
-});
+})

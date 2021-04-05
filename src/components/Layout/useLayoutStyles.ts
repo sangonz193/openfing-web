@@ -1,11 +1,11 @@
-import { css, makeStyles } from "@fluentui/react";
-import { useMediaQuery } from "react-responsive";
+import { css, makeStyles } from "@fluentui/react"
+import { useMediaQuery } from "react-responsive"
 
-import { Breakpoint } from "../../styles/Breakpoint";
+import { Breakpoint } from "../../styles/Breakpoint"
 
 export type LayoutStyleProps = {
-	className: string | undefined;
-};
+	className: string | undefined
+}
 
 const useStyles = makeStyles((theme) => {
 	return {
@@ -28,16 +28,16 @@ const useStyles = makeStyles((theme) => {
 			flex: "1 1 100%",
 			backgroundColor: theme.semanticColors.bodyBackground,
 		},
-	};
-});
+	}
+})
 
 export function useLayoutStyles({ className }: LayoutStyleProps) {
-	const styles = useStyles();
-	const isMd = useMediaQuery({ minWidth: Breakpoint.md });
+	const styles = useStyles()
+	const isMd = useMediaQuery({ minWidth: Breakpoint.md })
 
 	return {
 		wrapper: css(styles.wrapper, isMd && styles.wrapperWithRowReverse, className),
 		contentAndHeaderContainer: styles.contentAndHeaderContainer,
 		componentContainer: styles.componentContainer,
-	};
+	}
 }

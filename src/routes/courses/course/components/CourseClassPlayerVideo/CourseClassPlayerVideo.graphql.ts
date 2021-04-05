@@ -1,4 +1,4 @@
-import gql from "graphql-tag";
+import gql from "graphql-tag"
 
 export const CourseClassPlayerVideoCourseClassVideoFormatFragmentDoc = gql`
 	fragment CourseClassPlayerVideoCourseClassVideoFormat on CourseClassVideoFormat {
@@ -6,4 +6,4 @@ export const CourseClassPlayerVideoCourseClassVideoFormatFragmentDoc = gql`
 		url
 		name
 	}
-`;
+`

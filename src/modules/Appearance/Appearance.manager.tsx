@@ -1,25 +1,25 @@
-import React from "react";
+import React from "react"
 
-import { ThemeKey } from "../../styles/themes";
-import { useBlockInitialization } from "../Initialization";
-import { AppearanceContext } from "./Appearance.context";
-import { appearanceLocalStorage, migrateAppearanceLocalStorage } from "./Appearance.storage";
-import { AppearanceStore } from "./Appearance.store";
-import { getThemeFromKey } from "./getThemeFromKey";
-import { SyncTheme } from "./SyncTheme";
+import { ThemeKey } from "../../styles/themes"
+import { useBlockInitialization } from "../Initialization"
+import { AppearanceContext } from "./Appearance.context"
+import { appearanceLocalStorage, migrateAppearanceLocalStorage } from "./Appearance.storage"
+import { AppearanceStore } from "./Appearance.store"
+import { getThemeFromKey } from "./getThemeFromKey"
+import { SyncTheme } from "./SyncTheme"
 
 export const AppearanceManager: React.FC = () => {
-	const unblockInitialization = useBlockInitialization();
-	const context = React.useContext(AppearanceContext);
-	const contextRef = React.useRef(context);
-	contextRef.current = context;
+	const unblockInitialization = useBlockInitialization()
+	const context = React.useContext(AppearanceContext)
+	const contextRef = React.useRef(context)
+	contextRef.current = context
 
 	React.useEffect(() => {
-		(async () => {
-			await migrateAppearanceLocalStorage();
+		;(async () => {
+			await migrateAppearanceLocalStorage()
 
 			if (typeof contextRef.current === "function") {
-				const themeKey: ThemeKey = (await appearanceLocalStorage.getItem("theme")) || "light";
+				const themeKey: ThemeKey = (await appearanceLocalStorage.getItem("theme")) || "light"
 
 				contextRef.current(
 					new AppearanceStore({
@@ -28,16 +28,16 @@ export const AppearanceManager: React.FC = () => {
 							prefersDarkMode: window.matchMedia("(prefers-color-scheme: dark)").matches,
 						}),
 					})
-				);
+				)
 			}
-		})();
-	}, []);
+		})()
+	}, [])
 
 	React.useEffect(() => {
 		if (typeof context !== "function") {
-			unblockInitialization();
+			unblockInitialization()
 		}
-	}, [context]);
+	}, [context])
 
-	return typeof context === "function" ? null : <SyncTheme />;
-};
+	return typeof context === "function" ? null : <SyncTheme />
+}

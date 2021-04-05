@@ -1,4 +1,4 @@
-import gql from "graphql-tag";
+import gql from "graphql-tag"
 
 export const courseClassListByCode = gql`
 	query courseClassListByCode($code: String!) {
@@ -26,4 +26,4 @@ export const courseClassListByCode = gql`
 			}
 		}
 	}
-`;
+`

@@ -1,10 +1,10 @@
-import { css, makeStyles } from "@fluentui/react";
+import { css, makeStyles } from "@fluentui/react"
 
-import { getMinWidthSelector } from "../../../../styles/getMinWidthSelector";
+import { getMinWidthSelector } from "../../../../styles/getMinWidthSelector"
 
 export type CourseItemStyleProps = {
-	className: string | undefined;
-};
+	className: string | undefined
+}
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 const useStyles = makeStyles((theme) => {
@@ -55,14 +55,14 @@ const useStyles = makeStyles((theme) => {
 		year: {
 			margin: "auto 0 0 auto",
 		},
-	};
-});
+	}
+})
 
 export function useCourseItemStyles({ className }: CourseItemStyleProps) {
-	const styles = useStyles();
+	const styles = useStyles()
 
 	return {
 		...styles,
 		wrapper: css(styles.wrapper, className),
-	};
+	}
 }

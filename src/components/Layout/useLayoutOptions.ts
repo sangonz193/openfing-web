@@ -1,12 +1,12 @@
-import React from "react";
+import React from "react"
 
-import { LayoutContext, LayoutOptions } from "./Layout.context";
+import { LayoutContext, LayoutOptions } from "./Layout.context"
 
 export const useLayoutOptions = (options: Partial<LayoutOptions>) => {
-	const { setLayoutOptions } = React.useContext(LayoutContext);
+	const { setLayoutOptions } = React.useContext(LayoutContext)
 
 	React.useEffect(() => {
-		setLayoutOptions(options);
-		return () => setLayoutOptions({});
-	}, Object.values(options));
-};
+		setLayoutOptions(options)
+		return () => setLayoutOptions({})
+	}, Object.values(options))
+}

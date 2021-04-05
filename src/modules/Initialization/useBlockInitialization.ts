@@ -1,17 +1,17 @@
-import React from "react";
+import React from "react"
 
-import { useId } from "../../hooks/useId";
-import { useInitializationStore } from "./useInitializationStore";
+import { useId } from "../../hooks/useId"
+import { useInitializationStore } from "./useInitializationStore"
 
 export const useBlockInitialization = () => {
-	const id = useId();
-	const store = useInitializationStore();
+	const id = useId()
+	const store = useInitializationStore()
 
 	React.useEffect(() => {
-		store.block(id);
-	}, []);
+		store.block(id)
+	}, [])
 
 	return React.useCallback(() => {
-		store.unblock(id);
-	}, []);
-};
+		store.unblock(id)
+	}, [])
+}

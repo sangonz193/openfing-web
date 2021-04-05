@@ -1,11 +1,11 @@
-import { css, makeStyles } from "@fluentui/react";
+import { css, makeStyles } from "@fluentui/react"
 
-import { getMinWidthSelector } from "../../styles/getMinWidthSelector";
+import { getMinWidthSelector } from "../../styles/getMinWidthSelector"
 
 export type NavbarButtonStyleProps = {
-	className: string | undefined;
-	active: boolean;
-};
+	className: string | undefined
+	active: boolean
+}
 
 const useStyles = makeStyles((theme) => {
 	return {
@@ -51,15 +51,15 @@ const useStyles = makeStyles((theme) => {
 				top: "auto",
 			},
 		},
-	};
-});
+	}
+})
 
 export function useNavbarButtonStyles({ className, active }: NavbarButtonStyleProps) {
-	const styles = useStyles();
+	const styles = useStyles()
 
 	return {
 		wrapper: css(styles.wrapper, className),
 		icon: css(styles.icon, active && styles.iconActive),
 		activeIndicator: styles.activeIndicator,
-	};
+	}
 }
