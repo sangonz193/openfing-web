@@ -11,7 +11,6 @@ import { buildSchema } from "graphql/utilities/buildASTSchema"
 import { hasProperty } from "../_utils/hasProperty"
 import { isObject } from "../_utils/isObject"
 import { graphqlConfig } from "./graphql.config"
-import { remoteSchema } from "./remoteSchema.graphql"
 import type { Mutation, Query, Scalars } from "./remoteSchema.types"
 import { possibleTypes } from "./remoteSchemaPossibleTypes"
 
@@ -134,7 +133,6 @@ export const createGraphqlClient = () => {
 		connectToDevTools: true,
 		link: ApolloLink.from([getSchemaLink, ValidationAndCacheLink(), new BatchHttpLink({ uri: graphqlConfig.uri })]),
 		cache,
-		typeDefs: remoteSchema,
 	})
 
 	return apolloClient
