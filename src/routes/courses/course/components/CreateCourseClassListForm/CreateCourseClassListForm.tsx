@@ -16,8 +16,6 @@ import type {
 	CourseEdition,
 	CreateCourseClassListInputVisibility,
 } from "../../../../../graphql/remoteSchema.types"
-import { useReactiveVars } from "../../../../../hooks/useReactiveVars"
-import { useAppStore } from "../../../../../modules/App"
 import { useCreateCourseClassListMutation } from "./CreateCourseClassListForm.graphql.generated"
 import { useCreateCourseClassListFormStyles } from "./useCreateCourseClassListFormStyles"
 
@@ -37,7 +35,7 @@ const CreateCourseClassListFormComponent: React.FC<CreateCourseClassListFormProp
 	const styles = useCreateCourseClassListFormStyles({
 		className,
 	})
-	const { secret } = useReactiveVars(useAppStore(), ["secret"])
+	const { secret } = { secret: undefined as string | undefined } // TODO: get isAdmin condition
 
 	const [createCourseClassListMutation, { loading, data }] = useCreateCourseClassListMutation()
 
