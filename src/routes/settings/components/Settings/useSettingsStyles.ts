@@ -2,7 +2,6 @@ import { makeStyles } from "@fluentui/react"
 
 export type SettingsStyleProps = {}
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
 const useStyles = makeStyles((theme) => {
 	const marginLeft = 20
 

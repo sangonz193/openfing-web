@@ -1,4 +1,4 @@
-import "../../../../../components/Icon/Add.icon"
+import "../../../../../components/Icon/Cancel.icon"
 import "../../../../../components/Icon/ChevronDown.icon"
 
 import { useReactiveVar } from "@apollo/client"

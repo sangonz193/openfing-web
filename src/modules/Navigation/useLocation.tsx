@@ -20,5 +20,5 @@ export const useLocation = (): Location => {
 		return () => listener()
 	}, [])
 
-	return location
+	return history.location
 }

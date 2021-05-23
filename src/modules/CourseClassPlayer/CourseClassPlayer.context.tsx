@@ -3,7 +3,7 @@ import React from "react"
 import { CourseClassPlayerStore } from "./CourseClassPlayer.store"
 
 export const CourseClassPlayerContext = React.createContext<CourseClassPlayerStore>(
-	(null as unknown) as CourseClassPlayerStore
+	null as unknown as CourseClassPlayerStore
 )
 
 const initStore = () => new CourseClassPlayerStore()

@@ -17,7 +17,7 @@ Este es el proyecto web de la plataforma de OpenFING.
 
 -   Clonar este repositorio y abrir una terminal dentro de la carpeta creada.
 -   Correr el comando `npm i` para instalar dependencias.
--   Crear un archivo _.env_ dentro de la carpeta del proyecto. El archivo debe contener las mismas variables de entorno definidas en los archivos _.env.app_ y _.env.cli_. Se puede empezar por copiar el contenido del archivo _.env.app_ (`cp .env.app .env`), modificando los valores de las variables que crea necesarias modificar, y luego agregar las entradas del archivo _.env.cli_ (`cat .env.cli >> .env`).
+-   Crear un archivo _.env_ dentro de la carpeta del proyecto. El archivo debe contener las mismas variables de entorno definidas en los archivos _.env.app_ y _.env.cli_. Se puede empezar por correr el comando `node cli create env-file`, y luego modificando los valores según necesite.
 -   > Nota: Solo las variables definidas en el archivo _.env.app_ serán accesibles desde el código de la app. La utilidad de linea de comandos tiene acceso a las variables listadas en ambos archivos. En cualquier caso, los valores de tales variables serán los definidos en el archivo _.env_, o en el caso de que el valor no esté definido se leerá del entorno de ejecución.
 
 ### Corriendo la aplicación en modo de desarrollo

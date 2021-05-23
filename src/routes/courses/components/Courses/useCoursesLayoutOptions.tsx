@@ -87,9 +87,9 @@ export function useCoursesLayoutOptions({
 	useLayoutOptions({
 		headerTitle: searchBox,
 		headerRight: showHeaderRight ? headerRight : null,
-		headerLeft: React.useMemo(() => (rightWidth && isSm ? <div style={{ width: rightWidth }} /> : null), [
-			rightWidth,
-			isSm,
-		]),
+		headerLeft: React.useMemo(
+			() => (rightWidth && isSm ? <div style={{ width: rightWidth }} /> : null),
+			[rightWidth, isSm]
+		),
 	})
 }

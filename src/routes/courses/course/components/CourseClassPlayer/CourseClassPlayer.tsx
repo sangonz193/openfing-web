@@ -32,9 +32,8 @@ function getEventHandler(
 			return
 		}
 
-		const handler = getCourseClassPlayerShortcuts(courseClassPlayerStore)[
-			keyboardKey.getKey(e) as keyof typeof keyboardKey
-		]
+		const handler =
+			getCourseClassPlayerShortcuts(courseClassPlayerStore)[keyboardKey.getKey(e) as keyof typeof keyboardKey]
 
 		if (handler) {
 			handler()

@@ -1,9 +1,11 @@
-import identity from "lodash/identity"
+import { _fs } from "@sangonz193/utils/node/fs"
 import path from "path"
-import type { AddManyActionConfig } from "plop"
+import type { AddActionConfig } from "plop"
 
 import { getFormattedCode } from "../../../../_utils/getFormattedCode"
+import { getMatchingFilePathsSync } from "../../../../_utils/getMatchingFilePaths"
 import { projectPath } from "../../../../_utils/projectPath"
+import { getImportPath } from "../../../generate-files/_utils/getImportPath"
 import type { GetPlopGeneratorConfig } from "../../plop/GetPlopGeneratorConfig"
 
 export type ComponentPlopGeneratorAnswers = {
@@ -11,6 +13,7 @@ export type ComponentPlopGeneratorAnswers = {
 	relativePath: string
 	withStyles: boolean
 	withChildren: boolean
+	withStory: boolean
 }
 
 export const getComponentPlopGeneratorBypassArgsFromAnswers = (answers: Partial<ComponentPlopGeneratorAnswers>) => [
@@ -18,6 +21,7 @@ export const getComponentPlopGeneratorBypassArgsFromAnswers = (answers: Partial<
 	answers.relativePath ?? "_",
 	answers.withStyles?.toString() ?? "_",
 	answers.withChildren?.toString() ?? "_",
+	answers.withStory?.toString() ?? "_",
 ]
 
 const getConfig: GetPlopGeneratorConfig = (plop) => ({
@@ -56,7 +60,12 @@ const getConfig: GetPlopGeneratorConfig = (plop) => ({
 		{
 			type: "confirm",
 			name: "withChildren",
-			message: "Is the component going to render children?:",
+			message: "Is the component going to receive children?:",
+		},
+		{
+			type: "confirm",
+			name: "withStory",
+			message: "Do you want to include a `.stories.tsx` file?:",
 		},
 	],
 
@@ -70,18 +79,30 @@ const getConfig: GetPlopGeneratorConfig = (plop) => ({
 		}
 
 		const handlebarsFolderPath = path.resolve(__dirname, "handlebars")
-		const handlebarsFilePathPattern = path.resolve(handlebarsFolderPath, "**", "*")
 		const destination = renderString(path.resolve(projectPath, answers.relativePath))
+		let templateFiles = getMatchingFilePathsSync(path.posix.resolve(handlebarsFolderPath, "**", "*"))
 
-		const templateFiles: string[] = [handlebarsFilePathPattern]
+		const storiesFilePath = path.resolve(destination, answers.name, `${answers.name}.stories.tsx`)
 
 		if (!answers.withStyles) {
-			templateFiles.push("!**/use*Styles.ts.hbs")
+			templateFiles = templateFiles.filter(
+				(handlebarFilePath) => !handlebarFilePath.endsWith(`use{{componentName}}Styles.ts.hbs`)
+			)
+		}
+		if (!answers.withStory) {
+			templateFiles = templateFiles.filter(
+				(handlebarFilePath) => !handlebarFilePath.endsWith(`{{componentName}}.stories.tsx.hbs`)
+			)
 		}
 
-		return [
-			identity<AddManyActionConfig>({
-				type: "addMany",
+		return templateFiles.map<AddActionConfig>((templateFilePath) => {
+			return {
+				path: path
+					.resolve(destination, path.relative(handlebarsFolderPath, templateFilePath))
+					.replace(/\.hbs$/, ""),
+				template: _fs.readFileSync(templateFilePath, "utf-8"),
+				templateFile: undefined as unknown as string,
+				type: "add",
 				data: {
 					componentName: answers.name,
 
@@ -89,19 +110,24 @@ const getConfig: GetPlopGeneratorConfig = (plop) => ({
 					withHocs: !answers.withChildren,
 					withMemoHoc: !answers.withChildren,
 					withChildren: answers.withChildren,
+
+					getUuidImportPathFromStyles: getImportPath(
+						storiesFilePath,
+						path.resolve(projectPath, "src", "_utils", "getUuid.ts")
+					),
+					safeOmitImportPathFromStories: getImportPath(
+						storiesFilePath,
+						path.resolve(projectPath, "src", "_utils", "SafeOmit.ts")
+					),
+					storybookArgTypesImportPathFromStories: getImportPath(
+						storiesFilePath,
+						path.resolve(projectPath, "src", "components", "_utils", "StorybookArgTypes.ts")
+					),
 				},
-				destination,
-				templateFiles,
-				globOptions: {
-					dot: true,
-				},
-				verbose: true,
-				skipIfExists: false,
-				base: handlebarsFolderPath,
-				path: "",
+				skipIfExists: true,
 				transform: getFormattedCode,
-			}),
-		]
+			}
+		})
 	},
 })
 

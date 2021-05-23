@@ -1,10 +1,10 @@
 import type { ICommandBarItemProps } from "@fluentui/react"
 import { CommandBar, Image, ImageFit, Separator, Spinner, SpinnerSize, Stack, Text } from "@fluentui/react"
+import { hasProperty } from "@sangonz193/utils/hasProperty"
 import parse from "html-react-parser"
 import React from "react"
 import { useResizeDetector } from "react-resize-detector"
 
-import { hasProperty } from "../../../../../_utils/hasProperty"
 import { CreativeCommonsFooter } from "../../../../../components/CreativeCommonsFooter"
 import { getCourseClassDateInfo } from "../../../../../graphql/CourseClass/getCourseClassDateInfo"
 import { useReactiveVars } from "../../../../../hooks/useReactiveVars"

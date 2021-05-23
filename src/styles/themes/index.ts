@@ -1,6 +1,5 @@
+import { hasProperty } from "@sangonz193/utils/hasProperty"
 import identity from "lodash/identity"
-
-import { hasProperty } from "../../_utils/hasProperty"
 
 export type ThemeKey = "light" | "dark" | "black" | "auto"
 

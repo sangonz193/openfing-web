@@ -5,6 +5,7 @@ import { generateAssetsTypes } from "./generateAssetsTypes"
 import { generateComponentIndexes } from "./generateComponentIndexes"
 import { generateOperationFiles } from "./generateOperationFiles"
 import { generatePossibleTypes } from "./generatePossibleTypes"
+import { generatePublicFolder } from "./generatePublicFolder"
 import { generateRemoteSchema } from "./generateRemoteSchema"
 import { generateRemoteSchemaTypes } from "./generateRemoteSchemaTypes"
 
@@ -53,6 +54,7 @@ const command: CommandModule<{}, { watch: boolean }> = {
 					watch,
 				})
 			),
+			generatePublicFolder(),
 		])
 	},
 }

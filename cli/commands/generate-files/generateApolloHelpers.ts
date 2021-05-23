@@ -1,10 +1,10 @@
 import { executeCodegen } from "@graphql-codegen/cli"
 import * as typescriptApolloClientHelpersPlugin from "@graphql-codegen/typescript-apollo-client-helpers"
 import type { ApolloClientHelpersConfig } from "@graphql-codegen/typescript-apollo-client-helpers/config"
+import { fs } from "@sangonz193/utils/node/fs"
 import { identity } from "lodash"
 import path from "path"
 
-import { fs } from "../../_utils/fs"
 import { getFormattedCode } from "../../_utils/getFormattedCode"
 import { projectPath } from "../../_utils/projectPath"
 import { generatedFileHeaderContent } from "./_utils/generatedFileHeaderContent"

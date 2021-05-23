@@ -1,11 +1,12 @@
-name: CI
+name: deploy
 
 on:
-    pull_request:
-        branches: [master, develop]
+  push:
+    branches:
+      - develop
 
 jobs:
-    code-analysis:
+    deploy:
         runs-on: ubuntu-latest
 
         steps:
@@ -21,6 +22,11 @@ jobs:
                   npm i -g npm@6
                   npm i
 
+            - name: Create env file
+              run: node cli create env-file -p
+              env: 
+                PUBLIC_URL: https://sangonz193.github.io/openfing-web
+
             - name: Generate files
               run: node cli generate-files
 
@@ -33,4 +39,16 @@ jobs:
               run: npx tsc
 
             - name: ESLint check
-              run: npx eslint . --max-warnings=0
+              run: npm run lint
+
+            - name: Tests
+              run: npm test
+
+            - name: Build
+              run: npm run build
+
+            - name: Deploy
+              uses: JamesIves/github-pages-deploy-action@4.1.3
+              with:
+                branch: gh-pages # The branch the action should deploy to.
+                folder: build # The folder the action should deploy.

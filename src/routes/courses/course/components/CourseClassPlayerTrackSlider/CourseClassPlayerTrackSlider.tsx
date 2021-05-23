@@ -38,9 +38,10 @@ const CourseClassPlayerTrackSliderComponent: React.FC<CourseClassPlayerTrackSlid
 	const [sliderValue, setSliderValueSource] = React.useState<{ type: "store" } | { type: "local"; value: number }>({
 		type: "store",
 	})
-	const [tooltipPositionData, setTooltipPositionData] = React.useState<
-		{ point: Required<Pick<Point, "left" | "top">>; bounds: { left: number; width: number } } | false
-	>()
+	const [tooltipPositionData, setTooltipPositionData] =
+		React.useState<
+			{ point: Required<Pick<Point, "left" | "top">>; bounds: { left: number; width: number } } | false
+		>()
 
 	const handleChange = React.useCallback((value: number) => {
 		blockTooltip("drag")

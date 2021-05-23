@@ -1,3 +1,4 @@
+import { _fs, fs } from "@sangonz193/utils/node/fs"
 import path from "path"
 import SSH2Promise from "ssh2-promise"
 import type SFTP from "ssh2-promise/dist/sftp"
@@ -5,7 +6,6 @@ import type { Stats } from "ssh2-streams"
 import type { CommandModule } from "yargs"
 import * as yup from "yup"
 
-import { _fs, fs } from "../../_utils/fs"
 import { projectPath } from "../../_utils/projectPath"
 
 const command: CommandModule<{}, {}> = {

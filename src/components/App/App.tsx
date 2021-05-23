@@ -8,5 +8,5 @@ export type AppProps = {
 export const App: React.FC<AppProps> = ({}) => {
 	const [routeConfig, params = {}] = useRoutes() || []
 
-	return <Layout>{routeConfig?.element(params) ?? null}</Layout>
+	return <Layout>{routeConfig?.element(params)}</Layout>
 }

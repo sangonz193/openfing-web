@@ -1,7 +1,6 @@
 import { css, makeStyles } from "@fluentui/react"
-import { useMediaQuery } from "react-responsive"
 
-import { Breakpoint } from "../../styles/Breakpoint"
+import { getMinWidthSelector } from "../../styles/getMinWidthSelector"
 
 export type LayoutStyleProps = {
 	className: string | undefined
@@ -11,11 +10,11 @@ const useStyles = makeStyles((theme) => {
 	return {
 		wrapper: {
 			height: "100%",
-		},
 
-		wrapperWithRowReverse: {
 			"&&": {
-				flexDirection: "row-reverse",
+				[getMinWidthSelector("md")]: {
+					flexDirection: "row-reverse",
+				},
 			},
 		},
 
@@ -33,10 +32,9 @@ const useStyles = makeStyles((theme) => {
 
 export function useLayoutStyles({ className }: LayoutStyleProps) {
 	const styles = useStyles()
-	const isMd = useMediaQuery({ minWidth: Breakpoint.md })
 
 	return {
-		wrapper: css(styles.wrapper, isMd && styles.wrapperWithRowReverse, className),
+		wrapper: css(styles.wrapper, className),
 		contentAndHeaderContainer: styles.contentAndHeaderContainer,
 		componentContainer: styles.componentContainer,
 	}

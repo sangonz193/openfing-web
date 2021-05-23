@@ -7,7 +7,7 @@ import ReactGA from "react-ga"
 import { appConfig } from "../../app.config"
 import { useRefWithInitializer } from "../../hooks/useRefWithInitializer"
 
-export const NavigationContext = React.createContext<History>((null as unknown) as History)
+export const NavigationContext = React.createContext<History>(null as unknown as History)
 
 export const NavigationProvider: React.FC = ({ children }) => {
 	const history = useRefWithInitializer(() => {

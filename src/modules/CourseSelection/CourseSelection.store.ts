@@ -56,7 +56,6 @@ export class CourseSelectionStore {
 	})
 
 	courseClassListByCodeWithId = makeVar<CourseSelectionCourseClassListByCodeWithIdFragment | undefined>(undefined)
-	courseClassListByCodeWithClasses = makeVar<CourseSelectionCourseClassListByCodeWithClassesFragment | undefined>(
-		undefined
-	)
+	courseClassListByCodeWithClasses =
+		makeVar<CourseSelectionCourseClassListByCodeWithClassesFragment | undefined>(undefined)
 }

@@ -1,5 +1,3 @@
-import React from "react"
-
 import { Redirect } from "../components/Redirect"
 import type { RouteConfig } from "./_utils/RouteConfig"
 import { adminRouteConfig } from "./admin/admin.route.config"
@@ -12,10 +10,7 @@ import { updatesRouteConfig } from "./updates/updates.route.config"
 
 const redirectConfig: RouteConfig = {
 	path: "",
-	element: () =>
-		React.createElement(Redirect, {
-			to: homeRouteConfig.path,
-		}),
+	element: () => <Redirect to={homeRouteConfig.path} />,
 	matchConfig: {
 		path: "/",
 		exact: false,

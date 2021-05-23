@@ -1,12 +1,12 @@
+import { dangerousKeysOf } from "@sangonz193/utils/dangerousKeysOf"
+import { identityMap } from "@sangonz193/utils/identityMap"
+import { fs } from "@sangonz193/utils/node/fs"
+import { fsExists } from "@sangonz193/utils/node/fsExists"
 import chokidar from "chokidar"
 import path from "path"
 
-import { dangerousKeysOf } from "../../_utils/dangerousKeysOf"
-import { fs } from "../../_utils/fs"
-import { fsExists } from "../../_utils/fsExists"
 import { getFormattedCode } from "../../_utils/getFormattedCode"
 import { getMatchingFilePaths } from "../../_utils/getMatchingFilePaths"
-import { identityMap } from "../../_utils/identityMap"
 import { projectPath } from "../../_utils/projectPath"
 import { generatedFileHeaderContent } from "./_utils/generatedFileHeaderContent"
 
@@ -18,16 +18,16 @@ const generateAssetTypes = async (filePath: string) => {
 	await fs.writeFile(
 		getAssetTypesFilePath(filePath),
 		getFormattedCode(
-			generatedFileHeaderContent + `\ndeclare const filePath: string\n` + `export default filePath\n`
+			generatedFileHeaderContent + `declare const filePath: string;\n` + `export default filePath;\n`
 		)
 	)
 }
 
 export const generateAssetsTypes = async (watch: boolean) => {
 	const srcPath = path.resolve(projectPath, "src")
-	const pathPatterns = dangerousKeysOf(
-		identityMap<AssetExtension>({ jpeg: 0, jpg: 0, png: 0, svg: 0, ttf: 0 })
-	).map((ext) => path.resolve(srcPath, "**", "*." + ext))
+	const pathPatterns = dangerousKeysOf(identityMap<AssetExtension>({ jpeg: 0, jpg: 0, png: 0, svg: 0, ttf: 0 })).map(
+		(ext) => path.resolve(srcPath, "**", "*." + ext)
+	)
 
 	const filePaths = (await Promise.all(pathPatterns.map((pathPattern) => getMatchingFilePaths(pathPattern)))).reduce<
 		string[]
