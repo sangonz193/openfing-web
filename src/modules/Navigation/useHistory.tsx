@@ -1,4 +1,4 @@
-import type { History } from "history"
+import { History } from "history"
 
 import { useNavigationStore } from "./useNavigationStore"
 

@@ -1,3 +1,3 @@
-import type { NodePlopAPI, PlopGeneratorConfig } from "node-plop"
+import { NodePlopAPI, PlopGeneratorConfig } from "node-plop"
 
 export type GetPlopGeneratorConfig = (plop: NodePlopAPI) => PlopGeneratorConfig

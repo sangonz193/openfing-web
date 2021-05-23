@@ -1,6 +1,6 @@
 import React from "react"
 
-import type { AppearanceStore } from "./Appearance.store"
+import { AppearanceStore } from "./Appearance.store"
 import { FluentThemeProvider } from "./FluentThemeProvider"
 
 export type AppearanceContextValue = AppearanceStore | ((store: AppearanceStore) => void)

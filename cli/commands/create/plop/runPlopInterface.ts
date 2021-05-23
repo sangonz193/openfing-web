@@ -2,7 +2,7 @@ import { identity } from "lodash"
 import path from "path"
 import { Plop, run } from "plop"
 
-import type { ComponentPlopGeneratorAnswers } from "../commands/component/component.plop-generator"
+import { ComponentPlopGeneratorAnswers } from "../commands/component/component.plop-generator"
 import { getComponentPlopGeneratorBypassArgsFromAnswers } from "../commands/component/component.plop-generator"
 
 export type PlopGeneratorConfigMap = {

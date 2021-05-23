@@ -1,6 +1,6 @@
 import "../../../../../components/Icon/Checkmark.icon"
 
-import type { IContextualMenuItem, IContextualMenuItemProps } from "@fluentui/react"
+import { IContextualMenuItem, IContextualMenuItemProps } from "@fluentui/react"
 import { ContextualMenuItem } from "@fluentui/react"
 import React from "react"
 
