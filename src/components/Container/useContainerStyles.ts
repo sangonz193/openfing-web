@@ -14,7 +14,7 @@ const useStyles = makeStyles((theme) => {
 	}
 })
 
-export function useDivStyles({ className }: DivStyleProps) {
+export function useContainerStyles({ className }: DivStyleProps) {
 	const styles = useStyles()
 
 	return {

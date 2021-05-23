@@ -1,12 +1,12 @@
 import { PrimaryButton, Stack } from "@fluentui/react"
 import { yupResolver } from "@hookform/resolvers/yup"
+import { dangerousKeysOf } from "@sangonz193/utils/dangerousKeysOf"
 import { identity } from "lodash"
 import React, { useCallback } from "react"
 import type { SubmitHandler } from "react-hook-form"
 import { useForm } from "react-hook-form"
 import * as yup from "yup"
 
-import { dangerousKeysOf } from "../../../../_utils/dangerousKeysOf"
 import { FormDropdown } from "../../../../components/FormDropdown/FormDropdown"
 import { FormTextField } from "../../../../components/FormTextField/FormTextField"
 import type { CreateCourseInputVisibility } from "../../../../graphql/remoteSchema.types"

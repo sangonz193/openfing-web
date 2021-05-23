@@ -1,8 +1,8 @@
+import { dangerousKeysOf } from "@sangonz193/utils/dangerousKeysOf"
+import { wait } from "@sangonz193/utils/wait"
 import identity from "lodash/identity"
 import React from "react"
 
-import { dangerousKeysOf } from "../../_utils/dangerousKeysOf"
-import { wait } from "../../_utils/wait"
 import { useBlockInitialization } from "../Initialization"
 import { getTeachingStorageKeyByTeachingKey } from "./getTeachingStorageKeyByTeachingKey"
 import { migrateTeachingLocalStorage, teachingLocalStorage } from "./Teaching.storage"

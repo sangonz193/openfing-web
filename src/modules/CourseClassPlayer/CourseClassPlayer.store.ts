@@ -1,7 +1,7 @@
 import type { ReactiveVar } from "@apollo/client"
 import { makeVar } from "@apollo/client"
+import { dangerousKeysOf } from "@sangonz193/utils/dangerousKeysOf"
 
-import { dangerousKeysOf } from "../../_utils/dangerousKeysOf"
 import { listenVar } from "../../_utils/listenVar"
 
 export class CourseClassPlayerStore {

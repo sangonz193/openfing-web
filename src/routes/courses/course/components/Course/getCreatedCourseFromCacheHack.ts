@@ -1,4 +1,4 @@
-import { hasProperty } from "../../../../../_utils/hasProperty"
+import { hasProperty } from "@sangonz193/utils/hasProperty"
 
 // TODO: rename?
 export const getCreatedCourseFromCacheHack = (cache: unknown, courseCode: string) => {
