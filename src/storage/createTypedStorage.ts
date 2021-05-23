@@ -1,4 +1,4 @@
-import { appConfig } from "../app.config"
+import { appConfig } from "../config/app.config"
 
 export type TypedStorageKeyValue = Record<string, unknown>
 
@@ -134,7 +134,7 @@ export const createTypedStorage = <TKeyValue extends TypedStorageKeyValue>(
 		},
 
 		getScopedKey(key: Key) {
-			return `@of-${appConfig.storageScope}-${options.scope}-${key}`
+			return `${appConfig.shortCodeName}-${appConfig.storageScope}-${options.scope}-${key}`
 		},
 
 		_untypedStorage: storage,

@@ -1,12 +1,12 @@
+import { dangerousKeysOf } from "@sangonz193/utils/dangerousKeysOf"
 import React from "react"
 
-import { dangerousKeysOf } from "../_utils/dangerousKeysOf"
 import { matchRouteConfig } from "../modules/Navigation/matchRouteConfig"
 import { useLocation } from "../modules/Navigation/useLocation"
-import { RouteConfig } from "../routes/_utils/RouteConfig"
+import type { RouteConfig } from "../routes/_utils/RouteConfig"
 import { routesConfig } from "../routes/routes.config"
 
-export const useRoutes = <T extends {}>(): [RouteConfig<T>, T] | null => {
+export const useRoutes = <T extends {}>(): [RouteConfig<any>, T] | null => {
 	const location = useLocation()
 
 	return React.useMemo(() => {
@@ -16,10 +16,10 @@ export const useRoutes = <T extends {}>(): [RouteConfig<T>, T] | null => {
 			const match = matchRouteConfig(location.pathname, routeConfig)
 
 			if (match) {
-				return [routeConfig, ((match.params as unknown) as any) || {}]
+				return [routeConfig, (match.params as unknown as any) || {}]
 			}
 		}
 
 		return null
-	}, [location.pathname]) as any
+	}, [location.pathname])
 }

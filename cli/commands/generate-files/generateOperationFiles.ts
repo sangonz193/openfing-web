@@ -1,5 +1,5 @@
 import { executeCodegen } from "@graphql-codegen/cli"
-import { TypeScriptPluginConfig } from "@graphql-codegen/typescript"
+import type { TypeScriptPluginConfig } from "@graphql-codegen/typescript"
 import * as typescriptPlugin from "@graphql-codegen/typescript"
 import * as typescriptOperationsPlugin from "@graphql-codegen/typescript-operations"
 import * as typescriptReactApolloPlugin from "@graphql-codegen/typescript-react-apollo"

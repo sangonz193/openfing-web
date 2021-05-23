@@ -1,4 +1,4 @@
-import { ReactiveVar } from "@apollo/client"
+import type { ReactiveVar } from "@apollo/client"
 
 export const listenVar = <T>(reactiveVar: ReactiveVar<T>, listener: (newValue: T) => void): (() => void) => {
 	let removeListener: () => void

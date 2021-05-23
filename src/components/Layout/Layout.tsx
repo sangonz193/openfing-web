@@ -1,11 +1,11 @@
+import { Stack } from "@fluentui/react"
 import merge from "lodash/merge"
 import React from "react"
 
 import { useRootEventListeners } from "../../modules/RootEventListeners/useRootEventListeners"
-import { Container } from "../Container"
 import { Header } from "../Header"
 import { Navbar } from "../Navbar"
-import { LayoutContextValue, LayoutOptions, SetLayoutOptions } from "./Layout.context"
+import type { LayoutContextValue, LayoutOptions, SetLayoutOptions } from "./Layout.context"
 import { LayoutContext } from "./Layout.context"
 import { useLayoutStyles } from "./useLayoutStyles"
 
@@ -45,8 +45,8 @@ export const Layout: React.FC<LayoutProps> = (props) => {
 
 	return (
 		<LayoutContext.Provider value={contextValue}>
-			<Container className={styles.wrapper} {...eventListeners}>
-				<Container className={styles.contentAndHeaderContainer}>
+			<div className={styles.wrapper} {...eventListeners}>
+				<Stack className={styles.contentAndHeaderContainer}>
 					{layoutOptionsWithOverrides.showHeader && (
 						<Header
 							title={layoutOptionsWithOverrides.headerTitle}
@@ -54,11 +54,11 @@ export const Layout: React.FC<LayoutProps> = (props) => {
 							right={layoutOptionsWithOverrides.headerRight}
 						/>
 					)}
-					<Container className={styles.componentContainer}>{children}</Container>
-				</Container>
+					<Stack className={styles.componentContainer}>{children}</Stack>
+				</Stack>
 
 				{layoutOptionsWithOverrides.showNavBar && <Navbar />}
-			</Container>
+			</div>
 		</LayoutContext.Provider>
 	)
 }

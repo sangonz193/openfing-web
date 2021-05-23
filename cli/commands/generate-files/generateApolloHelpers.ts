@@ -1,6 +1,6 @@
 import { executeCodegen } from "@graphql-codegen/cli"
 import * as typescriptApolloClientHelpersPlugin from "@graphql-codegen/typescript-apollo-client-helpers"
-import { ApolloClientHelpersConfig } from "@graphql-codegen/typescript-apollo-client-helpers/config"
+import type { ApolloClientHelpersConfig } from "@graphql-codegen/typescript-apollo-client-helpers/config"
 import { identity } from "lodash"
 import path from "path"
 

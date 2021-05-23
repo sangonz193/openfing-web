@@ -1,4 +1,4 @@
-import { ReactiveVar } from "@apollo/client"
+import type { ReactiveVar } from "@apollo/client"
 import { makeVar } from "@apollo/client"
 import { Map } from "immutable"
 

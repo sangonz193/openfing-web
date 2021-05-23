@@ -1,5 +1,5 @@
 import { executeCodegen } from "@graphql-codegen/cli"
-import { TypeScriptPluginConfig } from "@graphql-codegen/typescript"
+import type { TypeScriptPluginConfig } from "@graphql-codegen/typescript"
 import * as typescriptPlugin from "@graphql-codegen/typescript"
 import identity from "lodash/identity"
 import path from "path"

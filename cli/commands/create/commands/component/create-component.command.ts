@@ -1,7 +1,9 @@
-import { CommandModule } from "yargs"
+import type { CommandModule } from "yargs"
 
-import { runPlopInterface } from "../../plop/runPlopInterface"
-import { ComponentPlopGeneratorAnswers } from "./component.plop-generator"
+import { runPlopInterface } from "../../../../_utils/runPlopInterface"
+import { createPlopFilePath } from "../../plop/plopfile.path"
+import type { ComponentPlopGeneratorAnswers } from "./component.plop-generator"
+import { getComponentPlopGeneratorBypassArgsFromAnswers } from "./component.plop-generator"
 
 const command: CommandModule<
 	{},
@@ -46,12 +48,14 @@ const command: CommandModule<
 				relativePath: args.relativePath ?? "src/components",
 				withChildren: config.withChildren ?? false,
 				withStyles: config.withStyles ?? true,
+				withStory: config.withStory ?? true,
 			}
 		}
 
 		runPlopInterface({
 			generator: "component",
-			config,
+			bypassAnswers: getComponentPlopGeneratorBypassArgsFromAnswers(config),
+			plopFilePath: createPlopFilePath,
 		})
 	},
 }

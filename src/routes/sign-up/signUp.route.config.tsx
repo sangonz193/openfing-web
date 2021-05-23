@@ -1,5 +1,5 @@
 import { appConfig } from "../../app.config"
-import { RouteConfig } from "../_utils/RouteConfig"
+import type { RouteConfig } from "../_utils/RouteConfig"
 import { SignUp } from "./components/SignUp"
 
 export const updatesRouteConfig: RouteConfig = {

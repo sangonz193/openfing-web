@@ -1,4 +1,4 @@
-import { ICommandBarItemProps } from "@fluentui/react"
+import type { ICommandBarItemProps } from "@fluentui/react"
 import { CommandBarButton } from "@fluentui/react"
 import React from "react"
 

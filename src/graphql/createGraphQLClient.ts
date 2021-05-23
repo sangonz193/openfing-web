@@ -1,4 +1,4 @@
-import { Resolvers, TypePolicy } from "@apollo/client"
+import type { Resolvers, TypePolicy } from "@apollo/client"
 import { ApolloClient, ApolloLink } from "@apollo/client"
 import { InMemoryCache } from "@apollo/client/cache"
 import { BatchHttpLink } from "@apollo/client/link/batch-http"
@@ -11,7 +11,8 @@ import { buildSchema } from "graphql/utilities/buildASTSchema"
 import { hasProperty } from "../_utils/hasProperty"
 import { isObject } from "../_utils/isObject"
 import { graphqlConfig } from "./graphql.config"
-import { Mutation, Query, Scalars } from "./remoteSchema.types"
+import { remoteSchema } from "./remoteSchema.graphql"
+import type { Mutation, Query, Scalars } from "./remoteSchema.types"
 import { possibleTypes } from "./remoteSchemaPossibleTypes"
 
 type _ResolversParentTypes = {
@@ -133,6 +134,7 @@ export const createGraphqlClient = () => {
 		connectToDevTools: true,
 		link: ApolloLink.from([getSchemaLink, ValidationAndCacheLink(), new BatchHttpLink({ uri: graphqlConfig.uri })]),
 		cache,
+		typeDefs: remoteSchema,
 	})
 
 	return apolloClient

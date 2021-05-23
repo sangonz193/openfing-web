@@ -2,7 +2,7 @@ import { PrimaryButton, Stack } from "@fluentui/react"
 import { yupResolver } from "@hookform/resolvers/yup"
 import identity from "lodash/identity"
 import React from "react"
-import { SubmitHandler } from "react-hook-form"
+import type { SubmitHandler } from "react-hook-form"
 import { useForm } from "react-hook-form"
 import * as yup from "yup"
 
@@ -11,7 +11,11 @@ import { hasProperty } from "../../../../../_utils/hasProperty"
 import { FormCheckbox } from "../../../../../components/FormCheckbox/FormCheckbox"
 import { FormDropdown } from "../../../../../components/FormDropdown/FormDropdown"
 import { FormTextField } from "../../../../../components/FormTextField/FormTextField"
-import { Course, CourseEdition, CreateCourseClassListInputVisibility } from "../../../../../graphql/remoteSchema.types"
+import type {
+	Course,
+	CourseEdition,
+	CreateCourseClassListInputVisibility,
+} from "../../../../../graphql/remoteSchema.types"
 import { useCreateCourseClassListMutation } from "./CreateCourseClassListForm.graphql.generated"
 import { useCreateCourseClassListFormStyles } from "./useCreateCourseClassListFormStyles"
 

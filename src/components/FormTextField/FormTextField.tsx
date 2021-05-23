@@ -1,8 +1,8 @@
-import { ITextFieldProps } from "@fluentui/react"
+import type { ITextFieldProps } from "@fluentui/react"
 import { TextField } from "@fluentui/react"
-import { Control, ControllerProps, FieldPath } from "react-hook-form"
+import type { Control, ControllerProps, FieldPath } from "react-hook-form"
 import { Controller } from "react-hook-form"
-import * as yup from "yup"
+import type * as yup from "yup"
 
 import { isFieldRequired } from "../../_utils/isFieldRequired"
 

@@ -1,4 +1,4 @@
-import { Location } from "history"
+import type { Location } from "history"
 import React from "react"
 
 import { useHistory } from "./useHistory"
@@ -20,5 +20,5 @@ export const useLocation = (): Location => {
 		return () => listener()
 	}, [])
 
-	return location
+	return history.location
 }

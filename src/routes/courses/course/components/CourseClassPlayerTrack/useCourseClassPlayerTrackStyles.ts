@@ -1,4 +1,4 @@
-import { IRawStyle, IStyle } from "@fluentui/react"
+import type { IRawStyle, IStyle } from "@fluentui/react"
 import { css, makeStyles } from "@fluentui/react"
 
 export type CourseClassPlayerTrackStyleProps = {

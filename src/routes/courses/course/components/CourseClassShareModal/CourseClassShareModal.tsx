@@ -1,4 +1,4 @@
-import { ITextFieldProps } from "@fluentui/react"
+import type { ITextFieldProps } from "@fluentui/react"
 import {
 	Checkbox,
 	ContextualMenu,
@@ -20,7 +20,7 @@ import { COPY_ICON_NAME } from "../../../../../components/Icon/Copy.icon"
 import { useReactiveVars } from "../../../../../hooks/useReactiveVars"
 import { useCourseClassPlayerStore } from "../../../../../modules/CourseClassPlayer"
 import { useCourseSelectionStore } from "../../../../../modules/CourseSelection"
-import { CourseRouteConfigGetPathParams } from "../../course.route.config"
+import type { CourseRouteConfigGetPathParams } from "../../course.route.config"
 import { courseRouteConfig } from "../../course.route.config"
 import { useCourseClassByIdQuery } from "./CourseClassShareModal.graphql.generated"
 import { courseClassShareModalReducer, initCourseClassShareModalReducer } from "./CourseClassShareModal.reducer"

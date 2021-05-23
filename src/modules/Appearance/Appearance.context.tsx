@@ -1,13 +1,11 @@
 import React from "react"
 
-import { AppearanceStore } from "./Appearance.store"
+import type { AppearanceStore } from "./Appearance.store"
 import { FluentThemeProvider } from "./FluentThemeProvider"
 
 export type AppearanceContextValue = AppearanceStore | ((store: AppearanceStore) => void)
 
-export const AppearanceContext = React.createContext<AppearanceContextValue>(
-	(null as unknown) as AppearanceContextValue
-)
+export const AppearanceContext = React.createContext<AppearanceContextValue>(null as unknown as AppearanceContextValue)
 
 export const AppearanceProvider: React.FC = ({ children }) => {
 	const [store, setStore] = React.useState<AppearanceStore>()

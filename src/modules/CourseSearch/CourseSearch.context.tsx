@@ -2,7 +2,7 @@ import React from "react"
 
 import { CourseSearchStore } from "./CourseSearch.store"
 
-export const CourseSearchContext = React.createContext<CourseSearchStore>((null as unknown) as CourseSearchStore)
+export const CourseSearchContext = React.createContext<CourseSearchStore>(null as unknown as CourseSearchStore)
 
 const initStore = () => new CourseSearchStore()
 

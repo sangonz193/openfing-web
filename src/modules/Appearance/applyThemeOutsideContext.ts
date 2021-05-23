@@ -1,9 +1,11 @@
-import { ITheme } from "@fluentui/style-utilities"
+import type { ITheme } from "@fluentui/style-utilities"
+
+import { appConfig } from "../../config/app.config"
 
 export function applyThemeOutsideContext(theme: ITheme) {
 	document.body.style.backgroundColor = theme.semanticColors.bodyBackground
 
-	const styleElementId = "@of-custom-styles"
+	const styleElementId = `@${appConfig.shortCodeName}-custom-styles`
 	let customStyleElement = document.getElementById(styleElementId)
 
 	if (!customStyleElement) {

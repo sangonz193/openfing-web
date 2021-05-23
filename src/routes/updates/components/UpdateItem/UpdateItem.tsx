@@ -6,7 +6,7 @@ import { RADIO_ICON_NAME } from "../../../../components/Icon/Radio.icon"
 import { getCourseClassShortDateInfo } from "../../../../graphql/CourseClass/getCourseClassShortDateInfo"
 import { useLocalLinkProps } from "../../../../hooks/useLocalLinkProps"
 import { courseRouteConfig } from "../../../courses/course/course.route.config"
-import { UpdateItemCourseClassFragment } from "./UpdateItem.graphql.generated"
+import type { UpdateItemCourseClassFragment } from "./UpdateItem.graphql.generated"
 import { useUpdateItemStyles } from "./useUpdateItemStyles"
 
 export type UpdateItemProps = {

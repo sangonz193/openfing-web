@@ -1,4 +1,4 @@
-import { IDropdownOption, IDropdownProps, IListProps } from "@fluentui/react"
+import type { IDropdownOption, IDropdownProps, IListProps } from "@fluentui/react"
 import {
 	Dropdown,
 	FocusZone,
@@ -17,7 +17,7 @@ import { useCourseSelectionStore } from "../../../../../modules/CourseSelection"
 import { useHistory } from "../../../../../modules/Navigation/useHistory"
 import { courseRouteConfig } from "../../course.route.config"
 import { CourseClassItem } from "../CourseClassItem"
-import { CourseClassItemCourseClassFragment } from "../CourseClassItem/CourseClassItem.graphql.generated"
+import type { CourseClassItemCourseClassFragment } from "../CourseClassItem/CourseClassItem.graphql.generated"
 import { useCourseClassListByCodeQuery, useCourseClassListClassesByCodeQuery } from "./CourseMaster.graphql.generated"
 import { useCourseMasterStyles } from "./useCourseMasterStyles"
 

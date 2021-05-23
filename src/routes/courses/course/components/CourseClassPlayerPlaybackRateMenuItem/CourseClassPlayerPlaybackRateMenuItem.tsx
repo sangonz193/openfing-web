@@ -1,6 +1,6 @@
 import "../../../../../components/Icon/Checkmark.icon"
 
-import { IContextualMenuItem, IContextualMenuItemProps } from "@fluentui/react"
+import type { IContextualMenuItem, IContextualMenuItemProps } from "@fluentui/react"
 import { ContextualMenuItem } from "@fluentui/react"
 import React from "react"
 
@@ -18,11 +18,11 @@ const CourseClassPlayerPlaybackRateMenuItemComponent: React.FC<CourseClassPlayer
 }) => {
 	const playbackRate = contextualMenuItemProps.item.data as number
 
-	const { currentTime, duration, playbackRate: currentPlaybackRate } = useReactiveVars(useCourseClassPlayerStore(), [
-		"currentTime",
-		"duration",
-		"playbackRate",
-	])
+	const {
+		currentTime,
+		duration,
+		playbackRate: currentPlaybackRate,
+	} = useReactiveVars(useCourseClassPlayerStore(), ["currentTime", "duration", "playbackRate"])
 
 	const text = React.useMemo(
 		() =>

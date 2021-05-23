@@ -1,5 +1,5 @@
 import path from "path"
-import { NodePlopAPI } from "plop"
+import type { NodePlopAPI } from "plop"
 
 import { getMatchingFilePathsSync } from "../../../_utils/getMatchingFilePaths"
 

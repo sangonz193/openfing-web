@@ -1,8 +1,8 @@
-import { IDropdownProps } from "@fluentui/react"
+import type { IDropdownProps } from "@fluentui/react"
 import { Dropdown } from "@fluentui/react"
-import { Control, ControllerProps, FieldPath } from "react-hook-form"
+import type { Control, ControllerProps, FieldPath } from "react-hook-form"
 import { Controller } from "react-hook-form"
-import * as yup from "yup"
+import type * as yup from "yup"
 
 import { isFieldRequired } from "../../_utils/isFieldRequired"
 

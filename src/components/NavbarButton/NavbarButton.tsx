@@ -1,10 +1,9 @@
-import { FontIcon, Link } from "@fluentui/react"
+import { FontIcon, Link, Stack } from "@fluentui/react"
 import React from "react"
 
 import { useLocalLinkProps } from "../../hooks/useLocalLinkProps"
 import { useMatchPath } from "../../modules/Navigation"
 import { useLocation } from "../../modules/Navigation/useLocation"
-import { Container } from "../Container"
 import { useNavbarButtonStyles } from "./useNavbarButtonStyles"
 
 export type NavbarButtonProps = {
@@ -38,7 +37,7 @@ const NavbarButtonComponent: React.FC<NavbarButtonProps> = ({ className, route, 
 				href: route,
 			})}
 		>
-			{active && <Container className={styles.activeIndicator} />}
+			{active && <Stack className={styles.activeIndicator} />}
 			<FontIcon iconName={iconName} className={styles.icon} />
 		</Link>
 	)
