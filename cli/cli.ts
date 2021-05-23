@@ -1,5 +1,6 @@
 import path from "path"
-import yargs, { CommandModule } from "yargs"
+import type { CommandModule } from "yargs"
+import yargs from "yargs"
 
 import { getSubCommands } from "./_utils/getSubCommands"
 

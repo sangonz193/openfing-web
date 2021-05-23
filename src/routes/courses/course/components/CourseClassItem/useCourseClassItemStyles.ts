@@ -67,6 +67,15 @@ const useStyles = makeStyles((theme) => {
 		courseClassNameActive: {
 			color: theme.semanticColors.accentButtonText,
 		},
+
+		liveIndicator: {
+			color: theme.semanticColors.errorIcon,
+			marginRight: 10,
+		},
+
+		liveIndicatorActive: {
+			color: theme.semanticColors.accentButtonText,
+		},
 	}
 })
 
@@ -77,6 +86,7 @@ export function useCourseClassItemStyles({ className, active }: CourseClassItemS
 		wrapper: css(styles.wrapper, className, active && styles.wrapperActive),
 		content: styles.content,
 		courseClassNumber: css(styles.courseClassNumber, active && styles.courseClassNumberActive),
+		liveIndicator: css(styles.liveIndicator, active && styles.liveIndicatorActive),
 		courseClassName: css(styles.courseClassName, active && styles.courseClassNameActive),
 	}
 }

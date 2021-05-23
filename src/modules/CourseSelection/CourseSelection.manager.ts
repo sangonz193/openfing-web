@@ -13,7 +13,7 @@ export const CourseSelectionManager: React.FC = () => {
 	const match = React.useMemo(() => matchRouteConfig(location.pathname, courseRouteConfig), [location.pathname])
 	const { code: courseClassListCode, courseClassNumber } = match?.params ?? {}
 	const parsedCourseClassNo = React.useMemo(() => {
-		const parsedNumber = !!courseClassNumber && Number(courseClassNumber)
+		const parsedNumber = !!courseClassNumber ? Number(courseClassNumber) : NaN
 
 		return Number.isNaN(parsedNumber) ? undefined : parsedNumber
 	}, [courseClassNumber])
@@ -26,16 +26,10 @@ export const CourseSelectionManager: React.FC = () => {
 	React.useLayoutEffect(() => {
 		if (!courseClassListByCodeWithId || !courseClassListByCodeWithClasses) {
 			if (courseClassListCode) {
-				store.selection(
-					parsedCourseClassNo
-						? {
-								courseClassListCode,
-								courseClassNumber: parsedCourseClassNo,
-						  }
-						: {
-								courseClassListCode,
-						  }
-				)
+				store.selection({
+					courseClassListCode,
+					courseClassNumber: parsedCourseClassNo,
+				})
 			} else {
 				store.selection({})
 			}
@@ -45,8 +39,13 @@ export const CourseSelectionManager: React.FC = () => {
 					? courseClassListByCodeWithClasses.classes.find((c) => c.number === parsedCourseClassNo)
 					: undefined
 
+			if (courseClassListCode !== courseClassListByCodeWithId.code) {
+				store.courseClassListByCodeWithId(undefined)
+				store.courseClassListByCodeWithClasses(undefined)
+			}
+
 			store.selection({
-				courseClassListCode: courseClassListByCodeWithId.code,
+				courseClassListCode: courseClassListCode,
 				courseClassListId: courseClassListByCodeWithId.id,
 				...(courseClass
 					? { courseClassId: courseClass.id, courseClassNumber: courseClass.number || undefined }

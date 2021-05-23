@@ -1,5 +1,7 @@
 import gql from "graphql-tag"
 
+import { CourseClassItemCourseClassFragmentDoc } from "../CourseClassItem/CourseClassItem.graphql"
+
 export const courseClassListByCode = gql`
 	query courseClassListByCode($code: String!) {
 		courseClassListByCode(code: $code) {
@@ -44,15 +46,11 @@ export const courseClassListClassesByCode = gql`
 				code
 
 				classes {
-					id
-					number
-					name
-					courseClassList {
-						id
-						code
-					}
+					...CourseClassItemCourseClass
 				}
 			}
 		}
 	}
+
+	${CourseClassItemCourseClassFragmentDoc}
 `

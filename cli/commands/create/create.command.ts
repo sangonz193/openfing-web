@@ -1,5 +1,5 @@
 import path from "path"
-import { CommandModule } from "yargs"
+import type { CommandModule } from "yargs"
 
 import { getSubCommandsSync } from "../../_utils/getSubCommands"
 import { runPlopInterface } from "./plop/runPlopInterface"

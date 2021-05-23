@@ -1,4 +1,5 @@
-import { createTheme, IPartialTheme } from "@fluentui/react/lib/Styling"
+import type { IPartialTheme } from "@fluentui/react/lib/Styling"
+import { createTheme } from "@fluentui/react/lib/Styling"
 
 const palette: IPartialTheme["palette"] = {
 	themePrimary: "#4796e6",

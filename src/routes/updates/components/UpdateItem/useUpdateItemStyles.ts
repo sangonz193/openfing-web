@@ -61,8 +61,16 @@ const useStyles = makeStyles((theme) => {
 		},
 
 		publishedAt: {
+			display: "flex",
 			marginTop: "auto",
 			marginLeft: "auto",
+		},
+
+		liveIndicatorIcon: {
+			color: theme.semanticColors.errorIcon,
+			marginRight: 5,
+
+			fontSize: 20,
 		},
 	}
 })
@@ -77,6 +85,7 @@ export function useUpdateItemStyles({ className }: UpdateItemStyleProps) {
 		infoContainer: styles.infoContainer,
 		image: styles.image,
 		courseName: styles.courseName,
-		publishedAt: styles.publishedAt,
+		dateInfo: styles.publishedAt,
+		liveIndicatorIcon: styles.liveIndicatorIcon,
 	}
 }

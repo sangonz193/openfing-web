@@ -1,8 +1,8 @@
+import type { ITextFieldProps } from "@fluentui/react"
 import {
 	Checkbox,
 	ContextualMenu,
 	Dialog,
-	ITextFieldProps,
 	MessageBar,
 	MessageBarType,
 	PrimaryButton,
@@ -20,7 +20,8 @@ import { COPY_ICON_NAME } from "../../../../../components/Icon/Copy.icon"
 import { useReactiveVars } from "../../../../../hooks/useReactiveVars"
 import { useCourseClassPlayerStore } from "../../../../../modules/CourseClassPlayer"
 import { useCourseSelectionStore } from "../../../../../modules/CourseSelection"
-import { courseRouteConfig, CourseRouteConfigGetPathParams } from "../../course.route.config"
+import type { CourseRouteConfigGetPathParams } from "../../course.route.config"
+import { courseRouteConfig } from "../../course.route.config"
 import { useCourseClassByIdQuery } from "./CourseClassShareModal.graphql.generated"
 import { courseClassShareModalReducer, initCourseClassShareModalReducer } from "./CourseClassShareModal.reducer"
 import { useCourseClassShareModalStyles } from "./useCourseClassShareModalStyles"
@@ -125,6 +126,8 @@ const CourseClassShareModalComponent: React.FC<CourseClassShareModalProps> = ({ 
 		dispatch({ type: "calculate-url" })
 	}, [])
 
+	const showTimeInputs = !courseClass?.liveState
+
 	return (
 		<Dialog
 			hidden={!visible}
@@ -169,42 +172,50 @@ const CourseClassShareModalComponent: React.FC<CourseClassShareModalProps> = ({ 
 					</MessageBar>
 				)}
 
-				<Stack tokens={{ childrenGap: 10 }} verticalAlign="center">
-					<Stack.Item grow={0} shrink={0}>
-						<Checkbox label="Iniciar en: " checked={state.startOn} onChange={handleStartOnCheckboxChange} />
-					</Stack.Item>
+				{showTimeInputs && (
+					<>
+						<Stack tokens={{ childrenGap: 10 }} verticalAlign="center">
+							<Stack.Item grow={0} shrink={0}>
+								<Checkbox
+									label="Iniciar en: "
+									checked={state.startOn}
+									onChange={handleStartOnCheckboxChange}
+								/>
+							</Stack.Item>
 
-					<Stack.Item grow={1} shrink={1}>
-						<TextField
-							className={styles.textField}
-							value={state.startOnInputValue}
-							disabled={!state.startOn}
-							onChange={handleStartOnInputChange}
-							onBlur={handleStartOnInputBlur}
-						/>
-					</Stack.Item>
-				</Stack>
+							<Stack.Item grow={1} shrink={1}>
+								<TextField
+									className={styles.textField}
+									value={state.startOnInputValue}
+									disabled={!state.startOn}
+									onChange={handleStartOnInputChange}
+									onBlur={handleStartOnInputBlur}
+								/>
+							</Stack.Item>
+						</Stack>
 
-				<Stack tokens={{ childrenGap: 10 }} verticalAlign="center">
-					<Stack.Item grow={0} shrink={0}>
-						<Checkbox
-							label="Terminar en: "
-							checked={state.endOn}
-							disabled={!state.startOn}
-							onChange={handleEndOnCheckboxChange}
-						/>
-					</Stack.Item>
+						<Stack tokens={{ childrenGap: 10 }} verticalAlign="center">
+							<Stack.Item grow={0} shrink={0}>
+								<Checkbox
+									label="Terminar en: "
+									checked={state.endOn}
+									disabled={!state.startOn}
+									onChange={handleEndOnCheckboxChange}
+								/>
+							</Stack.Item>
 
-					<Stack.Item grow={1} shrink={1}>
-						<TextField
-							className={styles.textField}
-							value={state.endOnInputValue}
-							disabled={!state.endOn}
-							onChange={handleEndOnInputChange}
-							onBlur={handleEndOnInputBlur}
-						/>
-					</Stack.Item>
-				</Stack>
+							<Stack.Item grow={1} shrink={1}>
+								<TextField
+									className={styles.textField}
+									value={state.endOnInputValue}
+									disabled={!state.endOn}
+									onChange={handleEndOnInputChange}
+									onBlur={handleEndOnInputBlur}
+								/>
+							</Stack.Item>
+						</Stack>
+					</>
+				)}
 			</Stack>
 		</Dialog>
 	)

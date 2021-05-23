@@ -1,7 +1,12 @@
+import type { ICommandBarItemProps } from "@fluentui/react"
 import { CommandBar, Image, ImageFit, Separator, Spinner, SpinnerSize, Stack, Text } from "@fluentui/react"
+import parse from "html-react-parser"
 import React from "react"
+import { useResizeDetector } from "react-resize-detector"
 
+import { hasProperty } from "../../../../../_utils/hasProperty"
 import { CreativeCommonsFooter } from "../../../../../components/CreativeCommonsFooter"
+import { getCourseClassDateInfo } from "../../../../../graphql/CourseClass/getCourseClassDateInfo"
 import { useReactiveVars } from "../../../../../hooks/useReactiveVars"
 import { useCourseClassPlayerStore } from "../../../../../modules/CourseClassPlayer"
 import { useCourseSelectionStore } from "../../../../../modules/CourseSelection"
@@ -70,25 +75,46 @@ const CourseDetailComponent: React.FC<CourseDetailProps> = ({ className }) => {
 		return undefined
 	}, [htmlVideoElement, courseClass?.chapterCues])
 
-	const publishedAt = React.useMemo(
-		() => (courseClass?.publishedAt ? new Date(courseClass.publishedAt) : undefined),
-		[courseClass?.publishedAt]
-	)
-	const publishedAtText = React.useMemo(
-		() =>
-			publishedAt &&
-			`Publicado el ${publishedAt.getDate().toString().padStart(2, "0")} de ${new Intl.DateTimeFormat("es-UY", {
-				month: "long",
-			})
-				.format(publishedAt)
-				.toLowerCase()} de ${publishedAt.getFullYear()}`,
-		[publishedAt]
-	)
+	const dateText = React.useMemo(() => {
+		return courseClass && getCourseClassDateInfo(courseClass)
+	}, [courseClass])
+
+	const [height, setHeight] = React.useState(0)
+	const handleResize = React.useCallback<(width?: number) => void>((width) => {
+		setHeight((9 * (width ?? 0)) / 16)
+	}, [])
+
+	const resizeDetectorTargetRef = React.useRef<HTMLDivElement>(null)
+	useResizeDetector({
+		targetRef: resizeDetectorTargetRef,
+		handleWidth: true,
+		onResize: handleResize,
+	})
+
+	React.useLayoutEffect(() => {
+		if (height !== 0 || !resizeDetectorTargetRef.current) {
+			return
+		}
+
+		handleResize(resizeDetectorTargetRef.current.getBoundingClientRect().width)
+	})
 
 	const course =
 		courseClassListResult.data?.courseClassListById?.__typename === "CourseClassList"
 			? courseClassListResult.data?.courseClassListById.courseEdition?.course
 			: undefined
+
+	const commandBarItems = React.useMemo(() => {
+		const result: ICommandBarItemProps[] = []
+
+		if (!!courseClass?.videos.length) {
+			result.push({ key: "download", commandBarButtonAs: CourseClassDownloadButton })
+		}
+
+		result.push({ key: "share", commandBarButtonAs: CourseClassShareButton })
+
+		return result
+	}, [courseClass])
 
 	return (
 		<Stack className={styles.wrapper} data-is-scrollable>
@@ -103,25 +129,45 @@ const CourseDetailComponent: React.FC<CourseDetailProps> = ({ className }) => {
 
 						{courseClass && (
 							<>
-								{courseClass?.videos && courseClass?.videos.length > 0 && (
-									<CourseClassPlayer courseClassVideo={courseClass.videos[0]} />
+								{courseClass.liveState?.html ? (
+									<div
+										ref={resizeDetectorTargetRef}
+										style={{
+											display: "flex",
+											flexDirection: "column",
+											height: height || undefined,
+											maxHeight: "70vh",
+										}}
+									>
+										{parse(courseClass.liveState.html, {
+											replace: (domNode) => {
+												if (
+													hasProperty(domNode, "tagName") &&
+													domNode.tagName === "iframe" &&
+													domNode.attribs
+												) {
+													delete domNode.attribs.width
+													domNode.attribs.height = "100%"
+												}
+											},
+										})}
+									</div>
+								) : (
+									courseClass?.videos &&
+									courseClass?.videos.length > 0 && (
+										<CourseClassPlayer courseClassVideo={courseClass.videos[0]} />
+									)
 								)}
 
 								<Text className={styles.courseClassName} variant="xLargePlus">
 									{courseClass.name}
 								</Text>
 
-								<Text className={styles.courseClassDate}>{publishedAtText}</Text>
+								<Text className={styles.courseClassDate}>{dateText}</Text>
 
 								<Separator className={styles.separator} />
 
-								<CommandBar
-									items={[
-										{ key: "download", commandBarButtonAs: CourseClassDownloadButton },
-										{ key: "share", commandBarButtonAs: CourseClassShareButton },
-									]}
-									className={styles.commandBar}
-								/>
+								<CommandBar items={commandBarItems} className={styles.commandBar} />
 							</>
 						)}
 					</>

@@ -11,6 +11,7 @@ const useStyles = makeStyles((theme) => {
 	return {
 		wrapper: {
 			display: "flex",
+			flexGrow: 1,
 			flexDirection: "column",
 
 			backgroundColor: theme.semanticColors.bodyBackground,

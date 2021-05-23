@@ -1,4 +1,5 @@
-import { RouteConfig } from "../../_utils/RouteConfig"
+import { appConfig } from "../../../app.config"
+import type { RouteConfig } from "../../_utils/RouteConfig"
 import { Course } from "./components/Course"
 
 export type CourseRouteConfigParams = {
@@ -28,7 +29,7 @@ export type CourseRouteConfigGetPathParams =
 
 export const courseRouteConfig: RouteConfig<CourseRouteConfigParams, CourseRouteConfigGetPathParams> = {
 	path: ({ code, courseClassNumber, startOnSeconds, endOnSeconds }) => {
-		let result = `/courses/${code}`
+		let result = `${appConfig.historyBasename}/courses/${code}`
 
 		if (typeof courseClassNumber !== "number") {
 			return result
@@ -47,10 +48,12 @@ export const courseRouteConfig: RouteConfig<CourseRouteConfigParams, CourseRoute
 
 		return result
 	},
+
 	element: ({ code, courseClassNumber }) => (
 		<Course courseClassListCode={code} courseClassNumber={courseClassNumber} />
 	),
+
 	matchConfig: {
-		path: `/courses/:code/:courseClassNumber?`,
+		path: `${appConfig.historyBasename}/courses/:code/:courseClassNumber?`,
 	},
 }

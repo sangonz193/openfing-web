@@ -2,10 +2,11 @@ import merge from "lodash/merge"
 import React from "react"
 
 import { useRootEventListeners } from "../../modules/RootEventListeners/useRootEventListeners"
-import { Div } from "../Div"
+import { Container } from "../Container"
 import { Header } from "../Header"
 import { Navbar } from "../Navbar"
-import { LayoutContext, LayoutContextValue, LayoutOptions, SetLayoutOptions } from "./Layout.context"
+import type { LayoutContextValue, LayoutOptions, SetLayoutOptions } from "./Layout.context"
+import { LayoutContext } from "./Layout.context"
 import { useLayoutStyles } from "./useLayoutStyles"
 
 export type LayoutProps = LayoutOptions & {
@@ -25,6 +26,7 @@ export const Layout: React.FC<LayoutProps> = (props) => {
 	const layoutOptionsWithOverrides = React.useMemo(() => {
 		const defaultOptions: LayoutOptions = {
 			showHeader: true,
+			showNavBar: true,
 			headerTitle: "",
 		}
 		const options =
@@ -43,19 +45,20 @@ export const Layout: React.FC<LayoutProps> = (props) => {
 
 	return (
 		<LayoutContext.Provider value={contextValue}>
-			<Div className={styles.wrapper} {...eventListeners}>
-				<Div className={styles.contentAndHeaderContainer}>
-					{layoutOptionsWithOverrides?.showHeader && (
+			<Container className={styles.wrapper} {...eventListeners}>
+				<Container className={styles.contentAndHeaderContainer}>
+					{layoutOptionsWithOverrides.showHeader && (
 						<Header
-							title={layoutOptionsWithOverrides?.headerTitle}
-							right={layoutOptionsWithOverrides?.headerRight}
+							title={layoutOptionsWithOverrides.headerTitle}
+							left={layoutOptionsWithOverrides.headerLeft}
+							right={layoutOptionsWithOverrides.headerRight}
 						/>
 					)}
-					<Div className={styles.componentContainer}>{children}</Div>
-				</Div>
+					<Container className={styles.componentContainer}>{children}</Container>
+				</Container>
 
-				<Navbar />
-			</Div>
+				{layoutOptionsWithOverrides.showNavBar && <Navbar />}
+			</Container>
 		</LayoutContext.Provider>
 	)
 }

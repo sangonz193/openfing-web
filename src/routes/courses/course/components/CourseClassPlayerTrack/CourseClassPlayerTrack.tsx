@@ -1,8 +1,9 @@
-import { DefaultButton, IButtonProps, Text } from "@fluentui/react"
+import type { IButtonProps } from "@fluentui/react"
+import { DefaultButton, Text } from "@fluentui/react"
 import React from "react"
 
 import { secondsToString } from "../../../../../_utils/secondsToString"
-import { Div } from "../../../../../components/Div"
+import { Container } from "../../../../../components/Container"
 import { useReactiveVars } from "../../../../../hooks/useReactiveVars"
 import { useCourseClassPlayerStore } from "../../../../../modules/CourseClassPlayer"
 import { CourseClassPlayerTrackSlider } from "../CourseClassPlayerTrackSlider"
@@ -26,7 +27,7 @@ const CourseClassPlayerTrackComponent: React.FC<CourseClassPlayerTrackProps> = (
 	}, [])
 
 	return (
-		<Div className={styles.wrapper}>
+		<Container className={styles.wrapper}>
 			<div className={styles.startTimeWrapper}>
 				<Text className={styles.startTime}>{secondsToString(currentTime || 0)}</Text>
 			</div>
@@ -40,7 +41,7 @@ const CourseClassPlayerTrackComponent: React.FC<CourseClassPlayerTrackProps> = (
 						: secondsToString(duration || 0)}
 				</Text>
 			</DefaultButton>
-		</Div>
+		</Container>
 	)
 }
 

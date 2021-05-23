@@ -4,7 +4,8 @@ import { PAUSE_ICON_NAME } from "../../../../../components/Icon/Pause.icon"
 import { PLAY_ICON_NAME } from "../../../../../components/Icon/Play.icon"
 import { useReactiveVars } from "../../../../../hooks/useReactiveVars"
 import { useCourseClassPlayerStore } from "../../../../../modules/CourseClassPlayer"
-import { CourseClassPlayerButton, CourseClassPlayerButtonProps } from "../CourseClassPlayerButton"
+import type { CourseClassPlayerButtonProps } from "../CourseClassPlayerButton"
+import { CourseClassPlayerButton } from "../CourseClassPlayerButton"
 
 export type CourseClassPlayerPlayButtonProps = {
 	children?: undefined

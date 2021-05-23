@@ -41,6 +41,16 @@ export const courseClassById = gql`
 					}
 				}
 
+				liveState {
+					id
+					startDate
+					html
+					inProgress
+					courseClass {
+						id
+					}
+				}
+
 				chapterCues {
 					id
 					name

@@ -1,7 +1,7 @@
 import { Image, Link, Text } from "@fluentui/react"
 import React from "react"
 
-import { Div } from "../Div"
+import { Container } from "../Container"
 import CCImage from "./CreativeCommons.svg"
 import { useCreativeCommonsFooterStyles } from "./useCreativeCommonsFooterStyles"
 
@@ -16,7 +16,7 @@ const CreativeCommonsFooterComponent: React.FC<CreativeCommonsFooterProps> = ({ 
 	})
 
 	return (
-		<Div className={styles.wrapper}>
+		<Container className={styles.wrapper}>
 			<Link className={styles.imageContainer}>
 				<Image className={styles.image} src={CCImage} alt="Licencia de Creative Commons" />
 			</Link>
@@ -33,7 +33,7 @@ const CreativeCommonsFooterComponent: React.FC<CreativeCommonsFooterProps> = ({ 
 				</Link>
 				.
 			</Text>
-		</Div>
+		</Container>
 	)
 }
 

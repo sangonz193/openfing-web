@@ -1,10 +1,11 @@
-import { RouteConfig } from "../_utils/RouteConfig"
+import { appConfig } from "../../app.config"
+import type { RouteConfig } from "../_utils/RouteConfig"
 import { Home } from "./components/Home"
 
 export const homeRouteConfig: RouteConfig = {
-	path: `/`,
+	path: appConfig.historyBasename || "/",
 	element: () => <Home />,
 	matchConfig: {
-		path: `/`,
+		path: appConfig.historyBasename || "/",
 	},
 }

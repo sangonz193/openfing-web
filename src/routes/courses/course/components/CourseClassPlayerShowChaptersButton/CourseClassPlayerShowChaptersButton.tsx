@@ -1,4 +1,5 @@
-import { IListProps, List, Panel } from "@fluentui/react"
+import type { IListProps } from "@fluentui/react"
+import { List, Panel } from "@fluentui/react"
 import React from "react"
 import { useMediaQuery } from "react-responsive"
 

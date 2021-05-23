@@ -47,6 +47,32 @@ const useStyles = makeStyles((theme) => {
 				flex: "1 1 auto",
 			},
 		},
+
+		commandBar: {
+			height: "100%",
+			"> div": {
+				height: "100%",
+				"> div": {
+					height: "100%",
+					".ms-FocusZone": {
+						backgroundColor: "transparent",
+						height: "100%",
+						paddingRight: 0,
+						paddingLeft: 0,
+					},
+				},
+			},
+
+			button: {
+				width: 49,
+
+				backgroundColor: "transparent",
+			},
+		},
+
+		commandBarOverflowItemButton: {
+			backgroundColor: theme.palette.neutralLighterAlt,
+		},
 	}
 })
 

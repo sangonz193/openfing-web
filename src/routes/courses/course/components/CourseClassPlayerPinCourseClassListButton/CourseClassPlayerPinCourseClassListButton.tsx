@@ -4,7 +4,8 @@ import { LANDSCAPE_ICON_NAME } from "../../../../../components/Icon/Landscape.ic
 import { SQUARE_ICON_NAME } from "../../../../../components/Icon/Square.icon"
 import { useReactiveVars } from "../../../../../hooks/useReactiveVars"
 import { useCourseClassPlayerStore } from "../../../../../modules/CourseClassPlayer"
-import { CourseClassPlayerButton, CourseClassPlayerButtonProps } from "../CourseClassPlayerButton"
+import type { CourseClassPlayerButtonProps } from "../CourseClassPlayerButton"
+import { CourseClassPlayerButton } from "../CourseClassPlayerButton"
 
 export type CourseClassPlayerPinCourseClassListButtonProps = {
 	children?: undefined

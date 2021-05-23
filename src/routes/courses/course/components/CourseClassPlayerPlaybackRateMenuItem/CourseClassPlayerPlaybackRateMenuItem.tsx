@@ -1,6 +1,7 @@
 import "../../../../../components/Icon/Checkmark.icon"
 
-import { ContextualMenuItem, IContextualMenuItem, IContextualMenuItemProps } from "@fluentui/react"
+import type { IContextualMenuItem, IContextualMenuItemProps } from "@fluentui/react"
+import { ContextualMenuItem } from "@fluentui/react"
 import React from "react"
 
 import { secondsToString } from "../../../../../_utils/secondsToString"
