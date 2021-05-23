@@ -4,7 +4,6 @@ import identity from "lodash/identity"
 import React from "react"
 
 import { appConfig } from "../../../../app.config"
-import { Container } from "../../../../components/Container"
 import { useLayoutOptions } from "../../../../components/Layout/useLayoutOptions"
 import { useDocumentTitle } from "../../../../hooks/useDocumentTitle"
 import { useReactiveVars } from "../../../../hooks/useReactiveVars"
@@ -20,7 +19,7 @@ export type SettingsProps = {
 const SettingsComponent: React.FC<SettingsProps> = () => {
 	const styles = useSettingsStyles()
 
-	useDocumentTitle("Ajustes - OpenFING")
+	useDocumentTitle(`Ajustes - ${appConfig.name}`)
 	useLayoutOptions({
 		headerTitle: "Ajustes",
 	})
@@ -66,10 +65,10 @@ const SettingsComponent: React.FC<SettingsProps> = () => {
 				<Text variant="xLarge">Acerca de</Text>
 
 				<Stack horizontal>
-					<Container>
+					<Stack>
 						<Label>Versión</Label>
 						<Text>{appConfig.version}</Text>
-					</Container>
+					</Stack>
 				</Stack>
 			</Stack>
 		</Stack>

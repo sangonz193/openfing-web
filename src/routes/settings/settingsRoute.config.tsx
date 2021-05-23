@@ -1,5 +1,5 @@
 import type { RouteConfig } from "../_utils/RouteConfig"
-import { Settings } from "./Settings"
+import { Settings } from "./components/Settings"
 
 export const settingsRouteConfig: RouteConfig = {
 	path: `/settings`,
