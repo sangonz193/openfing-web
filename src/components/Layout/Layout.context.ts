@@ -4,7 +4,9 @@ export type LayoutOptions = {
 	className?: string
 	headerTitle?: string | React.ReactNode
 	headerRight?: React.ReactNode
+	headerLeft?: React.ReactNode
 	showHeader?: boolean
+	showNavBar?: boolean
 }
 
 export type SetLayoutOptions = Partial<LayoutOptions> | ((options: LayoutOptions) => Partial<LayoutOptions>)

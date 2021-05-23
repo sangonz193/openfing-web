@@ -1,8 +1,10 @@
 import { executeCodegen } from "@graphql-codegen/cli"
+import type { TypeScriptPluginConfig } from "@graphql-codegen/typescript"
 import * as typescriptPlugin from "@graphql-codegen/typescript"
 import * as typescriptOperationsPlugin from "@graphql-codegen/typescript-operations"
 import * as typescriptReactApolloPlugin from "@graphql-codegen/typescript-react-apollo"
 import chokidar from "chokidar"
+import identity from "lodash/identity"
 import path from "path"
 
 import { fs } from "../../_utils/fs"
@@ -40,10 +42,14 @@ const runCodegen = async (options: GenerateOperationFilesOptions, graphqlFilesPa
 			[remoteSchemaTypesFilePath]: {
 				plugins: [
 					{
-						typescript: {
+						typescript: identity<TypeScriptPluginConfig>({
 							enumsAsTypes: true,
 							nonOptionalTypename: true,
-						},
+							scalars: {
+								ISODate: "string",
+								Void: "undefined",
+							},
+						}),
 					},
 				],
 			},

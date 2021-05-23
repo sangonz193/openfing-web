@@ -1,7 +1,9 @@
-import { Image, ImageFit, Link, Text } from "@fluentui/react"
+import { FontIcon, Image, ImageFit, Link, Text } from "@fluentui/react"
 import React from "react"
 
-import { Div } from "../../../../components/Div"
+import { Container } from "../../../../components/Container"
+import { RADIO_ICON_NAME } from "../../../../components/Icon/Radio.icon"
+import { getCourseClassShortDateInfo } from "../../../../graphql/CourseClass/getCourseClassShortDateInfo"
 import { useLocalLinkProps } from "../../../../hooks/useLocalLinkProps"
 import { courseRouteConfig } from "../../../courses/course/course.route.config"
 import type { UpdateItemCourseClassFragment } from "./UpdateItem.graphql.generated"
@@ -44,35 +46,46 @@ const UpdateItemComponent: React.FC<UpdateItemProps> = ({ className, courseClass
 		return `${courseClass.number} - ${courseClass.name}`
 	}, [courseClass.number, courseClass.name])
 
-	const publishedAt = React.useMemo(
-		() =>
-			(courseClass.publishedAt &&
-				new Intl.DateTimeFormat("es-UY", {
-					day: "numeric",
-					month: "numeric",
-				}).format(new Date(courseClass.publishedAt))) ||
-			null,
-		[courseClass.publishedAt]
-	)
+	const date = React.useMemo(() => {
+		if (courseClass.liveState?.startDate) {
+			return (
+				<div style={{ display: "flex", flexDirection: "row", alignItems: "center", marginLeft: "auto" }}>
+					{courseClass.liveState.inProgress && (
+						<FontIcon title="Emitiendo" iconName={RADIO_ICON_NAME} className={styles.liveIndicatorIcon} />
+					)}
+
+					<Text>{getCourseClassShortDateInfo(courseClass)}</Text>
+				</div>
+			)
+		} else if (courseClass.publishedAt) {
+			const dateTimeFormatter = new Intl.DateTimeFormat("es-UY", {
+				day: "numeric",
+				month: "numeric",
+			})
+			return dateTimeFormatter.format(Date.parse(courseClass.publishedAt))
+		}
+
+		return null
+	}, [courseClass.publishedAt, courseClass.liveState])
 
 	return (
-		<Div className={styles.wrapper}>
+		<Container className={styles.wrapper}>
 			<Link className={styles.contentWrapper} {...useLocalLinkProps({ href: url })}>
-				<Div className={styles.iconContainer}>
+				<Container className={styles.iconContainer}>
 					{course?.iconUrl && (
 						<Image className={styles.image} src={course?.iconUrl} imageFit={ImageFit.contain} />
 					)}
-				</Div>
+				</Container>
 
-				<Div className={styles.infoContainer}>
+				<Container className={styles.infoContainer}>
 					<Text className={styles.courseName}>{course?.name}</Text>
 
 					<Text variant="large">{name}</Text>
 
-					{publishedAt && <Text className={styles.publishedAt}>{publishedAt}</Text>}
-				</Div>
+					{date && <Text className={styles.dateInfo}>{date}</Text>}
+				</Container>
 			</Link>
-		</Div>
+		</Container>
 	)
 }
 

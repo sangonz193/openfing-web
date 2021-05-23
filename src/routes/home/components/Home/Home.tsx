@@ -53,7 +53,7 @@ const HomeComponent: React.FC<HomeProps> = () => {
 
 					<Text className={styles.suggestions} variant="xLarge">
 						Recibiremos sus sugerencias en{" "}
-						<Link className={styles.suggestionsEmail} anchorProps={{ href: "mailto:open@fing.edu.uy" }}>
+						<Link className={styles.suggestionsEmail} href="mailto:open@fing.edu.uy">
 							open@fing.edu.uy
 						</Link>
 					</Text>

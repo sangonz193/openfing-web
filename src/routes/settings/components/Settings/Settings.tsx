@@ -4,7 +4,7 @@ import identity from "lodash/identity"
 import React from "react"
 
 import { appConfig } from "../../../../app.config"
-import { Div } from "../../../../components/Div"
+import { Container } from "../../../../components/Container"
 import { useLayoutOptions } from "../../../../components/Layout/useLayoutOptions"
 import { useDocumentTitle } from "../../../../hooks/useDocumentTitle"
 import { useReactiveVars } from "../../../../hooks/useReactiveVars"
@@ -66,10 +66,10 @@ const SettingsComponent: React.FC<SettingsProps> = () => {
 				<Text variant="xLarge">Acerca de</Text>
 
 				<Stack horizontal>
-					<Div>
+					<Container>
 						<Label>Versión</Label>
 						<Text>{appConfig.version}</Text>
-					</Div>
+					</Container>
 				</Stack>
 			</Stack>
 		</Stack>

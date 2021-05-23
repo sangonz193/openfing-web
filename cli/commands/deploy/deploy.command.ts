@@ -87,7 +87,7 @@ const command: CommandModule<{}, {}> = {
 		const sftp = ssh.sftp()
 
 		await uploadRecursive({
-			fromPath: path.join(projectPath, "dist"),
+			fromPath: path.join(projectPath, "build"),
 			toPath: DESTINATION_PATH,
 			sftp,
 		})

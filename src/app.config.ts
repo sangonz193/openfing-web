@@ -12,7 +12,7 @@ export const appConfig = {
 	production: process.env.NODE_ENV === "production",
 	backendUrl: BACKEND_URL,
 	version: process.env.npm_package_version as string,
-	storageScope: PUBLIC_URL,
-	historyBasename: process.env.PUBLIC_URL as string,
-	baseUrl: (location.origin + process.env.PUBLIC_URL).replace(/\/$/, ""),
+	storageScope: PUBLIC_URL.replace(/\/$/, "") || "/",
+	historyBasename: PUBLIC_URL.startsWith("http") ? new URL(PUBLIC_URL).pathname : PUBLIC_URL.replace(/\/$/, ""),
+	baseUrl: location.origin.replace(/\/$/, ""),
 }

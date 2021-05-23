@@ -1,10 +1,11 @@
+import { appConfig } from "../../app.config"
 import type { RouteConfig } from "../_utils/RouteConfig"
 import { Updates } from "./components/Updates"
 
 export const updatesRouteConfig: RouteConfig = {
-	path: `/updates`,
+	path: `${appConfig.historyBasename}/updates`,
 	element: () => <Updates />,
 	matchConfig: {
-		path: `/updates`,
+		path: `${appConfig.historyBasename}/updates`,
 	},
 }

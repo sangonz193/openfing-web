@@ -11,7 +11,7 @@ import {
 } from "@fluentui/react"
 import React from "react"
 
-import { Div } from "../../../../../components/Div"
+import { Container } from "../../../../../components/Container"
 import { useReactiveVars } from "../../../../../hooks/useReactiveVars"
 import { useCourseSelectionStore } from "../../../../../modules/CourseSelection"
 import { useHistory } from "../../../../../modules/Navigation/useHistory"
@@ -143,7 +143,7 @@ const CourseMasterComponent: React.FC<CourseMasterProps> = ({ className }) => {
 	)
 
 	return (
-		<Div className={styles.wrapper} data-is-scrollable>
+		<Container className={styles.wrapper} data-is-scrollable>
 			{courseEditionsResponse.loading ? (
 				<Spinner className={styles.editionsSpinner} size={SpinnerSize.large} />
 			) : (
@@ -192,7 +192,7 @@ const CourseMasterComponent: React.FC<CourseMasterProps> = ({ className }) => {
 					)}
 				</>
 			)}
-		</Div>
+		</Container>
 	)
 }
 

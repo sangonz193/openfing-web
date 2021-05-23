@@ -1,19 +1,22 @@
-import { useReactiveVar } from "@apollo/client"
-import { List, SearchBox, Separator, Spinner, SpinnerSize } from "@fluentui/react"
-import { FocusZone, FocusZoneDirection } from "@fluentui/react-focus"
-import React from "react"
+import "../../../../components/Icon/More.icon"
 
+import { useReactiveVar } from "@apollo/client"
+import { List, Panel, Separator, Spinner, SpinnerSize } from "@fluentui/react"
+import { FocusZone, FocusZoneDirection } from "@fluentui/react-focus"
+import React, { Suspense } from "react"
+
+import { Container } from "../../../../components/Container/Container"
 import { CreativeCommonsFooter } from "../../../../components/CreativeCommonsFooter"
-import { Div } from "../../../../components/Div"
-import { CANCEL_ICON_NAME } from "../../../../components/Icon/Cancel.icon"
-import { SEARCH_ICON_NAME } from "../../../../components/Icon/Search.icon"
-import { useLayoutOptions } from "../../../../components/Layout/useLayoutOptions"
-import { useComponentWithProps } from "../../../../hooks/useComponentWithProps"
 import { useDocumentTitle } from "../../../../hooks/useDocumentTitle"
 import { useCourseSearchStore } from "../../../../modules/CourseSearch"
 import { CourseItem } from "../CourseItem/CourseItem"
 import { useCoursesQuery } from "./Courses.graphql.generated"
+import { useCoursesLayoutOptions } from "./useCoursesLayoutOptions"
 import { useCoursesStyles } from "./useCoursesStyles"
+
+const LazyCreateCourseForm = React.lazy(async () => ({
+	default: (await import("../CreateCourseForm")).CreateCourseForm,
+}))
 
 export type CoursesProps = {
 	children?: undefined
@@ -21,10 +24,6 @@ export type CoursesProps = {
 }
 
 const CoursesComponent: React.FC<CoursesProps> = ({ className }) => {
-	const styles = useCoursesStyles({
-		className,
-	})
-
 	useDocumentTitle("Cursos - OpenFING")
 
 	const coursesResponse = useCoursesQuery()
@@ -38,31 +37,6 @@ const CoursesComponent: React.FC<CoursesProps> = ({ className }) => {
 	React.useEffect(() => {
 		courseSearchStore.source(courses)
 	}, [coursesResponse.data?.courses])
-
-	const CourseSearchBox = useComponentWithProps(
-		(props) => {
-			const { courseSearch, styles } = props
-
-			return (
-				<SearchBox
-					className={styles.searchField}
-					placeholder="Buscar"
-					value={courseSearch}
-					onChange={(_, v) => setCourseSearch(v || "")}
-					iconProps={{ iconName: SEARCH_ICON_NAME }}
-					clearButtonProps={{
-						iconProps: {
-							iconName: CANCEL_ICON_NAME,
-							className: styles.searchBoxClearButtonIcon,
-						},
-					}}
-				/>
-			)
-		},
-		{ courseSearch, styles }
-	)
-
-	useLayoutOptions({ headerTitle: React.useMemo(() => <CourseSearchBox />, []) })
 
 	React.useEffect(() => {
 		let canceled = false
@@ -80,6 +54,13 @@ const CoursesComponent: React.FC<CoursesProps> = ({ className }) => {
 			canceled = true
 		}
 	}, [courses, courseSearch])
+
+	const showHeaderRight = false // TODO: get isAdmin condition
+
+	const styles = useCoursesStyles({
+		className,
+		showHeaderRight,
+	})
 
 	const getKey = React.useCallback((user: { id: string }) => user.id, [])
 	const handleRenderCell = React.useCallback(
@@ -113,23 +94,56 @@ const CoursesComponent: React.FC<CoursesProps> = ({ className }) => {
 		}, [])
 	}, [searchResults])
 
-	return (
-		<Div className={styles.wrapper} data-is-scrollable>
-			<FocusZone direction={FocusZoneDirection.vertical} className={styles.content}>
-				{coursesResponse.loading ? (
-					<Spinner size={SpinnerSize.large} className={styles.spinner} />
-				) : (
-					<List
-						items={filteredCourses}
-						ignoreScrollingState
-						getKey={getKey}
-						onRenderCell={handleRenderCell}
-					/>
-				)}
-			</FocusZone>
+	const [showCreateCourseForm, setShowCreateCourseForm] = React.useState(false)
 
-			<CreativeCommonsFooter />
-		</Div>
+	useCoursesLayoutOptions({
+		courseSearch,
+		setCourseSearch,
+		setShowCreateCourseForm,
+		styles,
+		showHeaderRight,
+	})
+
+	return (
+		<>
+			<Container className={styles.wrapper} data-is-scrollable>
+				<FocusZone direction={FocusZoneDirection.vertical} className={styles.content}>
+					{coursesResponse.loading ? (
+						<Spinner size={SpinnerSize.large} className={styles.spinner} />
+					) : (
+						<List
+							items={filteredCourses}
+							ignoreScrollingState
+							getKey={getKey}
+							onRenderCell={handleRenderCell}
+						/>
+					)}
+				</FocusZone>
+
+				<CreativeCommonsFooter />
+			</Container>
+
+			<Panel
+				headerText="Crear curso"
+				isOpen={showCreateCourseForm}
+				closeButtonAriaLabel="Cerrar"
+				onDismiss={() => {
+					// TODO: confirm
+					setShowCreateCourseForm(false)
+				}}
+			>
+				<Suspense fallback={null}>
+					{showCreateCourseForm && (
+						<LazyCreateCourseForm
+							onClose={() => {
+								// TODO: confirm
+								setShowCreateCourseForm(false)
+							}}
+						/>
+					)}
+				</Suspense>
+			</Panel>
+		</>
 	)
 }
 

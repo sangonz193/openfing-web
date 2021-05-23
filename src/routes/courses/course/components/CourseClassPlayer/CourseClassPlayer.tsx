@@ -6,7 +6,8 @@ import React from "react"
 import { useResizeDetector } from "react-resize-detector"
 
 import { getCourseClassPlayerShortcuts } from "../../../../../_utils/getCourseClassPlayerShortcuts"
-import { Div } from "../../../../../components/Div"
+import { Container } from "../../../../../components/Container"
+import { useDoubleClick } from "../../../../../hooks/useDoubleClick"
 import { useReactiveVars } from "../../../../../hooks/useReactiveVars"
 import { useAppStore } from "../../../../../modules/App"
 import type { CourseClassPlayerStore } from "../../../../../modules/CourseClassPlayer"
@@ -145,10 +146,52 @@ const CourseClassPlayerComponent: React.FC<CourseClassPlayerProps> = ({ classNam
 
 	React.useEffect(() => {
 		courseClassPlayerStore.setVideoWrapperInstance(resizeDetectorTargetRef.current)
+	}, [])
+
+	const handleLeftClick = useDoubleClick({
+		onDoubleClick: React.useCallback(() => {
+			const isBlockingControls = courseClassPlayerStore.isBlockingShowControls(showControlsForId)
+
+			courseClassPlayerStore.setCurrentTime(courseClassPlayerStore.currentTime() - 10)
+
+			if (isBlockingControls) {
+				courseClassPlayerStore.showControlsFor(showControlsForId, 3000)
+			}
+		}, []),
+		onClick: React.useCallback(() => {
+			const isBlockingControls = courseClassPlayerStore.isBlockingShowControls(showControlsForId)
+
+			if (isBlockingControls) {
+				courseClassPlayerStore.unblockShowControls(showControlsForId)
+			} else {
+				courseClassPlayerStore.showControlsFor(showControlsForId, 3000)
+			}
+		}, []),
+	})
+
+	const handleRightClick = useDoubleClick({
+		onDoubleClick: React.useCallback(() => {
+			const isBlockingControls = courseClassPlayerStore.isBlockingShowControls(showControlsForId)
+
+			courseClassPlayerStore.setCurrentTime(courseClassPlayerStore.currentTime() + 10)
+
+			if (isBlockingControls) {
+				courseClassPlayerStore.showControlsFor(showControlsForId, 3000)
+			}
+		}, []),
+		onClick: React.useCallback(() => {
+			const isBlockingControls = courseClassPlayerStore.isBlockingShowControls(showControlsForId)
+
+			if (isBlockingControls) {
+				courseClassPlayerStore.unblockShowControls(showControlsForId)
+			} else {
+				courseClassPlayerStore.showControlsFor(showControlsForId, 3000)
+			}
+		}, []),
 	})
 
 	return (
-		<Div
+		<Container
 			ref={resizeDetectorTargetRef}
 			className={styles.wrapper}
 			onKeyDown={handleKeyDown}
@@ -156,7 +199,7 @@ const CourseClassPlayerComponent: React.FC<CourseClassPlayerProps> = ({ classNam
 			onMouseMove={inputType !== "TOUCH" ? handleMouseMove : undefined}
 			tabIndex={0}
 			onFocus={handleFocus}
-			style={isFullscreen || !height ? undefined : { height }}
+			style={isFullscreen || !height ? undefined : { height, maxHeight: "70vh" }}
 		>
 			{!!courseClassVideo.qualities?.length && (
 				<CourseClassPlayerVideo formats={courseClassVideo.qualities[0].formats} />
@@ -166,12 +209,19 @@ const CourseClassPlayerComponent: React.FC<CourseClassPlayerProps> = ({ classNam
 
 			{loaded && (
 				<div className={styles.controlsWrapper}>
+					{inputType === "TOUCH" && (
+						<>
+							<button className={styles.leftTapArea} onClick={handleLeftClick} />
+							<button className={styles.rightTapArea} onClick={handleRightClick} />
+						</>
+					)}
+
 					<CourseClassPlayerControlsBottomControls className={styles.bottomControls} />
 
 					<LayerHost id="course-class-player-controls" className={styles.layerHost} />
 				</div>
 			)}
-		</Div>
+		</Container>
 	)
 }
 

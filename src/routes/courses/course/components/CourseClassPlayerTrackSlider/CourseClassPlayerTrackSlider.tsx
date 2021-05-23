@@ -4,7 +4,7 @@ import throttle from "lodash/throttle"
 import React from "react"
 
 import { secondsToString } from "../../../../../_utils/secondsToString"
-import { Div } from "../../../../../components/Div"
+import { Container } from "../../../../../components/Container"
 import { useReactiveVars } from "../../../../../hooks/useReactiveVars"
 import { useCourseClassPlayerStore } from "../../../../../modules/CourseClassPlayer"
 import { useCourseClassPlayerTrackSliderStyles } from "./useCourseClassPlayerTrackSliderStyles"
@@ -156,7 +156,7 @@ const CourseClassPlayerTrackSliderComponent: React.FC<CourseClassPlayerTrackSlid
 	}, [])
 
 	return (
-		<Div className={styles.wrapper}>
+		<Container className={styles.wrapper}>
 			{tooltipPositionData && typeof tooltipTimePosition === "number" && (
 				<Callout
 					target={tooltipPositionData.point}
@@ -198,7 +198,7 @@ const CourseClassPlayerTrackSliderComponent: React.FC<CourseClassPlayerTrackSlid
 					onFocus: handleSliderButtonFocus,
 				}}
 			/>
-		</Div>
+		</Container>
 	)
 }
 

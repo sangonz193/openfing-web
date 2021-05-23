@@ -1,5 +1,6 @@
 import type { CommandModule } from "yargs"
 
+import { generateApolloHelpers } from "./generateApolloHelpers"
 import { generateAssetsTypes } from "./generateAssetsTypes"
 import { generateComponentIndexes } from "./generateComponentIndexes"
 import { generateOperationFiles } from "./generateOperationFiles"
@@ -46,6 +47,12 @@ const command: CommandModule<{}, { watch: boolean }> = {
 				return generatePossibleTypes()
 			}),
 			generateComponentIndexes(watch),
+			remoteSchemaPromise.then(({ remoteSchemaString }) =>
+				generateApolloHelpers({
+					remoteSchema: remoteSchemaString,
+					watch,
+				})
+			),
 		])
 	},
 }

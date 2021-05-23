@@ -6,6 +6,9 @@ export const courseClassById = gql`
 			... on CourseClass {
 				id
 				number
+				liveState {
+					id
+				}
 
 				courseClassList {
 					id
