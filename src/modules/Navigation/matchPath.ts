@@ -1,4 +1,5 @@
-import { Key, pathToRegexp } from "path-to-regexp"
+import type { Key } from "path-to-regexp"
+import { pathToRegexp } from "path-to-regexp"
 
 export type MatchPathOptions = { path: string; exact?: boolean; strict?: boolean; sensitive?: boolean }
 export type PathMatch<TParams = {}> = {

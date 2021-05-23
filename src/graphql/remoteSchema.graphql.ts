@@ -6,37 +6,6 @@
 import gql from "graphql-tag"
 
 export const remoteSchema = gql`
-	scalar Void
-
-	type Mutation {
-		_: Void
-		backupDb(secret: String!): Void
-		createCourseClass(input: CreateCourseClassInput!, secret: String!): CreateCourseClassResult!
-		createCourseClassList(input: CreateCourseClassListInput!, secret: String!): CreateCourseClassListResult!
-		createCourse(input: CreateCourseInput!, secret: String!): CreateCourseResult!
-		generateLegacyJsonFiles(secret: String!): GenerateLegacyJsonFilesResult!
-		resetDatabaseFromBackup(secret: String!): String
-		updateCourseClass(
-			ref: CourseClassRef!
-			input: UpdateCourseClassInput!
-			secret: String!
-		): UpdateCourseClassResult!
-		updateCourseClassList(
-			ref: CourseClassListRef!
-			input: UpdateCourseClassListInput!
-			secret: String!
-		): UpdateCourseClassListResult!
-		updateCourseClassVideos(courseClassId: ID!, secret: String!): NotFoundError
-	}
-
-	type GenericError {
-		_: Void
-	}
-
-	type NotFoundError {
-		_: Void
-	}
-
 	type AuthenticationError {
 		_: Void
 	}
@@ -59,6 +28,7 @@ export const remoteSchema = gql`
 		id: ID!
 		number: Int
 		name: String
+		liveState: CourseClassLiveState
 		videos: [CourseClassVideo!]!
 		chapterCues: [CourseClassChapterCue!]!
 		courseClassList: CourseClassList
@@ -108,6 +78,14 @@ export const remoteSchema = gql`
 	input CourseClassListRef {
 		byId: CourseClassListRefById
 		byCode: CourseClassListRefByCode
+	}
+
+	type CourseClassLiveState {
+		id: ID!
+		html: String
+		inProgress: Boolean
+		startDate: ISODate
+		courseClass: CourseClass
 	}
 
 	type CourseClassVideo {
@@ -194,18 +172,36 @@ export const remoteSchema = gql`
 		deletedBy: User
 	}
 
-	type Post {
-		id: ID!
-		title: String!
-		content: String!
-		htmlContent: String!
-		shortContent: String!
-		createdAt: String
-		createdBy: User
-		updatedAt: String
-		updatedBy: User
-		deletedAt: String
-		deletedBy: User
+	type GenericError {
+		_: Void
+	}
+
+	scalar ISODate
+
+	type Mutation {
+		_: Void
+		backupDb(secret: String!): Void
+		createCourseClass(input: CreateCourseClassInput!, secret: String!): CreateCourseClassResult!
+		createCourseClassList(input: CreateCourseClassListInput!, secret: String!): CreateCourseClassListResult!
+		createCourse(input: CreateCourseInput!, secret: String!): CreateCourseResult!
+		resetDatabaseFromBackup(secret: String!): String
+		setCourseClassLiveState(input: SetCourseClassLiveStateInput!, secret: String!): SetCourseClassLiveStateResult!
+		updateCourseClass(
+			ref: CourseClassRef!
+			input: UpdateCourseClassInput!
+			secret: String!
+		): UpdateCourseClassResult!
+		updateCourseClassList(
+			ref: CourseClassListRef!
+			input: UpdateCourseClassListInput!
+			secret: String!
+		): UpdateCourseClassListResult!
+		updateCourseClassVideos(courseClassId: ID!, secret: String!): NotFoundError
+		userFromSecret(secret: String!): UserFromSecretResult!
+	}
+
+	type NotFoundError {
+		_: Void
 	}
 
 	type Query {
@@ -219,7 +215,6 @@ export const remoteSchema = gql`
 		courses: [Course!]!
 		faqs: [Faq!]!
 		latestCourseClasses: [CourseClass!]!
-		posts(orderBy: PostOrder, first: Int, offset: Int, after: String): PostConnection!
 		userRoles: [UserRole!]!
 	}
 
@@ -238,6 +233,8 @@ export const remoteSchema = gql`
 		id: ID!
 		code: String!
 	}
+
+	scalar Void
 
 	union CourseByCodeResult = Course | NotFoundError
 
@@ -310,41 +307,22 @@ export const remoteSchema = gql`
 
 	union CreateCourseResult = CreateCoursePayload | GenericError | AuthenticationError
 
-	union GenerateLegacyJsonFilesResult = GenericError | GenerateLegacyJsonFilesPayload
-
-	type GenerateLegacyJsonFilesPayload {
-		modifiedFilesCount: Int
+	input SetCourseClassLiveStateInput {
+		courseClassRef: CourseClassRef!
+		data: SetCourseClassLiveStateDataInput
 	}
 
-	type ConnectionPageInfo {
-		hasNextPage: Boolean!
-		endCursor: String
+	input SetCourseClassLiveStateDataInput {
+		inProgress: Boolean
+		html: String
+		startDate: ISODate
 	}
 
-	enum ConnectionOrderDirection {
-		ASC
-		DESC
+	type SetCourseClassLiveStatePayload {
+		courseClassLiveState: CourseClassLiveState
 	}
 
-	input PostOrder {
-		field: PostOrderField!
-		direction: ConnectionOrderDirection!
-	}
-
-	enum PostOrderField {
-		PUBLISHED_AT
-	}
-
-	type PostConnection {
-		edges: [PostEdge!]!
-		pageInfo: ConnectionPageInfo!
-		totalCount: Int!
-	}
-
-	type PostEdge {
-		node: Post!
-		cursor: String!
-	}
+	union SetCourseClassLiveStateResult = SetCourseClassLiveStatePayload | GenericError | AuthenticationError
 
 	enum UpdateCourseClassInputVisibility {
 		PUBLIC
@@ -385,6 +363,12 @@ export const remoteSchema = gql`
 		| GenericError
 		| AuthenticationError
 		| NotFoundError
+
+	union UserFromSecretResult = UserFromSecretPayload | AuthenticationError
+
+	type UserFromSecretPayload {
+		user: User!
+	}
 
 	enum CacheControlScope {
 		PUBLIC

@@ -13,7 +13,7 @@ export const possibleTypes = {
 	CreateCourseClassResult: ["CreateCourseClassPayload", "GenericError", "AuthenticationError"],
 	CreateCourseClassListResult: ["CreateCourseClassListPayload", "GenericError", "AuthenticationError"],
 	CreateCourseResult: ["CreateCoursePayload", "GenericError", "AuthenticationError"],
-	GenerateLegacyJsonFilesResult: ["GenericError", "GenerateLegacyJsonFilesPayload"],
+	SetCourseClassLiveStateResult: ["SetCourseClassLiveStatePayload", "GenericError", "AuthenticationError"],
 	UpdateCourseClassResult: ["UpdateCourseClassPayload", "GenericError", "AuthenticationError", "NotFoundError"],
 	UpdateCourseClassListResult: [
 		"UpdateCourseClassListPayload",
@@ -21,4 +21,5 @@ export const possibleTypes = {
 		"AuthenticationError",
 		"NotFoundError",
 	],
+	UserFromSecretResult: ["UserFromSecretPayload", "AuthenticationError"],
 }

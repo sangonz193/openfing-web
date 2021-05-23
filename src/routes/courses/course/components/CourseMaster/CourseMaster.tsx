@@ -1,10 +1,8 @@
+import type { IDropdownOption, IDropdownProps, IListProps } from "@fluentui/react"
 import {
 	Dropdown,
 	FocusZone,
 	FocusZoneDirection,
-	IDropdownOption,
-	IDropdownProps,
-	IListProps,
 	List,
 	ResponsiveMode,
 	Separator,
@@ -13,13 +11,13 @@ import {
 } from "@fluentui/react"
 import React from "react"
 
-import { Div } from "../../../../../components/Div"
+import { Container } from "../../../../../components/Container"
 import { useReactiveVars } from "../../../../../hooks/useReactiveVars"
 import { useCourseSelectionStore } from "../../../../../modules/CourseSelection"
 import { useHistory } from "../../../../../modules/Navigation/useHistory"
 import { courseRouteConfig } from "../../course.route.config"
 import { CourseClassItem } from "../CourseClassItem"
-import { CourseClassItemCourseClassFragment } from "../CourseClassItem/CourseClassItem.graphql.generated"
+import type { CourseClassItemCourseClassFragment } from "../CourseClassItem/CourseClassItem.graphql.generated"
 import { useCourseClassListByCodeQuery, useCourseClassListClassesByCodeQuery } from "./CourseMaster.graphql.generated"
 import { useCourseMasterStyles } from "./useCourseMasterStyles"
 
@@ -145,7 +143,7 @@ const CourseMasterComponent: React.FC<CourseMasterProps> = ({ className }) => {
 	)
 
 	return (
-		<Div className={styles.wrapper} data-is-scrollable>
+		<Container className={styles.wrapper} data-is-scrollable>
 			{courseEditionsResponse.loading ? (
 				<Spinner className={styles.editionsSpinner} size={SpinnerSize.large} />
 			) : (
@@ -194,7 +192,7 @@ const CourseMasterComponent: React.FC<CourseMasterProps> = ({ className }) => {
 					)}
 				</>
 			)}
-		</Div>
+		</Container>
 	)
 }
 

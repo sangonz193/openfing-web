@@ -14,6 +14,7 @@ module.exports = {
 		"@typescript-eslint/array-type": ["warn", { default: "array-simple" }],
 		"@typescript-eslint/ban-types": "off",
 		"@typescript-eslint/camelcase": "off",
+		"@typescript-eslint/consistent-type-imports": ["warn", { prefer: "type-imports" }],
 		"@typescript-eslint/explicit-function-return-type": "off",
 		"@typescript-eslint/explicit-member-accessibility": "off",
 		"@typescript-eslint/no-empty-function": "off",

@@ -4,7 +4,7 @@ import React from "react"
 import { useLocalLinkProps } from "../../hooks/useLocalLinkProps"
 import { useMatchPath } from "../../modules/Navigation"
 import { useLocation } from "../../modules/Navigation/useLocation"
-import { Div } from "../Div"
+import { Container } from "../Container"
 import { useNavbarButtonStyles } from "./useNavbarButtonStyles"
 
 export type NavbarButtonProps = {
@@ -38,7 +38,7 @@ const NavbarButtonComponent: React.FC<NavbarButtonProps> = ({ className, route, 
 				href: route,
 			})}
 		>
-			{active && <Div className={styles.activeIndicator} />}
+			{active && <Container className={styles.activeIndicator} />}
 			<FontIcon iconName={iconName} className={styles.icon} />
 		</Link>
 	)

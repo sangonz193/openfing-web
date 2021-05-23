@@ -1,8 +1,8 @@
 import path from "path"
 import SSH2Promise from "ssh2-promise"
-import SFTP from "ssh2-promise/dist/sftp"
-import { Stats } from "ssh2-streams"
-import { CommandModule } from "yargs"
+import type SFTP from "ssh2-promise/dist/sftp"
+import type { Stats } from "ssh2-streams"
+import type { CommandModule } from "yargs"
 import * as yup from "yup"
 
 import { _fs, fs } from "../../_utils/fs"
@@ -87,7 +87,7 @@ const command: CommandModule<{}, {}> = {
 		const sftp = ssh.sftp()
 
 		await uploadRecursive({
-			fromPath: path.join(projectPath, "dist"),
+			fromPath: path.join(projectPath, "build"),
 			toPath: DESTINATION_PATH,
 			sftp,
 		})

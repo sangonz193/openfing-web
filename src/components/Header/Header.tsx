@@ -1,7 +1,7 @@
 import { Text } from "@fluentui/react"
 import React from "react"
 
-import { Div } from "../Div"
+import { Container } from "../Container"
 import { useHeaderStyles } from "./useHeaderStyles"
 
 export type HeaderProps = {
@@ -9,6 +9,7 @@ export type HeaderProps = {
 	className?: string
 	title?: string | React.ReactNode
 	right?: React.ReactNode
+	left?: React.ReactNode
 }
 
 const TextH1 = Text.bind({})
@@ -17,16 +18,17 @@ TextH1.defaultProps = {
 	as: "h1",
 }
 
-const HeaderComponent: React.FC<HeaderProps> = ({ className, title, right }) => {
+const HeaderComponent: React.FC<HeaderProps> = ({ className, title, right, left }) => {
 	const styles = useHeaderStyles({
 		className,
 	})
 
 	return (
-		<Div className={styles.wrapper}>
+		<Container className={styles.wrapper}>
+			{left}
 			{typeof title === "string" ? <TextH1 className={styles.title}>{title}</TextH1> : title}
 			{right}
-		</Div>
+		</Container>
 	)
 }
 

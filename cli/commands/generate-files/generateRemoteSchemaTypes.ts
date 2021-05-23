@@ -1,5 +1,7 @@
 import { executeCodegen } from "@graphql-codegen/cli"
+import type { TypeScriptPluginConfig } from "@graphql-codegen/typescript"
 import * as typescriptPlugin from "@graphql-codegen/typescript"
+import identity from "lodash/identity"
 import path from "path"
 
 import { fs } from "../../_utils/fs"
@@ -23,10 +25,14 @@ export const generateRemoteSchemaTypes = async (remoteSchema: string): Promise<s
 				[remoteSchemaTypesFilePath]: {
 					plugins: [
 						{
-							typescript: {
+							typescript: identity<TypeScriptPluginConfig>({
 								enumsAsTypes: true,
 								nonOptionalTypename: true,
-							},
+								scalars: {
+									ISODate: "string",
+									Void: "undefined",
+								},
+							}),
 						},
 					],
 				},

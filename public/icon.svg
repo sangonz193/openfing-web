@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" id="OpenFING" viewBox="0 0 1824.4 2050">
+	<style type="text/css">
+		circle {
+			fill: #2D78BE;
+			stroke: #1E5082;
+			stroke-width: 20px;
+		}
+		polygon {
+			fill: none;
+			stroke: #1E5082;
+			stroke-width: 50;
+		}
+	</style>
+	<defs>
+		<filter id="sombra">
+			<feGaussianBlur in="SourceAlpha" stdDeviation="25"/>
+			<feMerge>
+				<feMergeNode/>
+				<feMergeNode in="SourceGraphic"/>
+			</feMerge>
+		</filter>
+	</defs>
+	<g id="logo">
+		<g id="enlaces" filter="url(#sombra)">
+			<polygon points="468.8,505 1003.5,1442.5 1536.1,573.9"/>
+		</g>
+		<g id="nodos" filter="url(#sombra)">
+			<circle cx="1492.8" cy="613.3" r="253.6"/>
+			<circle cx="470.4" cy="470.4" r="392.4"/>
+			<circle cx="1007.8" cy="1470.4" r="501.6"/>
+		</g>
+	</g>
+</svg>

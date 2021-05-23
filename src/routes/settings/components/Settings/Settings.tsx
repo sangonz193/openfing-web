@@ -1,14 +1,16 @@
-import { ChoiceGroup, IChoiceGroupOption, IChoiceGroupProps, Label, Stack, Text } from "@fluentui/react"
+import type { IChoiceGroupOption, IChoiceGroupProps } from "@fluentui/react"
+import { ChoiceGroup, Label, Stack, Text } from "@fluentui/react"
 import identity from "lodash/identity"
 import React from "react"
 
 import { appConfig } from "../../../../app.config"
-import { Div } from "../../../../components/Div"
+import { Container } from "../../../../components/Container"
 import { useLayoutOptions } from "../../../../components/Layout/useLayoutOptions"
 import { useDocumentTitle } from "../../../../hooks/useDocumentTitle"
 import { useReactiveVars } from "../../../../hooks/useReactiveVars"
 import { useAppearanceStore } from "../../../../modules/Appearance"
-import { isThemeKey, ThemeKey } from "../../../../styles/themes"
+import type { ThemeKey } from "../../../../styles/themes"
+import { isThemeKey } from "../../../../styles/themes"
 import { useSettingsStyles } from "./useSettingsStyles"
 
 export type SettingsProps = {
@@ -64,10 +66,10 @@ const SettingsComponent: React.FC<SettingsProps> = () => {
 				<Text variant="xLarge">Acerca de</Text>
 
 				<Stack horizontal>
-					<Div>
+					<Container>
 						<Label>Versión</Label>
 						<Text>{appConfig.version}</Text>
-					</Div>
+					</Container>
 				</Stack>
 			</Stack>
 		</Stack>

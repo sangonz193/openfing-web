@@ -2,9 +2,9 @@
 
 Este es el proyecto web de la plataforma de OpenFING.
 
-## Configuración de entorno de desarrollo
+## Configuración del entorno de desarrollo
 
-### Versiones requeridas
+### Herramientas requeridas
 
 -   [Node.js](https://nodejs.org/en/): **v15**
     -   Se recomienda la instalación de node con [nvm](https://github.com/nvm-sh/nvm), ya que le permite cambiar entre versiones fácilmente.
