@@ -6,15 +6,16 @@ import React from "react"
 import { useResizeDetector } from "react-resize-detector"
 
 import { getCourseClassPlayerShortcuts } from "../../../../../_utils/getCourseClassPlayerShortcuts"
-import { Div } from "../../../../../components/Div"
+import { Container } from "../../../../../components/Container"
 import { useDoubleClick } from "../../../../../hooks/useDoubleClick"
 import { useReactiveVars } from "../../../../../hooks/useReactiveVars"
 import { useAppStore } from "../../../../../modules/App"
-import { CourseClassPlayerStore, useCourseClassPlayerStore } from "../../../../../modules/CourseClassPlayer"
+import type { CourseClassPlayerStore } from "../../../../../modules/CourseClassPlayer"
+import { useCourseClassPlayerStore } from "../../../../../modules/CourseClassPlayer"
 import { useRootEventListener } from "../../../../../modules/RootEventListeners"
 import { CourseClassPlayerControlsBottomControls } from "../CourseClassPlayerControlsBottomControls"
 import { CourseClassPlayerVideo } from "../CourseClassPlayerVideo"
-import { CourseClassPlayerCourseClassVideoFragment } from "./CourseClassPlayer.graphql.generated"
+import type { CourseClassPlayerCourseClassVideoFragment } from "./CourseClassPlayer.graphql.generated"
 import { useCourseClassPlayerStyles } from "./useCourseClassPlayerStyles"
 
 export type CourseClassPlayerProps = {
@@ -190,7 +191,7 @@ const CourseClassPlayerComponent: React.FC<CourseClassPlayerProps> = ({ classNam
 	})
 
 	return (
-		<Div
+		<Container
 			ref={resizeDetectorTargetRef}
 			className={styles.wrapper}
 			onKeyDown={handleKeyDown}
@@ -198,7 +199,7 @@ const CourseClassPlayerComponent: React.FC<CourseClassPlayerProps> = ({ classNam
 			onMouseMove={inputType !== "TOUCH" ? handleMouseMove : undefined}
 			tabIndex={0}
 			onFocus={handleFocus}
-			style={isFullscreen || !height ? undefined : { height }}
+			style={isFullscreen || !height ? undefined : { height, maxHeight: "70vh" }}
 		>
 			{!!courseClassVideo.qualities?.length && (
 				<CourseClassPlayerVideo formats={courseClassVideo.qualities[0].formats} />
@@ -220,7 +221,7 @@ const CourseClassPlayerComponent: React.FC<CourseClassPlayerProps> = ({ classNam
 					<LayerHost id="course-class-player-controls" className={styles.layerHost} />
 				</div>
 			)}
-		</Div>
+		</Container>
 	)
 }
 

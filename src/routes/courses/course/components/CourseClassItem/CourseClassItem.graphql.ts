@@ -6,6 +6,16 @@ export const CourseClassItemCourseClassFragmentDoc = gql`
 		name
 		number
 
+		liveState {
+			id
+			startDate
+			inProgress
+
+			courseClass {
+				id
+			}
+		}
+
 		courseClassList {
 			id
 			code

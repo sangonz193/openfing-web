@@ -5,6 +5,7 @@ import { getMinWidthSelector } from "../../../../styles/getMinWidthSelector"
 
 export type CoursesStyleProps = {
 	className: string | undefined
+	showHeaderRight: boolean
 }
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -17,11 +18,21 @@ const useStyles = makeStyles((theme) => {
 		},
 
 		searchField: {
-			margin: "auto",
+			flexGrow: 1,
 			maxWidth: 500,
-			width: "90%",
+			marginRight: "auto",
+			marginLeft: "auto",
 
 			fontSize: 16,
+		},
+
+		searchFieldWithHeaderRight: {
+			margin: 0,
+
+			[getMinWidthSelector("sm")]: {
+				marginRight: "auto",
+				marginLeft: "auto",
+			},
 		},
 
 		content: {
@@ -46,9 +57,49 @@ const useStyles = makeStyles((theme) => {
 			},
 		},
 
-		searchBox: {
-			margin: "16px auto",
+		commandBar: {
+			height: "100%",
+			"> div": {
+				height: "100%",
+				"> div": {
+					height: "100%",
+					".ms-FocusZone": {
+						backgroundColor: "transparent",
+						height: "100%",
+						paddingRight: 0,
+					},
+				},
+			},
 
+			button: {
+				width: 49,
+
+				backgroundColor: "transparent",
+			},
+		},
+
+		commandBarOverflowItemButton: {
+			backgroundColor: theme.palette.neutralLighterAlt,
+		},
+
+		searchBoxWrapper: {
+			marginTop: 7,
+			marginBottom: 7,
+			flexDirection: "row",
+			flexGrow: 1,
+			paddingLeft: 10,
+			paddingRight: 10,
+
+			[getMinWidthSelector("md")]: {
+				paddingLeft: "initial",
+			},
+		},
+
+		searchBoxWrapperWithHeaderRight: {
+			paddingRight: 0,
+		},
+
+		searchBox: {
 			[getMinWidthSelector("sm")]: {
 				margin: 0,
 				padding: 0,
@@ -76,11 +127,13 @@ const useStyles = makeStyles((theme) => {
 	}
 })
 
-export function useCoursesStyles({ className }: CoursesStyleProps) {
+export function useCoursesStyles({ className, showHeaderRight }: CoursesStyleProps) {
 	const styles = useStyles()
 
 	return {
 		...styles,
 		wrapper: css(styles.wrapper, className),
+		searchField: css(styles.searchField, showHeaderRight && styles.searchFieldWithHeaderRight),
+		searchBoxWrapper: css(styles.searchBoxWrapper, showHeaderRight && styles.searchBoxWrapperWithHeaderRight),
 	}
 }

@@ -1,12 +1,13 @@
-import { Link, Text } from "@fluentui/react"
+import { FontIcon, Link, Text } from "@fluentui/react"
 import React from "react"
 
-import { Div } from "../../../../../components/Div"
+import { Container } from "../../../../../components/Container"
+import { RADIO_ICON_NAME } from "../../../../../components/Icon/Radio.icon"
 import { useLocalLinkProps } from "../../../../../hooks/useLocalLinkProps"
 import { useReactiveVars } from "../../../../../hooks/useReactiveVars"
 import { useCourseSelectionStore } from "../../../../../modules/CourseSelection"
 import { courseRouteConfig } from "../../course.route.config"
-import { CourseClassItemCourseClassFragment } from "./CourseClassItem.graphql.generated"
+import type { CourseClassItemCourseClassFragment } from "./CourseClassItem.graphql.generated"
 import { useCourseClassItemStyles } from "./useCourseClassItemStyles"
 
 export type CourseClassItemProps = {
@@ -40,13 +41,15 @@ const CourseClassItemComponent: React.FC<CourseClassItemProps> = ({ className, c
 
 	return (
 		<Link className={styles.wrapper} {...useLocalLinkProps({ href: url })}>
-			<Div className={styles.content}>
+			<Container className={styles.content}>
 				<Text className={styles.courseClassNumber}>{courseClassNumber}</Text>
 
-				<span> </span>
+				{courseClass.liveState?.inProgress && (
+					<FontIcon title="Emitiendo" iconName={RADIO_ICON_NAME} className={styles.liveIndicator} />
+				)}
 
 				<Text className={styles.courseClassName}>{courseClass.name}</Text>
-			</Div>
+			</Container>
 		</Link>
 	)
 }
