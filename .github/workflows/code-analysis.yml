@@ -3,7 +3,7 @@ name: code-analysis
 on:
   push:
     branches-ignore:
-      - main
+      - develop
 
 jobs:
     code-analysis:
