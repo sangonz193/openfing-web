@@ -2,7 +2,7 @@ import React from "react"
 
 import { useReactiveVars } from "../../../../../hooks/useReactiveVars"
 import { useCourseClassPlayerStore } from "../../../../../modules/CourseClassPlayer"
-import { CourseClassPlayerVideoCourseClassVideoFormatFragment } from "./CourseClassPlayerVideo.graphql.generated"
+import type { CourseClassPlayerVideoCourseClassVideoFormatFragment } from "./CourseClassPlayerVideo.graphql.generated"
 import { useCourseClassPlayerVideoStyles } from "./useCourseClassPlayerVideoStyles"
 
 export type CourseClassPlayerVideoProps = {

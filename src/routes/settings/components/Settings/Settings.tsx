@@ -1,4 +1,5 @@
-import { ChoiceGroup, IChoiceGroupOption, IChoiceGroupProps, Label, Stack, Text } from "@fluentui/react"
+import type { IChoiceGroupOption, IChoiceGroupProps } from "@fluentui/react"
+import { ChoiceGroup, Label, Stack, Text } from "@fluentui/react"
 import identity from "lodash/identity"
 import React from "react"
 
@@ -8,7 +9,8 @@ import { useLayoutOptions } from "../../../../components/Layout/useLayoutOptions
 import { useDocumentTitle } from "../../../../hooks/useDocumentTitle"
 import { useReactiveVars } from "../../../../hooks/useReactiveVars"
 import { useAppearanceStore } from "../../../../modules/Appearance"
-import { isThemeKey, ThemeKey } from "../../../../styles/themes"
+import type { ThemeKey } from "../../../../styles/themes"
+import { isThemeKey } from "../../../../styles/themes"
 import { useSettingsStyles } from "./useSettingsStyles"
 
 export type SettingsProps = {

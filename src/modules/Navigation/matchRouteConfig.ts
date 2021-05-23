@@ -1,5 +1,6 @@
-import { RouteConfig } from "../../routes/_utils/RouteConfig"
-import { matchPath, PathMatch } from "./matchPath"
+import type { RouteConfig } from "../../routes/_utils/RouteConfig"
+import type { PathMatch } from "./matchPath"
+import { matchPath } from "./matchPath"
 
 export const matchRouteConfig = <T extends RouteConfig<any>>(
 	pathname: string,

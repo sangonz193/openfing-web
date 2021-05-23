@@ -1,4 +1,4 @@
-import { ITheme } from "@fluentui/style-utilities"
+import type { ITheme } from "@fluentui/style-utilities"
 
 export function applyThemeOutsideContext(theme: ITheme) {
 	document.body.style.backgroundColor = theme.semanticColors.bodyBackground

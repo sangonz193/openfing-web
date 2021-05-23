@@ -1,4 +1,5 @@
-import { DefaultButton, IButtonProps, Text } from "@fluentui/react"
+import type { IButtonProps } from "@fluentui/react"
+import { DefaultButton, Text } from "@fluentui/react"
 import React from "react"
 
 import { secondsToString } from "../../../../../_utils/secondsToString"

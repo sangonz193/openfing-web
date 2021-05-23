@@ -6,7 +6,7 @@ import { useLocalLinkProps } from "../../../../../hooks/useLocalLinkProps"
 import { useReactiveVars } from "../../../../../hooks/useReactiveVars"
 import { useCourseSelectionStore } from "../../../../../modules/CourseSelection"
 import { courseRouteConfig } from "../../course.route.config"
-import { CourseClassItemCourseClassFragment } from "./CourseClassItem.graphql.generated"
+import type { CourseClassItemCourseClassFragment } from "./CourseClassItem.graphql.generated"
 import { useCourseClassItemStyles } from "./useCourseClassItemStyles"
 
 export type CourseClassItemProps = {

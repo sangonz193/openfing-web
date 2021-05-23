@@ -1,4 +1,4 @@
-import { RouteConfig } from "../../_utils/RouteConfig"
+import type { RouteConfig } from "../../_utils/RouteConfig"
 import { Course } from "./components/Course"
 
 export type CourseRouteConfigParams = {

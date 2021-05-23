@@ -1,12 +1,5 @@
-import {
-	DirectionalHint,
-	FocusTrapZone,
-	ICalloutProps,
-	IContextualMenuItem,
-	IContextualMenuProps,
-	Stack,
-	Text,
-} from "@fluentui/react"
+import type { ICalloutProps, IContextualMenuItem, IContextualMenuProps } from "@fluentui/react"
+import { DirectionalHint, FocusTrapZone, Stack, Text } from "@fluentui/react"
 import keyboardKey from "keyboard-key"
 import React from "react"
 
@@ -14,7 +7,8 @@ import { getCourseClassPlayerShortcuts } from "../../../../../_utils/getCourseCl
 import { useReactiveVars } from "../../../../../hooks/useReactiveVars"
 import { useAppStore } from "../../../../../modules/App"
 import { useCourseClassPlayerStore } from "../../../../../modules/CourseClassPlayer"
-import { CourseClassPlayerButton, CourseClassPlayerButtonProps } from "../CourseClassPlayerButton"
+import type { CourseClassPlayerButtonProps } from "../CourseClassPlayerButton"
+import { CourseClassPlayerButton } from "../CourseClassPlayerButton"
 import { CourseClassPlayerPlaybackRateContextMenuSlider } from "../CourseClassPlayerPlaybackRateContextMenuSlider"
 import { CourseClassPlayerPlaybackRateMenuItem } from "../CourseClassPlayerPlaybackRateMenuItem"
 import { useCourseClassPlayerPlaybackRateButtonStyles } from "./useCourseClassPlayerPlaybackRateButtonStyles"

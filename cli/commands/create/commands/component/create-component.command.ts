@@ -1,7 +1,7 @@
-import { CommandModule } from "yargs"
+import type { CommandModule } from "yargs"
 
 import { runPlopInterface } from "../../plop/runPlopInterface"
-import { ComponentPlopGeneratorAnswers } from "./component.plop-generator"
+import type { ComponentPlopGeneratorAnswers } from "./component.plop-generator"
 
 const command: CommandModule<
 	{},

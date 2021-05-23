@@ -14,7 +14,8 @@ import { useHistory } from "../../../../../modules/Navigation/useHistory"
 import { Breakpoint } from "../../../../../styles/Breakpoint"
 import { CourseDetail } from "../CourseDetail"
 import { CourseMaster } from "../CourseMaster"
-import { CourseClassListByCodeQueryVariables, useCourseClassListByCodeQuery } from "./Course.graphql.generated"
+import type { CourseClassListByCodeQueryVariables } from "./Course.graphql.generated"
+import { useCourseClassListByCodeQuery } from "./Course.graphql.generated"
 import { useCourseStyles } from "./useCourseStyles"
 
 export type CourseProps = {
@@ -78,10 +79,10 @@ const CourseComponent: React.FC<CourseProps> = ({ className, courseClassListCode
 
 	useLayoutOptions({
 		headerTitle: headerTitle,
-		headerRight: React.useMemo(
-			() => !!evaLinkProps.href && <Link {...evaLinkProps}>EVA</Link>,
-			[styles.headerLink, evaLinkProps]
-		),
+		headerRight: React.useMemo(() => !!evaLinkProps.href && <Link {...evaLinkProps}>EVA</Link>, [
+			styles.headerLink,
+			evaLinkProps,
+		]),
 	})
 
 	return (

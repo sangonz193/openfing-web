@@ -1,4 +1,5 @@
-import { DirectionalHint, HoverCard, HoverCardType, IPlainCardProps, Slider, Stack } from "@fluentui/react"
+import type { IPlainCardProps } from "@fluentui/react"
+import { DirectionalHint, HoverCard, HoverCardType, Slider, Stack } from "@fluentui/react"
 import throttle from "lodash/throttle"
 import React from "react"
 

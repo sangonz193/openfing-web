@@ -1,7 +1,7 @@
 import { Stack, Text } from "@fluentui/react"
 import React from "react"
 
-import { FaqItemFaqFragment } from "./FaqItem.graphql.generated"
+import type { FaqItemFaqFragment } from "./FaqItem.graphql.generated"
 import { useFaqItemStyles } from "./useFaqItemStyles"
 
 export type FaqItemProps = {

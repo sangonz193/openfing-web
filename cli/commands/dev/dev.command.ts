@@ -1,5 +1,5 @@
 import { spawn } from "promisify-child-process"
-import { CommandModule } from "yargs"
+import type { CommandModule } from "yargs"
 
 import { projectPath } from "../../_utils/projectPath"
 

@@ -3,7 +3,7 @@ import React from "react"
 import { listenVar } from "../../_utils/listenVar"
 import { getTeachingStorageKeyByTeachingKey } from "./getTeachingStorageKeyByTeachingKey"
 import { teachingLocalStorage } from "./Teaching.storage"
-import { TeachingKey, TeachingStatus } from "./Teaching.store"
+import type { TeachingKey, TeachingStatus } from "./Teaching.store"
 import { useTeachingStore } from "./useTeachingStore"
 
 export const useTeachingKeyStatus = (

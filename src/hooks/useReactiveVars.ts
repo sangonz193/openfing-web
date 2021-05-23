@@ -1,4 +1,5 @@
-import { ReactiveVar, useReactiveVar } from "@apollo/client"
+import type { ReactiveVar } from "@apollo/client"
+import { useReactiveVar } from "@apollo/client"
 import React from "react"
 
 export const useReactiveVars = <TStore extends {}, TKeys extends keyof TStore>(

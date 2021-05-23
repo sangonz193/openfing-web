@@ -1,8 +1,8 @@
+import type { ITextFieldProps } from "@fluentui/react"
 import {
 	Checkbox,
 	ContextualMenu,
 	Dialog,
-	ITextFieldProps,
 	MessageBar,
 	MessageBarType,
 	PrimaryButton,
@@ -20,7 +20,8 @@ import { COPY_ICON_NAME } from "../../../../../components/Icon/Copy.icon"
 import { useReactiveVars } from "../../../../../hooks/useReactiveVars"
 import { useCourseClassPlayerStore } from "../../../../../modules/CourseClassPlayer"
 import { useCourseSelectionStore } from "../../../../../modules/CourseSelection"
-import { courseRouteConfig, CourseRouteConfigGetPathParams } from "../../course.route.config"
+import type { CourseRouteConfigGetPathParams } from "../../course.route.config"
+import { courseRouteConfig } from "../../course.route.config"
 import { useCourseClassByIdQuery } from "./CourseClassShareModal.graphql.generated"
 import { courseClassShareModalReducer, initCourseClassShareModalReducer } from "./CourseClassShareModal.reducer"
 import { useCourseClassShareModalStyles } from "./useCourseClassShareModalStyles"

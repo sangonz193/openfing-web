@@ -1,4 +1,5 @@
-import { createBrowserHistory, History } from "history"
+import type { History } from "history"
+import { createBrowserHistory } from "history"
 import PiwikReactRouter from "piwik-react-router"
 import React from "react"
 import ReactGA from "react-ga"
@@ -6,7 +7,7 @@ import ReactGA from "react-ga"
 import { appConfig } from "../../app.config"
 import { useRefWithInitializer } from "../../hooks/useRefWithInitializer"
 
-export const NavigationContext = React.createContext<History>(null as unknown as History)
+export const NavigationContext = React.createContext<History>((null as unknown) as History)
 
 export const NavigationProvider: React.FC = ({ children }) => {
 	const history = useRefWithInitializer(() => {

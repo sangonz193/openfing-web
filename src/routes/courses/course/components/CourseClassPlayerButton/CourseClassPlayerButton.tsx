@@ -1,4 +1,5 @@
-import { DefaultButton, FontIcon, IButtonProps, Text } from "@fluentui/react"
+import type { IButtonProps } from "@fluentui/react"
+import { DefaultButton, FontIcon, Text } from "@fluentui/react"
 import React from "react"
 
 import { useCourseClassPlayerButtonStyles } from "./useCourseClassPlayerButtonStyles"

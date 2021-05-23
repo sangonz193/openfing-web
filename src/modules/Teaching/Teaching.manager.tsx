@@ -6,7 +6,7 @@ import { wait } from "../../_utils/wait"
 import { useBlockInitialization } from "../Initialization"
 import { getTeachingStorageKeyByTeachingKey } from "./getTeachingStorageKeyByTeachingKey"
 import { migrateTeachingLocalStorage, teachingLocalStorage } from "./Teaching.storage"
-import { TeachingKey } from "./Teaching.store"
+import type { TeachingKey } from "./Teaching.store"
 import { useTeachingStore } from "./useTeachingStore"
 
 export const TeachingManager: React.FC = () => {
