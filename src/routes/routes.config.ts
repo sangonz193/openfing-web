@@ -2,6 +2,7 @@ import React from "react"
 
 import { Redirect } from "../components/Redirect"
 import type { RouteConfig } from "./_utils/RouteConfig"
+import { adminRouteConfig } from "./admin/admin.route.config"
 import { courseRouteConfig } from "./courses/course/course.route.config"
 import { coursesRouteConfig } from "./courses/courses.route.config"
 import { faqsRouteConfig } from "./faqs/faqs.route.config"
@@ -28,5 +29,6 @@ export const routesConfig = {
 	updates: updatesRouteConfig,
 	faqs: faqsRouteConfig,
 	settings: settingsRouteConfig,
+	admin: adminRouteConfig,
 	redirect: redirectConfig,
 }
