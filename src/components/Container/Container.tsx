@@ -1,12 +1,14 @@
 import React from "react"
 
-import { useDivStyles } from "./useContainerStyles"
+import { useContainerStyles } from "./useContainerStyles"
 
 export type ContainerProps = React.HTMLAttributes<HTMLDivElement>
 
+// TODO: delete
+
 const ContainerComponent: React.FC<ContainerProps & { divRef?: React.Ref<HTMLDivElement> }> = (props) => {
 	const { className, divRef, ...divProps } = props
-	const styles = useDivStyles({
+	const styles = useContainerStyles({
 		className,
 	})
 
