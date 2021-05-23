@@ -1,5 +1,5 @@
 import { createTypedStorage } from "../../storage/createTypedStorage"
-import type { ThemeKey } from "../../styles/themes"
+import { ThemeKey } from "../../styles/themes"
 import { isThemeKey } from "../../styles/themes"
 
 export type AppearanceStorageKeyValue = {

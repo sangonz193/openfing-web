@@ -1,4 +1,4 @@
-import type { ILinkProps } from "@fluentui/react"
+import { ILinkProps } from "@fluentui/react"
 import React from "react"
 
 import { useHistory } from "../modules/Navigation/useHistory"

@@ -1,7 +1,7 @@
 import React from "react"
 
 import { RootEventListenersContext } from "./RootEventListeners.context"
-import type { EventsMap } from "./RootEventListeners.store"
+import { EventsMap } from "./RootEventListeners.store"
 
 export const useRootEventListener = <TEvent extends keyof EventsMap>(
 	event: TEvent,

@@ -1,6 +1,6 @@
-import type keyboardKey from "keyboard-key"
+import keyboardKey from "keyboard-key"
 
-import type { CourseClassPlayerStore } from "../modules/CourseClassPlayer"
+import { CourseClassPlayerStore } from "../modules/CourseClassPlayer"
 
 export const getCourseClassPlayerShortcuts = (
 	courseClassPlayerStore: CourseClassPlayerStore

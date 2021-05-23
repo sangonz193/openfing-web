@@ -5,7 +5,7 @@ import { useRootEventListeners } from "../../modules/RootEventListeners/useRootE
 import { Container } from "../Container"
 import { Header } from "../Header"
 import { Navbar } from "../Navbar"
-import type { LayoutContextValue, LayoutOptions, SetLayoutOptions } from "./Layout.context"
+import { LayoutContextValue, LayoutOptions, SetLayoutOptions } from "./Layout.context"
 import { LayoutContext } from "./Layout.context"
 import { useLayoutStyles } from "./useLayoutStyles"
 

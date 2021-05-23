@@ -1,7 +1,7 @@
 import { useApolloClient } from "@apollo/client"
 import React from "react"
 
-import type { CourseClassListByCodeQuery } from "./Course.graphql.generated"
+import { CourseClassListByCodeQuery } from "./Course.graphql.generated"
 import { getCreatedCourseFromCacheHack } from "./getCreatedCourseFromCacheHack"
 
 export const useCreateCourseClassListHeaderTitleHack = (

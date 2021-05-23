@@ -1,4 +1,4 @@
-import type { Point } from "@fluentui/react"
+import { Point } from "@fluentui/react"
 import { Callout, DirectionalHint, Slider, Text } from "@fluentui/react"
 import throttle from "lodash/throttle"
 import React from "react"

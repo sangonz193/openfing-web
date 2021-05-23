@@ -1,4 +1,4 @@
-import type { ICommandBarItemProps } from "@fluentui/react"
+import { ICommandBarItemProps } from "@fluentui/react"
 import { CommandBar, Image, ImageFit, Separator, Spinner, SpinnerSize, Stack, Text } from "@fluentui/react"
 import parse from "html-react-parser"
 import React from "react"

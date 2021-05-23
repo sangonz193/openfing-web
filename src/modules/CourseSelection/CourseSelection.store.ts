@@ -1,6 +1,6 @@
 import { makeVar } from "@apollo/client"
 
-import type {
+import {
 	CourseSelectionCourseClassListByCodeWithClassesFragment,
 	CourseSelectionCourseClassListByCodeWithIdFragment,
 } from "./CourseSelection.graphql.generated"

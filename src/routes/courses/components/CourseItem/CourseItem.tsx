@@ -4,7 +4,7 @@ import React from "react"
 import { Container } from "../../../../components/Container"
 import { useLocalLinkProps } from "../../../../hooks/useLocalLinkProps"
 import { courseRouteConfig } from "../../course/course.route.config"
-import type { CourseItemCourseFragment } from "./CourseItem.graphql.generated"
+import { CourseItemCourseFragment } from "./CourseItem.graphql.generated"
 import { useCourseItemStyles } from "./useCourseItemStyles"
 
 export type CourseItemProps = {

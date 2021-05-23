@@ -2,7 +2,7 @@ import "../../../../../components/Icon/Cancel.icon"
 import "../../../../../components/Icon/ChevronDown.icon"
 
 import { useReactiveVar } from "@apollo/client"
-import type { IDropdownOption } from "@fluentui/react"
+import { IDropdownOption } from "@fluentui/react"
 import { Dialog, DialogFooter, Dropdown, PrimaryButton, ResponsiveMode, Spinner, SpinnerSize } from "@fluentui/react"
 import React from "react"
 

@@ -9,7 +9,7 @@ import { CANCEL_ICON_NAME } from "../../../../components/Icon/Cancel.icon"
 import { SEARCH_ICON_NAME } from "../../../../components/Icon/Search.icon"
 import { useLayoutOptions } from "../../../../components/Layout/useLayoutOptions"
 import { Breakpoint } from "../../../../styles/Breakpoint"
-import type { useCoursesStyles } from "./useCoursesStyles"
+import { useCoursesStyles } from "./useCoursesStyles"
 
 export type UseCoursesLayoutOptions = {
 	styles: ReturnType<typeof useCoursesStyles>

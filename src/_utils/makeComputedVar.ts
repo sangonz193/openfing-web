@@ -1,4 +1,4 @@
-import type { ReactiveVar } from "@apollo/client"
+import { ReactiveVar } from "@apollo/client"
 import { makeVar } from "@apollo/client"
 
 import { listenVar } from "./listenVar"

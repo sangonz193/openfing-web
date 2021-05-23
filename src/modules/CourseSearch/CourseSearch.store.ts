@@ -2,7 +2,7 @@ import { makeVar } from "@apollo/client"
 import FuzzySearch from "fuzzy-search"
 
 import { listenVar } from "../../_utils/listenVar"
-import type { CourseFragment_CourseSearchFragment } from "./CourseSearch.graphql.generated"
+import { CourseFragment_CourseSearchFragment } from "./CourseSearch.graphql.generated"
 
 export class CourseSearchStore {
 	source = makeVar<CourseFragment_CourseSearchFragment[]>([])

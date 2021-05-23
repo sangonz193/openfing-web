@@ -1,4 +1,4 @@
-import type { CourseClass, CourseClassLiveState } from "../remoteSchema.types"
+import { CourseClass, CourseClassLiveState } from "../remoteSchema.types"
 
 export function getCourseClassShortDateInfo(
 	courseClass: Required<

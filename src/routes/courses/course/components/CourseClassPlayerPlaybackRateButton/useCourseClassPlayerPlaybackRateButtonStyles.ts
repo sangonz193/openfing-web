@@ -1,4 +1,4 @@
-import type { ICalloutContentStyles } from "@fluentui/react"
+import { ICalloutContentStyles } from "@fluentui/react"
 import { makeStyles } from "@fluentui/react"
 
 export type CourseClassPlayerPlaybackRateButtonStyleProps = {}
