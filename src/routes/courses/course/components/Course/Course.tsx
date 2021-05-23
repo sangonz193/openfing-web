@@ -14,7 +14,7 @@ import { useHistory } from "../../../../../modules/Navigation/useHistory"
 import { Breakpoint } from "../../../../../styles/Breakpoint"
 import { CourseDetail } from "../CourseDetail"
 import { CourseMaster } from "../CourseMaster"
-import { CourseClassListByCodeQueryVariables } from "./Course.graphql.generated"
+import type { CourseClassListByCodeQueryVariables } from "./Course.graphql.generated"
 import { useCourseClassListByCodeQuery } from "./Course.graphql.generated"
 import { useCourseStyles } from "./useCourseStyles"
 

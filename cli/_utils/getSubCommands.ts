@@ -1,5 +1,5 @@
 import path from "path"
-import { CommandModule } from "yargs"
+import type { CommandModule } from "yargs"
 
 import { getMatchingFilePaths, getMatchingFilePathsSync } from "./getMatchingFilePaths"
 

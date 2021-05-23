@@ -1,6 +1,6 @@
-import { ITheme } from "@fluentui/style-utilities"
+import type { ITheme } from "@fluentui/style-utilities"
 
-import { ThemeKey } from "../../styles/themes"
+import type { ThemeKey } from "../../styles/themes"
 import { blackTheme } from "../../styles/themes/blackTheme"
 import { darkTheme } from "../../styles/themes/darkTheme"
 import { lightTheme } from "../../styles/themes/lightTheme"

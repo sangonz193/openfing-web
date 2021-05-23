@@ -1,4 +1,4 @@
-import { CommandModule } from "yargs"
+import type { CommandModule } from "yargs"
 
 import { generateAssetsTypes } from "./generateAssetsTypes"
 import { generateComponentIndexes } from "./generateComponentIndexes"

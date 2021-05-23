@@ -1,4 +1,4 @@
-import { IRawStyle } from "@fluentui/react"
+import type { IRawStyle } from "@fluentui/react"
 import { css, makeStyles } from "@fluentui/react"
 
 export type CourseDetailStyleProps = {

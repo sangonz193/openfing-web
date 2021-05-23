@@ -4,7 +4,7 @@ import { CONTRACT_TWO_ARROWS_ICON_NAME } from "../../../../../components/Icon/Co
 import { RESIZE_ICON_NAME } from "../../../../../components/Icon/Resize.icon"
 import { useReactiveVars } from "../../../../../hooks/useReactiveVars"
 import { useCourseClassPlayerStore } from "../../../../../modules/CourseClassPlayer"
-import { CourseClassPlayerButtonProps } from "../CourseClassPlayerButton"
+import type { CourseClassPlayerButtonProps } from "../CourseClassPlayerButton"
 import { CourseClassPlayerButton } from "../CourseClassPlayerButton"
 
 export type CourseClassPlayerFullscreenButtonProps = {

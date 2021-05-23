@@ -9,12 +9,12 @@ import { getCourseClassPlayerShortcuts } from "../../../../../_utils/getCourseCl
 import { Div } from "../../../../../components/Div"
 import { useReactiveVars } from "../../../../../hooks/useReactiveVars"
 import { useAppStore } from "../../../../../modules/App"
-import { CourseClassPlayerStore } from "../../../../../modules/CourseClassPlayer"
+import type { CourseClassPlayerStore } from "../../../../../modules/CourseClassPlayer"
 import { useCourseClassPlayerStore } from "../../../../../modules/CourseClassPlayer"
 import { useRootEventListener } from "../../../../../modules/RootEventListeners"
 import { CourseClassPlayerControlsBottomControls } from "../CourseClassPlayerControlsBottomControls"
 import { CourseClassPlayerVideo } from "../CourseClassPlayerVideo"
-import { CourseClassPlayerCourseClassVideoFragment } from "./CourseClassPlayer.graphql.generated"
+import type { CourseClassPlayerCourseClassVideoFragment } from "./CourseClassPlayer.graphql.generated"
 import { useCourseClassPlayerStyles } from "./useCourseClassPlayerStyles"
 
 export type CourseClassPlayerProps = {

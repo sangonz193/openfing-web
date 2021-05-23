@@ -1,4 +1,4 @@
-import { History } from "history"
+import type { History } from "history"
 import { createBrowserHistory } from "history"
 import PiwikReactRouter from "piwik-react-router"
 import React from "react"

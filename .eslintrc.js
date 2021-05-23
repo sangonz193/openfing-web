@@ -15,7 +15,7 @@ module.exports = {
 		"@typescript-eslint/ban-types": "off",
 		"@typescript-eslint/camelcase": "off",
 		// "@typescript-eslint/consistent-type-imports": ["warn", { prefer: "type-imports" }],
-		"@typescript-eslint/consistent-type-imports": ["warn", { prefer: "no-type-imports" }],
+		"@typescript-eslint/consistent-type-imports": ["warn", { prefer: "type-imports" }],
 		"@typescript-eslint/explicit-function-return-type": "off",
 		"@typescript-eslint/explicit-member-accessibility": "off",
 		"@typescript-eslint/no-empty-function": "off",
