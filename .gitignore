@@ -31,9 +31,9 @@ yarn-error.log*
 #
 index.ts
 index.tsx
+*.generated.*ts
 *.ttf.d.ts
 *.svg.d.ts
-*.generated.*ts
 src/graphql/remoteSchema.types.ts
 public/index.html
 public/manifest.json
