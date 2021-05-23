@@ -1,27 +1,27 @@
-import "../../../../../components/Icon/Checkmark.icon";
+import "../../../../../components/Icon/Checkmark.icon"
 
-import { ContextualMenuItem, IContextualMenuItem, IContextualMenuItemProps } from "@fluentui/react";
-import React from "react";
+import { ContextualMenuItem, IContextualMenuItem, IContextualMenuItemProps } from "@fluentui/react"
+import React from "react"
 
-import { secondsToString } from "../../../../../_utils/secondsToString";
-import { useReactiveVars } from "../../../../../hooks/useReactiveVars";
-import { useCourseClassPlayerStore } from "../../../../../modules/CourseClassPlayer";
+import { secondsToString } from "../../../../../_utils/secondsToString"
+import { useReactiveVars } from "../../../../../hooks/useReactiveVars"
+import { useCourseClassPlayerStore } from "../../../../../modules/CourseClassPlayer"
 
 export type CourseClassPlayerPlaybackRateMenuItemProps = {
-	children?: undefined;
-	contextualMenuItemProps: IContextualMenuItemProps;
-};
+	children?: undefined
+	contextualMenuItemProps: IContextualMenuItemProps
+}
 
 const CourseClassPlayerPlaybackRateMenuItemComponent: React.FC<CourseClassPlayerPlaybackRateMenuItemProps> = ({
 	contextualMenuItemProps,
 }) => {
-	const playbackRate = contextualMenuItemProps.item.data as number;
+	const playbackRate = contextualMenuItemProps.item.data as number
 
-	const { currentTime, duration, playbackRate: currentPlaybackRate } = useReactiveVars(useCourseClassPlayerStore(), [
-		"currentTime",
-		"duration",
-		"playbackRate",
-	]);
+	const {
+		currentTime,
+		duration,
+		playbackRate: currentPlaybackRate,
+	} = useReactiveVars(useCourseClassPlayerStore(), ["currentTime", "duration", "playbackRate"])
 
 	const text = React.useMemo(
 		() =>
@@ -31,9 +31,9 @@ const CourseClassPlayerPlaybackRateMenuItemComponent: React.FC<CourseClassPlayer
 				})
 				.replace(",", ".")}x`,
 		[playbackRate]
-	);
-	const secondaryText = `(${secondsToString((duration - currentTime) / (playbackRate as number))})`;
-	const checked = playbackRate === currentPlaybackRate;
+	)
+	const secondaryText = `(${secondsToString((duration - currentTime) / (playbackRate as number))})`
+	const checked = playbackRate === currentPlaybackRate
 
 	const item: IContextualMenuItem = {
 		key: playbackRate.toString(),
@@ -41,9 +41,9 @@ const CourseClassPlayerPlaybackRateMenuItemComponent: React.FC<CourseClassPlayer
 		secondaryText,
 		checked,
 		canCheck: true,
-	};
+	}
 
-	return <ContextualMenuItem {...contextualMenuItemProps} item={item} onCheckmarkClick={() => {}} />;
-};
+	return <ContextualMenuItem {...contextualMenuItemProps} item={item} onCheckmarkClick={() => {}} />
+}
 
-export const CourseClassPlayerPlaybackRateMenuItem = React.memo(CourseClassPlayerPlaybackRateMenuItemComponent);
+export const CourseClassPlayerPlaybackRateMenuItem = React.memo(CourseClassPlayerPlaybackRateMenuItemComponent)

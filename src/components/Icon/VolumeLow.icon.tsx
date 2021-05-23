@@ -1,4 +1,4 @@
-import { registerIcons } from "@fluentui/style-utilities";
+import { registerIcons } from "@fluentui/style-utilities"
 
 function VolumeLowIcon() {
 	return (
@@ -12,13 +12,13 @@ function VolumeLowIcon() {
 				d="M189.65 192H120a8 8 0 00-8 8v112a8 8 0 008 8h69.65a16 16 0 0110.14 3.63l91.47 75a8 8 0 0012.74-6.46V119.83a8 8 0 00-12.74-6.44l-91.47 75a16 16 0 01-10.14 3.61zM384 320c9.74-19.41 16-40.81 16-64 0-23.51-6-44.4-16-64"
 			></path>
 		</svg>
-	);
+	)
 }
 
-export const VOLUME_LOW_ICON_NAME = "VolumeLow";
+export const VOLUME_LOW_ICON_NAME = "VolumeLow"
 
 registerIcons({
 	icons: {
 		[VOLUME_LOW_ICON_NAME]: <VolumeLowIcon />,
 	},
-});
+})

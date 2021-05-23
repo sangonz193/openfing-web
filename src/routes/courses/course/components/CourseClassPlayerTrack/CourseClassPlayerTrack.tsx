@@ -1,29 +1,29 @@
-import { DefaultButton, IButtonProps, Text } from "@fluentui/react";
-import React from "react";
+import { DefaultButton, IButtonProps, Text } from "@fluentui/react"
+import React from "react"
 
-import { secondsToString } from "../../../../../_utils/secondsToString";
-import { Div } from "../../../../../components/Div";
-import { useReactiveVars } from "../../../../../hooks/useReactiveVars";
-import { useCourseClassPlayerStore } from "../../../../../modules/CourseClassPlayer";
-import { CourseClassPlayerTrackSlider } from "../CourseClassPlayerTrackSlider";
-import { useCourseClassPlayerTrackStyles } from "./useCourseClassPlayerTrackStyles";
+import { secondsToString } from "../../../../../_utils/secondsToString"
+import { Div } from "../../../../../components/Div"
+import { useReactiveVars } from "../../../../../hooks/useReactiveVars"
+import { useCourseClassPlayerStore } from "../../../../../modules/CourseClassPlayer"
+import { CourseClassPlayerTrackSlider } from "../CourseClassPlayerTrackSlider"
+import { useCourseClassPlayerTrackStyles } from "./useCourseClassPlayerTrackStyles"
 
 export type CourseClassPlayerTrackProps = {
-	children?: undefined;
-	className?: string;
-};
+	children?: undefined
+	className?: string
+}
 
 const CourseClassPlayerTrackComponent: React.FC<CourseClassPlayerTrackProps> = ({ className }) => {
 	const styles = useCourseClassPlayerTrackStyles({
 		className,
-	});
-	const { currentTime, duration } = useReactiveVars(useCourseClassPlayerStore(), ["currentTime", "duration"]);
+	})
+	const { currentTime, duration } = useReactiveVars(useCourseClassPlayerStore(), ["currentTime", "duration"])
 
-	const [showTimeLeft, setShowTimeLeft] = React.useState(false);
+	const [showTimeLeft, setShowTimeLeft] = React.useState(false)
 	const handleTimeLeftClick = React.useCallback<Required<IButtonProps>["onClick"]>((e) => {
-		e.preventDefault();
-		setShowTimeLeft((value) => !value);
-	}, []);
+		e.preventDefault()
+		setShowTimeLeft((value) => !value)
+	}, [])
 
 	return (
 		<Div className={styles.wrapper}>
@@ -41,7 +41,7 @@ const CourseClassPlayerTrackComponent: React.FC<CourseClassPlayerTrackProps> = (
 				</Text>
 			</DefaultButton>
 		</Div>
-	);
-};
+	)
+}
 
-export const CourseClassPlayerTrack = React.memo(CourseClassPlayerTrackComponent);
+export const CourseClassPlayerTrack = React.memo(CourseClassPlayerTrackComponent)

@@ -1,24 +1,24 @@
-import { ILinkProps } from "@fluentui/react";
-import React from "react";
+import { ILinkProps } from "@fluentui/react"
+import React from "react"
 
-import { useHistory } from "../modules/Navigation/useHistory";
+import { useHistory } from "../modules/Navigation/useHistory"
 
 export function useLocalLinkProps(props: Partial<ILinkProps>): ILinkProps {
-	const { href, onClick } = props;
-	const history = useHistory();
+	const { href, onClick } = props
+	const history = useHistory()
 
 	const handleClick = React.useCallback<Exclude<ILinkProps["onClick"], undefined>>(
 		(e) => {
-			e.preventDefault();
+			e.preventDefault()
 
 			if (href) {
-				history.push(href);
+				history.push(href)
 			}
 
-			onClick?.(e);
+			onClick?.(e)
 		},
 		[onClick, history, href]
-	);
+	)
 
 	return React.useMemo(
 		() => ({
@@ -26,5 +26,5 @@ export function useLocalLinkProps(props: Partial<ILinkProps>): ILinkProps {
 			onClick: handleClick,
 		}),
 		[props, handleClick]
-	);
+	)
 }

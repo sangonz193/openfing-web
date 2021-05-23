@@ -1,5 +1,5 @@
-import { RouteConfig } from "../_utils/RouteConfig";
-import { Updates } from "./components/Updates";
+import { RouteConfig } from "../_utils/RouteConfig"
+import { Updates } from "./components/Updates"
 
 export const updatesRouteConfig: RouteConfig = {
 	path: `/updates`,
@@ -7,4 +7,4 @@ export const updatesRouteConfig: RouteConfig = {
 	matchConfig: {
 		path: `/updates`,
 	},
-};
+}

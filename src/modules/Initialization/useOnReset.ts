@@ -1,13 +1,13 @@
-import React from "react";
+import React from "react"
 
-import { useInitializationStore } from "./useInitializationStore";
+import { useInitializationStore } from "./useInitializationStore"
 
 export const useOnReset = (listener: () => void | Promise<void>) => {
-	const store = useInitializationStore();
+	const store = useInitializationStore()
 
 	React.useEffect(() => {
-		store.addResetListener(listener);
+		store.addResetListener(listener)
 
-		return () => store.removeResetListener(listener);
-	}, [listener]);
-};
+		return () => store.removeResetListener(listener)
+	}, [listener])
+}

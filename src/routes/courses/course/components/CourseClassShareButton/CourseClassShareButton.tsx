@@ -1,21 +1,21 @@
-import { CommandBarButton, ICommandBarItemProps } from "@fluentui/react";
-import React from "react";
+import { CommandBarButton, ICommandBarItemProps } from "@fluentui/react"
+import React from "react"
 
-import { SHARE_SOCIAL_ICON_NAME } from "../../../../../components/Icon/ShareSocial.icon";
-import { CourseClassShareModal } from "../CourseClassShareModal";
-import { useCourseClassShareButtonStyles } from "./useCourseClassShareButtonStyles";
+import { SHARE_SOCIAL_ICON_NAME } from "../../../../../components/Icon/ShareSocial.icon"
+import { CourseClassShareModal } from "../CourseClassShareModal"
+import { useCourseClassShareButtonStyles } from "./useCourseClassShareButtonStyles"
 
-export type CourseClassShareButtonProps = ICommandBarItemProps;
+export type CourseClassShareButtonProps = ICommandBarItemProps
 
 const CourseClassShareButtonComponent: React.FC<CourseClassShareButtonProps> = ({ className }) => {
 	const styles = useCourseClassShareButtonStyles({
 		className,
-	});
+	})
 
-	const [modalVisible, setModalVisible] = React.useState(false);
+	const [modalVisible, setModalVisible] = React.useState(false)
 
-	const handleClick = React.useCallback(() => setModalVisible(true), []);
-	const handleClose = React.useCallback(() => setModalVisible(false), []);
+	const handleClick = React.useCallback(() => setModalVisible(true), [])
+	const handleClose = React.useCallback(() => setModalVisible(false), [])
 
 	return (
 		<>
@@ -29,7 +29,7 @@ const CourseClassShareButtonComponent: React.FC<CourseClassShareButtonProps> = (
 
 			<CourseClassShareModal visible={modalVisible} onClose={handleClose} />
 		</>
-	);
-};
+	)
+}
 
-export const CourseClassShareButton = React.memo(CourseClassShareButtonComponent);
+export const CourseClassShareButton = React.memo(CourseClassShareButtonComponent)

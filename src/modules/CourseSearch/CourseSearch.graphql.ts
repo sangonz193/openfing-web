@@ -1,4 +1,4 @@
-import { gql } from "@apollo/client";
+import { gql } from "@apollo/client"
 
 export const CourseFragment_CourseSearch = gql`
 	fragment CourseFragment_CourseSearch on Course {
@@ -6,4 +6,4 @@ export const CourseFragment_CourseSearch = gql`
 		name
 		code
 	}
-`;
+`

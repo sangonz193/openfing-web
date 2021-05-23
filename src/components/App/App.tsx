@@ -1,14 +1,14 @@
-import React from "react";
+import React from "react"
 
-import { useRoutes } from "../../hooks/useRoutes";
-import { Layout } from "../Layout";
+import { useRoutes } from "../../hooks/useRoutes"
+import { Layout } from "../Layout"
 
 export type AppProps = {
-	children?: never;
-};
+	children?: never
+}
 
 export const App: React.FC<AppProps> = ({}) => {
-	const [routeConfig, params = {}] = useRoutes() || [];
+	const [routeConfig, params = {}] = useRoutes() || []
 
-	return <Layout>{routeConfig?.element(params)}</Layout>;
-};
+	return <Layout>{routeConfig?.element(params)}</Layout>
+}

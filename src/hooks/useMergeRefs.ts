@@ -1,28 +1,28 @@
-import { useMemo } from "react";
+import { useMemo } from "react"
 
 // https://github.com/react-restart/hooks/blob/master/src/useMergedRefs.ts
 
-type CallbackRef<T> = (ref: T | null) => void;
-type Ref<T> = React.MutableRefObject<T> | CallbackRef<T>;
+type CallbackRef<T> = (ref: T | null) => void
+type Ref<T> = React.MutableRefObject<T> | CallbackRef<T>
 
 const toFnRef = <T>(ref?: Ref<T> | null) =>
 	!ref || typeof ref === "function"
 		? ref
 		: (value: T) => {
-				ref.current = value;
-		  };
+				ref.current = value
+		  }
 
 export function mergeRefs<T>(refA?: Ref<T> | null, refB?: Ref<T> | null) {
-	const a = toFnRef(refA);
-	const b = toFnRef(refB);
+	const a = toFnRef(refA)
+	const b = toFnRef(refB)
 	return (value: T | null) => {
 		if (a) {
-			a(value as T);
+			a(value as T)
 		}
 		if (b) {
-			b(value as T);
+			b(value as T)
 		}
-	};
+	}
 }
 
 /**
@@ -42,5 +42,5 @@ export function mergeRefs<T>(refA?: Ref<T> | null, refB?: Ref<T> | null) {
  * @category refs
  */
 export function useMergedRefs<T>(refA?: Ref<T> | null, refB?: Ref<T> | null) {
-	return useMemo(() => mergeRefs(refA, refB), [refA, refB]);
+	return useMemo(() => mergeRefs(refA, refB), [refA, refB])
 }

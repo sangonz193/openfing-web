@@ -1,6 +1,6 @@
-import { ICalloutContentStyles, makeStyles } from "@fluentui/react";
+import { ICalloutContentStyles, makeStyles } from "@fluentui/react"
 
-export type CourseClassPlayerPlaybackRateButtonStyleProps = {};
+export type CourseClassPlayerPlaybackRateButtonStyleProps = {}
 
 const useStyles = makeStyles((theme) => {
 	return {
@@ -79,13 +79,13 @@ const useStyles = makeStyles((theme) => {
 			flexShrink: 0,
 			minWidth: 180,
 		},
-	};
-});
+	}
+})
 
 export function useCourseClassPlayerPlaybackRateButtonStyles({}: CourseClassPlayerPlaybackRateButtonStyleProps) {
-	const styles = useStyles();
+	const styles = useStyles()
 
 	return {
 		...styles,
-	};
+	}
 }

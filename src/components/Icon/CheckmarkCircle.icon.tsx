@@ -1,4 +1,4 @@
-import { registerIcons } from "@fluentui/style-utilities";
+import { registerIcons } from "@fluentui/style-utilities"
 
 function CheckmarkCircleIcon() {
 	return (
@@ -19,13 +19,13 @@ function CheckmarkCircleIcon() {
 				d="M352 176L217.6 336 160 272"
 			></path>
 		</svg>
-	);
+	)
 }
 
-export const CHECKMARK_CIRCLE_ICON_NAME = "Checkmark Circle";
+export const CHECKMARK_CIRCLE_ICON_NAME = "Checkmark Circle"
 
 registerIcons({
 	icons: {
 		[CHECKMARK_CIRCLE_ICON_NAME]: <CheckmarkCircleIcon />,
 	},
-});
+})

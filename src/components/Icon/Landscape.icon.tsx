@@ -1,4 +1,4 @@
-import { registerIcons } from "@fluentui/style-utilities";
+import { registerIcons } from "@fluentui/style-utilities"
 
 function LandscapeIcon() {
 	return (
@@ -18,13 +18,13 @@ function LandscapeIcon() {
 				strokeWidth="32"
 			/>
 		</svg>
-	);
+	)
 }
 
-export const LANDSCAPE_ICON_NAME = "Landscape";
+export const LANDSCAPE_ICON_NAME = "Landscape"
 
 registerIcons({
 	icons: {
 		[LANDSCAPE_ICON_NAME]: <LandscapeIcon />,
 	},
-});
+})

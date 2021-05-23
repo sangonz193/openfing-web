@@ -1,34 +1,34 @@
-import React from "react";
+import React from "react"
 
-import { PAUSE_ICON_NAME } from "../../../../../components/Icon/Pause.icon";
-import { PLAY_ICON_NAME } from "../../../../../components/Icon/Play.icon";
-import { useReactiveVars } from "../../../../../hooks/useReactiveVars";
-import { useCourseClassPlayerStore } from "../../../../../modules/CourseClassPlayer";
-import { CourseClassPlayerButton, CourseClassPlayerButtonProps } from "../CourseClassPlayerButton";
+import { PAUSE_ICON_NAME } from "../../../../../components/Icon/Pause.icon"
+import { PLAY_ICON_NAME } from "../../../../../components/Icon/Play.icon"
+import { useReactiveVars } from "../../../../../hooks/useReactiveVars"
+import { useCourseClassPlayerStore } from "../../../../../modules/CourseClassPlayer"
+import { CourseClassPlayerButton, CourseClassPlayerButtonProps } from "../CourseClassPlayerButton"
 
 export type CourseClassPlayerPlayButtonProps = {
-	children?: undefined;
-};
+	children?: undefined
+}
 
 const CourseClassPlayerPlayButtonComponent: React.FC<CourseClassPlayerPlayButtonProps> = ({}) => {
-	const courseClassPlayerStore = useCourseClassPlayerStore();
-	const { paused } = useReactiveVars(courseClassPlayerStore, ["paused"]);
+	const courseClassPlayerStore = useCourseClassPlayerStore()
+	const { paused } = useReactiveVars(courseClassPlayerStore, ["paused"])
 
 	const buttonProps = React.useMemo<CourseClassPlayerButtonProps["buttonProps"]>(
 		() => ({
 			onClick: (e) => {
 				if (e?.defaultPrevented) {
-					return;
+					return
 				}
 
-				e?.preventDefault();
-				courseClassPlayerStore.togglePlay();
+				e?.preventDefault()
+				courseClassPlayerStore.togglePlay()
 			},
 		}),
 		[]
-	);
+	)
 
-	return <CourseClassPlayerButton iconName={paused ? PLAY_ICON_NAME : PAUSE_ICON_NAME} buttonProps={buttonProps} />;
-};
+	return <CourseClassPlayerButton iconName={paused ? PLAY_ICON_NAME : PAUSE_ICON_NAME} buttonProps={buttonProps} />
+}
 
-export const CourseClassPlayerPlayButton = React.memo(CourseClassPlayerPlayButtonComponent);
+export const CourseClassPlayerPlayButton = React.memo(CourseClassPlayerPlayButtonComponent)

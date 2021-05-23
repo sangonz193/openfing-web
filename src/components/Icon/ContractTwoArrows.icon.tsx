@@ -1,4 +1,4 @@
-import { registerIcons } from "@fluentui/style-utilities";
+import { registerIcons } from "@fluentui/style-utilities"
 
 function ContractTwoArrowsIcon() {
 	return (
@@ -36,13 +36,13 @@ function ContractTwoArrowsIcon() {
 				d="M197.77 314.2L80 432"
 			></path>
 		</svg>
-	);
+	)
 }
 
-export const CONTRACT_TWO_ARROWS_ICON_NAME = "ContractTwoArrows";
+export const CONTRACT_TWO_ARROWS_ICON_NAME = "ContractTwoArrows"
 
 registerIcons({
 	icons: {
 		[CONTRACT_TWO_ARROWS_ICON_NAME]: <ContractTwoArrowsIcon />,
 	},
-});
+})
