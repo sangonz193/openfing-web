@@ -1,14 +1,11 @@
 import "../.../../../../../../components/Icon/More.icon"
 
-import { CommandBar, Link, Panel } from "@fluentui/react"
+import { Panel } from "@fluentui/react"
 import React from "react"
 import { useMediaQuery } from "react-responsive"
 
 import { Container } from "../../../../../components/Container"
-import { ADD_ICON_NAME } from "../../../../../components/Icon/Add.icon"
-import { useLayoutOptions } from "../../../../../components/Layout/useLayoutOptions"
 import { useDocumentTitle } from "../../../../../hooks/useDocumentTitle"
-import { useLocalLinkProps } from "../../../../../hooks/useLocalLinkProps"
 import { useQueryParams } from "../../../../../hooks/useQueryParams"
 import { useReactiveVars } from "../../../../../hooks/useReactiveVars"
 import { useCourseClassPlayerStore } from "../../../../../modules/CourseClassPlayer"
@@ -20,8 +17,8 @@ import { CourseMaster } from "../CourseMaster"
 import { CreateCourseClassListForm } from "../CreateCourseClassListForm/CreateCourseClassListForm"
 import type { CourseClassListByCodeQueryVariables } from "./Course.graphql.generated"
 import { useCourseClassListByCodeQuery } from "./Course.graphql.generated"
+import { useCourseLayoutOptions } from "./useCourseLayoutOptions"
 import { useCourseStyles } from "./useCourseStyles"
-import { useCreateCourseClassListHeaderTitleHack } from "./useCreateCourseClassListHeaderTitleHack"
 
 export type CourseProps = {
 	children?: undefined
@@ -70,59 +67,20 @@ const CourseComponent: React.FC<CourseProps> = ({ className, courseClassListCode
 	}, [queryParams.t, history.location.hash])
 
 	const isSM = useMediaQuery({ minWidth: Breakpoint.sm })
-	const { headerTitle, headerTitleOverride } = useCreateCourseClassListHeaderTitleHack(
-		!courseClassListByCodeQueryResult.loading && !course ? "Oops" : courseName ? courseName : "",
-		courseClassListCode,
-		courseClassListByCode
-	)
 	const showCourseDetail = (courseClassNumber && course) || isSM
 
 	const styles = useCourseStyles({
 		className,
 	})
 
-	const evaLinkProps = useLocalLinkProps({
-		href: course?.eva ?? undefined,
-		className: styles.headerLink,
-	})
-
 	const [showCreateCourseClassListForm, setShowCreateCourseClassListForm] = React.useState(false)
-
-	const { secret } = { secret: undefined as undefined | string } // TODO: get isAdmin condition
-	useLayoutOptions({
-		headerTitle: headerTitle,
-		headerRight: React.useMemo(() => {
-			if (!headerTitleOverride) {
-				return !!evaLinkProps.href && <Link {...evaLinkProps}>EVA</Link>
-			}
-
-			if (!secret) {
-				return null
-			}
-
-			return (
-				<div style={{ height: "100%" }}>
-					<CommandBar
-						className={styles.commandBar}
-						items={[]}
-						overflowItems={[
-							{
-								key: "create_course_class_list",
-								title: "Crear lista",
-								text: "Crear lista",
-								iconProps: {
-									iconName: ADD_ICON_NAME,
-								},
-								className: styles.commandBarOverflowItemButton,
-								onClick: () => {
-									setShowCreateCourseClassListForm(true)
-								},
-							},
-						]}
-					/>
-				</div>
-			)
-		}, [styles.headerLink, evaLinkProps, styles.commandBar, styles.commandBarOverflowItemButton]),
+	useCourseLayoutOptions({
+		courseClassListCode: courseClassListCode,
+		onShowCreateCourseClassListForm: React.useCallback(() => setShowCreateCourseClassListForm(true), []),
+		styles: styles,
+		courseClassListByCodeQueryResult,
+		courseEva: course?.eva,
+		courseName,
 	})
 
 	return (

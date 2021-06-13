@@ -48,16 +48,22 @@ export const Layout: React.FC<LayoutProps> = (props) => {
 			<Stack className={styles.wrapper} {...eventListeners}>
 				<Stack className={styles.contentAndHeaderContainer}>
 					{layoutOptionsWithOverrides.showHeader && (
-						<Header
-							title={layoutOptionsWithOverrides.headerTitle}
-							left={layoutOptionsWithOverrides.headerLeft}
-							right={layoutOptionsWithOverrides.headerRight}
-						/>
+						<Stack.Item disableShrink>
+							<Header
+								title={layoutOptionsWithOverrides.headerTitle}
+								left={layoutOptionsWithOverrides.headerLeft}
+								right={layoutOptionsWithOverrides.headerRight}
+							/>
+						</Stack.Item>
 					)}
 					<Stack className={styles.componentContainer}>{children}</Stack>
 				</Stack>
 
-				{layoutOptionsWithOverrides.showNavBar && <Navbar />}
+				{layoutOptionsWithOverrides.showNavBar && (
+					<Stack.Item disableShrink>
+						<Navbar />
+					</Stack.Item>
+				)}
 			</Stack>
 		</LayoutContext.Provider>
 	)

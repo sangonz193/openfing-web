@@ -72,14 +72,16 @@ const AdminSecretComponent: React.FC<AdminSecretProps> = ({ className, onSuccess
 						name="secret"
 						controllerProps={{ defaultValue: "" }}
 						control={control}
-						textFieldProps={{ label: "Secreto" }}
+						textFieldProps={{ label: "Secreto", type: "password" }}
 						validationSchema={validationSchema}
 					/>
 				</Stack>
 
-				<PrimaryButton className={styles.sendButton} type="submit" disabled={loading}>
-					Enviar
-				</PrimaryButton>
+				<Stack.Item>
+					<PrimaryButton className={styles.sendButton} type="submit" disabled={loading}>
+						Enviar
+					</PrimaryButton>
+				</Stack.Item>
 			</Stack>
 		</form>
 	)

@@ -12,4 +12,6 @@ export class AuthStore {
 			  }
 			| undefined
 		>(undefined)
+
+	secret = makeVar<string | undefined>(undefined)
 }

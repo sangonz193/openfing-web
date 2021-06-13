@@ -1,5 +1,7 @@
 import React, { useCallback } from "react"
 
+import { useReactiveVars } from "../../../../hooks/useReactiveVars"
+import { useAuthStore } from "../../../../modules/Auth"
 import { useHistory } from "../../../../modules/Navigation/useHistory"
 import { coursesRouteConfig } from "../../../courses/courses.route.config"
 import { AdminSecret } from "../AdminSecret"
@@ -10,13 +12,12 @@ export type AdminProps = {
 
 const AdminComponent: React.FC<AdminProps> = ({}) => {
 	const history = useHistory()
-	const { secret } = { secret: undefined as string | undefined } // TODO: get isAdmin condition
+	const authStore = useAuthStore()
+	const { secret } = useReactiveVars(authStore, ["secret"])
 
-	const handleSuccess = useCallback(() =>
-		// secret: string
-		{
-			// appStore.secret(secret)
-		}, [])
+	const handleSuccess = useCallback((secret: string) => {
+		authStore.secret(secret)
+	}, [])
 
 	React.useEffect(() => {
 		if (secret) {

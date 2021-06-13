@@ -27,7 +27,8 @@ export const routesConfig = {
 	faqs: faqsRouteConfig,
 	home: homeRouteConfig,
 	login: loginRouteConfig,
-	redirect: redirectConfig,
 	settings: settingsRouteConfig,
 	updates: updatesRouteConfig,
+
+	redirect: redirectConfig,
 }

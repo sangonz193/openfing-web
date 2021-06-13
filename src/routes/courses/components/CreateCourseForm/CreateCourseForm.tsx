@@ -10,6 +10,8 @@ import * as yup from "yup"
 import { FormDropdown } from "../../../../components/FormDropdown/FormDropdown"
 import { FormTextField } from "../../../../components/FormTextField/FormTextField"
 import type { CreateCourseInputVisibility } from "../../../../graphql/remoteSchema.types"
+import { useReactiveVars } from "../../../../hooks/useReactiveVars"
+import { useAuthStore } from "../../../../modules/Auth"
 import { useCreateCourseMutation } from "./CreateCourseForm.graphql.generated"
 import { useCreateCourseFormStyles } from "./useCreateCourseFormStyles"
 
@@ -25,7 +27,7 @@ const CreateCourseFormComponent: React.FC<CreateCourseFormProps> = ({ className,
 		className,
 	})
 
-	const { secret } = { secret: undefined as undefined | string } // TODO: get isAdmin condition
+	const { secret } = useReactiveVars(useAuthStore(), ["secret"]) // TODO: get isAdmin condition
 
 	type FormValues = {
 		code: string
