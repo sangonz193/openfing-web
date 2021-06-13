@@ -14,11 +14,20 @@ import { useHistory } from "../../../../../modules/Navigation/useHistory"
 import { Breakpoint } from "../../../../../styles/Breakpoint"
 import { CourseDetail } from "../CourseDetail"
 import { CourseMaster } from "../CourseMaster"
-import { CreateCourseClassListForm } from "../CreateCourseClassListForm/CreateCourseClassListForm"
 import type { CourseClassListByCodeQueryVariables } from "./Course.graphql.generated"
 import { useCourseClassListByCodeQuery } from "./Course.graphql.generated"
 import { useCourseLayoutOptions } from "./useCourseLayoutOptions"
 import { useCourseStyles } from "./useCourseStyles"
+
+const CreateCourseClassForm = React.lazy(() =>
+	import("../CreateCourseClassForm").then(({ CreateCourseClassForm }) => ({ default: CreateCourseClassForm }))
+)
+
+const CreateCourseClassListForm = React.lazy(() =>
+	import("../CreateCourseClassListForm").then(({ CreateCourseClassListForm }) => ({
+		default: CreateCourseClassListForm,
+	}))
+)
 
 export type CourseProps = {
 	children?: undefined
@@ -73,15 +82,20 @@ const CourseComponent: React.FC<CourseProps> = ({ className, courseClassListCode
 		className,
 	})
 
-	const [showCreateCourseClassListForm, setShowCreateCourseClassListForm] = React.useState(false)
+	const [showCreateCourseClassList, setShowCreateCourseClassList] = React.useState(false)
+	const [createCourseClassCourseClassListCode, setCreateCourseClassCourseClassListCode] = React.useState<string>()
 	useCourseLayoutOptions({
 		courseClassListCode: courseClassListCode,
-		onShowCreateCourseClassListForm: React.useCallback(() => setShowCreateCourseClassListForm(true), []),
+		onShowCreateCourseClassListForm: React.useCallback(() => setShowCreateCourseClassList(true), []),
+		onShowCreateCourseClassForm: setCreateCourseClassCourseClassListCode,
 		styles: styles,
 		courseClassListByCodeQueryResult,
 		courseEva: course?.eva,
 		courseName,
+		courseCode: course?.code,
 	})
+
+	CreateCourseClassForm
 
 	return (
 		<>
@@ -95,22 +109,45 @@ const CourseComponent: React.FC<CourseProps> = ({ className, courseClassListCode
 
 			<Panel
 				headerText="Crear lista de clases"
-				isOpen={showCreateCourseClassListForm}
+				isOpen={showCreateCourseClassList && !!course?.code}
 				closeButtonAriaLabel="Cerrar"
 				onDismiss={() => {
 					// TODO: confirm
-					setShowCreateCourseClassListForm(false)
+					setShowCreateCourseClassList(false)
 				}}
 			>
-				{showCreateCourseClassListForm && (
-					<CreateCourseClassListForm
-						courseCode={courseClassListCode}
-						courseId={courseClassListCode}
-						onClose={() => {
-							setShowCreateCourseClassListForm(false)
-						}}
-					/>
-				)}
+				<React.Suspense fallback={null}>
+					{showCreateCourseClassList && course?.code && (
+						<CreateCourseClassListForm
+							courseCode={course.code}
+							courseId={courseClassListCode}
+							onClose={() => {
+								setShowCreateCourseClassList(false)
+							}}
+						/>
+					)}
+				</React.Suspense>
+			</Panel>
+
+			<Panel
+				headerText="Crear clase"
+				isOpen={!!createCourseClassCourseClassListCode}
+				closeButtonAriaLabel="Cerrar"
+				onDismiss={() => {
+					// TODO: confirm
+					setCreateCourseClassCourseClassListCode(undefined)
+				}}
+			>
+				<React.Suspense fallback={null}>
+					{createCourseClassCourseClassListCode && (
+						<CreateCourseClassForm
+							courseClassListCode={createCourseClassCourseClassListCode}
+							onClose={() => {
+								setCreateCourseClassCourseClassListCode(undefined)
+							}}
+						/>
+					)}
+				</React.Suspense>
 			</Panel>
 		</>
 	)

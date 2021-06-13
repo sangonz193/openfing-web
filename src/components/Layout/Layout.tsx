@@ -61,7 +61,9 @@ export const Layout: React.FC<LayoutProps> = (props) => {
 
 				{layoutOptionsWithOverrides.showNavBar && (
 					<Stack.Item disableShrink>
-						<Navbar />
+						<Stack verticalFill horizontal>
+							<Navbar />
+						</Stack>
 					</Stack.Item>
 				)}
 			</Stack>

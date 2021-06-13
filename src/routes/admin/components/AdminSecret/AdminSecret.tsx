@@ -65,7 +65,7 @@ const AdminSecretComponent: React.FC<AdminSecretProps> = ({ className, onSuccess
 	}, [data])
 
 	return (
-		<form className={styles.wrapper} onSubmit={handleSubmit(handleValidSubmit)}>
+		<form className={styles.wrapper} onSubmit={handleSubmit(handleValidSubmit)} noValidate>
 			<Stack className={styles.container}>
 				<Stack className={styles.secretContainer}>
 					<FormTextField

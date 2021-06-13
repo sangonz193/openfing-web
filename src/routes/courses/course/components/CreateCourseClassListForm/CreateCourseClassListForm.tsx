@@ -63,7 +63,7 @@ const CreateCourseClassListFormComponent: React.FC<CreateCourseClassListFormProp
 					.string()
 					.required("El campo código es requerido.")
 					.max(200, ({ max }) => `El nombre no puede exceder los ${max} caracteres.`),
-				oddSemester: yup.boolean().required("El campo semestre es requerido."),
+				oddSemester: yup.boolean().default(false),
 				year: yup
 					.number()
 					.typeError(({ originalValue }) =>
@@ -189,7 +189,7 @@ const CreateCourseClassListFormComponent: React.FC<CreateCourseClassListFormProp
 	}, [data])
 
 	return (
-		<form className={styles.wrapper} onSubmit={handleSubmit(handleValidSubmit)}>
+		<form className={styles.wrapper} onSubmit={handleSubmit(handleValidSubmit)} noValidate>
 			<Stack tokens={{ childrenGap: 10 }}>
 				<FormTextField
 					name="name"

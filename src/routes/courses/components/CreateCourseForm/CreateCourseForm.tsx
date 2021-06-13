@@ -98,7 +98,7 @@ const CreateCourseFormComponent: React.FC<CreateCourseFormProps> = ({ className,
 	}, [data])
 
 	return (
-		<form className={styles.wrapper} onSubmit={handleSubmit(handleValidSubmit)}>
+		<form className={styles.wrapper} onSubmit={handleSubmit(handleValidSubmit)} noValidate>
 			<Stack tokens={{ childrenGap: 10 }}>
 				<FormTextField
 					name="name"

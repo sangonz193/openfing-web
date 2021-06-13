@@ -14,6 +14,7 @@ export const courseClassListByCode = gql`
 
 					course {
 						id
+						code
 						name
 						eva
 					}

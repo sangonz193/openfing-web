@@ -1,36 +1,42 @@
-import "../../../../../components/Icon/More.icon"
-
 import type { QueryResult } from "@apollo/client"
 import { CommandBar, Link } from "@fluentui/react"
 import React from "react"
 
-import { ADD_ICON_NAME } from "../../../../../components/Icon/Add.icon"
-import { OPEN_ICON_NAME } from "../../../../../components/Icon/Open.icon"
-import { useLayoutOptions } from "../../../../../components/Layout/useLayoutOptions"
-import { useLocalLinkProps } from "../../../../../hooks/useLocalLinkProps"
-import { useReactiveVars } from "../../../../../hooks/useReactiveVars"
-import { useAuthStore } from "../../../../../modules/Auth"
-import { useHistory } from "../../../../../modules/Navigation/useHistory"
-import type { CourseClassListByCodeQuery } from "./Course.graphql.generated"
-import type { useCourseStyles } from "./useCourseStyles"
-import { useCreateCourseClassListHeaderTitleHack } from "./useCreateCourseClassListHeaderTitleHack"
+import { ADD_ICON_NAME } from "../../../../../../components/Icon/Add.icon"
+import {} from "../../../../../../components/Icon/More.icon"
+import { OPEN_ICON_NAME } from "../../../../../../components/Icon/Open.icon"
+import { useLayoutOptions } from "../../../../../../components/Layout/useLayoutOptions"
+import { useLocalLinkProps } from "../../../../../../hooks/useLocalLinkProps"
+import { useReactiveVars } from "../../../../../../hooks/useReactiveVars"
+import { useAuthStore } from "../../../../../../modules/Auth"
+import { useHistory } from "../../../../../../modules/Navigation/useHistory"
+import type { CourseClassListByCodeQuery } from "../Course.graphql.generated"
+import type { useCourseStyles } from "../useCourseStyles"
+import { useCreateCourseClassListHeaderTitleHack } from "../useCreateCourseClassListHeaderTitleHack"
+import type { CourseClassListsQueryVariables } from "./useCourseLayoutOptions.graphql.generated"
+import { useCourseClassListsQuery } from "./useCourseLayoutOptions.graphql.generated"
+import { useCreateCourseClassCommandItem } from "./useCreateCourseClassCommandItem"
 
 export type UseCourseLayoutOptionsOptions = {
+	courseClassListByCodeQueryResult: QueryResult<CourseClassListByCodeQuery>
 	courseClassListCode: string
+	courseCode: string | undefined
 	courseEva: string | undefined | null
 	courseName: string | undefined
-	courseClassListByCodeQueryResult: QueryResult<CourseClassListByCodeQuery>
 	styles: ReturnType<typeof useCourseStyles>
 	onShowCreateCourseClassListForm: () => void
+	onShowCreateCourseClassForm: (courseClassListCode: string) => void
 }
 
 export function useCourseLayoutOptions({
 	courseClassListByCodeQueryResult,
 	courseClassListCode,
+	courseCode,
 	courseEva,
 	courseName,
 	styles,
 	onShowCreateCourseClassListForm,
+	onShowCreateCourseClassForm,
 }: UseCourseLayoutOptionsOptions) {
 	const history = useHistory()
 	const { courseClassListByCode } = courseClassListByCodeQueryResult.data ?? {}
@@ -39,6 +45,12 @@ export function useCourseLayoutOptions({
 		courseClassListCode,
 		courseClassListByCode
 	)
+
+	const variables: CourseClassListsQueryVariables | undefined = courseCode ? { code: courseCode } : undefined
+	const courseClassListsResult = useCourseClassListsQuery({
+		variables: variables,
+		skip: !variables,
+	})
 
 	const evaLinkProps = useLocalLinkProps({
 		href: courseEva ?? undefined,
@@ -55,6 +67,11 @@ export function useCourseLayoutOptions({
 	}, [evaUrl])
 
 	const { secret } = useReactiveVars(useAuthStore(), ["secret"]) // TODO: get isAdmin condition
+	const createCourseClassCommandItem = useCreateCourseClassCommandItem({
+		courseClassListsResult,
+		styles,
+		onShowCreateCourseClassForm,
+	})
 	useLayoutOptions({
 		headerTitle: headerTitle,
 		headerRight: React.useMemo(() => {
@@ -73,15 +90,16 @@ export function useCourseLayoutOptions({
 						className={styles.commandBar}
 						items={[]}
 						overflowItems={[
+							createCourseClassCommandItem,
 							{
 								key: "create_course_class_list",
-								title: "Crear lista",
-								text: "Crear lista",
+								title: "Crear lista de clases",
+								text: "Crear lista de clases",
 								iconProps: {
 									iconName: ADD_ICON_NAME,
 								},
 								className: styles.commandBarOverflowItemButton,
-								onClick: onShowCreateCourseClassListForm,
+								onClick: () => onShowCreateCourseClassListForm(),
 							},
 							{
 								key: "open_eva",

@@ -1,7 +1,10 @@
 import { hasProperty } from "@sangonz193/utils/hasProperty"
 
 // TODO: rename?
-export const getCreatedCourseFromCacheHack = (cache: unknown, courseCode: string) => {
+export const getCreatedCourseFromCacheHack = (
+	cache: unknown,
+	courseCode: string
+): { code: string; name: string } | null => {
 	if (typeof cache !== "object" || !cache) {
 		return null
 	}
