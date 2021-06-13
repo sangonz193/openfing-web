@@ -7,7 +7,6 @@ export type HeaderStyleProps = {
 const useStyles = makeStyles((theme) => {
 	return {
 		wrapper: {
-			flexDirection: "row",
 			height: 50,
 			flexShrink: 0,
 

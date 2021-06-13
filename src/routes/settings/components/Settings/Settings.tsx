@@ -4,9 +4,8 @@ import identity from "lodash/identity"
 import React from "react"
 
 import { appConfig } from "../../../../app.config"
-import { useLayoutOptions } from "../../../../components/Layout/useLayoutOptions"
-import { useDocumentTitle } from "../../../../hooks/useDocumentTitle"
 import { useReactiveVars } from "../../../../hooks/useReactiveVars"
+import { useScreenTitle } from "../../../../hooks/useScreenTitle"
 import { useAppearanceStore } from "../../../../modules/Appearance"
 import type { ThemeKey } from "../../../../styles/themes"
 import { isThemeKey } from "../../../../styles/themes"
@@ -17,12 +16,9 @@ export type SettingsProps = {
 }
 
 const SettingsComponent: React.FC<SettingsProps> = () => {
-	const styles = useSettingsStyles()
+	useScreenTitle("Ajustes")
 
-	useDocumentTitle(`Ajustes - ${appConfig.name}`)
-	useLayoutOptions({
-		headerTitle: "Ajustes",
-	})
+	const styles = useSettingsStyles()
 
 	const appearanceStore = useAppearanceStore()
 	const { themeKey: selectedThemeKey } = useReactiveVars(appearanceStore, ["themeKey"])

@@ -39,6 +39,10 @@ export const ValidationAndCacheLink = () => {
 		const schema = getSchema(operation.getContext())
 
 		return forward(operation).map((value) => {
+			if (value.errors?.length) {
+				return value
+			}
+
 			const execResult = execute({
 				schema,
 				document: operation.query,
@@ -49,17 +53,17 @@ export const ValidationAndCacheLink = () => {
 			const isPromise = (value: unknown): value is Promise<unknown> =>
 				isObject(value) && hasProperty(value, "then") && typeof value.then === "function"
 
-			value.errors = [new GraphQLError("Unexpected promise returned from `execute`")]
-
-			return isPromise(execResult)
+			const result: typeof value = isPromise(execResult)
 				? {
 						data: {},
-						graphQLErrors: [new GraphQLError("Unexpected promise returned from `execute`")],
+						errors: [new GraphQLError("Unexpected promise returned from `execute`")],
 				  }
 				: {
 						data: execResult.data ?? {},
 						errors: execResult.errors,
 				  }
+
+			return result
 		})
 	})
 }

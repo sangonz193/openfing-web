@@ -1,11 +1,10 @@
-import { PrimaryButton } from "@fluentui/react"
+import { PrimaryButton, Stack } from "@fluentui/react"
 import { yupResolver } from "@hookform/resolvers/yup"
 import React, { useCallback, useEffect, useState } from "react"
 import type { SubmitHandler } from "react-hook-form"
 import { useForm } from "react-hook-form"
 import * as yup from "yup"
 
-import { Container } from "../../../../components/Container"
 import { FormTextField } from "../../../../components/FormTextField/FormTextField"
 import { useLayoutOptions } from "../../../../components/Layout/useLayoutOptions"
 import { useUserFromSecretMutation } from "./AdminSecret.graphql.generated"
@@ -67,8 +66,8 @@ const AdminSecretComponent: React.FC<AdminSecretProps> = ({ className, onSuccess
 
 	return (
 		<form className={styles.wrapper} onSubmit={handleSubmit(handleValidSubmit)}>
-			<Container className={styles.container}>
-				<Container className={styles.secretContainer}>
+			<Stack className={styles.container}>
+				<Stack className={styles.secretContainer}>
 					<FormTextField
 						name="secret"
 						controllerProps={{ defaultValue: "" }}
@@ -76,12 +75,12 @@ const AdminSecretComponent: React.FC<AdminSecretProps> = ({ className, onSuccess
 						textFieldProps={{ label: "Secreto" }}
 						validationSchema={validationSchema}
 					/>
-				</Container>
+				</Stack>
 
 				<PrimaryButton className={styles.sendButton} type="submit" disabled={loading}>
 					Enviar
 				</PrimaryButton>
-			</Container>
+			</Stack>
 		</form>
 	)
 }

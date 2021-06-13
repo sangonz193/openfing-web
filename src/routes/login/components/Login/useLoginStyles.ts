@@ -1,6 +1,6 @@
 import { css, makeStyles } from "@fluentui/react"
 
-export type SignUpStyleProps = {
+export type LoginStyleProps = {
 	className: string | undefined
 }
 
@@ -13,7 +13,7 @@ const useStyles = makeStyles((theme) => {
 	}
 })
 
-export function useSignUpStyles({ className }: SignUpStyleProps) {
+export function useLoginStyles({ className }: LoginStyleProps) {
 	const styles = useStyles()
 
 	return {

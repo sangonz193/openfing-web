@@ -1,6 +1,6 @@
 import { css, makeStyles } from "@fluentui/react"
 
-export type SignUpStyleProps = {
+export type LoginFormStyleProps = {
 	className: string | undefined
 }
 
@@ -8,12 +8,13 @@ export type SignUpStyleProps = {
 const useStyles = makeStyles((theme) => {
 	return {
 		wrapper: {
-			overflow: "auto",
+			maxWidth: 300,
+			margin: 20,
 		},
 	}
 })
 
-export function useSignUpStyles({ className }: SignUpStyleProps) {
+export function useLoginFormStyles({ className }: LoginFormStyleProps) {
 	const styles = useStyles()
 
 	return {

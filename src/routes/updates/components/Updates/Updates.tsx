@@ -2,8 +2,7 @@ import { FocusZone, FocusZoneDirection, List, Separator, Spinner } from "@fluent
 import React from "react"
 
 import { CreativeCommonsFooter } from "../../../../components/CreativeCommonsFooter"
-import { useLayoutOptions } from "../../../../components/Layout/useLayoutOptions"
-import { useDocumentTitle } from "../../../../hooks/useDocumentTitle"
+import { useScreenTitle } from "../../../../hooks/useScreenTitle"
 import { UpdateItem } from "../UpdateItem"
 import { useUpdatesQuery } from "./Updates.graphql.generated"
 import { useUpdatesStyles } from "./useUpdatesStyles"
@@ -14,12 +13,10 @@ export type UpdatesProps = {
 }
 
 const UpdatesComponent: React.FC<UpdatesProps> = ({ className }) => {
+	useScreenTitle("Actualizaciones")
 	const styles = useUpdatesStyles({
 		className,
 	})
-
-	useDocumentTitle("Actualizaciones - OpenFING")
-	useLayoutOptions({ headerTitle: "Actualizaciones" })
 
 	const { loading, data } = useUpdatesQuery()
 	const { latestCourseClasses } = data || {}

@@ -1,12 +1,11 @@
-import { ApolloProvider } from "@apollo/client"
 import React from "react"
 
 import { withSiblings } from "./_utils/withSiblings"
 import { withWrappers } from "./_utils/withWrapper"
-import { createGraphqlClient } from "./graphql/createGraphQLClient"
-import { useRefWithInitializer } from "./hooks/useRefWithInitializer"
+import { ApolloProvider } from "./graphql/ApolloProvider"
 import { AppManager, AppProvider } from "./modules/App"
 import { AppearanceManager, AppearanceProvider } from "./modules/Appearance"
+import { AuthProvider } from "./modules/Auth"
 import { CourseClassPlayerManager, CourseClassPlayerProvider } from "./modules/CourseClassPlayer"
 import { CourseSearchProvider } from "./modules/CourseSearch"
 import { CourseSelectionManager, CourseSelectionProvider } from "./modules/CourseSelection"
@@ -27,9 +26,8 @@ const WithWrappers = withWrappers(
 		TeachingProvider,
 		CourseSearchProvider,
 		NavigationProvider,
-		({ children }) => (
-			<ApolloProvider client={useRefWithInitializer(createGraphqlClient).current}>{children}</ApolloProvider>
-		),
+		ApolloProvider,
+		AuthProvider,
 	],
 	withSiblings(
 		[AppManager, CourseClassPlayerManager, CourseSelectionManager, AppearanceManager, TeachingManager],

@@ -24,35 +24,6 @@ export const remoteSchema = gql`
 		updatedBy: User
 	}
 
-	type CourseClass {
-		id: ID!
-		number: Int
-		name: String
-		liveState: CourseClassLiveState
-		videos: [CourseClassVideo!]!
-		chapterCues: [CourseClassChapterCue!]!
-		courseClassList: CourseClassList
-		publishedAt: String
-		createdAt: String
-		updatedAt: String
-		createdBy: User
-		updatedBy: User
-	}
-
-	input CourseClassRefById {
-		id: ID!
-	}
-
-	input CourseClassRefByNumber {
-		courseClassList: CourseClassListRef!
-		number: Int!
-	}
-
-	input CourseClassRef {
-		byId: CourseClassRefById
-		byNumber: CourseClassRefByNumber
-	}
-
 	type CourseClassList {
 		id: ID!
 		code: String!
@@ -88,17 +59,33 @@ export const remoteSchema = gql`
 		courseClass: CourseClass
 	}
 
-	type CourseClassVideo {
+	type CourseClass {
 		id: ID!
+		number: Int
 		name: String
-		qualities: [CourseClassVideoQuality!]!
-		courseClass: CourseClass
+		liveState: CourseClassLiveState
+		videos: [CourseClassVideo!]!
+		chapterCues: [CourseClassChapterCue!]!
+		courseClassList: CourseClassList
+		publishedAt: String
 		createdAt: String
 		updatedAt: String
-		deletedAt: String
 		createdBy: User
-		deletedBy: User
 		updatedBy: User
+	}
+
+	input CourseClassRefById {
+		id: ID!
+	}
+
+	input CourseClassRefByNumber {
+		courseClassList: CourseClassListRef!
+		number: Int!
+	}
+
+	input CourseClassRef {
+		byId: CourseClassRefById
+		byNumber: CourseClassRefByNumber
 	}
 
 	type CourseClassVideoFormat {
@@ -129,19 +116,17 @@ export const remoteSchema = gql`
 		updatedBy: User
 	}
 
-	type Course {
+	type CourseClassVideo {
 		id: ID!
-		code: String!
-		name: String!
-		iconUrl: String
-		eva: String
-		editions: [CourseEdition!]!
+		name: String
+		qualities: [CourseClassVideoQuality!]!
+		courseClass: CourseClass
 		createdAt: String
 		updatedAt: String
 		deletedAt: String
 		createdBy: User
-		updatedBy: User
 		deletedBy: User
+		updatedBy: User
 	}
 
 	type CourseEdition {
@@ -151,6 +136,21 @@ export const remoteSchema = gql`
 		year: Int
 		courseClassLists: [CourseClassList!]!
 		course: Course
+		createdAt: String
+		updatedAt: String
+		deletedAt: String
+		createdBy: User
+		updatedBy: User
+		deletedBy: User
+	}
+
+	type Course {
+		id: ID!
+		code: String!
+		name: String!
+		iconUrl: String
+		eva: String
+		editions: [CourseEdition!]!
 		createdAt: String
 		updatedAt: String
 		deletedAt: String
@@ -178,94 +178,25 @@ export const remoteSchema = gql`
 
 	scalar ISODate
 
-	type Mutation {
-		_: Void
-		backupDb(secret: String!): Void
-		createCourseClass(input: CreateCourseClassInput!, secret: String!): CreateCourseClassResult!
-		createCourseClassList(input: CreateCourseClassListInput!, secret: String!): CreateCourseClassListResult!
-		createCourse(input: CreateCourseInput!, secret: String!): CreateCourseResult!
-		resetDatabaseFromBackup(secret: String!): String
-		setCourseClassLiveState(input: SetCourseClassLiveStateInput!, secret: String!): SetCourseClassLiveStateResult!
-		updateCourseClass(
-			ref: CourseClassRef!
-			input: UpdateCourseClassInput!
-			secret: String!
-		): UpdateCourseClassResult!
-		updateCourseClassList(
-			ref: CourseClassListRef!
-			input: UpdateCourseClassListInput!
-			secret: String!
-		): UpdateCourseClassListResult!
-		updateCourseClassVideos(courseClassId: ID!, secret: String!): NotFoundError
-		userFromSecret(secret: String!): UserFromSecretResult!
-	}
-
-	type NotFoundError {
+	type InvalidEmailDomainError {
 		_: Void
 	}
 
-	type Query {
+	type InvalidEmailDomain {
 		_: Void
-		courseByCode(code: String!): CourseByCodeResult!
-		courseById(id: ID!): CourseByIdResult!
-		courseClassById(id: ID!): CourseClassByIdResult!
-		courseClassListByCode(code: String!): CourseClassListByCodeResult!
-		courseClassListById(id: ID!): CourseClassListByIdResult!
-		courseEditionById(id: ID!): CourseEditionByIdResult!
-		courses: [Course!]!
-		faqs: [Faq!]!
-		latestCourseClasses: [CourseClass!]!
-		userRoles: [UserRole!]!
 	}
 
-	type User {
-		id: ID!
-		email: String!
-		name: String
-		uid: String
-		roles: [UserRole!]!
-		createdAt: String
-		updatedAt: String
-		deletedAt: String
+	type InvalidFormatError {
+		_: Void
 	}
 
-	type UserRole {
-		id: ID!
-		code: String!
+	type MaxLengthError {
+		max: Int!
 	}
 
-	scalar Void
-
-	union CourseByCodeResult = Course | NotFoundError
-
-	union CourseByIdResult = Course | NotFoundError
-
-	union CourseClassByIdResult = CourseClass | NotFoundError
-
-	union CourseClassListByCodeResult = CourseClassList | NotFoundError
-
-	union CourseClassListByIdResult = CourseClassList | NotFoundError
-
-	union CourseEditionByIdResult = CourseEdition | NotFoundError
-
-	enum CreateCourseClassInputVisibility {
-		PUBLIC
-		HIDDEN
-		DISABLED
+	type MinLengthError {
+		min: Int!
 	}
-
-	input CreateCourseClassInput {
-		courseClassListRef: CourseClassListRef!
-		name: String!
-		number: Int!
-		visibility: CreateCourseClassInputVisibility
-	}
-
-	type CreateCourseClassPayload {
-		courseClass: CourseClass!
-	}
-
-	union CreateCourseClassResult = CreateCourseClassPayload | GenericError | AuthenticationError
 
 	enum CreateCourseClassListInputVisibility {
 		PUBLIC
@@ -288,6 +219,25 @@ export const remoteSchema = gql`
 
 	union CreateCourseClassListResult = CreateCourseClassListPayload | GenericError | AuthenticationError
 
+	enum CreateCourseClassInputVisibility {
+		PUBLIC
+		HIDDEN
+		DISABLED
+	}
+
+	input CreateCourseClassInput {
+		courseClassListRef: CourseClassListRef!
+		name: String!
+		number: Int!
+		visibility: CreateCourseClassInputVisibility
+	}
+
+	type CreateCourseClassPayload {
+		courseClass: CourseClass!
+	}
+
+	union CreateCourseClassResult = CreateCourseClassPayload | GenericError | AuthenticationError
+
 	enum CreateCourseInputVisibility {
 		PUBLIC
 		HIDDEN
@@ -307,6 +257,30 @@ export const remoteSchema = gql`
 
 	union CreateCourseResult = CreateCoursePayload | GenericError | AuthenticationError
 
+	type Mutation {
+		_: Void
+		backupDb(secret: String!): Void
+		createCourseClassList(input: CreateCourseClassListInput!, secret: String!): CreateCourseClassListResult!
+		createCourseClass(input: CreateCourseClassInput!, secret: String!): CreateCourseClassResult!
+		createCourse(input: CreateCourseInput!, secret: String!): CreateCourseResult!
+		restoreDb(secret: String!): Void
+		setCourseClassLiveState(input: SetCourseClassLiveStateInput!, secret: String!): SetCourseClassLiveStateResult!
+		signIn(input: SignInInput!, secret: String!): SignInResult!
+		updateCourseClassList(
+			ref: CourseClassListRef!
+			input: UpdateCourseClassListInput!
+			secret: String!
+		): UpdateCourseClassListResult!
+		updateCourseClassVideos(courseClassId: ID!, secret: String!): NotFoundError
+		updateCourseClass(
+			ref: CourseClassRef!
+			input: UpdateCourseClassInput!
+			secret: String!
+		): UpdateCourseClassResult!
+		userFromSecret(secret: String!): UserFromSecretResult!
+		signUp(input: SignUpInput!, secret: String!): SignUpResult
+	}
+
 	input SetCourseClassLiveStateInput {
 		courseClassRef: CourseClassRef!
 		data: SetCourseClassLiveStateDataInput
@@ -319,29 +293,32 @@ export const remoteSchema = gql`
 	}
 
 	type SetCourseClassLiveStatePayload {
-		courseClassLiveState: CourseClassLiveState
+		courseClassLiveState: CourseClassLiveState!
 	}
 
 	union SetCourseClassLiveStateResult = SetCourseClassLiveStatePayload | GenericError | AuthenticationError
 
-	enum UpdateCourseClassInputVisibility {
-		PUBLIC
-		HIDDEN
-		DISABLED
+	input SignInInput {
+		email: String!
+		password: String!
 	}
 
-	input UpdateCourseClassInput {
-		name: String
-		number: Int
-		publishedAt: String
-		visibility: UpdateCourseClassInputVisibility
+	type SignInPayload {
+		accessToken: String!
+		refreshToken: String!
+		idToken: String!
 	}
 
-	type UpdateCourseClassPayload {
-		courseClass: CourseClass!
+	union SignInEmailError = RequiredFieldError | InvalidFormatError
+
+	union SignInPasswordError = RequiredFieldError
+
+	type SignInValidationErrors {
+		email: [SignInEmailError!]
+		password: [SignInPasswordError!]
 	}
 
-	union UpdateCourseClassResult = UpdateCourseClassPayload | GenericError | AuthenticationError | NotFoundError
+	union SignInResult = SignInPayload | GenericError | AuthenticationError | SignInValidationErrors
 
 	enum UpdateCourseClassListInputVisibility {
 		PUBLIC
@@ -364,11 +341,106 @@ export const remoteSchema = gql`
 		| AuthenticationError
 		| NotFoundError
 
+	enum UpdateCourseClassInputVisibility {
+		PUBLIC
+		HIDDEN
+		DISABLED
+	}
+
+	input UpdateCourseClassInput {
+		name: String
+		number: Int
+		publishedAt: String
+		visibility: UpdateCourseClassInputVisibility
+	}
+
+	type UpdateCourseClassPayload {
+		courseClass: CourseClass!
+	}
+
+	union UpdateCourseClassResult = UpdateCourseClassPayload | GenericError | AuthenticationError | NotFoundError
+
 	union UserFromSecretResult = UserFromSecretPayload | AuthenticationError
 
 	type UserFromSecretPayload {
 		user: User!
 	}
+
+	type NotFoundError {
+		_: Void
+	}
+
+	type Query {
+		_: Void
+		courseByCode(code: String!): CourseByCodeResult!
+		courseById(id: ID!): CourseByIdResult!
+		courseClassById(id: ID!): CourseClassByIdResult!
+		courseClassListByCode(code: String!): CourseClassListByCodeResult!
+		courseClassListById(id: ID!): CourseClassListByIdResult!
+		courseEditionById(id: ID!): CourseEditionByIdResult!
+		courses: [Course!]!
+		faqs: [Faq!]!
+		latestCourseClasses: [CourseClass!]!
+		userRoles: [UserRole!]!
+	}
+
+	type RequiredFieldError {
+		_: Void
+	}
+
+	type UserRole {
+		id: ID!
+		code: String!
+	}
+
+	type User {
+		id: ID!
+		email: String!
+		name: String
+		uid: String
+		roles: [UserRole!]!
+		createdAt: String
+		updatedAt: String
+		deletedAt: String
+	}
+
+	scalar Void
+
+	union CourseByCodeResult = Course | NotFoundError
+
+	union CourseByIdResult = Course | NotFoundError
+
+	union CourseClassByIdResult = CourseClass | NotFoundError
+
+	union CourseClassListByCodeResult = CourseClassList | NotFoundError
+
+	union CourseClassListByIdResult = CourseClassList | NotFoundError
+
+	union CourseEditionByIdResult = CourseEdition | NotFoundError
+
+	input SignUpInput {
+		firstName: String!
+		lastName: String
+		email: String!
+		password: String!
+	}
+
+	union SignUpEmailError = RequiredFieldError | InvalidEmailDomainError | InvalidFormatError | MaxLengthError
+
+	union SignUpFirstNameError = RequiredFieldError | MinLengthError | MaxLengthError
+
+	union SignUpLastNameError = MaxLengthError
+
+	union SignUpPasswordError = RequiredFieldError | MinLengthError | MaxLengthError
+
+	type SignUpValidationErrors {
+		email: [SignUpEmailError!]
+		firstName: [SignUpFirstNameError!]
+		lastName: [SignUpLastNameError!]
+		password: [SignUpPasswordError!]
+	}
+
+	union SignUpResult = GenericError | AuthenticationError | SignUpValidationErrors
 
 	enum CacheControlScope {
 		PUBLIC

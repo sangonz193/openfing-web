@@ -7,7 +7,8 @@ import React, { Suspense } from "react"
 
 import { Container } from "../../../../components/Container/Container"
 import { CreativeCommonsFooter } from "../../../../components/CreativeCommonsFooter"
-import { useDocumentTitle } from "../../../../hooks/useDocumentTitle"
+import { useScreenTitle } from "../../../../hooks/useScreenTitle"
+import { useIsAuthenticated } from "../../../../modules/Auth"
 import { useCourseSearchStore } from "../../../../modules/CourseSearch"
 import { CourseItem } from "../CourseItem/CourseItem"
 import { useCoursesQuery } from "./Courses.graphql.generated"
@@ -24,7 +25,7 @@ export type CoursesProps = {
 }
 
 const CoursesComponent: React.FC<CoursesProps> = ({ className }) => {
-	useDocumentTitle("Cursos - OpenFING")
+	useScreenTitle("Cursos")
 
 	const coursesResponse = useCoursesQuery()
 	const courses = coursesResponse.data?.courses || []
@@ -55,7 +56,7 @@ const CoursesComponent: React.FC<CoursesProps> = ({ className }) => {
 		}
 	}, [courses, courseSearch])
 
-	const showHeaderRight = false // TODO: get isAdmin condition
+	const showHeaderRight = useIsAuthenticated() // TODO: get isAdmin condition
 
 	const styles = useCoursesStyles({
 		className,

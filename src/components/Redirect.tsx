@@ -1,17 +1,12 @@
-import React from "react"
+import type React from "react"
 
-import { useHistory } from "../modules/Navigation/useHistory"
+import { useRedirect } from "../hooks/useRedirect"
 
 export type RedirectProps = {
 	to: string
 }
 
 export const Redirect: React.FC<RedirectProps> = ({ to }) => {
-	const history = useHistory()
-
-	React.useEffect(() => {
-		history.replace(to)
-	}, [])
-
+	useRedirect(to)
 	return null
 }

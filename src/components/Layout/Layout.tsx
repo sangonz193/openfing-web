@@ -45,7 +45,7 @@ export const Layout: React.FC<LayoutProps> = (props) => {
 
 	return (
 		<LayoutContext.Provider value={contextValue}>
-			<div className={styles.wrapper} {...eventListeners}>
+			<Stack className={styles.wrapper} {...eventListeners}>
 				<Stack className={styles.contentAndHeaderContainer}>
 					{layoutOptionsWithOverrides.showHeader && (
 						<Header
@@ -58,7 +58,7 @@ export const Layout: React.FC<LayoutProps> = (props) => {
 				</Stack>
 
 				{layoutOptionsWithOverrides.showNavBar && <Navbar />}
-			</div>
+			</Stack>
 		</LayoutContext.Provider>
 	)
 }

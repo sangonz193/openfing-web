@@ -20,6 +20,7 @@ const useStyles = makeStyles((theme) => {
 		searchField: {
 			flexGrow: 1,
 			maxWidth: 500,
+			width: "100%",
 			marginRight: "auto",
 			marginLeft: "auto",
 

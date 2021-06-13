@@ -2,6 +2,7 @@ import { Link, Stack, Text } from "@fluentui/react"
 import React from "react"
 
 import { useLayoutOptions } from "../../../../components/Layout/useLayoutOptions"
+import { useScreenTitle } from "../../../../hooks/useScreenTitle"
 import { useHomeStyles } from "./useHomeStyles"
 
 export type HomeProps = {
@@ -9,6 +10,7 @@ export type HomeProps = {
 }
 
 const HomeComponent: React.FC<HomeProps> = () => {
+	useScreenTitle("Inicio")
 	const styles = useHomeStyles()
 
 	useLayoutOptions({

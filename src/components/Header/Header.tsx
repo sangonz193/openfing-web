@@ -1,7 +1,6 @@
-import { Text } from "@fluentui/react"
+import { Stack, Text } from "@fluentui/react"
 import React from "react"
 
-import { Container } from "../Container"
 import { useHeaderStyles } from "./useHeaderStyles"
 
 export type HeaderProps = {
@@ -24,11 +23,11 @@ const HeaderComponent: React.FC<HeaderProps> = ({ className, title, right, left 
 	})
 
 	return (
-		<Container className={styles.wrapper}>
+		<Stack horizontal className={styles.wrapper}>
 			{left}
 			{typeof title === "string" ? <TextH1 className={styles.title}>{title}</TextH1> : title}
 			{right}
-		</Container>
+		</Stack>
 	)
 }
 

@@ -2,8 +2,7 @@ import { List, Separator, Spinner } from "@fluentui/react"
 import React from "react"
 
 import { CreativeCommonsFooter } from "../../../../components/CreativeCommonsFooter"
-import { useLayoutOptions } from "../../../../components/Layout/useLayoutOptions"
-import { useDocumentTitle } from "../../../../hooks/useDocumentTitle"
+import { useScreenTitle } from "../../../../hooks/useScreenTitle"
 import { FaqItem } from "../FaqItem/FaqItem"
 import { useFaqsQuery } from "./Faqs.graphql.generated"
 import { useFaqsStyles } from "./useFaqsStyles"
@@ -14,12 +13,10 @@ export type FaqsProps = {
 }
 
 const FaqsComponent: React.FC<FaqsProps> = ({ className }) => {
+	useScreenTitle("FAQs")
 	const styles = useFaqsStyles({
 		className,
 	})
-
-	useDocumentTitle("FAQs - OpenFING")
-	useLayoutOptions({ headerTitle: "FAQs" })
 
 	const { loading, data } = useFaqsQuery()
 	const { faqs } = data || {}
