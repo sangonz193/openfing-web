@@ -1,0 +1,59 @@
+diff --git a/node_modules/@graphql-codegen/typescript-urql/index.cjs.js b/node_modules/@graphql-codegen/typescript-urql/index.cjs.js
+index da103e1..4020977 100644
+--- a/node_modules/@graphql-codegen/typescript-urql/index.cjs.js
++++ b/node_modules/@graphql-codegen/typescript-urql/index.cjs.js
+@@ -11,12 +11,12 @@ const changeCaseAll = require('change-case-all');
+ const path = require('path');
+ 
+ class UrqlVisitor extends visitorPluginCommon.ClientSideBaseVisitor {
+-    constructor(schema, fragments, rawConfig) {
++    constructor(schema, fragments, rawConfig, documents) {
+         super(schema, fragments, rawConfig, {
+             withComponent: visitorPluginCommon.getConfigValue(rawConfig.withComponent, false),
+             withHooks: visitorPluginCommon.getConfigValue(rawConfig.withHooks, true),
+             urqlImportFrom: visitorPluginCommon.getConfigValue(rawConfig.urqlImportFrom, null),
+-        });
++        }, documents);
+         autoBind(this);
+     }
+     getImports() {
+@@ -49,7 +49,7 @@ class UrqlVisitor extends visitorPluginCommon.ClientSideBaseVisitor {
+         }
+         return `
+ export const ${componentName} = (props: Omit<Urql.${operationType}Props<${generics.join(', ')}>, 'query'> & { variables${isVariablesRequired ? '' : '?'}: ${operationVariablesTypes} }) => (
+-  <Urql.${operationType} {...props} query={${documentVariableName}} />
++  <Urql.${operationType} {...props} query={Operations.${documentVariableName}} />
+ );
+ `;
+     }
+@@ -62,18 +62,18 @@ export const ${componentName} = (props: Omit<Urql.${operationType}Props<${generi
+         if (operationType === 'Mutation') {
+             return `
+ export function use${operationName}() {
+-  return Urql.use${operationType}<${operationResultType}, ${operationVariablesTypes}>(${documentVariableName});
++  return Urql.use${operationType}<${operationResultType}, ${operationVariablesTypes}>(Operations.${documentVariableName});
+ };`;
+         }
+         if (operationType === 'Subscription') {
+             return `
+ export function use${operationName}<TData = ${operationResultType}>(options: Omit<Urql.Use${operationType}Args<${operationVariablesTypes}>, 'query'> = {}, handler?: Urql.SubscriptionHandler<${operationResultType}, TData>) {
+-  return Urql.use${operationType}<${operationResultType}, TData, ${operationVariablesTypes}>({ query: ${documentVariableName}, ...options }, handler);
++  return Urql.use${operationType}<${operationResultType}, TData, ${operationVariablesTypes}>({ query: Operations.${documentVariableName}, ...options }, handler);
+ };`;
+         }
+         return `
+ export function use${operationName}(options: Omit<Urql.Use${operationType}Args<${operationVariablesTypes}>, 'query'> = {}) {
+-  return Urql.use${operationType}<${operationResultType}>({ query: ${documentVariableName}, ...options });
++  return Urql.use${operationType}<${operationResultType}>({ query: Operations.${documentVariableName}, ...options });
+ };`;
+     }
+     buildOperation(node, documentVariableName, operationType, operationResultType, operationVariablesTypes) {
+@@ -98,7 +98,7 @@ const plugin = (schema, documents, config) => {
+         })),
+         ...(config.externalFragments || []),
+     ];
+-    const visitor = new UrqlVisitor(schema, allFragments, config);
++    const visitor = new UrqlVisitor(schema, allFragments, config, documents);
+     const visitorResult = graphql.visit(allAst, { leave: visitor });
+     return {
+         prepend: visitor.getImports(),
