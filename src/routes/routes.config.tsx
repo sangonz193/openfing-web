@@ -1,4 +1,4 @@
-import { Redirect } from "../components/Redirect"
+import { Redirect } from "../navigation/Redirect"
 import type { RouteConfig } from "./_utils/RouteConfig"
 import { blogRouteConfig } from "./blog/blog.route.config"
 import { courseRouteConfig } from "./courses/course/course.route.config"

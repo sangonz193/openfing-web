@@ -2,8 +2,8 @@ import { FontIcon, Link, Stack } from "@fluentui/react"
 import React from "react"
 
 import { useLocalLinkProps } from "../../hooks/useLocalLinkProps"
-import { useMatchPath } from "../../modules/Navigation"
-import { useLocation } from "../../modules/Navigation/useLocation"
+import { useMatchPath } from "../../navigation"
+import { useLocation } from "../../navigation/useLocation"
 import { useNavbarButtonStyles } from "./useNavbarButtonStyles"
 
 export type NavbarButtonProps = {

@@ -2,9 +2,9 @@ import { Slider, Stack, Text } from "@fluentui/react"
 import throttle from "lodash/throttle"
 import React from "react"
 
+import { useCourseClassPlayerStore } from "../../../../../courseClassPlayer"
 import { useObservableStates } from "../../../../../hooks/useObservableStates"
 import { useRefWithInitializer } from "../../../../../hooks/useRefWithInitializer"
-import { useCourseClassPlayerStore } from "../../../../../modules/CourseClassPlayer"
 import { useCourseClassPlayerPlaybackRateContextMenuSliderStyles } from "./useCourseClassPlayerPlaybackRateContextMenuSliderStyles"
 
 export type CourseClassPlayerPlaybackRateContextMenuSliderProps = {

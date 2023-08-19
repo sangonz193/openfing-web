@@ -1,4 +1,4 @@
-import { secondsToString } from "../../../../../_utils/secondsToString"
+import { secondsToString } from "../../../../../courseClassPlayer/secondsToString"
 
 export type CourseClassShareModalReducerState = {
 	startOn: boolean

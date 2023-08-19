@@ -1,7 +1,7 @@
 import type { ILinkProps } from "@fluentui/react"
 import React from "react"
 
-import { useHistory } from "../modules/Navigation/useHistory"
+import { useHistory } from "../navigation/useHistory"
 
 export function useLocalLinkProps(props: Partial<ILinkProps>): ILinkProps {
 	const { href, onClick } = props

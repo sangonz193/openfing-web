@@ -5,7 +5,7 @@ import identity from "lodash/identity"
 import React from "react"
 
 import { mergeFunctions } from "../../_utils/mergeFunctions"
-import type { StorybookArgTypes } from "../_utils/StorybookArgTypes"
+import type { StorybookArgTypes } from "../../storybook/StorybookArgTypes"
 import type { FileInputProps } from "./FileInput"
 import { FileInput } from "./FileInput"
 

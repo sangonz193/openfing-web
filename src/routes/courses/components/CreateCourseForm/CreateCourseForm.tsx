@@ -9,9 +9,9 @@ import type { SubmitHandler } from "react-hook-form"
 import { Controller, useForm } from "react-hook-form"
 import * as yup from "yup"
 
+import { useDropdownControllerProps } from "../../../../fluentui/useDropdownControllerProps"
+import { useTextFieldControllerProps } from "../../../../fluentui/useTextFieldControllerProps"
 import type { CreateCourseInputVisibility } from "../../../../graphql/remoteSchema.types"
-import { useDropdownControllerProps } from "../../../../useComponentProps/useDropdownControllerProps"
-import { useTextFieldControllerProps } from "../../../../useComponentProps/useTextFieldControllerProps"
 import { useCreateCourseMutation } from "./CreateCourseForm.urqlGraphql.generated"
 import { useCreateCourseFormStyles } from "./useCreateCourseFormStyles"
 

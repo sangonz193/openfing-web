@@ -1,11 +1,11 @@
 import { Link, Text } from "@fluentui/react"
 import React from "react"
 
-import { secondsToString } from "../../../../../_utils/secondsToString"
+import { useCourseClassPlayerStore } from "../../../../../courseClassPlayer"
+import { secondsToString } from "../../../../../courseClassPlayer/secondsToString"
+import { useCourseSelectionStore } from "../../../../../courseSelection"
 import { useLocalLinkProps } from "../../../../../hooks/useLocalLinkProps"
 import { useObservableStates } from "../../../../../hooks/useObservableStates"
-import { useCourseClassPlayerStore } from "../../../../../modules/CourseClassPlayer"
-import { useCourseSelectionStore } from "../../../../../modules/CourseSelection"
 import { courseRouteConfig } from "../../course.route.config"
 import { useCourseClassPlayerChapterItemStyles } from "./useCourseClassPlayerChapterItemStyles"
 

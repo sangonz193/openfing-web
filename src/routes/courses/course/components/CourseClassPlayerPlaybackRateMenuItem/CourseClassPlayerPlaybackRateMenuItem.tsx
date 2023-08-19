@@ -2,10 +2,10 @@ import type { IContextualMenuItem, IContextualMenuItemProps } from "@fluentui/re
 import { ContextualMenuItem } from "@fluentui/react"
 import React from "react"
 
-import { secondsToString } from "../../../../../_utils/secondsToString"
 import { registerCheckmarkIcon } from "../../../../../components/Icon/checkmark"
+import { useCourseClassPlayerStore } from "../../../../../courseClassPlayer"
+import { secondsToString } from "../../../../../courseClassPlayer/secondsToString"
 import { useObservableStates } from "../../../../../hooks/useObservableStates"
-import { useCourseClassPlayerStore } from "../../../../../modules/CourseClassPlayer"
 
 registerCheckmarkIcon()
 

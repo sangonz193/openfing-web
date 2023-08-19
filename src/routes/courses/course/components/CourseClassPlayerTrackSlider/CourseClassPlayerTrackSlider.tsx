@@ -4,9 +4,9 @@ import { Callout, DirectionalHint, Slider, Text } from "@fluentui/react"
 import throttle from "lodash/throttle"
 import React from "react"
 
-import { secondsToString } from "../../../../../_utils/secondsToString"
+import { useCourseClassPlayerStore } from "../../../../../courseClassPlayer"
+import { secondsToString } from "../../../../../courseClassPlayer/secondsToString"
 import { useObservableStates } from "../../../../../hooks/useObservableStates"
-import { useCourseClassPlayerStore } from "../../../../../modules/CourseClassPlayer"
 import { useIsPlayerLoaded } from "../../hooks/useIsPlayerLoaded"
 import { useCourseClassPlayerTrackSliderStyles } from "./useCourseClassPlayerTrackSliderStyles"
 

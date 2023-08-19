@@ -2,9 +2,9 @@ import React from "react"
 
 import { appConfig } from "../../app.config"
 import { useLayoutOptions } from "../../components/Layout/useLayoutOptions"
+import { useGoogleAnalyticsPageView } from "../../googleAnalytics/useGoogleAnalyticsPageView"
 import { useRedirectToCoursesIfAuthenticated } from "../../hooks/useRedirectToCoursesIfAuthenticated"
 import { useScreenTitle } from "../../hooks/useScreenTitle"
-import { useGoogleAnalyticsPageView } from "../../modules/GoogleAnalytics/useGoogleAnalyticsPageView"
 import type { RouteConfig } from "../_utils/RouteConfig"
 
 const Login = React.lazy(async () => ({ default: (await import("./components/Login")).Login }))

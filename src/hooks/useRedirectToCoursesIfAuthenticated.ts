@@ -1,4 +1,4 @@
-import { useIsAuthenticated } from "../modules/Auth"
+import { useIsAuthenticated } from "../auth"
 import { coursesRouteConfig } from "../routes/courses/courses.route.config"
 import { useRedirect } from "./useRedirect"
 

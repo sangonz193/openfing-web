@@ -6,8 +6,8 @@ import path from "path"
 
 import { getFormattedCode } from "../../_utils/getFormattedCode"
 import { projectPath } from "../../_utils/projectPath"
-import { generatedFileHeaderContent } from "./_utils/generatedFileHeaderContent"
-import { getImportPath } from "./_utils/getImportPath"
+import { generatedFileHeaderContent } from "./generatedFileHeaderContent"
+import { getImportPath } from "./getImportPath"
 
 export const generateSvgIconFiles = async (watch: boolean) => {
 	const glob = path.resolve(projectPath, "src", "components", "Icon", "*.svg")

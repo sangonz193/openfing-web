@@ -2,8 +2,8 @@ import React from "react"
 
 import { SQUARE_OUTLINE_ICON_NAME } from "../../../../../components/Icon/square-outline.generated"
 import { TABLET_LANDSCAPE_OUTLINE_ICON_NAME } from "../../../../../components/Icon/tablet-landscape-outline.generated"
+import { useCourseClassPlayerStore } from "../../../../../courseClassPlayer"
 import { useObservableStates } from "../../../../../hooks/useObservableStates"
-import { useCourseClassPlayerStore } from "../../../../../modules/CourseClassPlayer"
 import type { CourseClassPlayerButtonProps } from "../CourseClassPlayerButton"
 import { CourseClassPlayerButton } from "../CourseClassPlayerButton"
 

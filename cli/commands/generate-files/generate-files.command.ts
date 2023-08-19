@@ -1,5 +1,4 @@
-import type { CommandModule } from "yargs"
-
+import { createCommand } from "../_utils/createCommand"
 import { generateAssetsTypes } from "./generateAssetsTypes"
 import { generateComponentIndexes } from "./generateComponentIndexes"
 import { generateOperationFiles } from "./generateOperationFiles"
@@ -9,7 +8,7 @@ import { generateRemoteSchema } from "./generateRemoteSchema"
 import { generateRemoteSchemaTypes } from "./generateRemoteSchemaTypes"
 import { generateSvgIconFiles } from "./generateSvgIconFiles"
 
-const command: CommandModule<{}, { watch: boolean }> = {
+const command = createCommand<{}, { watch: boolean }>({
 	command: "generate-files",
 
 	describe: "Generates helper files, such as `.d.ts` files for every asset and graphql/typescript related files.",
@@ -52,6 +51,6 @@ const command: CommandModule<{}, { watch: boolean }> = {
 			generateSvgIconFiles(watch),
 		])
 	},
-}
+})
 
 export default command

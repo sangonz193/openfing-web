@@ -3,7 +3,7 @@ import type { CommandModule } from "yargs"
 
 import { getSubCommandsSync } from "../../_utils/getSubCommands"
 import { runPlopInterface } from "../../_utils/runPlopInterface"
-import { createPlopFilePath } from "./plop/plopfile.path"
+import { createPlopfilePath } from "./plop/plopfile.path"
 
 const command: CommandModule<{}, {}> = {
 	command: "create",
@@ -19,7 +19,7 @@ const command: CommandModule<{}, {}> = {
 
 	handler: () => {
 		runPlopInterface({
-			plopFilePath: createPlopFilePath,
+			plopFilePath: createPlopfilePath,
 		})
 	},
 }

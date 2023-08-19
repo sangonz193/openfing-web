@@ -1,6 +1,6 @@
 import React from "react"
 
-import { useHistory } from "../modules/Navigation/useHistory"
+import { useHistory } from "../navigation/useHistory"
 
 export function useRedirect(to: string, skip: boolean = false) {
 	const history = useHistory()

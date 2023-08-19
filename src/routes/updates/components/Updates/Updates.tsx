@@ -2,8 +2,8 @@ import { FocusZone, FocusZoneDirection, List, Separator, Spinner } from "@fluent
 import React from "react"
 
 import { CreativeCommonsFooter } from "../../../../components/CreativeCommonsFooter"
+import { useGoogleAnalyticsPageView } from "../../../../googleAnalytics/useGoogleAnalyticsPageView"
 import { useScreenTitle } from "../../../../hooks/useScreenTitle"
-import { useGoogleAnalyticsPageView } from "../../../../modules/GoogleAnalytics/useGoogleAnalyticsPageView"
 import { UpdateItem } from "../UpdateItem"
 import { useUpdatesQuery } from "./Updates.urqlGraphql.generated"
 import { useUpdatesStyles } from "./useUpdatesStyles"

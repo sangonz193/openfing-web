@@ -2,7 +2,7 @@ import { Stack } from "@fluentui/react"
 import merge from "lodash/merge"
 import React from "react"
 
-import { useRootEventListeners } from "../../modules/RootEventListeners/useRootEventListeners"
+import { useRootEventListeners } from "../../rootEventListeners/useRootEventListeners"
 import { Header } from "../Header"
 import { Navbar } from "../Navbar"
 import type { LayoutOptions } from "./Layout.context"

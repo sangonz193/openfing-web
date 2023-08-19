@@ -8,10 +8,10 @@ import type { SubmitHandler } from "react-hook-form"
 import { Controller, useForm } from "react-hook-form"
 import * as yup from "yup"
 
+import { useDropdownControllerProps } from "../../../../../fluentui/useDropdownControllerProps"
+import { useTextFieldControllerProps } from "../../../../../fluentui/useTextFieldControllerProps"
 import type { CreateCourseInputVisibility, UpdateCourseInput } from "../../../../../graphql/remoteSchema.types"
 import { useYupResolver } from "../../../../../hooks/useYupResolver"
-import { useDropdownControllerProps } from "../../../../../useComponentProps/useDropdownControllerProps"
-import { useTextFieldControllerProps } from "../../../../../useComponentProps/useTextFieldControllerProps"
 import { useCourseByIdQuery, useUpdateCourseMutation } from "./EditCourseForm.urqlGraphql.generated"
 import { useEditCourseFormStyles } from "./useEditCourseFormFormStyles"
 

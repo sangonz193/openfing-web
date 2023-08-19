@@ -3,12 +3,12 @@ import type { ChildProcess } from "child_process"
 import path from "path"
 import simpleGit from "simple-git"
 import SSH2Promise from "ssh2-promise"
-import type { CommandModule } from "yargs"
 import * as yup from "yup"
 
 import { projectPath } from "../../_utils/projectPath"
+import { createCommand } from "../_utils/createCommand"
 
-const command: CommandModule<{}, {}> = {
+const command = createCommand({
 	command: "deploy" as const,
 
 	describe: "Deploys the app",
@@ -124,6 +124,6 @@ const command: CommandModule<{}, {}> = {
 		console.log("- done")
 		await ssh.close()
 	},
-}
+})
 
 export default command

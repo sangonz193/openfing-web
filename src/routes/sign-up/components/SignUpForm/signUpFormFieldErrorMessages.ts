@@ -5,7 +5,7 @@ import {
 	getMinLengthFieldErrorMessage,
 	getRequiredFieldErrorMessage,
 	getTrimFieldErrorMessage,
-} from "../../../../modules/FormFieldErrorMessages"
+} from "../../../../formFieldErrorMessages"
 
 export const signUpFormFieldErrorMessages = {
 	fname: {

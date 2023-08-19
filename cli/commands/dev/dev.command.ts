@@ -1,15 +1,15 @@
 import { spawn } from "promisify-child-process"
-import type { CommandModule } from "yargs"
 
 import { projectPath } from "../../_utils/projectPath"
+import { createCommand } from "../_utils/createCommand"
 
-const command: CommandModule<{}, {}> = {
+const command = createCommand({
 	command: "dev",
 
 	describe: "Runs the app in development mode.",
 
 	handler: async () => {
-		await spawn("node", ["cli", "generate-files"])
+		// await spawn("node", ["cli", "generate-files"])
 
 		await spawn("npx", ["react-scripts", "start"], {
 			stdio: "inherit",
@@ -20,6 +20,6 @@ const command: CommandModule<{}, {}> = {
 			},
 		})
 	},
-}
+})
 
 export default command

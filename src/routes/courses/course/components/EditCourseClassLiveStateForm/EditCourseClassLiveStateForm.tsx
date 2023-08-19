@@ -5,12 +5,12 @@ import type { SubmitHandler } from "react-hook-form"
 import { Controller, useForm } from "react-hook-form"
 import * as yup from "yup"
 
-import { isFieldRequired } from "../../../../../_utils/isFieldRequired"
 import { TRASH_OUTLINE_ICON_NAME } from "../../../../../components/Icon/trash-outline.generated"
+import { useCheckboxControllerProps } from "../../../../../fluentui/useCheckboxControllerProps"
+import { useDatePickerControllerProps } from "../../../../../fluentui/useDatePickerControllerProps"
+import { useTextFieldControllerProps } from "../../../../../fluentui/useTextFieldControllerProps"
+import { isFieldRequired } from "../../../../../form/isFieldRequired"
 import { useYupResolver } from "../../../../../hooks/useYupResolver"
-import { useCheckboxControllerProps } from "../../../../../useComponentProps/useCheckboxControllerProps"
-import { useDatePickerControllerProps } from "../../../../../useComponentProps/useDatePickerControllerProps"
-import { useTextFieldControllerProps } from "../../../../../useComponentProps/useTextFieldControllerProps"
 import {
 	useCourseClassByIdQuery,
 	useSetCourseClassLiveStateMutation,

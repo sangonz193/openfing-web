@@ -1,10 +1,10 @@
 import { CommandBar, CommandBarButton } from "@fluentui/react"
 
+import { useAuthStore } from "../../../../auth"
 import { ADD_OUTLINE_ICON_NAME } from "../../../../components/Icon/add-outline.generated"
 import { useLayoutOptions } from "../../../../components/Layout/useLayoutOptions"
 import { useComponentWithProps } from "../../../../hooks/useComponentWithProps"
 import { useObservableStates } from "../../../../hooks/useObservableStates"
-import { useAuthStore } from "../../../../modules/Auth"
 import type { useBlogStyles } from "./useBlogStyles"
 
 export type UseBlogLayoutOptionsInput = {
