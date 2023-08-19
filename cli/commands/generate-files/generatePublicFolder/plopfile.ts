@@ -24,7 +24,7 @@ export default function (plop: NodePlopAPI) {
 					templateFile: undefined as unknown as string,
 					type: "add",
 					data: {
-						PUBLIC_URL: process.env.PUBLIC_URL.replace(/\/$/, "").trim(),
+						PUBLIC_URL: 'process.env.PUBLIC_URL.replace(//$/, "").trim()',
 						APP_NAME: process.env.APP_NAME?.trim(),
 						APP_SHORT_NAME: process.env.APP_SHORT_NAME?.trim(),
 					},
