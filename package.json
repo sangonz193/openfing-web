@@ -48,7 +48,7 @@
     "tsc": "tsc",
     "lint": "eslint . --max-warnings=0",
     "lint:fix": "eslint . --fix",
-    "build": "node cli build",
+    "build": "npm run generate-files && node cli build",
     "test": "node cli test",
     "postinstall": "patch-package"
   },
