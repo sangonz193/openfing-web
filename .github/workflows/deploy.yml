@@ -25,6 +25,7 @@ jobs:
               run: node cli create env-file -p
               env:
                   PUBLIC_URL: https://sangonz193.github.io/openfing-web
+                  BACKEND_URL: ${{ env.BACKEND_URL }}
 
             - name: Generate files
               run: node cli generate-files
