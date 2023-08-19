@@ -1,3 +1,4 @@
+// @ts-ignore
 require("@babel/register")({
 	presets: [
 		[
