@@ -8,8 +8,8 @@ Este es el proyecto web de la plataforma de OpenFING.
 
 -   [Node.js](https://nodejs.org/en/): **v15**
     -   Se recomienda la instalación de node con [nvm](https://github.com/nvm-sh/nvm), ya que le permite cambiar entre versiones fácilmente.
--   [npm](https://www.npmjs.com/): **v6**
-    -   Es importante que la versión de npm sea la requerida aquí, ya que diferentes versiones pueden causar cambios al archivo _package-lock.json_. Se puede instalar esta versión de npm corriendo el comando `npm i -g npm@6`.
+-   [npm](https://www.npmjs.com/): **v8**
+    -   Es importante que la versión de npm sea la requerida aquí, ya que diferentes versiones pueden causar cambios al archivo _package-lock.json_. Se puede instalar esta versión de npm corriendo el comando `npm i -g npm@8`.
 -   [OpenFING server](https://github.com/sangonz193/openfing-server): **v0.0.1**
     -   Este proyecto esta pensado para trabajar en conjunto con una instancia del backend de OpenFING. Siga las instrucciones en el archivo _README.md_ de tal proyecto.
 
@@ -27,6 +27,7 @@ El comando `npm run dev` (o `node cli dev`) será el que utilizar para levantar 
 ## Utilidad de linea de comandos
 
 Aparte de la aplicación en sí, el proyecto contiene una utilidad de linea de comandos que podrá encontrar útil mientras desarrolla. Para invocarla, correr `node cli <command>` ubicado en la carpeta del proyecto. Por información detallada sobre los comandos que están disponibles, correr `node cli --help` para mostrar una lista de comandos. Para información sobre un comando en específico, correr `node cli <command> --help`, donde _<command>_ es el nombre del comando en la lista anterior.
+
 ## License
 
 [MIT](https://choosealicense.com/licenses/mit/)
