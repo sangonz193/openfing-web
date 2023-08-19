@@ -2,7 +2,7 @@ import type { IDropdownOption } from "@fluentui/react"
 import { Dialog, DialogFooter, Dropdown, PrimaryButton, ResponsiveMode, Spinner, SpinnerSize } from "@fluentui/react"
 import React from "react"
 
-import { downloadFromUrl } from "../../../../../_utils/downloadFromUrl"
+import { downloadFromUrl } from "../../../../../browserAPI/downloadFromUrl"
 // @ts-expect-error icon is used indirectly here.
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 import { CHEVRON_DOWN_OUTLINE_ICON_NAME } from "../../../../../components/Icon/chevron-down-outline.generated"
@@ -10,8 +10,8 @@ import { registerChevrondownIcon } from "../../../../../components/Icon/chevrond
 // @ts-expect-error icon is used indirectly here.
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 import { CLOSE_OUTLINE_ICON_NAME } from "../../../../../components/Icon/close-outline.generated"
+import { useCourseSelectionStore } from "../../../../../courseSelection"
 import { useObservableStates } from "../../../../../hooks/useObservableStates"
-import { useCourseSelectionStore } from "../../../../../modules/CourseSelection"
 import { useCourseClassByIdQuery } from "../CourseDetail/CourseDetail.urqlGraphql.generated"
 
 registerChevrondownIcon()

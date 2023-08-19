@@ -3,7 +3,7 @@ import { CommandBarButton } from "@fluentui/react"
 import React from "react"
 
 import { REFRESH_OUTLINE_ICON_NAME } from "../../../../../components/Icon/refresh-outline.generated"
-import { useCourseSelectionStore } from "../../../../../modules/CourseSelection"
+import { useCourseSelectionStore } from "../../../../../courseSelection"
 import type { SyncCourseClassVideosForClassMutationVariables } from "./CourseClassSyncVideosButton.urqlGraphql.generated"
 import { useSyncCourseClassVideosForClassMutation } from "./CourseClassSyncVideosButton.urqlGraphql.generated"
 import { useCourseClassSyncVideosButtonStyles } from "./useCourseClassSyncVideosButtonStyles"

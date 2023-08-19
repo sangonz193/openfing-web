@@ -4,9 +4,9 @@ import type { AddActionConfig } from "plop"
 
 import { getFormattedCode } from "../../../../_utils/getFormattedCode"
 import { getMatchingFilePathsSync } from "../../../../_utils/getMatchingFilePaths"
+import type { GetPlopGeneratorConfig } from "../../../../_utils/GetPlopGeneratorConfig"
 import { projectPath } from "../../../../_utils/projectPath"
-import { getImportPath } from "../../../generate-files/_utils/getImportPath"
-import type { GetPlopGeneratorConfig } from "../../plop/GetPlopGeneratorConfig"
+import { getImportPath } from "../../../generate-files/getImportPath"
 
 export type ComponentPlopGeneratorAnswers = {
 	name: string

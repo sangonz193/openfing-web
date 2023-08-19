@@ -1,10 +1,10 @@
 import ncu from "npm-check-updates"
-import path from "path/posix"
-import type { CommandModule } from "yargs"
+import path from "path"
 
 import { projectPath } from "../../_utils/projectPath"
+import { createCommand } from "../_utils/createCommand"
 
-const command: CommandModule<{}, {}> = {
+const command = createCommand({
 	command: "update-package",
 
 	describe: "Updates the `package.json` dependencies to their latest versions.",
@@ -23,6 +23,6 @@ const command: CommandModule<{}, {}> = {
 			loglevel: "info",
 		})
 	},
-}
+})
 
 export default command

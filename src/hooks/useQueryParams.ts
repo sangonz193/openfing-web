@@ -1,7 +1,7 @@
 import queryString from "query-string"
 import React from "react"
 
-import { useHistory } from "../modules/Navigation/useHistory"
+import { useHistory } from "../navigation/useHistory"
 
 export const useQueryParams = <T extends string>() => {
 	const history = useHistory()

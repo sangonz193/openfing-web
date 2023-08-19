@@ -10,13 +10,13 @@ import { Controller } from "react-hook-form"
 import { useForm } from "react-hook-form"
 import * as yup from "yup"
 
+import { useDatePickerControllerProps } from "../../../../../fluentui/useDatePickerControllerProps"
+import { useDropdownControllerProps } from "../../../../../fluentui/useDropdownControllerProps"
+import { useTextFieldControllerProps } from "../../../../../fluentui/useTextFieldControllerProps"
 import type {
 	CreateCourseClassInputVisibility,
 	CreateCourseClassListInputVisibility,
 } from "../../../../../graphql/remoteSchema.types"
-import { useDatePickerControllerProps } from "../../../../../useComponentProps/useDatePickerControllerProps"
-import { useDropdownControllerProps } from "../../../../../useComponentProps/useDropdownControllerProps"
-import { useTextFieldControllerProps } from "../../../../../useComponentProps/useTextFieldControllerProps"
 import { useCreateUpdateCourseClassFormStyles } from "./useCreateUpdateCourseClassFormStyles"
 
 export type CreateUpdateCourseClassFormValues = {

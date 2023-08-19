@@ -6,8 +6,8 @@ import path from "path"
 import { getFormattedCode } from "../../_utils/getFormattedCode"
 import { getMatchingFilePaths } from "../../_utils/getMatchingFilePaths"
 import { projectPath } from "../../_utils/projectPath"
-import { generatedFileHeaderContent } from "./_utils/generatedFileHeaderContent"
-import { getImportPath } from "./_utils/getImportPath"
+import { generatedFileHeaderContent } from "./generatedFileHeaderContent"
+import { getImportPath } from "./getImportPath"
 
 const handlePossibleComponentFolder = async (possibleComponentFolderPath: string) => {
 	const possibleComponentName = path.basename(possibleComponentFolderPath)

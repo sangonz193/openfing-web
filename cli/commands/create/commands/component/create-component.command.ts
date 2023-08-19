@@ -1,18 +1,17 @@
-import type { CommandModule } from "yargs"
-
 import { runPlopInterface } from "../../../../_utils/runPlopInterface"
-import { createPlopFilePath } from "../../plop/plopfile.path"
+import { createCommand } from "../../../_utils/createCommand"
+import { createPlopfilePath } from "../../plop/plopfile.path"
 import type { ComponentPlopGeneratorAnswers } from "./component.plop-generator"
 import { getComponentPlopGeneratorBypassArgsFromAnswers } from "./component.plop-generator"
 
-const command: CommandModule<
+const command = createCommand<
 	{},
 	{
 		name?: string
 		relativePath?: string
 		interactive?: boolean
 	}
-> = {
+>({
 	command: "component [name] [relativePath]",
 
 	describe: "Creates the necessary files to define a new component.",
@@ -55,9 +54,9 @@ const command: CommandModule<
 		runPlopInterface({
 			generator: "component",
 			bypassAnswers: getComponentPlopGeneratorBypassArgsFromAnswers(config),
-			plopFilePath: createPlopFilePath,
+			plopFilePath: createPlopfilePath,
 		})
 	},
-}
+})
 
 export default command

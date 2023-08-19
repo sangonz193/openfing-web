@@ -7,7 +7,7 @@ import * as yup from "yup"
 
 import { getFormattedCode } from "../../_utils/getFormattedCode"
 import { projectPath } from "../../_utils/projectPath"
-import { generatedFileHeaderContent } from "./_utils/generatedFileHeaderContent"
+import { generatedFileHeaderContent } from "./generatedFileHeaderContent"
 
 export const generatePossibleTypes = async () => {
 	const { BACKEND_URL } = await yup

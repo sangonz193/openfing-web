@@ -18,7 +18,7 @@ import path from "path"
 import { getFormattedCode } from "../../_utils/getFormattedCode"
 import { getMatchingFilePaths } from "../../_utils/getMatchingFilePaths"
 import { projectPath } from "../../_utils/projectPath"
-import { generatedFileHeaderContent } from "./_utils/generatedFileHeaderContent"
+import { generatedFileHeaderContent } from "./generatedFileHeaderContent"
 
 export type GenerateOperationFilesOptions = {
 	remoteSchema: string

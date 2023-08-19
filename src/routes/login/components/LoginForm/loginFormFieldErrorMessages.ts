@@ -4,7 +4,7 @@ import {
 	getMaxLengthFieldErrorMessage,
 	getMinLengthFieldErrorMessage,
 	getRequiredFieldErrorMessage,
-} from "../../../../modules/FormFieldErrorMessages"
+} from "../../../../formFieldErrorMessages"
 
 export const loginFormFieldErrorMessages = {
 	email: {

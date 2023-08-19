@@ -1,9 +1,9 @@
 name: code-analysis
 
 on:
-  push:
-    branches-ignore:
-      - main
+    push:
+        branches-ignore:
+            - main
 
 jobs:
     code-analysis:
@@ -15,17 +15,16 @@ jobs:
             - name: Use Node.js
               uses: actions/setup-node@v1
               with:
-                  node-version: "15.x"
+                  node-version: "16.x"
 
             - name: Install dependencies
               run: |
-                  npm i -g npm@6
                   npm i
 
             - name: Create env file
               run: node cli create env-file -p
-              env: 
-                PUBLIC_URL: https://sangonz193.github.io/openfing-web
+              env:
+                  PUBLIC_URL: https://sangonz193.github.io/openfing-web
 
             - name: Generate files
               run: node cli generate-files

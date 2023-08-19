@@ -10,7 +10,7 @@ import path from "path"
 
 import { getFormattedCode } from "../../_utils/getFormattedCode"
 import { projectPath } from "../../_utils/projectPath"
-import { generatedFileHeaderContent } from "./_utils/generatedFileHeaderContent"
+import { generatedFileHeaderContent } from "./generatedFileHeaderContent"
 
 type AssetExtension = "svg" | "png" | "jpeg" | "jpg" | "ttf" | "md" | "mdx" | "css"
 

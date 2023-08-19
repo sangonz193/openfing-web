@@ -15,12 +15,12 @@ import { useBoolean } from "@fluentui/react-hooks"
 import { isAfter, isSameDay } from "date-fns"
 import React, { useCallback, useMemo } from "react"
 import ReactMarkdown from "react-markdown"
-import type { NormalComponents, SpecialComponents } from "react-markdown/lib/ast-to-react"
+import type { Components } from "react-markdown/lib/ast-to-react"
 
+import { useAuthStore } from "../../../../auth"
 import { PENCIL_OUTLINE_ICON_NAME } from "../../../../components/Icon/pencil-outline.generated"
 import { TRASH_OUTLINE_ICON_NAME } from "../../../../components/Icon/trash-outline.generated"
 import { useObservableStates } from "../../../../hooks/useObservableStates"
-import { useAuthStore } from "../../../../modules/Auth"
 import { PostTimestamp } from "../PostTimestamp"
 import type { PostFragmentFragment } from "./Post.urqlGraphql.generated"
 import { useDeletePostMutation } from "./Post.urqlGraphql.generated"
@@ -33,10 +33,7 @@ export type PostProps = {
 	onEdit: (post: PostFragmentFragment) => void
 }
 
-const components: Pick<
-	Omit<NormalComponents, keyof SpecialComponents> & SpecialComponents,
-	"h1" | "h2" | "h3" | "h4" | "h5" | "h6" | "a" | "p" | "img"
-> = {
+const components: Pick<Components, "h1" | "h2" | "h3" | "h4" | "h5" | "h6" | "a" | "p" | "img"> = {
 	h1: (props) => <Text variant="xxLarge" styles={{ root: { marginTop: 20 } }} {...props} />,
 	h2: (props) => <Text variant="xLarge" styles={{ root: { marginTop: 20 } }} {...props} />,
 	h3: (props) => <Text variant="large" styles={{ root: { marginTop: 20 } }} {...props} />,

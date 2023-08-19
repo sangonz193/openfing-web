@@ -10,7 +10,7 @@ import * as yup from "yup"
 
 import { getFormattedCode } from "../../_utils/getFormattedCode"
 import { projectPath } from "../../_utils/projectPath"
-import { generatedFileHeaderContent } from "./_utils/generatedFileHeaderContent"
+import { generatedFileHeaderContent } from "./generatedFileHeaderContent"
 
 export const generateRemoteSchema = async () => {
 	const remoteSchemaFilePath = path.resolve(projectPath, "src", "graphql", "remoteSchema.graphql.ts")

@@ -1,7 +1,7 @@
 import React from "react"
 
+import { useCourseClassPlayerStore } from "../../../../../courseClassPlayer"
 import { useObservableStates } from "../../../../../hooks/useObservableStates"
-import { useCourseClassPlayerStore } from "../../../../../modules/CourseClassPlayer"
 import type { CourseClassPlayerVideoCourseClassVideoFormatFragment } from "./CourseClassPlayerVideo.urqlGraphql.generated"
 import { useCourseClassPlayerVideoStyles } from "./useCourseClassPlayerVideoStyles"
 

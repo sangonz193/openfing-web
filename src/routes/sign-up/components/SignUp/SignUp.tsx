@@ -1,7 +1,7 @@
 import React from "react"
 
+import { useGoogleAnalyticsPageView } from "../../../../googleAnalytics/useGoogleAnalyticsPageView"
 import { useScreenTitle } from "../../../../hooks/useScreenTitle"
-import { useGoogleAnalyticsPageView } from "../../../../modules/GoogleAnalytics/useGoogleAnalyticsPageView"
 import { SignUpForm } from "../SignUpForm"
 import { useSignUpStyles } from "./useSignUpStyles"
 

@@ -1,6 +1,6 @@
 import React from "react"
 
-import { useAppStore } from "../modules/App"
+import { useAppStore } from "../app"
 import { useObservableStates } from "./useObservableStates"
 
 export const useIsHover = (): [

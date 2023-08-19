@@ -3,9 +3,9 @@ import { css, FocusZone, FocusZoneDirection, Link, List, Separator, Spinner, Spi
 import React from "react"
 
 import { registerChevrondownIcon } from "../../../../../components/Icon/chevrondown"
+import { useCourseSelectionStore } from "../../../../../courseSelection"
 import { useLocalLinkProps } from "../../../../../hooks/useLocalLinkProps"
 import { useObservableStates } from "../../../../../hooks/useObservableStates"
-import { useCourseSelectionStore } from "../../../../../modules/CourseSelection"
 import { courseRouteConfig } from "../../course.route.config"
 import { CourseClassItem } from "../CourseClassItem"
 import type { CourseClassItemCourseClassFragment } from "../CourseClassItem/CourseClassItem.urqlGraphql.generated"

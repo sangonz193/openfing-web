@@ -1,11 +1,11 @@
 import React from "react"
 import { useMediaQuery } from "react-responsive"
 
+import { useAppStore } from "../../../../../app"
 import { RETURN_UP_BACK_OUTLINE_ICON_NAME } from "../../../../../components/Icon/return-up-back-outline.generated"
 import { RETURN_UP_FORWARD_OUTLINE_ICON_NAME } from "../../../../../components/Icon/return-up-forward-outline.generated"
+import { useCourseClassPlayerStore } from "../../../../../courseClassPlayer"
 import { useObservableStates } from "../../../../../hooks/useObservableStates"
-import { useAppStore } from "../../../../../modules/App"
-import { useCourseClassPlayerStore } from "../../../../../modules/CourseClassPlayer"
 import { Breakpoint } from "../../../../../styles/Breakpoint"
 import { useIsPlayerLoaded } from "../../hooks/useIsPlayerLoaded"
 import { CourseClassPlayerButton } from "../CourseClassPlayerButton"

@@ -5,8 +5,8 @@ import { Controller } from "react-hook-form"
 import { useForm } from "react-hook-form"
 import * as yup from "yup"
 
-import { isFieldRequired } from "../../../../../_utils/isFieldRequired"
 import { TRASH_OUTLINE_ICON_NAME } from "../../../../../components/Icon/trash-outline.generated"
+import { isFieldRequired } from "../../../../../form/isFieldRequired"
 import type { CreateCourseClassChapterCueInput } from "../../../../../graphql/remoteSchema.types"
 import { useYupResolver } from "../../../../../hooks/useYupResolver"
 import {
