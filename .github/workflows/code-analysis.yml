@@ -23,8 +23,6 @@ jobs:
 
             - name: Create env file
               run: node cli create env-file -p
-              env:
-                  PUBLIC_URL: https://sangonz193.github.io/openfing-web
 
             - name: Generate files
               run: node cli generate-files

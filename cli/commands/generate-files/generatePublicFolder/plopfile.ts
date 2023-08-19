@@ -1,12 +1,19 @@
 import { _fs } from "@sangonz193/utils/node/fs"
 import path from "path"
 import type { AddActionConfig, NodePlopAPI } from "plop"
+import { z } from "zod"
 
 import { getFormattedCode } from "../../../_utils/getFormattedCode"
 import { getMatchingFilePathsSync } from "../../../_utils/getMatchingFilePaths"
 import { projectPath } from "../../../_utils/projectPath"
 
 export default function (plop: NodePlopAPI) {
+	const { VITE_APP_NAME } = z
+		.object({
+			VITE_APP_NAME: z.string().nonempty().trim(),
+		})
+		.parse(process.env)
+
 	plop.setGenerator("public folder", {
 		description: "",
 		prompts: [],
@@ -24,9 +31,7 @@ export default function (plop: NodePlopAPI) {
 					templateFile: undefined as unknown as string,
 					type: "add",
 					data: {
-						PUBLIC_URL: process.env.PUBLIC_URL.replace(/\/$/, "").trim(),
-						APP_NAME: process.env.APP_NAME?.trim(),
-						APP_SHORT_NAME: process.env.APP_SHORT_NAME?.trim(),
+						APP_NAME: VITE_APP_NAME,
 					},
 					skipIfExists: false,
 					force: true,
