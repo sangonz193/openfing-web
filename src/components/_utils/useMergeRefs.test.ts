@@ -1,4 +1,5 @@
 import { renderHook } from "@testing-library/react-hooks"
+import { describe, expect, test, vi } from "vitest"
 
 import { useMergeRefs } from "./useMergeRefs"
 
@@ -19,7 +20,7 @@ describe("given 1 object ref", () => {
 
 describe("given 1 callback ref", () => {
 	test("when ref callback is called", () => {
-		const callbackRef = jest.fn(() => {})
+		const callbackRef = vi.fn(() => {})
 		const renderedHook = renderHook(() => useMergeRefs<string>(callbackRef))
 
 		const refValue = "test"
@@ -35,7 +36,7 @@ describe("given 1 object and 1 function refs", () => {
 		const objectRef = {
 			current: null,
 		}
-		const callbackRef = jest.fn(() => {})
+		const callbackRef = vi.fn(() => {})
 
 		const renderedHook = renderHook(() => useMergeRefs<string>(objectRef, callbackRef))
 
