@@ -22,7 +22,7 @@ Este es el proyecto web de la plataforma de OpenFING.
 
 ### Corriendo la aplicación en modo de desarrollo
 
-El comando `npm run dev` (o `node cli dev`) será el que utilizar para levantar el servidor de desarrollo. Dependiendo del valor de la variable de entorno `PORT`, la aplicación quedará disponible en _http<span></span>://localhost:$PORT_.
+El comando `npm run dev` será el que utilizar para levantar el servidor de desarrollo. Dependiendo del valor de la variable de entorno `PORT`, la aplicación quedará disponible en _http<span></span>://localhost:$PORT_.
 
 ## Utilidad de linea de comandos
 
