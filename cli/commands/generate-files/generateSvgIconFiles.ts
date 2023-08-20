@@ -60,7 +60,7 @@ async function writeIconFiles(svgFilePath: string) {
 			`})`,
 		].join("\n")
 
-	await fs.writeFile(generatedFilePath, getFormattedCode(generatedFileContent))
+	await fs.writeFile(generatedFilePath, await getFormattedCode(generatedFileContent))
 }
 
 function getIconName(filePath: string) {

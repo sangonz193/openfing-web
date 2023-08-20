@@ -2,7 +2,6 @@ import { _fs } from "@sangonz193/utils/node/fs"
 import path from "path"
 import type { AddActionConfig } from "plop"
 
-import { getFormattedCode } from "../../../../_utils/getFormattedCode"
 import { getMatchingFilePathsSync } from "../../../../_utils/getMatchingFilePaths"
 import type { GetPlopGeneratorConfig } from "../../../../_utils/GetPlopGeneratorConfig"
 import { projectPath } from "../../../../_utils/projectPath"
@@ -117,7 +116,6 @@ const getConfig: GetPlopGeneratorConfig = (plop) => ({
 					),
 				},
 				skipIfExists: true,
-				transform: getFormattedCode,
 			}
 		})
 	},

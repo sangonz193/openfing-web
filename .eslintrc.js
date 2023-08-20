@@ -1,5 +1,5 @@
 module.exports = {
-	extends: ["plugin:@typescript-eslint/recommended", "plugin:prettier/recommended", "prettier"],
+	extends: ["plugin:@typescript-eslint/recommended", "prettier"],
 	parser: "@typescript-eslint/parser",
 	parserOptions: {
 		project: "tsconfig.json",
@@ -32,7 +32,6 @@ module.exports = {
 		"no-console": "off",
 		"no-fallthrough": "error",
 		"no-unused-vars": "off",
-		"prettier/prettier": "warn",
 		"react/display-name": "off",
 		"react/prop-types": "off",
 		"simple-import-sort/imports": "warn",

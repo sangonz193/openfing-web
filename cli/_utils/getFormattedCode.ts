@@ -1,11 +1,10 @@
-import { CLIEngine } from "eslint"
-import path from "path"
+import * as prettier from "prettier"
 
-import { projectPath } from "./projectPath"
+import Prettierrc from "../../.prettierrc"
 
-export const getFormattedCode = (code: string): string => {
-	return (
-		new CLIEngine({ fix: true }).executeOnText(code, path.resolve(projectPath, "src", "index.tsx")).results[0]
-			.output ?? code
-	)
+export const getFormattedCode = (code: string): Promise<string> => {
+	return prettier.format(code, {
+		parser: "typescript",
+		...(Prettierrc as prettier.Options),
+	})
 }
