@@ -66,7 +66,7 @@ const CoursesComponent: React.FC<CoursesProps> = ({ className }) => {
 
 	const getKey = React.useCallback((user: { id: string }) => user.id, [])
 	const handleRenderCell = React.useCallback(
-		(item?: typeof courses[0], index?: number) => {
+		(item?: (typeof courses)[0], index?: number) => {
 			return item && typeof index === "number" ? (
 				<>
 					<CourseItem course={item} />
@@ -79,7 +79,7 @@ const CoursesComponent: React.FC<CoursesProps> = ({ className }) => {
 	)
 
 	const filteredCourses = React.useMemo(() => {
-		const map = new Map<string, typeof courses[number]>()
+		const map = new Map<string, (typeof courses)[number]>()
 
 		courses.forEach((course) => {
 			map.set(course.id, course)

@@ -152,12 +152,14 @@ const runCodegen = async (options: GenerateOperationFilesOptions, graphqlFilesPa
 
 			await fs.writeFile(
 				i.filename,
-				getFormattedCode(
-					getFormattedCode(
-						generatedFileHeaderContent +
-							(i.content.includes("* as Types") && !i.content.match(/\bTypes\./)
-								? i.content.replace(/import \* as Types.+\n(\n)?/, "")
-								: i.content)
+				await getFormattedCode(
+					(
+						await getFormattedCode(
+							generatedFileHeaderContent +
+								(i.content.includes("* as Types") && !i.content.match(/\bTypes\./)
+									? i.content.replace(/import \* as Types.+\n(\n)?/, "")
+									: i.content)
+						)
 					).replace(/__typename\?: "\w+?"[,;]?/g, "")
 				)
 			)

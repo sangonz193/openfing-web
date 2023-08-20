@@ -85,7 +85,7 @@ function getAssetTypesFilePath(filePath: string) {
 }
 
 async function generateAssetTypes(filePath: string, extension: AssetExtension) {
-	await fs.writeFile(getAssetTypesFilePath(filePath), getGeneratedFileContent(extension))
+	await fs.writeFile(getAssetTypesFilePath(filePath), await getGeneratedFileContent(extension))
 }
 
 function getGeneratedFileContent(extension: AssetExtension) {

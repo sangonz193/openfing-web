@@ -46,7 +46,7 @@ export const generateRemoteSchema = async () => {
 	if (writeToLocalFile) {
 		await fs.writeFile(
 			remoteSchemaFilePath,
-			getFormattedCode(
+			await getFormattedCode(
 				generatedFileHeaderContent +
 					[
 						'import gql from "graphql-tag"',

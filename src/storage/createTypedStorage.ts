@@ -128,7 +128,7 @@ export const createTypedStorage = <TKeyValue extends TypedStorageKeyValue>(
 
 		async clean(): Promise<void> {
 			await new Promise((r) => setTimeout(r))
-			;(Object.keys(options.keyKeys) as Array<keyof typeof options["keyKeys"]>).forEach((k) => {
+			;(Object.keys(options.keyKeys) as Array<keyof (typeof options)["keyKeys"]>).forEach((k) => {
 				storage.removeItem(this.getScopedKey(k))
 			})
 		},

@@ -28,10 +28,12 @@ jobs:
             - name: Generate files
               run: node cli generate-files
 
+            - name: Run prettier
+              run: npx prettier --write .
+
             - name: No changes to commit
               run: |
-                  git status --porcelain
-                  [[ $(git status --porcelain) ]] && exit 1 || exit 0
+                  git diff --exit-code
 
             - name: TypeScript check
               run: npx tsc

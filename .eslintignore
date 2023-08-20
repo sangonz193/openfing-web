@@ -2,3 +2,9 @@
 /dist
 package-lock.json
 !.storybook
+
+# Generated files
+*.generated.ts
+*.generated.tsx
+src/graphql/remoteSchema.types.ts
+*.svg.d.ts

@@ -1,30 +1,30 @@
 {
-  "short_name": "OpenFING",
-  "name": "OpenFING",
-  "icons": [
-    {
-      "src": "logo-16.png",
-      "type": "image/png",
-      "sizes": "16x16"
-    },
-    {
-      "src": "logo-32.png",
-      "type": "image/png",
-      "sizes": "32x32"
-    },
-    {
-      "src": "logo-192.png",
-      "type": "image/png",
-      "sizes": "192x192"
-    },
-    {
-      "src": "logo-512.png",
-      "type": "image/png",
-      "sizes": "512x512"
-    }
-  ],
-  "start_url": ".",
-  "display": "minimal-ui",
-  "theme_color": "#ffffff",
-  "background_color": "#ffffff"
+	"short_name": "OpenFING",
+	"name": "OpenFING",
+	"icons": [
+		{
+			"src": "logo-16.png",
+			"type": "image/png",
+			"sizes": "16x16"
+		},
+		{
+			"src": "logo-32.png",
+			"type": "image/png",
+			"sizes": "32x32"
+		},
+		{
+			"src": "logo-192.png",
+			"type": "image/png",
+			"sizes": "192x192"
+		},
+		{
+			"src": "logo-512.png",
+			"type": "image/png",
+			"sizes": "512x512"
+		}
+	],
+	"start_url": ".",
+	"display": "minimal-ui",
+	"theme_color": "#ffffff",
+	"background_color": "#ffffff"
 }

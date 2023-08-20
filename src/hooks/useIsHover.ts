@@ -11,7 +11,7 @@ export const useIsHover = (): [
 			"onMouseOver" | "onMouseLeave" | "onMouseMove"
 		>,
 		() => void
-	>
+	>,
 ] => {
 	const appStore = useAppStore()
 	const { inputType } = useObservableStates(appStore, ["inputType"])
