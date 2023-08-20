@@ -35,7 +35,13 @@ export default function (plop: NodePlopAPI) {
 					},
 					skipIfExists: false,
 					force: true,
-					transform: getFormattedCode,
+					transform: (code) => {
+						if (templateFilePath.endsWith("webmanifest.hbs")) {
+							return getFormattedCode(code, { parser: "json" })
+						}
+
+						return getFormattedCode(code)
+					},
 				}
 			})
 		},
