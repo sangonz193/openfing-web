@@ -51,7 +51,7 @@
 		"lint": "eslint . --max-warnings=0",
 		"lint:fix": "eslint . --fix",
 		"build": "npm run generate-files && vite build",
-		"test": "vitest",
+		"test": "vitest --passWithNoTests",
 		"postinstall": "patch-package"
 	},
 	"repository": {
