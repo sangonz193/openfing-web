@@ -1,11 +1,11 @@
 import * as prettier from "prettier"
 
-import Prettierrc from "../../.prettierrc"
+import prettierrc from "../../.prettierrc"
 
 export const getFormattedCode = (code: string, options?: Partial<prettier.Options>): Promise<string> => {
 	return prettier.format(code, {
 		parser: "typescript",
-		...(Prettierrc as prettier.Options),
+		...(prettierrc as prettier.Options),
 		...options,
 	})
 }
