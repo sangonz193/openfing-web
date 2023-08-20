@@ -67,7 +67,6 @@ export const CourseClassPlayerManager: React.FC = () => {
 			drag: undefined,
 			dragend: undefined,
 			dragenter: undefined,
-			dragexit: undefined,
 			dragleave: undefined,
 			dragover: undefined,
 			dragstart: undefined,

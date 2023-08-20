@@ -38,6 +38,7 @@ module.exports = {
 		"simple-import-sort/imports": "warn",
 		"simple-import-sort/exports": "warn",
 		curly: ["warn", "all"],
+		"@typescript-eslint/ban-ts-comment": "off",
 	},
 	settings: {
 		react: {

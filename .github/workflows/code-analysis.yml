@@ -13,9 +13,10 @@ jobs:
             - uses: actions/checkout@v2
 
             - name: Use Node.js
-              uses: actions/setup-node@v1
+              uses: actions/setup-node@v3
               with:
-                  node-version: "16.x"
+                  node-version: 18
+                  cache: "npm"
 
             - name: Install dependencies
               run: |
@@ -23,8 +24,6 @@ jobs:
 
             - name: Create env file
               run: node cli create env-file -p
-              env:
-                  PUBLIC_URL: https://sangonz193.github.io/openfing-web
 
             - name: Generate files
               run: node cli generate-files
