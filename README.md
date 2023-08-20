@@ -8,8 +8,8 @@ Este es el proyecto web de la plataforma de OpenFING.
 
 -   [Node.js](https://nodejs.org/en/): **v15**
     -   Se recomienda la instalación de node con [nvm](https://github.com/nvm-sh/nvm), ya que le permite cambiar entre versiones fácilmente.
--   [npm](https://www.npmjs.com/): **v8**
-    -   Es importante que la versión de npm sea la requerida aquí, ya que diferentes versiones pueden causar cambios al archivo _package-lock.json_. Se puede instalar esta versión de npm corriendo el comando `npm i -g npm@8`.
+-   [npm](https://www.npmjs.com/): **v9**
+    -   Es importante que la versión de npm sea la requerida aquí, ya que diferentes versiones pueden causar cambios al archivo _package-lock.json_. Se puede instalar esta versión de npm corriendo el comando `npm i -g npm@9`.
 -   [OpenFING server](https://github.com/sangonz193/openfing-server): **v0.0.1**
     -   Este proyecto esta pensado para trabajar en conjunto con una instancia del backend de OpenFING. Siga las instrucciones en el archivo _README.md_ de tal proyecto.
 
