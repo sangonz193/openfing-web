@@ -4,12 +4,16 @@ import { defineConfig, loadEnv } from "vite"
 import svgr from "vite-plugin-svgr"
 import { z } from "zod"
 
-export default defineConfig(({ mode }) => {
+export default defineConfig(({ mode, command }) => {
 	const env = loadEnv(mode, process.cwd(), [""])
 
 	const { PORT } = z
 		.object({
-			PORT: z.string().transform<number>((value) => {
+			PORT: z.string().transform<number | undefined>((value) => {
+				if (command === "build") {
+					return undefined
+				}
+
 				const parsedValue = parseInt(value, 10)
 				if (isNaN(parsedValue)) {
 					throw new Error("PORT must be a number")

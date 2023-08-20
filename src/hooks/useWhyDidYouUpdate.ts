@@ -3,7 +3,7 @@ import React from "react"
 
 // https://usehooks.com/useWhyDidYouUpdate
 
-export function useWhyDidYouUpdate<TProps>(name: string, props: TProps) {
+export function useWhyDidYouUpdate<TProps extends Record<string, unknown>>(name: string, props: TProps) {
 	// Get a mutable ref object where we can store props ...
 	// ... for comparison next time this hook runs.
 	const previousProps = React.useRef<TProps>(props)
