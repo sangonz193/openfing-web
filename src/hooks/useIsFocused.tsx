@@ -12,7 +12,7 @@ export type UseIsFocusedOutput = [
 	bindings: {
 		onBlur: () => void
 		onFocus: () => void
-	}
+	},
 ]
 
 export const useIsFocused = (props: UseIsFocusedProps): UseIsFocusedOutput => {

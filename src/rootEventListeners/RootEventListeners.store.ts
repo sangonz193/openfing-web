@@ -21,7 +21,7 @@ export class RootEventListenersStore {
 						(Object.entries(newValue) as unknown as Array<
 							Exclude<
 								{
-									[K in keyof typeof newValue]: [K, Exclude<typeof newValue[K], undefined>]
+									[K in keyof typeof newValue]: [K, Exclude<(typeof newValue)[K], undefined>]
 								}[keyof typeof newValue],
 								undefined
 							>

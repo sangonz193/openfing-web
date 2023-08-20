@@ -7,7 +7,7 @@ export const useObservableStates = <TStore extends {}, TKeys extends keyof TStor
 	keys: TKeys[]
 ): { [K in TKeys]: TStore[K] extends Observable<infer TValue> ? TValue : never } => {
 	const result: {
-		[K in keyof typeof store]: typeof store[K] extends Observable<infer TValue> ? TValue : never
+		[K in keyof typeof store]: (typeof store)[K] extends Observable<infer TValue> ? TValue : never
 	} = {} as any
 	const values = keys.map((key) => {
 		const observable = store[key]

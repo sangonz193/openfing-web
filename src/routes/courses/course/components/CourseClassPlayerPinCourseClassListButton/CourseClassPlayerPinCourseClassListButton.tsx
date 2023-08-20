@@ -11,25 +11,26 @@ export type CourseClassPlayerPinCourseClassListButtonProps = {
 	children?: undefined
 }
 
-const CourseClassPlayerPinCourseClassListButtonComponent: React.FC<CourseClassPlayerPinCourseClassListButtonProps> =
-	() => {
-		const courseClassPlayerStore = useCourseClassPlayerStore()
-		const { pinCourseClassList } = useObservableStates(courseClassPlayerStore, ["pinCourseClassList"])
+const CourseClassPlayerPinCourseClassListButtonComponent: React.FC<
+	CourseClassPlayerPinCourseClassListButtonProps
+> = () => {
+	const courseClassPlayerStore = useCourseClassPlayerStore()
+	const { pinCourseClassList } = useObservableStates(courseClassPlayerStore, ["pinCourseClassList"])
 
-		const buttonProps = React.useMemo<CourseClassPlayerButtonProps["buttonProps"]>(
-			() => ({
-				title: pinCourseClassList ? "Ocultar barra lateral" : "Mostrar barra lateral",
-				onClick: () => courseClassPlayerStore.pinCourseClassList.next(!pinCourseClassList),
-			}),
-			[pinCourseClassList]
-		)
+	const buttonProps = React.useMemo<CourseClassPlayerButtonProps["buttonProps"]>(
+		() => ({
+			title: pinCourseClassList ? "Ocultar barra lateral" : "Mostrar barra lateral",
+			onClick: () => courseClassPlayerStore.pinCourseClassList.next(!pinCourseClassList),
+		}),
+		[pinCourseClassList]
+	)
 
-		return (
-			<CourseClassPlayerButton
-				iconName={pinCourseClassList ? TABLET_LANDSCAPE_OUTLINE_ICON_NAME : SQUARE_OUTLINE_ICON_NAME}
-				buttonProps={buttonProps}
-			/>
-		)
-	}
+	return (
+		<CourseClassPlayerButton
+			iconName={pinCourseClassList ? TABLET_LANDSCAPE_OUTLINE_ICON_NAME : SQUARE_OUTLINE_ICON_NAME}
+			buttonProps={buttonProps}
+		/>
+	)
+}
 
 export const CourseClassPlayerPinCourseClassListButton = React.memo(CourseClassPlayerPinCourseClassListButtonComponent)
