@@ -23,10 +23,10 @@ jobs:
                   npm i
 
             - name: Create env file
-              run: node cli create env-file -p
+              run: node cli/index create env-file -p
 
             - name: Generate files
-              run: node cli generate-files
+              run: node cli/index generate-files
 
             - name: Run prettier
               run: npx prettier --write .

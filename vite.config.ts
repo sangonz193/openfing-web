@@ -4,7 +4,7 @@ import { defineConfig, loadEnv } from "vite"
 import svgr from "vite-plugin-svgr"
 import { z } from "zod"
 
-import { assetTypes } from "./rollup/assetTypes/assetTypes"
+import { assetTypes } from "./config/rollup/assetTypes/assetTypes"
 
 export default defineConfig(({ mode, command }) => {
 	const env = loadEnv(mode, process.cwd(), [""])

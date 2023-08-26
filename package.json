@@ -45,8 +45,6 @@
 	"scripts": {
 		"dev": "vite",
 		"dev:storybook": "node cli dev:storybook",
-		"generate-files": "node cli generate-files",
-		"generate-files:watch": "node cli generate-files -w",
 		"tsc": "tsc",
 		"lint": "eslint . --max-warnings=0",
 		"lint:fix": "eslint . --fix",
@@ -126,6 +124,6 @@
 		"vite": "^4.4.9",
 		"vite-plugin-svgr": "^3.2.0",
 		"vitest": "^0.34.2",
-		"yargs": "~17.0.1"
+		"yargs": "^17.7.2"
 	}
 }
