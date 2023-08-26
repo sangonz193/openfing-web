@@ -105,9 +105,9 @@ function getGeneratedFileContent(extension: AssetExtension) {
 		return getFormattedCode(
 			[
 				generatedFileHeaderContent,
-				`import React from "React"`,
+				`import type { FC, SVGAttributes } from "react"`,
 				``,
-				`export declare const ReactComponent: React.FC<React.SVGAttributes<SVGElement>>`,
+				`export declare const ReactComponent: FC<SVGAttributes<SVGElement>>`,
 				``,
 				`declare const filePath: string;`,
 				`export default filePath;`,
