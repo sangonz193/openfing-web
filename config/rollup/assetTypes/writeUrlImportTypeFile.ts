@@ -1,6 +1,6 @@
 import { fs } from "@sangonz193/utils/node/fs"
 
-import { getFormattedCode } from "../../cli/_utils/getFormattedCode"
+import { getFormattedCode } from "../../../cli/_utils/getFormattedCode"
 import { generatedFileHeader } from "../generatedFileHeader"
 
 const urlImportContent = getFormattedCode(

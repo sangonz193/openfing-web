@@ -1,12 +1,9 @@
 import { createCommand } from "../_utils/createCommand"
-import { generateAssetsTypes } from "./generateAssetsTypes"
-import { generateComponentIndexes } from "./generateComponentIndexes"
 import { generateOperationFiles } from "./generateOperationFiles"
 import { generatePossibleTypes } from "./generatePossibleTypes"
 import { generatePublicFolder } from "./generatePublicFolder"
 import { generateRemoteSchema } from "./generateRemoteSchema"
 import { generateRemoteSchemaTypes } from "./generateRemoteSchemaTypes"
-import { generateSvgIconFiles } from "./generateSvgIconFiles"
 
 const command = createCommand<{}, { watch: boolean }>({
 	command: "generate-files",
@@ -30,7 +27,6 @@ const command = createCommand<{}, { watch: boolean }>({
 		)
 
 		await Promise.all([
-			generateAssetsTypes(watch),
 			remoteSchemaPromise.then(async ({ remoteSchemaString }) => {
 				const remoteSchemaTypesFilePath = await remoteSchemaTypesPromise
 				await generateOperationFiles({
@@ -46,9 +42,7 @@ const command = createCommand<{}, { watch: boolean }>({
 
 				return generatePossibleTypes()
 			}),
-			generateComponentIndexes(watch),
 			generatePublicFolder(),
-			generateSvgIconFiles(watch),
 		])
 	},
 })
