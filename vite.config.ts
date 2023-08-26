@@ -4,6 +4,8 @@ import { defineConfig, loadEnv } from "vite"
 import svgr from "vite-plugin-svgr"
 import { z } from "zod"
 
+import { assetTypes } from "./rollup/assetTypes/assetTypes"
+
 export default defineConfig(({ mode }) => {
 	const env = loadEnv(mode, process.cwd(), [""])
 
@@ -34,7 +36,7 @@ export default defineConfig(({ mode }) => {
 		define: {
 			APP_VERSION: JSON.stringify(process.env.npm_package_version),
 		},
-		plugins: [react(), svgr(), legacy()],
+		plugins: [assetTypes(), react(), svgr(), legacy()],
 		test: {
 			environment: "jsdom",
 			setupFiles: ["./src/setupTests.ts"],
