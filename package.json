@@ -48,7 +48,7 @@
 		"tsc": "tsc",
 		"lint": "eslint . --max-warnings=0",
 		"lint:fix": "eslint . --fix",
-		"build": "npm run generate-files && vite build",
+		"build": "node cli/index generate-files && vite build",
 		"test": "vitest --passWithNoTests",
 		"postinstall": "patch-package"
 	},
