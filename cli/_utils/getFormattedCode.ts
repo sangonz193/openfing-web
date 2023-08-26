@@ -9,3 +9,11 @@ export const getFormattedCode = (code: string, options?: Partial<prettier.Option
 		...options,
 	})
 }
+
+export const getFormattedJson = (json: string, options?: Partial<prettier.Options>): Promise<string> => {
+	return prettier.format(json, {
+		parser: "json",
+		...(prettierrc as prettier.Options),
+		...options,
+	})
+}

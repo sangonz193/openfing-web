@@ -15,7 +15,7 @@ import chokidar from "chokidar"
 import identity from "lodash/identity"
 import path from "path"
 
-import { getFormattedCode } from "../../_utils/getFormattedCode"
+import { getFormattedCode, getFormattedJson } from "../../_utils/getFormattedCode"
 import { getMatchingFilePaths } from "../../_utils/getMatchingFilePaths"
 import { projectPath } from "../../_utils/projectPath"
 import { generatedFileHeaderContent } from "./generatedFileHeaderContent"
@@ -145,7 +145,9 @@ const runCodegen = async (options: GenerateOperationFilesOptions, graphqlFilesPa
 			if (i.filename.endsWith(".json")) {
 				await fs.writeFile(
 					i.filename,
-					JSON.stringify(minifyIntrospectionQuery(getIntrospectedSchema(JSON.parse(i.content))), null, 2)
+					await getFormattedJson(
+						JSON.stringify(minifyIntrospectionQuery(getIntrospectedSchema(JSON.parse(i.content))), null, 2)
+					)
 				)
 				return
 			}
