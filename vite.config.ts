@@ -6,7 +6,7 @@ import { z } from "zod"
 
 import { assetTypes } from "./rollup/assetTypes/assetTypes"
 
-export default defineConfig(({ mode }) => {
+export default defineConfig(({ mode, command }) => {
 	const env = loadEnv(mode, process.cwd(), [""])
 
 	const { PORT } = z
@@ -36,7 +36,7 @@ export default defineConfig(({ mode }) => {
 		define: {
 			APP_VERSION: JSON.stringify(process.env.npm_package_version),
 		},
-		plugins: [assetTypes(), react(), svgr(), legacy()],
+		plugins: [assetTypes(command), react(), svgr(), legacy()],
 		test: {
 			environment: "jsdom",
 			setupFiles: ["./src/setupTests.ts"],
