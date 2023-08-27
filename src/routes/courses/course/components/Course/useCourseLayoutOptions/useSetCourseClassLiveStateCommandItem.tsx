@@ -1,5 +1,5 @@
 import type { ICommandBarItemProps } from "@fluentui/react"
-import type { OperationResult } from "@urql/core"
+import type { OperationResult } from "urql"
 
 import { ADD_OUTLINE_ICON_NAME } from "../../../../../../components/Icon/add-outline.generated"
 import { CHEVRON_FORWARD_OUTLINE_ICON_NAME } from "../../../../../../components/Icon/chevron-forward-outline.generated"

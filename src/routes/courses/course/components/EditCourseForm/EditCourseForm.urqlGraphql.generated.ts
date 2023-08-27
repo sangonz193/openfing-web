@@ -47,7 +47,9 @@ export type UpdateCourseMutation = {
 		| { __typename: "NotFoundError" }
 }
 
-export function useCourseByIdQuery(options: Omit<Urql.UseQueryArgs<CourseByIdQueryVariables>, "query"> = {}) {
+export function useCourseByIdQuery(
+	options: Omit<Urql.UseQueryArgs<CourseByIdQueryVariables | undefined>, "query"> = {}
+) {
 	return Urql.useQuery<CourseByIdQuery>({ query: Operations.CourseByIdDocument, ...options })
 }
 

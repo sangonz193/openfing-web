@@ -76,7 +76,7 @@ export type DeleteCourseClassChapterCuesFromCourseClassMutation = {
 		| { __typename: "AuthenticationError" }
 }
 
-export function useCourseClassByIdQuery(options: Omit<Urql.UseQueryArgs<CourseClassByIdQueryVariables>, "query"> = {}) {
+export function useCourseClassByIdQuery(options: Omit<Urql.UseQueryArgs<CourseClassByIdQueryVariables>, "query">) {
 	return Urql.useQuery<CourseClassByIdQuery>({ query: Operations.CourseClassByIdDocument, ...options })
 }
 

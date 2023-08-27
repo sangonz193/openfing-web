@@ -68,11 +68,13 @@ export type CourseClassByIdQuery = {
 }
 
 export function useCourseClassListByIdQuery(
-	options: Omit<Urql.UseQueryArgs<CourseClassListByIdQueryVariables>, "query"> = {}
+	options: Omit<Urql.UseQueryArgs<CourseClassListByIdQueryVariables | undefined>, "query">
 ) {
 	return Urql.useQuery<CourseClassListByIdQuery>({ query: Operations.CourseClassListByIdDocument, ...options })
 }
 
-export function useCourseClassByIdQuery(options: Omit<Urql.UseQueryArgs<CourseClassByIdQueryVariables>, "query"> = {}) {
+export function useCourseClassByIdQuery(
+	options: Omit<Urql.UseQueryArgs<CourseClassByIdQueryVariables | undefined>, "query">
+) {
 	return Urql.useQuery<CourseClassByIdQuery>({ query: Operations.CourseClassByIdDocument, ...options })
 }

@@ -33,7 +33,7 @@ export type CourseClassListByCodeQuery = {
 }
 
 export function useCourseClassListByCodeQuery(
-	options: Omit<Urql.UseQueryArgs<CourseClassListByCodeQueryVariables>, "query"> = {}
+	options: Omit<Urql.UseQueryArgs<CourseClassListByCodeQueryVariables | undefined>, "query"> = {}
 ) {
 	return Urql.useQuery<CourseClassListByCodeQuery>({ query: Operations.CourseClassListByCodeDocument, ...options })
 }
