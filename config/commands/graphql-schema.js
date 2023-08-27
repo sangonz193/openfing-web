@@ -24,6 +24,7 @@ module.exports = {
 					plugins: ["schema-ast"],
 				},
 			},
+			hooks: { afterOneFileWrite: ["prettier --write"] },
 		})
 	},
 }

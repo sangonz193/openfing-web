@@ -8,6 +8,7 @@ const config: CodegenConfig = {
 			preset: "client",
 		},
 	},
+	hooks: { afterOneFileWrite: ["prettier --write"] },
 }
 
 export default config
