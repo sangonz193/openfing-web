@@ -6,7 +6,7 @@
 import * as Types from "../../../../../graphql/remoteSchema.types"
 
 import * as Operations from "./CreateCourseClassForm.urqlGraphql"
-import * as Urql from "urql"
+import * as Urql from "@/legacy-urql"
 export type Omit<T, K extends keyof T> = Pick<T, Exclude<keyof T, K>>
 export type CreateCourseClassMutationVariables = Types.Exact<{
 	input: Types.CreateCourseClassInput

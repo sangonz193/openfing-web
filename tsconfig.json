@@ -25,7 +25,10 @@
 		"target": "es2019",
 		"forceConsistentCasingInFileNames": true,
 		"noFallthroughCasesInSwitch": true,
-		"checkJs": true
+		"checkJs": true,
+		"paths": {
+			"@/*": ["./src/*"]
+		}
 	},
 	"exclude": ["dist", "node_modules"],
 	"include": ["**/*.js", ".*.js", "**/*.ts", "**/*.tsx", ".storybook/*"]
