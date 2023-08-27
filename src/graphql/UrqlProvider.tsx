@@ -1,11 +1,11 @@
 import { hasProperty } from "@sangonz193/utils/hasProperty"
-import type { SafeOmit } from "@sangonz193/utils/SafeOmit"
 import { devtoolsExchange } from "@urql/devtools"
+import type { AuthConfig } from "@urql/exchange-auth"
 import { authExchange } from "@urql/exchange-auth"
 import type { Cache, DataField, Entity, FieldArgs, ResolveInfo, UpdateResolver } from "@urql/exchange-graphcache"
 import { cacheExchange } from "@urql/exchange-graphcache"
 import identity from "lodash/identity"
-import { Context, createClient, dedupExchange, fetchExchange } from "urql"
+import { Context, createClient, fetchExchange } from "urql"
 
 import { useAuthStore } from "../auth"
 import { useRefWithInitializer } from "../hooks/useRefWithInitializer"
@@ -15,7 +15,6 @@ import introspection from "./introspection.json"
 import type {
 	CourseClass,
 	CourseClassList,
-	Grant,
 	Mutation,
 	MutationCreateCourse_V2Args,
 	MutationCreateCourseClass_V2Args,
@@ -123,7 +122,6 @@ export const UrqlProvider: React.FC = ({ children }) => {
 			url: graphqlConfig.uri,
 			exchanges: [
 				devtoolsExchange,
-				dedupExchange,
 				cacheExchange({
 					schema: introspection as any,
 					updates: updates,
@@ -249,54 +247,47 @@ export const UrqlProvider: React.FC = ({ children }) => {
 						},
 					},
 				}),
-				authExchange<SafeOmit<Grant, "__typename">>({
-					getAuth: async ({ authState, mutate }) => {
-						const refreshToken = authState?.refreshToken || authStore.grant.getValue()?.refreshToken
-						if (!refreshToken) {
-							return null
-						}
+				authExchange(
+					async ({ mutate, appendHeaders }) =>
+						({
+							async refreshAuth() {
+								const refreshToken = authStore.grant.getValue()?.refreshToken
+								if (!refreshToken) {
+									return
+								}
 
-						const response = await mutate<RefreshTokenMutation, RefreshTokenMutationVariables>(
-							RefreshTokenDocument,
-							{
-								input: {
-									refreshToken: refreshToken,
-								},
-							}
-						).catch(() => null)
+								const response = await mutate<RefreshTokenMutation, RefreshTokenMutationVariables>(
+									RefreshTokenDocument,
+									{
+										input: {
+											refreshToken: refreshToken,
+										},
+									}
+								).catch(() => null)
 
-						if (response?.data?.refreshToken.__typename === "RefreshTokenPayload") {
-							return response.data.refreshToken.grant
-						}
-
-						return null
-					},
-					addAuthToOperation: ({ authState, operation }) => {
-						const token = authState?.token || authStore.grant.getValue()?.token
-						if (!token) {
-							return operation
-						}
-
-						const fetchOptions =
-							typeof operation.context.fetchOptions === "function"
-								? operation.context.fetchOptions()
-								: operation.context.fetchOptions || {}
-
-						return {
-							...operation,
-							context: {
-								...operation.context,
-								fetchOptions: {
-									...fetchOptions,
-									headers: {
-										...fetchOptions.headers,
-										Authorization: `Bearer ${token}`,
-									},
-								},
+								if (response?.data?.refreshToken.__typename === "RefreshTokenPayload") {
+									const { grant } = response.data.refreshToken
+									authStore.grant.next(grant)
+								}
 							},
-						}
-					},
-				}),
+
+							addAuthToOperation(operation) {
+								const token = authStore.grant.getValue()?.token
+								if (!token) {
+									return operation
+								}
+
+								return appendHeaders(operation, {
+									Authorization: `Bearer ${token}`,
+								})
+							},
+
+							didAuthError() {
+								// TODO: implement
+								return false
+							},
+						}) satisfies AuthConfig
+				),
 				fetchExchange,
 			],
 		})

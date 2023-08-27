@@ -5,7 +5,7 @@ import type { AddActionConfig } from "plop"
 import { getMatchingFilePathsSync } from "../../../../_utils/getMatchingFilePaths"
 import type { GetPlopGeneratorConfig } from "../../../../_utils/GetPlopGeneratorConfig"
 import { projectPath } from "../../../../_utils/projectPath"
-import { getImportPath } from "../../../generate-files/getImportPath"
+import { getImportPath } from "./getImportPath"
 
 export type ComponentPlopGeneratorAnswers = {
 	name: string
