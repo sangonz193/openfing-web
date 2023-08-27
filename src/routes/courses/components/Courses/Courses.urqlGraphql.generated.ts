@@ -7,7 +7,7 @@ import * as Types from "../../../../graphql/remoteSchema.types"
 
 import { CourseItemCourseFragment } from "../CourseItem/CourseItem.urqlGraphql.generated"
 import * as Operations from "./Courses.urqlGraphql"
-import * as Urql from "urql"
+import * as Urql from "@/legacy-urql"
 export type Omit<T, K extends keyof T> = Pick<T, Exclude<keyof T, K>>
 export type CoursesQueryVariables = Types.Exact<{ [key: string]: never }>
 

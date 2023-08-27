@@ -2,6 +2,7 @@ import legacy from "@vitejs/plugin-legacy"
 import react from "@vitejs/plugin-react"
 import { defineConfig, loadEnv } from "vite"
 import svgr from "vite-plugin-svgr"
+import tsconfigPaths from "vite-tsconfig-paths"
 import { z } from "zod"
 
 import { assetTypes } from "./config/rollup/assetTypes/assetTypes"
@@ -36,7 +37,7 @@ export default defineConfig(({ mode, command }) => {
 		define: {
 			APP_VERSION: JSON.stringify(process.env.npm_package_version),
 		},
-		plugins: [assetTypes(command), react(), svgr(), legacy()],
+		plugins: [tsconfigPaths(), assetTypes(command), react(), svgr(), legacy()],
 		test: {
 			environment: "jsdom",
 			setupFiles: ["./src/setupTests.ts"],

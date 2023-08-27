@@ -8,3 +8,4 @@ package-lock.json
 *.generated.tsx
 src/graphql/remoteSchema.types.ts
 *.svg.d.ts
+src/gql/fragment-masking.ts

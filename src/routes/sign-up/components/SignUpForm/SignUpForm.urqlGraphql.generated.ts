@@ -8,7 +8,7 @@ import * as Types from "../../../../graphql/remoteSchema.types"
 import { MaxLengthErrorFragmentFragment } from "../../../../graphql/fragments/MaxLengthErrorFragment.urqlGraphql.generated"
 import { MinLengthErrorFragmentFragment } from "../../../../graphql/fragments/MinLengthErrorFragment.urqlGraphql.generated"
 import * as Operations from "./SignUpForm.urqlGraphql"
-import * as Urql from "urql"
+import * as Urql from "@/legacy-urql"
 export type Omit<T, K extends keyof T> = Pick<T, Exclude<keyof T, K>>
 export type SignUpValidationErrorsFragmentFragment = {
 	email: Types.Maybe<
