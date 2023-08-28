@@ -26,6 +26,7 @@
 		"forceConsistentCasingInFileNames": true,
 		"noFallthroughCasesInSwitch": true,
 		"checkJs": true,
+		"baseUrl": ".",
 		"paths": {
 			"@/*": ["./src/*"]
 		}
