@@ -6,6 +6,7 @@ const rootPath = require("../rootPath")
 const { getIntrospectionQuery } = require("graphql")
 const { getIntrospectedSchema, minifyIntrospectionQuery } = require("@urql/introspection")
 const { fs } = require("@sangonz193/utils/node/fs")
+const { getFormattedJson } = require("../getFormattedCode")
 
 /** @type {import("yargs").CommandModule} */
 module.exports = {
@@ -44,7 +45,10 @@ module.exports = {
 			.then((result) => result.json())
 			.then(async ({ data }) => {
 				const minified = minifyIntrospectionQuery(getIntrospectedSchema(data))
-				await fs.writeFile(path.resolve(gqlFolderPath, "./schema.json"), JSON.stringify(minified))
+				await fs.writeFile(
+					path.resolve(gqlFolderPath, "./schema.json"),
+					await getFormattedJson(JSON.stringify(minified))
+				)
 			})
 	},
 }
