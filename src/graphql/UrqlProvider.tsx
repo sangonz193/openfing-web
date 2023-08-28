@@ -23,7 +23,7 @@ export const UrqlProvider: React.FC = ({ children }) => {
 			VITE_SUPABASE_KEY: import.meta.env.VITE_SUPABASE_KEY,
 		})
 
-	const client = useState(() => {
+	const [client] = useState(() => {
 		const client = createClient({
 			url: VITE_SUPABASE_URL + "/graphql/v1",
 			exchanges: [
