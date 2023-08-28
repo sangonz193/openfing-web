@@ -1,15 +1,17 @@
 import { devtoolsExchange } from "@urql/devtools"
 import type { AuthConfig } from "@urql/exchange-auth"
 import { authExchange } from "@urql/exchange-auth"
-import { cacheExchange } from "@urql/exchange-graphcache"
+// import { cacheExchange } from "@urql/exchange-graphcache"
 import { Context, createClient, fetchExchange } from "urql"
 import { z } from "zod"
 
 import { useAuthStore } from "../auth"
+// import introspection from "../gql/schema.json"
 import { useRefWithInitializer } from "../hooks/useRefWithInitializer"
-import introspection from "./introspection.json"
 import { RefreshTokenDocument } from "./UrqlProvider.urqlGraphql"
 import type { RefreshTokenMutation, RefreshTokenMutationVariables } from "./UrqlProvider.urqlGraphql.generated"
+
+// TODO: add cacheExchange back in
 
 export const UrqlProvider: React.FC = ({ children }) => {
 	const authStore = useAuthStore()
@@ -23,9 +25,9 @@ export const UrqlProvider: React.FC = ({ children }) => {
 					.parse(import.meta.env.VITE_SUPABASE_URL) + "/graphql/v1",
 			exchanges: [
 				devtoolsExchange,
-				cacheExchange({
-					schema: introspection,
-				}),
+				// cacheExchange({
+				// 	schema: introspection,
+				// }),
 				authExchange(
 					async ({ mutate, appendHeaders }) =>
 						({

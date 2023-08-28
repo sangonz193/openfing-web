@@ -1,6 +1,6 @@
 import * as prettier from "prettier"
 
-import prettierrc from "../../.prettierrc"
+import prettierrc from "../../prettier.config"
 
 export const getFormattedCode = (code: string, options?: Partial<prettier.Options>): Promise<string> => {
 	return prettier.format(code, {
