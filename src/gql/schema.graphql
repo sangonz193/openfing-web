@@ -87,6 +87,108 @@ input DatetimeFilter {
 	neq: Datetime
 }
 
+type Faqs implements Node {
+	content: String
+	createdAt: Datetime
+	id: UUID
+	isHtml: Boolean
+
+	"""
+	Globally Unique Record Identifier
+	"""
+	nodeId: ID!
+	position: Int
+	title: String
+	updatedAt: Datetime
+}
+
+type FaqsConnection {
+	edges: [FaqsEdge!]!
+	pageInfo: PageInfo!
+}
+
+type FaqsDeleteResponse {
+	"""
+	Count of the records impacted by the mutation
+	"""
+	affectedCount: Int!
+
+	"""
+	Array of records impacted by the mutation
+	"""
+	records: [Faqs!]!
+}
+
+type FaqsEdge {
+	cursor: String!
+	node: Faqs!
+}
+
+input FaqsFilter {
+	content: StringFilter
+	createdAt: DatetimeFilter
+	id: UUIDFilter
+	isHtml: BooleanFilter
+	nodeId: IDFilter
+	position: IntFilter
+	title: StringFilter
+	updatedAt: DatetimeFilter
+}
+
+input FaqsInsertInput {
+	content: String
+	createdAt: Datetime
+	id: UUID
+	isHtml: Boolean
+	position: Int
+	title: String
+	updatedAt: Datetime
+}
+
+type FaqsInsertResponse {
+	"""
+	Count of the records impacted by the mutation
+	"""
+	affectedCount: Int!
+
+	"""
+	Array of records impacted by the mutation
+	"""
+	records: [Faqs!]!
+}
+
+input FaqsOrderBy {
+	content: OrderByDirection
+	createdAt: OrderByDirection
+	id: OrderByDirection
+	isHtml: OrderByDirection
+	position: OrderByDirection
+	title: OrderByDirection
+	updatedAt: OrderByDirection
+}
+
+input FaqsUpdateInput {
+	content: String
+	createdAt: Datetime
+	id: UUID
+	isHtml: Boolean
+	position: Int
+	title: String
+	updatedAt: Datetime
+}
+
+type FaqsUpdateResponse {
+	"""
+	Count of the records impacted by the mutation
+	"""
+	affectedCount: Int!
+
+	"""
+	Array of records impacted by the mutation
+	"""
+	records: [Faqs!]!
+}
+
 enum FilterIs {
 	NOT_NULL
 	NULL
@@ -131,6 +233,51 @@ input IntFilter {
 A Javascript Object Notation value serialized as a string
 """
 scalar JSON
+
+"""
+The root type for creating and mutating data
+"""
+type Mutation {
+	"""
+	Deletes zero or more records from the `Faqs` collection
+	"""
+	deleteFromFaqsCollection(
+		"""
+		The maximum number of records in the collection permitted to be affected
+		"""
+		atMost: Int! = 1
+
+		"""
+		Restricts the mutation's impact to records matching the criteria
+		"""
+		filter: FaqsFilter
+	): FaqsDeleteResponse!
+
+	"""
+	Adds one or more `Faqs` records to the collection
+	"""
+	insertIntoFaqsCollection(objects: [FaqsInsertInput!]!): FaqsInsertResponse
+
+	"""
+	Updates zero or more records in the `Faqs` collection
+	"""
+	updateFaqsCollection(
+		"""
+		The maximum number of records in the collection permitted to be affected
+		"""
+		atMost: Int! = 1
+
+		"""
+		Restricts the mutation's impact to records matching the criteria
+		"""
+		filter: FaqsFilter
+
+		"""
+		Fields that are set will be updated for all records matching the `filter`
+		"""
+		set: FaqsUpdateInput!
+	): FaqsUpdateResponse!
+}
 
 interface Node {
 	"""
@@ -188,6 +335,41 @@ type PageInfo {
 The root type for querying data
 """
 type Query {
+	"""
+	A pagable collection of type `Faqs`
+	"""
+	faqsCollection(
+		"""
+		Query values in the collection after the provided cursor
+		"""
+		after: Cursor
+
+		"""
+		Query values in the collection before the provided cursor
+		"""
+		before: Cursor
+
+		"""
+		Filters to apply to the results set when querying from the collection
+		"""
+		filter: FaqsFilter
+
+		"""
+		Query the first `n` records in the collection
+		"""
+		first: Int
+
+		"""
+		Query the last `n` records in the collection
+		"""
+		last: Int
+
+		"""
+		Sort order to apply to the collection
+		"""
+		orderBy: [FaqsOrderBy!]
+	): FaqsConnection
+
 	"""
 	Retrieve a record by its `ID`
 	"""

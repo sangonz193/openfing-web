@@ -50,11 +50,28 @@ module.exports = {
 				"accordion-down": "accordion-down 0.2s ease-out",
 				"accordion-up": "accordion-up 0.2s ease-out",
 			},
+			typography: () => {
+				function getValue(/** @type {string} */ tailwindName) {
+					return colorValueByPaletteName(tailwindName).replace("/ <alpha-value>", "")
+				}
+
+				return {
+					DEFAULT: {
+						css: {
+							color: getValue("foreground"),
+							a: {
+								color: getValue("primary"),
+							},
+						},
+					},
+				}
+			},
 		},
 	},
 	plugins: [
 		// @ts-ignore
 		require("tailwindcss-animate"),
+		require("@tailwindcss/typography"),
 		require("./src/styles/tailwind/plugin"),
 	],
 }

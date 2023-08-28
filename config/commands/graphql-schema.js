@@ -3,6 +3,10 @@ const readEnv = require("../readEnv")
 const { z } = require("zod")
 const path = require("path")
 const rootPath = require("../rootPath")
+const { getIntrospectionQuery } = require("graphql")
+const { getIntrospectedSchema, minifyIntrospectionQuery } = require("@urql/introspection")
+const { fs } = require("@sangonz193/utils/node/fs")
+const { getFormattedJson } = require("../getFormattedCode")
 
 /** @type {import("yargs").CommandModule} */
 module.exports = {
@@ -17,14 +21,34 @@ module.exports = {
 			})
 			.parse(process.env)
 
+		const graphqlEndpoint = VITE_SUPABASE_URL + "/graphql/v1"
+		const gqlFolderPath = path.resolve(rootPath, "src/gql")
+
 		await generate({
-			schema: VITE_SUPABASE_URL + "/graphql/v1",
+			schema: graphqlEndpoint,
 			generates: {
-				[path.resolve(rootPath, "src/gql/schema.graphql")]: {
+				[path.resolve(gqlFolderPath, "schema.graphql")]: {
 					plugins: ["schema-ast"],
 				},
 			},
 			hooks: { afterOneFileWrite: ["prettier --write"] },
 		})
+
+		await fetch(graphqlEndpoint, {
+			method: "POST",
+			headers: { "Content-Type": "application/json" },
+			body: JSON.stringify({
+				variables: {},
+				query: getIntrospectionQuery({ descriptions: false }),
+			}),
+		})
+			.then((result) => result.json())
+			.then(async ({ data }) => {
+				const minified = minifyIntrospectionQuery(getIntrospectedSchema(data))
+				await fs.writeFile(
+					path.resolve(gqlFolderPath, "./schema.json"),
+					await getFormattedJson(JSON.stringify(minified))
+				)
+			})
 	},
 }
