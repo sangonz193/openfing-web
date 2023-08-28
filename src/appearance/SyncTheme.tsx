@@ -14,6 +14,14 @@ export const SyncTheme: React.FC = () => {
 	React.useEffect(() => {
 		const theme = getThemeFromKey(themeKey, { prefersDarkMode })
 
+		let newClassName = themeKey
+		if (newClassName === "auto") {
+			newClassName = prefersDarkMode ? "dark" : "light"
+		}
+
+		document.body.classList.remove("auto", "black", "dark", "light")
+		document.body.classList.add(newClassName)
+
 		applyThemeOutsideContext(theme)
 		store.currentTheme.next(theme)
 	}, [themeKey, prefersDarkMode])
