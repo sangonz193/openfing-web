@@ -1,4 +1,3 @@
-import { Stack } from "@fluentui/react"
 import merge from "lodash/merge"
 import React from "react"
 
@@ -7,7 +6,6 @@ import { Header } from "../Header"
 import { Navbar } from "../Navbar"
 import type { LayoutOptions } from "./Layout.context"
 import { LayoutContext } from "./Layout.context"
-import { useLayoutStyles } from "./useLayoutStyles"
 
 export type LayoutProps = LayoutOptions & {
 	children?: React.ReactNode
@@ -31,28 +29,26 @@ export const Layout: React.FC<LayoutProps> = (props) => {
 		return merge(defaultOptions, options)
 	}, [overriddenLayoutOptions, props])
 
-	const styles = useLayoutStyles({
-		className: layoutOptionsWithOverrides?.className,
-	})
-
 	const eventListeners = useRootEventListeners()
 
 	return (
-		<Stack tabIndex={1} className={styles.wrapper} {...eventListeners}>
-			<Stack className={styles.contentAndHeaderContainer}>
-				{layoutOptionsWithOverrides.showHeader && (
-					<Stack.Item disableShrink>
+		<>
+			<div className="flex h-full flex-col md:flex-row-reverse" {...eventListeners}>
+				<div className="flex h-full min-h-0 shrink grow basis-auto flex-col">
+					{layoutOptionsWithOverrides.showHeader && (
 						<Header
 							title={layoutOptionsWithOverrides.headerTitle}
 							left={layoutOptionsWithOverrides.headerLeft}
 							right={layoutOptionsWithOverrides.headerRight}
+							className="shrink-0"
 						/>
-					</Stack.Item>
-				)}
-				<Stack className={styles.componentContainer}>{children}</Stack>
-			</Stack>
+					)}
 
-			{layoutOptionsWithOverrides.showNavBar && <Navbar className={styles.navbar} />}
-		</Stack>
+					<div className="flex shrink grow basis-full flex-col bg-background">{children}</div>
+				</div>
+
+				{layoutOptionsWithOverrides.showNavBar && <Navbar className="shrink-0" />}
+			</div>
+		</>
 	)
 }

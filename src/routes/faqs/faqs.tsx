@@ -33,7 +33,7 @@ export function Faqs() {
 		<div className="flex grow flex-col overflow-auto">
 			<div className="mx-auto flex min-h-full max-w-2xl shrink-0 flex-col gap-8 py-10">
 				{fetching ? (
-					<Loader2Icon className="mx-auto mt-10 h-10 w-10 animate-spin text-primary" />
+					<Loader2Icon className="mx-auto mt-4 h-10 w-10 animate-spin text-primary" />
 				) : (
 					data?.faqsCollection?.edges.map(({ node }) => (
 						<Fragment key={node.id}>

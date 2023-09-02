@@ -123,6 +123,7 @@
 		"prettier": "3.0.2",
 		"prettier-plugin-tailwindcss": "^0.5.3",
 		"promisify-child-process": "~4.1.1",
+		"sass": "^1.66.1",
 		"semver": "~7.3.5",
 		"shadcn-ui": "^0.3.0",
 		"simple-git": "~2.41.1",

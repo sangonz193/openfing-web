@@ -6,4 +6,5 @@ module.exports = {
 	printWidth: 120,
 	trailingComma: "es5",
 	semi: false,
+	tailwindFunctions: ["clsx", "cn"],
 }
