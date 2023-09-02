@@ -1,6 +1,8 @@
 import merge from "lodash/merge"
 import React from "react"
 
+import { cn } from "@/lib/cn"
+
 import { useRootEventListeners } from "../../rootEventListeners/useRootEventListeners"
 import { Header } from "../Header"
 import { Navbar } from "../Navbar"
@@ -33,21 +35,21 @@ export const Layout: React.FC<LayoutProps> = (props) => {
 
 	return (
 		<>
-			<div className="flex h-full flex-col md:flex-row-reverse" {...eventListeners}>
-				<div className="flex h-full min-h-0 shrink grow basis-auto flex-col">
-					{layoutOptionsWithOverrides.showHeader && (
-						<Header
-							title={layoutOptionsWithOverrides.headerTitle}
-							left={layoutOptionsWithOverrides.headerLeft}
-							right={layoutOptionsWithOverrides.headerRight}
-							className="shrink-0"
-						/>
-					)}
+			<div className="grid h-full grid-rows-[auto_1fr_auto] md:grid-cols-[auto_1fr]" {...eventListeners}>
+				{layoutOptionsWithOverrides.showHeader && (
+					<Header
+						title={layoutOptionsWithOverrides.headerTitle}
+						left={layoutOptionsWithOverrides.headerLeft}
+						right={layoutOptionsWithOverrides.headerRight}
+						className="shrink-0"
+					/>
+				)}
 
-					<div className="flex shrink grow basis-full flex-col bg-background">{children}</div>
-				</div>
+				<div className="flex shrink grow basis-full flex-col bg-background md:col-start-2">{children}</div>
 
-				{layoutOptionsWithOverrides.showNavBar && <Navbar className="shrink-0" />}
+				{layoutOptionsWithOverrides.showNavBar && (
+					<Navbar className="row-span-full row-start-3 shrink-0 md:col-start-1 md:row-start-1 md:grid-flow-row-dense" />
+				)}
 			</div>
 		</>
 	)
