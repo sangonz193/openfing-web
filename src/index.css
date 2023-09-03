@@ -173,7 +173,7 @@ html {
 }
 
 body {
-	@apply h-full overflow-hidden overscroll-none;
+	@apply h-full overflow-hidden overscroll-none text-foreground;
 }
 
 #root {

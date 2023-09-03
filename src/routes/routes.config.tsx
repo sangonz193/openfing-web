@@ -6,7 +6,7 @@ import { coursesRouteConfig } from "./courses/courses.route.config"
 import { faqsRouteConfig } from "./faqs/route"
 import { homeRouteConfig } from "./home/home.route.config"
 import { loginRouteConfig } from "./login/login.route.config"
-import { settingsRouteConfig } from "./settings/settings.route.config"
+import { settingsRouteConfig } from "./settings/route"
 import { signUpRouteConfig } from "./sign-up/signUp.route.config"
 import { updatesRouteConfig } from "./updates/updates.route.config"
 

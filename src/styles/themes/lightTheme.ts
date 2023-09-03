@@ -7,6 +7,7 @@ export const lightTheme = createTheme({
 	defaultFontStyle: {
 		fontFamily: "Roboto",
 		color: palette.black,
+		fontSize: "16px",
 	},
 	palette,
 	fonts: defaultFontStyles,

@@ -3,6 +3,8 @@
 	"version": "3.0.0-alpha.3",
 	"dependencies": {
 		"@fluentui/react": "~8.71.0",
+		"@headlessui/react": "^1.7.17",
+		"@heroicons/react": "^2.0.18",
 		"@hookform/resolvers": "~2.6.1",
 		"@mdx-js/react": "~1.6.22",
 		"@sangonz193/ts-validation": "~1.1.3",
