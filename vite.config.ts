@@ -37,7 +37,25 @@ export default defineConfig(({ mode, command }) => {
 		define: {
 			APP_VERSION: JSON.stringify(process.env.npm_package_version),
 		},
-		plugins: [assetTypes(command), react(), svgr(), legacy()],
+		plugins: [
+			assetTypes(command),
+			svgr(),
+			react({
+				babel: {
+					presets: [
+						[
+							"@babel/preset-env",
+							{
+								modules: false,
+							},
+						],
+					],
+				},
+			}),
+			legacy({
+				modernPolyfills: ["es/global-this"],
+			}),
+		],
 		resolve: {
 			alias: {
 				"@": path.resolve(__dirname, "./src"),
