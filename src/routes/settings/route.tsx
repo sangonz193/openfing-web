@@ -1,11 +1,21 @@
-import { appConfig } from "../../app.config"
-import type { RouteConfig } from "../_utils/RouteConfig"
-import { Settings } from "./settings"
+import { Outlet, type RouteObject } from "react-router-dom"
 
-export const settingsRouteConfig: RouteConfig = {
+import { useScreenTitle } from "@/hooks/useScreenTitle"
+
+import { appConfig } from "../../app.config"
+
+export const settingsRouteConfig = {
 	path: `${appConfig.historyBasename}/settings`,
-	element: () => <Settings />,
-	matchConfig: {
-		path: `${appConfig.historyBasename}/settings`,
+	Component: function SettingsWrapper() {
+		const title = "Ajustes"
+		useScreenTitle(title)
+
+		return <Outlet />
 	},
-}
+	children: [
+		{
+			index: true,
+			lazy: () => import("./settings").then(({ Settings }) => ({ Component: Settings })),
+		},
+	],
+} satisfies RouteObject

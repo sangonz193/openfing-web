@@ -1,11 +1,9 @@
 import { FocusZone, FocusZoneDirection, List, Stack } from "@fluentui/react"
 import keyboardKey from "keyboard-key"
-import React, { useState } from "react"
+import React, { useCallback, useState } from "react"
+import { useNavigate } from "react-router-dom"
 
 import { CreativeCommonsFooter } from "../../../../components/CreativeCommonsFooter"
-import { useGoogleAnalyticsPageView } from "../../../../googleAnalytics/useGoogleAnalyticsPageView"
-import { useScreenTitle } from "../../../../hooks/useScreenTitle"
-import { useHistory } from "../../../../navigation/useHistory"
 import { useRootEventListener } from "../../../../rootEventListeners"
 import { loginRouteConfig } from "../../../login/login.route.config"
 import { CreatePostFormWrapper } from "../CreatePostFormWrapper"
@@ -15,28 +13,16 @@ import { usePostsQuery } from "./Blog.urqlGraphql.generated"
 import { useBlogLayoutOptions } from "./useBlogLayoutOptions"
 import { useBlogStyles } from "./useBlogStyles"
 
-export type BlogProps = {
-	children?: undefined
-	className?: string
-}
-
-const BlogComponent: React.FC<BlogProps> = ({ className }) => {
-	const title = "Blog"
-	useScreenTitle(title)
-	useGoogleAnalyticsPageView({ title: title })
-
+const BlogComponent: React.FC = () => {
 	const [showCreatePost, setShowCreatePost] = useState<boolean | PostFragmentFragment>(false)
 	const [{ data }] = usePostsQuery()
 
-	const history = useHistory()
+	const navigate = useNavigate()
 
-	const styles = useBlogStyles({
-		className,
-	})
+	const styles = useBlogStyles()
 	useBlogLayoutOptions({
-		title: title,
 		styles,
-		onCreatePost: React.useCallback(() => setShowCreatePost(true), []),
+		onCreatePost: useCallback(() => setShowCreatePost(true), []),
 	})
 
 	useRootEventListener(
@@ -47,7 +33,7 @@ const BlogComponent: React.FC<BlogProps> = ({ className }) => {
 			}
 
 			if (keyboardKey.getCode(event.key) === keyboardKey.l) {
-				history.push(loginRouteConfig.path)
+				navigate(loginRouteConfig.path)
 				event.preventDefault()
 			}
 		}, [])

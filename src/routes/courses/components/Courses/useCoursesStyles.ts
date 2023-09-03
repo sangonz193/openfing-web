@@ -4,7 +4,6 @@ import { getMaxWidthSelector } from "../../../../styles/getMaxWidthSelector"
 import { getMinWidthSelector } from "../../../../styles/getMinWidthSelector"
 
 export type CoursesStyleProps = {
-	className: string | undefined
 	showHeaderRight: boolean
 }
 
@@ -128,12 +127,12 @@ const useStyles = makeStyles((theme) => {
 	}
 })
 
-export function useCoursesStyles({ className, showHeaderRight }: CoursesStyleProps) {
+export function useCoursesStyles({ showHeaderRight }: CoursesStyleProps) {
 	const styles = useStyles()
 
 	return {
 		...styles,
-		wrapper: css(styles.wrapper, className),
+		wrapper: styles.wrapper,
 		searchField: css(styles.searchField, showHeaderRight && styles.searchFieldWithHeaderRight),
 		searchBoxWrapper: css(styles.searchBoxWrapper, showHeaderRight && styles.searchBoxWrapperWithHeaderRight),
 	}

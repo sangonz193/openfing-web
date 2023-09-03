@@ -1,16 +1,24 @@
-import React from "react"
+import React, { useMemo } from "react"
+import { useLocation } from "react-router-dom"
+
+import { matchPath } from "@/lib/react-router-dom/matchPath"
 
 import { useObservableStates } from "../hooks/useObservableStates"
-import { matchRouteConfig } from "../navigation/matchRouteConfig"
-import { useLocation } from "../navigation/useLocation"
-import { courseRouteConfig } from "../routes/courses/course/course.route.config"
+import { type CourseParams, courseRouteConfig } from "../routes/courses/course/course.route.config"
 import { useCourseSelectionStore } from "./useCourseSelectionStore"
 
-export const CourseSelectionManager: React.FC = () => {
+export function CourseSelectionManager() {
 	const location = useLocation()
 	const store = useCourseSelectionStore()
 
-	const match = React.useMemo(() => matchRouteConfig(location.pathname, courseRouteConfig), [location.pathname])
+	const match = useMemo(
+		() =>
+			matchPath<keyof CourseParams, typeof courseRouteConfig.path>(
+				{ path: courseRouteConfig.path },
+				location.pathname
+			),
+		[location.pathname]
+	)
 	const { code: courseClassListCode, courseClassNumber } = match?.params ?? {}
 	const parsedCourseClassNo = React.useMemo(() => {
 		const parsedNumber = !!courseClassNumber ? Number(courseClassNumber) : NaN

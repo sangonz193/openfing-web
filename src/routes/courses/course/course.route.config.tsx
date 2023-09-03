@@ -1,11 +1,25 @@
-import { appConfig } from "../../../app.config"
-import type { RouteConfig } from "../../_utils/RouteConfig"
-import { Course } from "./components/Course"
+import type { RouteObject } from "react-router-dom"
+import { useParams } from "react-router-dom"
 
-export type CourseRouteConfigParams = {
+import { appConfig } from "../../../app.config"
+
+export type CourseParams = {
 	code: string
 	courseClassNumber?: string
 }
+
+export const courseRouteConfig = {
+	path: `${appConfig.historyBasename}/courses/:code/:courseClassNumber?`,
+	lazy: () =>
+		import("./components/Course").then(({ Course }) => {
+			return {
+				Component: function CourseWrapper() {
+					const { code, courseClassNumber } = useParams() as CourseParams
+					return <Course courseClassListCode={code} courseClassNumber={courseClassNumber} />
+				},
+			}
+		}),
+} satisfies RouteObject
 
 export type CourseRouteConfigGetPathParams =
 	| {
@@ -27,33 +41,28 @@ export type CourseRouteConfigGetPathParams =
 			endOnSeconds?: number
 	  }
 
-export const courseRouteConfig: RouteConfig<CourseRouteConfigParams, CourseRouteConfigGetPathParams> = {
-	path: ({ code, courseClassNumber, startOnSeconds, endOnSeconds }) => {
-		let result = `${appConfig.historyBasename}/courses/${code}`
+export function getCoursePath({
+	code,
+	courseClassNumber,
+	startOnSeconds,
+	endOnSeconds,
+}: CourseRouteConfigGetPathParams) {
+	let result = `${appConfig.historyBasename}/courses/${code}`
 
-		if (typeof courseClassNumber !== "number") {
-			return result
-		}
-		result += `/${courseClassNumber}`
-
-		if (typeof startOnSeconds !== "number") {
-			return result
-		}
-		result += `?t=${startOnSeconds}`
-
-		if (typeof endOnSeconds !== "number") {
-			return result
-		}
-		result += `,${endOnSeconds}`
-
+	if (typeof courseClassNumber !== "number") {
 		return result
-	},
+	}
+	result += `/${courseClassNumber}`
 
-	element: ({ code, courseClassNumber }) => (
-		<Course courseClassListCode={code} courseClassNumber={courseClassNumber} />
-	),
+	if (typeof startOnSeconds !== "number") {
+		return result
+	}
+	result += `?t=${startOnSeconds}`
 
-	matchConfig: {
-		path: `${appConfig.historyBasename}/courses/:code/:courseClassNumber?`,
-	},
+	if (typeof endOnSeconds !== "number") {
+		return result
+	}
+	result += `,${endOnSeconds}`
+
+	return result
 }

@@ -1,12 +1,12 @@
 import type { IListProps } from "@fluentui/react"
-import { css, FocusZone, FocusZoneDirection, Link, List, Separator, Spinner, SpinnerSize, Stack } from "@fluentui/react"
+import { css, FocusZone, FocusZoneDirection, List, Separator, Spinner, SpinnerSize, Stack } from "@fluentui/react"
 import React from "react"
+import { Link } from "react-router-dom"
 
 import { registerChevrondownIcon } from "../../../../../components/Icon/chevrondown"
 import { useCourseSelectionStore } from "../../../../../courseSelection"
-import { useLocalLinkProps } from "../../../../../hooks/useLocalLinkProps"
 import { useObservableStates } from "../../../../../hooks/useObservableStates"
-import { courseRouteConfig } from "../../course.route.config"
+import { getCoursePath } from "../../course.route.config"
 import { CourseClassItem } from "../CourseClassItem"
 import type { CourseClassItemCourseClassFragment } from "../CourseClassItem/CourseClassItem.urqlGraphql.generated"
 import { useCourseClassListClassesByCodeQuery } from "./CourseMaster.urqlGraphql.generated"
@@ -24,7 +24,6 @@ const CourseMasterComponent: React.FC<CourseMasterProps> = ({ className }) => {
 	const { courseClassListCode, courseClassListId } = useObservableStates(useCourseSelectionStore(), [
 		"selection",
 	]).selection
-
 	const allCourseClassLists = useCourseClassListSelectorOptions({
 		courseClassListId: courseClassListId,
 	})
@@ -110,12 +109,15 @@ const CourseClassListOption: React.FC<{
 	selectedListId: string | undefined
 }> = React.memo((props) => {
 	const active = props.selectedListId === props.id
-	const linkProps = useLocalLinkProps({
-		href: courseRouteConfig.path({ code: props.code }),
-		className: css(props.className, active && props.activeClassName),
-	})
 
-	return <Link {...linkProps}>{props.readableText}</Link>
+	return (
+		<Link
+			className={css(props.className, active && props.activeClassName)}
+			to={getCoursePath({ code: props.code })}
+		>
+			{props.readableText}
+		</Link>
+	)
 })
 
 export const CourseMaster = React.memo(CourseMasterComponent)

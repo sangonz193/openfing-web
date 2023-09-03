@@ -1,15 +1,14 @@
-import React from "react"
-
-import { useHistory } from "../navigation/useHistory"
+import { useEffect } from "react"
+import { useNavigate } from "react-router-dom"
 
 export function useRedirect(to: string, skip: boolean = false) {
-	const history = useHistory()
+	const navigate = useNavigate()
 
-	React.useEffect(() => {
+	useEffect(() => {
 		if (skip) {
 			return
 		}
 
-		history.replace(to)
+		navigate(to, { replace: true })
 	}, [skip])
 }

@@ -1,17 +1,14 @@
 import { Panel, Stack } from "@fluentui/react"
-import React, { useRef } from "react"
-import { useEffect } from "react"
+import React, { useMemo } from "react"
 import { useMediaQuery } from "react-responsive"
+import { useLocation, useSearchParams } from "react-router-dom"
 
 import { useAuthStore } from "../../../../../auth"
 import {} from "../../../../../components/Icon/cancel"
 import { useCourseClassPlayerStore } from "../../../../../courseClassPlayer"
 import { useCourseSelectionStore } from "../../../../../courseSelection"
-import { registerPageView } from "../../../../../googleAnalytics/registerPageView"
 import { useDocumentTitle } from "../../../../../hooks/useDocumentTitle"
 import { useObservableStates } from "../../../../../hooks/useObservableStates"
-import { useQueryParams } from "../../../../../hooks/useQueryParams"
-import { useHistory } from "../../../../../navigation/useHistory"
 import { Breakpoint } from "../../../../../styles/Breakpoint"
 import { CourseDetail } from "../CourseDetail"
 import { CourseMaster } from "../CourseMaster"
@@ -43,17 +40,19 @@ const UpdateCourseClassChapterCuesForm = React.lazy(() =>
 )
 
 export type CourseProps = {
-	children?: undefined
-	className?: string
 	courseClassListCode: string
 	courseClassNumber: string | undefined
 }
 
 type CourseQueryParams = "t"
 
-const CourseComponent: React.FC<CourseProps> = ({ className, courseClassListCode, courseClassNumber }) => {
-	const history = useHistory()
-	const queryParams = useQueryParams<CourseQueryParams>()
+const CourseComponent: React.FC<CourseProps> = ({ courseClassListCode, courseClassNumber }) => {
+	const location = useLocation()
+	const [_searchParams] = useSearchParams()
+	const searchParams = useMemo(
+		() => ({ t: _searchParams.get("t") }) satisfies Record<CourseQueryParams, string | null>,
+		[_searchParams]
+	)
 	const courseClassPlayerStore = useCourseClassPlayerStore()
 	const courseSelectionStore = useCourseSelectionStore()
 	const { pinCourseClassList } = useObservableStates(courseClassPlayerStore, ["pinCourseClassList"])
@@ -81,28 +80,15 @@ const CourseComponent: React.FC<CourseProps> = ({ className, courseClassListCode
 	const courseName = course?.name
 	useDocumentTitle(`${courseName || "Curso"} - OpenFING`)
 
-	const registerPageViewCalledRef = useRef(false)
-	useEffect(() => {
-		if (courseName) {
-			registerPageView({
-				path: history.location.pathname,
-				title: courseName,
-			})
-			registerPageViewCalledRef.current = true
-		}
-	}, [courseName])
-
 	React.useEffect(() => {
-		const tParamOrEmptyString = Array.isArray(queryParams.t) ? "" : queryParams.t
-		courseClassPlayerStore.urlHash.next(queryParams.t ? "#t=" + tParamOrEmptyString : history.location.hash)
-	}, [queryParams.t, history.location.hash])
+		const tParamOrEmptyString = Array.isArray(searchParams.t) ? "" : searchParams.t
+		courseClassPlayerStore.urlHash.next(searchParams.t ? "#t=" + tParamOrEmptyString : location.hash)
+	}, [searchParams.t, location.hash])
 
 	const isSm = useMediaQuery({ minWidth: Breakpoint.sm })
 	const showCourseDetail = (courseClassNumber && course) || isSm
 
-	const styles = useCourseStyles({
-		className,
-	})
+	const styles = useCourseStyles()
 
 	const [showEditLiveState, setShowEditLiveState] = React.useState(false)
 	const [showEditChapters, setShowEditChapters] = React.useState(false)

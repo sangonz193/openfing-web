@@ -1,8 +1,6 @@
-import { css, makeStyles } from "@fluentui/react"
+import { makeStyles } from "@fluentui/react"
 
-export type LoginStyleProps = {
-	className: string | undefined
-}
+export type LoginStyleProps = {}
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 const useStyles = makeStyles((theme) => {
@@ -18,12 +16,11 @@ const useStyles = makeStyles((theme) => {
 	}
 })
 
-export function useLoginStyles({ className }: LoginStyleProps) {
+export function useLoginStyles() {
 	const styles = useStyles()
 
 	return {
-		wrapper: css(styles.wrapper, className),
-
+		wrapper: styles.wrapper,
 		form: styles.form,
 	}
 }

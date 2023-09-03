@@ -1,10 +1,6 @@
 import { css, makeStyles } from "@fluentui/react"
 import { getUuid } from "@sangonz193/utils/getUuid"
 
-export type BlogStyleProps = {
-	className: string | undefined
-}
-
 export const blogClassNames = {
 	wrapper: `wrapper-${getUuid()}`,
 }
@@ -53,11 +49,11 @@ const useStyles = makeStyles((theme) => {
 	}
 })
 
-export function useBlogStyles(props: BlogStyleProps) {
+export function useBlogStyles() {
 	const styles = useStyles()
 
 	return {
-		wrapper: css(blogClassNames.wrapper, styles.wrapper, props.className),
+		wrapper: css(blogClassNames.wrapper, styles.wrapper),
 		content: styles.content,
 		commandBar: styles.commandBar,
 		commandBarOverflowItemButton: styles.commandBarOverflowItemButton,

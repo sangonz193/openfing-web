@@ -1,3 +1,4 @@
+import type { PropsWithChildren, ReactNode } from "react"
 import React from "react"
 
 import { AppManager, AppProvider } from "./app"
@@ -10,7 +11,6 @@ import { CourseSearchProvider } from "./courseSearch"
 import { CourseSelectionManager, CourseSelectionProvider } from "./courseSelection"
 import { UrqlProvider } from "./graphql/UrqlProvider"
 import { InitializationProvider, useIsInitializing } from "./initialization"
-import { NavigationProvider } from "./navigation"
 import { withSiblings } from "./react/withSiblings"
 import { withWrappers } from "./react/withWrapper"
 import { RootEventListenersProvider } from "./rootEventListeners"
@@ -27,13 +27,12 @@ const WithWrappers = withWrappers(
 		AppearanceProvider,
 		TeachingProvider,
 		CourseSearchProvider,
-		NavigationProvider,
 		AuthProvider,
 		UrqlProvider,
 		LayoutProvider,
 		BlogProvider,
 	],
-	withSiblings(
+	withSiblings<PropsWithChildren<{}>>(
 		[
 			AppManager,
 			AuthManager,
@@ -43,12 +42,12 @@ const WithWrappers = withWrappers(
 			TeachingManager,
 			BlogManager,
 		],
-		({ Component }: { Component: React.FC }) => {
+		({ children }) => {
 			const isInitializing = useIsInitializing()
 
-			return isInitializing ? null : <Component />
+			return isInitializing ? null : <>{children}</>
 		}
 	)
 )
 
-export const renderWithContext = (Component: React.FC) => <WithWrappers Component={Component} />
+export const renderWithContext = (children: ReactNode) => <WithWrappers>{children}</WithWrappers>

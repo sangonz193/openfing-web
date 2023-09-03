@@ -1,43 +1,29 @@
-import { Link, Stack, Text } from "@fluentui/react"
+import { Stack, Text } from "@fluentui/react"
 import keyboardKey from "keyboard-key"
-import React from "react"
+import React, { useCallback } from "react"
+import { Link, useNavigate } from "react-router-dom"
 
 import { useBlogStore } from "../../../../blog"
-import { useLayoutOptions } from "../../../../components/Layout/useLayoutOptions"
-import { useGoogleAnalyticsPageView } from "../../../../googleAnalytics/useGoogleAnalyticsPageView"
 import { useObservableStates } from "../../../../hooks/useObservableStates"
 import { useRedirect } from "../../../../hooks/useRedirect"
-import { useScreenTitle } from "../../../../hooks/useScreenTitle"
-import { useHistory } from "../../../../navigation/useHistory"
 import { useRootEventListener } from "../../../../rootEventListeners"
 import { blogRouteConfig } from "../../../blog/blog.route.config"
 import { loginRouteConfig } from "../../../login/login.route.config"
 import { useHomeStyles } from "./useHomeStyles"
 
-export type HomeProps = {
-	children?: undefined
-}
-
-const HomeComponent: React.FC<HomeProps> = () => {
-	const title = "Inicio"
-	useScreenTitle(title)
-	useGoogleAnalyticsPageView({ title: title })
+export const Home: React.FC = () => {
 	const styles = useHomeStyles()
 
-	useLayoutOptions({
-		showHeader: false,
-	})
-
-	const history = useHistory()
+	const navigate = useNavigate()
 	useRootEventListener(
 		"onKeyDown",
-		React.useCallback((event) => {
+		useCallback((event) => {
 			if (event.defaultPrevented) {
 				return
 			}
 
 			if (keyboardKey.getCode(event.key) === keyboardKey.l) {
-				history.push(loginRouteConfig.path)
+				navigate(loginRouteConfig.path)
 				event.preventDefault()
 			}
 		}, [])
@@ -85,7 +71,7 @@ const HomeComponent: React.FC<HomeProps> = () => {
 
 					<Text className={styles.suggestions} variant="xLarge">
 						Recibiremos sus sugerencias en{" "}
-						<Link className={styles.suggestionsEmail} href="mailto:open@fing.edu.uy">
+						<Link className={styles.suggestionsEmail} to="mailto:open@fing.edu.uy">
 							open@fing.edu.uy
 						</Link>
 					</Text>
@@ -94,5 +80,3 @@ const HomeComponent: React.FC<HomeProps> = () => {
 		</div>
 	)
 }
-
-export const Home = React.memo(HomeComponent)

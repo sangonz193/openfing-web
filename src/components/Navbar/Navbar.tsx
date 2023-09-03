@@ -96,42 +96,39 @@ const NavbarComponent: React.FC<NavbarProps> = ({ className }: NavbarProps) => {
 		>
 			{!blogStoreState.enabled && !grant ? (
 				<NavbarButton
-					exact
+					name="Inicio"
+					route={homeRouteConfig}
 					iconName={HOME_OUTLINE_ICON_NAME}
 					activeIconName={HOME_ICON_NAME}
-					route={homeRouteConfig.path}
-					routeName="Inicio"
 				/>
 			) : (
 				<NavbarButton
-					exact
 					iconName={NEWSPAPER_OUTLINE_ICON_NAME}
 					activeIconName={NEWSPAPER_ICON_NAME}
-					route={blogRouteConfig.path}
-					routeName="Blog"
+					route={blogRouteConfig}
+					name="Blog"
 				/>
 			)}
 
 			<NavbarButton
-				exact={false}
 				iconName={VIDEOCAM_OUTLINE_ICON_NAME}
 				activeIconName={VIDEOCAM_ICON_NAME}
-				route={coursesRouteConfig.path}
-				routeName="Cursos"
+				route={coursesRouteConfig}
+				name="Cursos"
 			/>
 
 			<NavbarButton
 				iconName={TIME_OUTLINE_ICON_NAME}
 				activeIconName={TIME_ICON_NAME}
-				route={updatesRouteConfig.path}
-				routeName="Actualizaciones"
+				route={updatesRouteConfig}
+				name="Últimas"
 			/>
 
 			<NavbarButton
 				iconName={HELP_CIRCLE_OUTLINE_ICON_NAME}
 				activeIconName={HELP_CIRCLE_ICON_NAME}
-				route={faqsRouteConfig.path}
-				routeName="FAQs"
+				route={faqsRouteConfig}
+				name="FAQs"
 			/>
 
 			{isMd && <div style={{ flex: 1 }} />}
@@ -167,11 +164,10 @@ const NavbarComponent: React.FC<NavbarProps> = ({ className }: NavbarProps) => {
 			</Dialog>
 
 			<NavbarButton
-				exact
+				name="Ajustes"
+				route={settingsRouteConfig}
 				iconName={SETTINGS_OUTLINE_ICON_NAME}
 				activeIconName={SETTINGS_ICON_NAME}
-				route={settingsRouteConfig.path}
-				routeName="Ajustes"
 			/>
 
 			{teachingDarkThemeStatus === "showing" && (

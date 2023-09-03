@@ -8,12 +8,11 @@ import { useObservableStates } from "../../../../hooks/useObservableStates"
 import type { useBlogStyles } from "./useBlogStyles"
 
 export type UseBlogLayoutOptionsInput = {
-	title: string
 	styles: ReturnType<typeof useBlogStyles>
 	onCreatePost: () => void
 }
 
-export function useBlogLayoutOptions({ title, styles, onCreatePost }: UseBlogLayoutOptionsInput) {
+export function useBlogLayoutOptions({ styles, onCreatePost }: UseBlogLayoutOptionsInput) {
 	const { grant } = useObservableStates(useAuthStore(), ["grant"])
 	const HeaderRight = useComponentWithProps(
 		({ styles, grant, onCreatePost }) => {
@@ -54,7 +53,6 @@ export function useBlogLayoutOptions({ title, styles, onCreatePost }: UseBlogLay
 	)
 
 	useLayoutOptions({
-		headerTitle: title,
 		headerRight: HeaderRight,
 	})
 }

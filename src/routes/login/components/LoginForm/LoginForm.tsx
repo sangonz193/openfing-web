@@ -6,12 +6,12 @@ import React, { useCallback } from "react"
 import type { SubmitHandler } from "react-hook-form"
 import { Controller } from "react-hook-form"
 import { useForm } from "react-hook-form"
+import { useNavigate } from "react-router-dom"
 
 import { useAuthStore } from "../../../../auth"
 import { useTextFieldControllerProps } from "../../../../fluentui/useTextFieldControllerProps"
 import { setFormErrorMessages } from "../../../../form/setFormErrorMessages"
 import { useYupResolver } from "../../../../hooks/useYupResolver"
-import { useHistory } from "../../../../navigation/useHistory"
 import { useRootEventListener } from "../../../../rootEventListeners"
 import { getFormErrorsFromSignInValidationErrors } from "./getFormErrorsFromSignInValidationErrors"
 import type { SignInMutationVariables } from "./LoginForm.urqlGraphql.generated"
@@ -93,9 +93,9 @@ const LoginFormComponent: React.FC<LoginFormProps> = ({ className }) => {
 		}
 	}, [])
 
-	const history = useHistory()
+	const navigate = useNavigate()
 	const handleCancel = useCallback(() => {
-		history.back()
+		navigate(-1)
 	}, [])
 	useRootEventListener(
 		"onKeyDown",

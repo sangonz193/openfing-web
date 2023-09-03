@@ -1,22 +1,10 @@
 import React from "react"
 
-import { useGoogleAnalyticsPageView } from "../../../../googleAnalytics/useGoogleAnalyticsPageView"
-import { useScreenTitle } from "../../../../hooks/useScreenTitle"
 import { SignUpForm } from "../SignUpForm"
 import { useSignUpStyles } from "./useSignUpStyles"
 
-export type SignUpProps = {
-	children?: undefined
-	className?: string
-}
-
-const SignUpComponent: React.FC<SignUpProps> = ({ className }) => {
-	const title = "Registro"
-	useScreenTitle(title)
-	useGoogleAnalyticsPageView({ title: title })
-	const styles = useSignUpStyles({
-		className,
-	})
+const SignUpComponent: React.FC = () => {
+	const styles = useSignUpStyles()
 
 	return (
 		<div className={styles.wrapper}>
