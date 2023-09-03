@@ -7,6 +7,7 @@ export const darkTheme = createTheme({
 	defaultFontStyle: {
 		fontFamily: "Roboto",
 		color: palette.black,
+		fontSize: "16px",
 	},
 	palette,
 	isInverted: true,
