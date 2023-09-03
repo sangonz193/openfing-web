@@ -10,7 +10,7 @@ import { Navbar } from "../Navbar"
 import type { LayoutOptions } from "./Layout.context"
 import { LayoutContext } from "./Layout.context"
 
-export const Layout: React.FC = (props) => {
+export const Layout: React.FC = () => {
 	const { overriddenLayoutOptions } = React.useContext(LayoutContext)
 
 	const layoutOptionsWithOverrides = React.useMemo(() => {
@@ -23,7 +23,7 @@ export const Layout: React.FC = (props) => {
 			typeof overriddenLayoutOptions === "function" ? overriddenLayoutOptions({}) : overriddenLayoutOptions
 
 		return merge(defaultOptions, options)
-	}, [overriddenLayoutOptions, props])
+	}, [overriddenLayoutOptions])
 
 	const eventListeners = useRootEventListeners()
 

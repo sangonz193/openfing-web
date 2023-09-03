@@ -5,7 +5,6 @@ import { Layout } from "@/components/Layout"
 import { renderWithContext } from "@/renderWithContext"
 
 import { blogRouteConfig } from "./blog/blog.route.config"
-import { courseRouteConfig } from "./courses/course/course.route.config"
 import { coursesRouteConfig } from "./courses/courses.route.config"
 import { faqsRouteConfig } from "./faqs/route"
 import { homeRouteConfig } from "./home/home.route.config"
@@ -25,7 +24,6 @@ export const router = createBrowserRouter([
 					signUpRouteConfig,
 					blogRouteConfig,
 					homeRouteConfig,
-					courseRouteConfig,
 					coursesRouteConfig,
 					faqsRouteConfig,
 					settingsRouteConfig,

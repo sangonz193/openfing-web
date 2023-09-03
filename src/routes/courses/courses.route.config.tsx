@@ -4,6 +4,7 @@ import { Outlet } from "react-router-dom"
 import { useScreenTitle } from "@/hooks/useScreenTitle"
 
 import { appConfig } from "../../app.config"
+import { courseRouteConfig } from "./course/course.route.config"
 
 export const coursesRouteConfig = {
 	path: `${appConfig.historyBasename}/courses`,
@@ -18,5 +19,6 @@ export const coursesRouteConfig = {
 			index: true,
 			lazy: () => import("./components/Courses").then(({ Courses }) => ({ Component: Courses })),
 		},
+		courseRouteConfig,
 	],
 } satisfies RouteObject
