@@ -15,6 +15,9 @@ import { useBoolean } from "@fluentui/react-hooks"
 import React, { useCallback, useMemo } from "react"
 import { useMediaQuery } from "react-responsive"
 
+import { cn } from "@/lib/cn"
+import { useBreakpoint } from "@/styles/useBreakpoint"
+
 import { useAuthStore } from "../../auth"
 import { useInitialRefreshToken } from "../../auth/useInitialRefreshToken"
 import { useBlogStore } from "../../blog"
@@ -26,7 +29,6 @@ import { faqsRouteConfig } from "../../routes/faqs/route"
 import { homeRouteConfig } from "../../routes/home/home.route.config"
 import { settingsRouteConfig } from "../../routes/settings/settings.route.config"
 import { updatesRouteConfig } from "../../routes/updates/updates.route.config"
-import { Breakpoint } from "../../styles/Breakpoint"
 import { useTeachingKeyStatus } from "../../teaching"
 import { HELP_CIRCLE_ICON_NAME } from "../Icon/help-circle.generated"
 import { HELP_CIRCLE_OUTLINE_ICON_NAME } from "../Icon/help-circle-outline.generated"
@@ -43,7 +45,7 @@ import { TIME_OUTLINE_ICON_NAME } from "../Icon/time-outline.generated"
 import { VIDEOCAM_ICON_NAME } from "../Icon/videocam.generated"
 import { VIDEOCAM_OUTLINE_ICON_NAME } from "../Icon/videocam-outline.generated"
 import { NavbarButton } from "../NavbarButton"
-import { useNavbarStyles } from "./useNavbarStyles"
+import styles from "./Navbar.module.scss"
 
 export type NavbarProps = {
 	children?: undefined
@@ -51,12 +53,14 @@ export type NavbarProps = {
 }
 
 const NavbarComponent: React.FC<NavbarProps> = ({ className }: NavbarProps) => {
-	const isMd = useMediaQuery({ minWidth: Breakpoint.md })
+	const isMd = useBreakpoint("md")
 	const [hideDialog, { toggle: toggleHideDialog }] = useBoolean(true)
 
 	const [teachingDarkThemeStatus, handleTeachingDarkThemeDismissed] = useTeachingKeyStatus("dark-theme")
 
-	const browserDarkMode = useMediaQuery({ query: "(prefers-color-scheme: dark)" })
+	const browserDarkMode = useMediaQuery({
+		query: "(prefers-color-scheme: dark)",
+	})
 	const navBarSettingsId = "nav-bar-settings"
 
 	const authStore = useAuthStore()
@@ -77,18 +81,18 @@ const NavbarComponent: React.FC<NavbarProps> = ({ className }: NavbarProps) => {
 
 	const [refreshTokenState, retryRefreshToken] = useInitialRefreshToken({})
 
-	const styles = useNavbarStyles({
-		className: className,
-		disabledRetryRefreshToken: !grant?.token && refreshTokenState.fetching,
-	})
-
 	const blogStore = useBlogStore()
 	const blogStoreState = useObservableStates(blogStore, ["enabled"])
+
+	const buttonClassName = cn("h-12 grow hover:bg-card-foreground/10 md:grow-0", styles.button)
 
 	return (
 		<FocusZone
 			direction={isMd ? FocusZoneDirection.vertical : FocusZoneDirection.horizontal}
-			className={styles.focusZone}
+			className={cn(
+				"flex shrink-0 border-t bg-card md:flex-col md:overflow-auto md:border-r md:border-t-0",
+				className
+			)}
 		>
 			{!blogStoreState.enabled && !grant ? (
 				<NavbarButton
@@ -134,7 +138,11 @@ const NavbarComponent: React.FC<NavbarProps> = ({ className }: NavbarProps) => {
 
 			{!!grant && !grant.token && (
 				<CommandBarButton
-					className={styles.retryRefreshToken}
+					className={cn(
+						buttonClassName,
+						styles.retryRefreshToken,
+						!grant?.token && refreshTokenState.fetching && styles.disabledRetryRefreshToken
+					)}
 					title="Reintentar inicio de sesión"
 					disabled={refreshTokenState.fetching}
 					iconProps={{ iconName: REFRESH_CIRCLE_OUTLINE_ICON_NAME }}
@@ -144,7 +152,7 @@ const NavbarComponent: React.FC<NavbarProps> = ({ className }: NavbarProps) => {
 
 			{!!grant && (
 				<CommandBarButton
-					className={styles.logout}
+					className={cn(buttonClassName)}
 					title="Cerrar sesión"
 					iconProps={{ iconName: LOG_OUT_OUTLINE_ICON_NAME }}
 					onClick={toggleHideDialog}
@@ -173,7 +181,9 @@ const NavbarComponent: React.FC<NavbarProps> = ({ className }: NavbarProps) => {
 						browserDarkMode ? "¿Usando un tema oscuro en el navegador?" : "¿Te gustan los temas oscuros?"
 					}
 					hasCloseButton
-					calloutProps={{ directionalHint: isMd ? DirectionalHint.rightCenter : DirectionalHint.topCenter }}
+					calloutProps={{
+						directionalHint: isMd ? DirectionalHint.rightCenter : DirectionalHint.topCenter,
+					}}
 					onDismiss={handleTeachingDarkThemeDismissed}
 				>
 					¡Hay una nueva opción de configuración que te puede interesar!

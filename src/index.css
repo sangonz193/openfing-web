@@ -73,12 +73,11 @@ These values are applied in "./src/styles/tailwind/plugin.js".
 	* {
 		@apply border-border;
 	}
+
 	body {
 		@apply bg-background text-foreground;
 	}
 }
-
-/* TODO: remove these after moving to position sticky */
 
 html,
 body,
@@ -160,12 +159,7 @@ time,
 mark,
 audio,
 video {
-	margin: 0;
-	min-height: 0;
-	min-width: 0;
-	padding: 0;
-
-	border: 0;
+	@apply m-0 min-h-0 min-w-0;
 
 	font-size: 100%;
 	font: inherit;
@@ -174,17 +168,14 @@ video {
 	box-sizing: border-box;
 }
 
-#root {
-	display: flex;
-	flex-direction: column;
-	height: 100%;
-}
 html {
-	height: 100%;
+	@apply h-full;
 }
 
 body {
-	height: 100%;
-	overscroll-behavior: none;
-	overflow: hidden;
+	@apply h-full overflow-hidden overscroll-none;
+}
+
+#root {
+	@apply flex h-full flex-col;
 }

@@ -1,13 +1,13 @@
-import { Stack } from "@fluentui/react"
 import merge from "lodash/merge"
 import React from "react"
+
+import { cn } from "@/lib/cn"
 
 import { useRootEventListeners } from "../../rootEventListeners/useRootEventListeners"
 import { Header } from "../Header"
 import { Navbar } from "../Navbar"
 import type { LayoutOptions } from "./Layout.context"
 import { LayoutContext } from "./Layout.context"
-import { useLayoutStyles } from "./useLayoutStyles"
 
 export type LayoutProps = LayoutOptions & {
 	children?: React.ReactNode
@@ -31,28 +31,33 @@ export const Layout: React.FC<LayoutProps> = (props) => {
 		return merge(defaultOptions, options)
 	}, [overriddenLayoutOptions, props])
 
-	const styles = useLayoutStyles({
-		className: layoutOptionsWithOverrides?.className,
-	})
-
 	const eventListeners = useRootEventListeners()
 
 	return (
-		<Stack tabIndex={1} className={styles.wrapper} {...eventListeners}>
-			<Stack className={styles.contentAndHeaderContainer}>
+		<>
+			<div className="grid h-full grid-rows-[auto_1fr_auto] md:grid-cols-[auto_1fr]" {...eventListeners}>
 				{layoutOptionsWithOverrides.showHeader && (
-					<Stack.Item disableShrink>
-						<Header
-							title={layoutOptionsWithOverrides.headerTitle}
-							left={layoutOptionsWithOverrides.headerLeft}
-							right={layoutOptionsWithOverrides.headerRight}
-						/>
-					</Stack.Item>
+					<Header
+						title={layoutOptionsWithOverrides.headerTitle}
+						left={layoutOptionsWithOverrides.headerLeft}
+						right={layoutOptionsWithOverrides.headerRight}
+						className="shrink-0"
+					/>
 				)}
-				<Stack className={styles.componentContainer}>{children}</Stack>
-			</Stack>
 
-			{layoutOptionsWithOverrides.showNavBar && <Navbar className={styles.navbar} />}
-		</Stack>
+				<div
+					className={cn(
+						"flex shrink grow basis-full flex-col bg-background md:col-start-2",
+						!layoutOptionsWithOverrides.showHeader && "row-span-2"
+					)}
+				>
+					{children}
+				</div>
+
+				{layoutOptionsWithOverrides.showNavBar && (
+					<Navbar className="row-span-full row-start-3 shrink-0 md:col-start-1 md:row-start-1 md:grid-flow-row-dense" />
+				)}
+			</div>
+		</>
 	)
 }
