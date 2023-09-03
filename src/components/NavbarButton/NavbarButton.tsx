@@ -37,7 +37,7 @@ const NavbarButtonComponent: React.FC<NavbarButtonProps> = ({
 		<Link
 			{...useLocalLinkProps({
 				className: cn(
-					"relative flex items-center justify-center grow shrink-0 h-12 min-w-[48px] md:w-12 md:grow-0 hover:bg-card-foreground/10",
+					"relative flex h-12 min-w-[48px] shrink-0 grow items-center justify-center hover:bg-card-foreground/10 md:w-12 md:grow-0",
 					className
 				),
 				title: routeName,
