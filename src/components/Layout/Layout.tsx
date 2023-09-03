@@ -45,7 +45,14 @@ export const Layout: React.FC<LayoutProps> = (props) => {
 					/>
 				)}
 
-				<div className="flex shrink grow basis-full flex-col bg-background md:col-start-2">{children}</div>
+				<div
+					className={cn(
+						"flex shrink grow basis-full flex-col bg-background md:col-start-2",
+						!layoutOptionsWithOverrides.showHeader && "row-span-2"
+					)}
+				>
+					{children}
+				</div>
 
 				{layoutOptionsWithOverrides.showNavBar && (
 					<Navbar className="row-span-full row-start-3 shrink-0 md:col-start-1 md:row-start-1 md:grid-flow-row-dense" />
