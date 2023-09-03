@@ -34,7 +34,6 @@ export default defineConfig(({ mode, command }) => {
 		server: {
 			port: PORT,
 		},
-		target: "es5",
 		define: {
 			APP_VERSION: JSON.stringify(process.env.npm_package_version),
 		},
@@ -54,7 +53,6 @@ export default defineConfig(({ mode, command }) => {
 				},
 			}),
 			legacy({
-				renderModernChunks: false,
 				modernPolyfills: ["es/global-this"],
 			}),
 		],
