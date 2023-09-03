@@ -52,9 +52,7 @@ export default defineConfig(({ mode, command }) => {
 					],
 				},
 			}),
-			legacy({
-				modernPolyfills: ["es/global-this"],
-			}),
+			legacy(),
 		],
 		resolve: {
 			alias: {
