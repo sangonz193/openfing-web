@@ -1,11 +1,11 @@
-import { FontIcon, Link, Stack, Text } from "@fluentui/react"
+import { FontIcon, Stack, Text } from "@fluentui/react"
 import React from "react"
+import { Link } from "react-router-dom"
 
 import { RADIO_OUTLINE_ICON_NAME } from "../../../../../components/Icon/radio-outline.generated"
 import { useCourseSelectionStore } from "../../../../../courseSelection"
-import { useLocalLinkProps } from "../../../../../hooks/useLocalLinkProps"
 import { useObservableStates } from "../../../../../hooks/useObservableStates"
-import { courseRouteConfig } from "../../course.route.config"
+import { getCoursePath } from "../../course.route.config"
 import type { CourseClassItemCourseClassFragment } from "./CourseClassItem.urqlGraphql.generated"
 import { useCourseClassItemStyles } from "./useCourseClassItemStyles"
 
@@ -24,7 +24,7 @@ const CourseClassItemComponent: React.FC<CourseClassItemProps> = ({ className, c
 			return ""
 		}
 
-		return courseRouteConfig.path({
+		return getCoursePath({
 			code: courseClassListCode,
 			courseClassNumber: courseClassNumber,
 		})
@@ -39,7 +39,7 @@ const CourseClassItemComponent: React.FC<CourseClassItemProps> = ({ className, c
 	})
 
 	return (
-		<Link className={styles.wrapper} {...useLocalLinkProps({ href: url })}>
+		<Link className={styles.wrapper} to={url}>
 			<Stack className={styles.content} disableShrink>
 				<Text className={styles.courseClassNumber}>{courseClassNumber}</Text>
 

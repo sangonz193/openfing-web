@@ -1,12 +1,10 @@
-import type { SafeOmit } from "@sangonz193/utils/SafeOmit"
 import type { Meta, Story } from "@storybook/react"
 import identity from "lodash/identity"
 
 import type { StorybookArgTypes } from "../../../../storybook/StorybookArgTypes"
-import type { BlogProps } from "./Blog"
 import { Blog } from "./Blog"
 
-type StoryProps = Required<SafeOmit<BlogProps, "children" | "className">>
+type StoryProps = Required<{}>
 
 const argTypes = identity<StorybookArgTypes<StoryProps>>({})
 

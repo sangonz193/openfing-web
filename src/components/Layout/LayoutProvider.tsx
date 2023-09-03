@@ -4,6 +4,7 @@ import type { LayoutContextValue, SetLayoutOptions } from "./Layout.context"
 import { LayoutContext } from "./Layout.context"
 
 export const LayoutProvider: React.FC<{}> = ({ children }) => {
+	// TODO: handle multiple calls to setLayoutOptions
 	const [overriddenLayoutOptions, setOverriddenLayoutOptions] = React.useState<SetLayoutOptions>()
 	const contextValue = React.useMemo<LayoutContextValue>(
 		() => ({

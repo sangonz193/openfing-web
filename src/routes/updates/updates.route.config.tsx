@@ -1,11 +1,22 @@
-import { appConfig } from "../../app.config"
-import type { RouteConfig } from "../_utils/RouteConfig"
-import { Updates } from "./components/Updates"
+import type { RouteObject } from "react-router-dom"
+import { Outlet } from "react-router-dom"
 
-export const updatesRouteConfig: RouteConfig = {
+import { useScreenTitle } from "@/hooks/useScreenTitle"
+
+import { appConfig } from "../../app.config"
+
+export const updatesRouteConfig = {
 	path: `${appConfig.historyBasename}/updates`,
-	element: () => <Updates />,
-	matchConfig: {
-		path: `${appConfig.historyBasename}/updates`,
+	Component: function UpdatesWrapper() {
+		const title = "Últimas"
+		useScreenTitle(title)
+
+		return <Outlet />
 	},
-}
+	children: [
+		{
+			index: true,
+			lazy: () => import("./components/Updates").then(({ Updates }) => ({ Component: Updates })),
+		},
+	],
+} satisfies RouteObject

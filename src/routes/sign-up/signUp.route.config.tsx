@@ -1,11 +1,21 @@
-import { appConfig } from "../../app.config"
-import type { RouteConfig } from "../_utils/RouteConfig"
-import { SignUp } from "./components/SignUp"
+import { Outlet, type RouteObject } from "react-router-dom"
 
-export const signUpRouteConfig: RouteConfig = {
+import { useScreenTitle } from "@/hooks/useScreenTitle"
+
+import { appConfig } from "../../app.config"
+
+export const signUpRouteConfig = {
 	path: appConfig.historyBasename + `/sign-up`,
-	element: () => <SignUp />,
-	matchConfig: {
-		path: appConfig.historyBasename + `/sign-up`,
+	Component: function SignUpWrapper() {
+		const title = "Registro"
+		useScreenTitle(title)
+
+		return <Outlet />
 	},
-}
+	children: [
+		{
+			index: true,
+			lazy: () => import("./components/SignUp").then(({ SignUp }) => ({ Component: SignUp })),
+		},
+	],
+} satisfies RouteObject

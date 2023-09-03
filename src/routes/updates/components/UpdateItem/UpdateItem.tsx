@@ -1,10 +1,10 @@
-import { FontIcon, Image, ImageFit, Link, Stack, Text } from "@fluentui/react"
+import { FontIcon, Image, ImageFit, Stack, Text } from "@fluentui/react"
 import React from "react"
+import { Link } from "react-router-dom"
 
 import { RADIO_OUTLINE_ICON_NAME } from "../../../../components/Icon/radio-outline.generated"
 import { getCourseClassShortDateInfo } from "../../../../graphql/CourseClass/getCourseClassShortDateInfo"
-import { useLocalLinkProps } from "../../../../hooks/useLocalLinkProps"
-import { courseRouteConfig } from "../../../courses/course/course.route.config"
+import { getCoursePath } from "../../../courses/course/course.route.config"
 import type { UpdateItemCourseClassFragment } from "./UpdateItem.urqlGraphql.generated"
 import { useUpdateItemStyles } from "./useUpdateItemStyles"
 
@@ -25,7 +25,7 @@ const UpdateItemComponent: React.FC<UpdateItemProps> = ({ className, courseClass
 	const url = React.useMemo(
 		() =>
 			courseClass.number && courseClassList?.code
-				? courseRouteConfig.path({
+				? getCoursePath({
 						code: courseClassList.code,
 						courseClassNumber: courseClass.number,
 				  })
@@ -73,7 +73,7 @@ const UpdateItemComponent: React.FC<UpdateItemProps> = ({ className, courseClass
 
 	return (
 		<Stack className={styles.wrapper}>
-			<Link className={styles.contentWrapper} {...useLocalLinkProps({ href: url })}>
+			<Link className={styles.contentWrapper} to={url}>
 				<Stack className={styles.iconContainer}>
 					{course?.iconUrl && (
 						<Image className={styles.image} src={course?.iconUrl} imageFit={ImageFit.contain} />

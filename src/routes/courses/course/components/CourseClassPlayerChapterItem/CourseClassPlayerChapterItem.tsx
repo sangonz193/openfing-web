@@ -1,12 +1,12 @@
-import { Link, Text } from "@fluentui/react"
+import { Text } from "@fluentui/react"
 import React from "react"
+import { Link } from "react-router-dom"
 
 import { useCourseClassPlayerStore } from "../../../../../courseClassPlayer"
 import { secondsToString } from "../../../../../courseClassPlayer/secondsToString"
 import { useCourseSelectionStore } from "../../../../../courseSelection"
-import { useLocalLinkProps } from "../../../../../hooks/useLocalLinkProps"
 import { useObservableStates } from "../../../../../hooks/useObservableStates"
-import { courseRouteConfig } from "../../course.route.config"
+import { getCoursePath } from "../../course.route.config"
 import { useCourseClassPlayerChapterItemStyles } from "./useCourseClassPlayerChapterItemStyles"
 
 export type CourseClassPlayerChapterItemProps = {
@@ -54,7 +54,7 @@ const CourseClassPlayerChapterItemComponent: React.FC<CourseClassPlayerChapterIt
 		() =>
 			(courseClassListCode !== undefined &&
 				courseClassNumber !== undefined &&
-				courseRouteConfig.path({
+				getCoursePath({
 					code: courseClassListCode,
 					courseClassNumber,
 					startOnSeconds: vttCue.startTime,
@@ -84,7 +84,7 @@ const CourseClassPlayerChapterItemComponent: React.FC<CourseClassPlayerChapterIt
 	})
 
 	return (
-		<Link className={styles.link} {...useLocalLinkProps({ href: href || "", onClick: handleClick })}>
+		<Link className={styles.link} to={href} onClick={handleClick}>
 			<div className={styles.activeIndicator} />
 
 			<div>

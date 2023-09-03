@@ -1,4 +1,4 @@
-import { css, makeStyles } from "@fluentui/react"
+import { makeStyles } from "@fluentui/react"
 
 import { getMaxWidthSelector } from "../../../../styles/getMaxWidthSelector"
 import { getMinWidthSelector } from "../../../../styles/getMinWidthSelector"
@@ -65,11 +65,11 @@ const useStyles = makeStyles((theme) => {
 	}
 })
 
-export function useUpdatesStyles({ className }: UpdatesStyleProps) {
+export function useUpdatesStyles() {
 	const styles = useStyles()
 
 	return {
-		wrapper: css(styles.wrapper, className),
+		wrapper: styles.wrapper,
 		content: styles.content,
 		spinner: styles.spinner,
 		separator: styles.separator,

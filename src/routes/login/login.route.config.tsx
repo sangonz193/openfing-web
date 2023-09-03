@@ -1,35 +1,29 @@
-import React from "react"
+import { Outlet, type RouteObject } from "react-router-dom"
 
 import { appConfig } from "../../app.config"
 import { useLayoutOptions } from "../../components/Layout/useLayoutOptions"
-import { useGoogleAnalyticsPageView } from "../../googleAnalytics/useGoogleAnalyticsPageView"
 import { useRedirectToCoursesIfAuthenticated } from "../../hooks/useRedirectToCoursesIfAuthenticated"
 import { useScreenTitle } from "../../hooks/useScreenTitle"
-import type { RouteConfig } from "../_utils/RouteConfig"
 
-const Login = React.lazy(async () => ({ default: (await import("./components/Login")).Login }))
-
-export const loginRouteConfig: RouteConfig = {
+export const loginRouteConfig = {
 	path: appConfig.historyBasename + `/login`,
-	element: () => {
+	Component: function LoginWrapper() {
 		useRedirectToCoursesIfAuthenticated()
 
 		const title = "Inicio de sesión"
 		useScreenTitle(title)
-		useGoogleAnalyticsPageView({ title: title })
 
 		useLayoutOptions({
 			showHeader: false,
 			showNavBar: false,
 		})
 
-		return (
-			<React.Suspense fallback={null}>
-				<Login />
-			</React.Suspense>
-		)
+		return <Outlet />
 	},
-	matchConfig: {
-		path: appConfig.historyBasename + `/login`,
-	},
-}
+	children: [
+		{
+			index: true,
+			lazy: () => import("./components/Login/Login").then(({ Login }) => ({ Component: Login })),
+		},
+	],
+} satisfies RouteObject

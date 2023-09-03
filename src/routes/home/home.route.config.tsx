@@ -1,11 +1,24 @@
-import { appConfig } from "../../app.config"
-import type { RouteConfig } from "../_utils/RouteConfig"
-import { Home } from "./components/Home"
+import { Outlet, type RouteObject } from "react-router-dom"
 
-export const homeRouteConfig: RouteConfig = {
-	path: appConfig.historyBasename || "/",
-	element: () => <Home />,
-	matchConfig: {
-		path: appConfig.historyBasename || "/",
+import { useLayoutOptions } from "@/components/Layout/useLayoutOptions"
+import { useScreenTitle } from "@/hooks/useScreenTitle"
+
+export const homeRouteConfig = {
+	path: "/",
+	Component: function HomeWrapper() {
+		const title = "Inicio"
+		useScreenTitle(title)
+
+		useLayoutOptions({
+			showHeader: false,
+		})
+
+		return <Outlet />
 	},
-}
+	children: [
+		{
+			index: true,
+			lazy: () => import("./components/Home/Home").then(({ Home }) => ({ Component: Home })),
+		},
+	],
+} satisfies RouteObject

@@ -22,7 +22,7 @@ import { useCourseClassPlayerStore } from "../../../../../courseClassPlayer"
 import { useCourseSelectionStore } from "../../../../../courseSelection"
 import { useObservableStates } from "../../../../../hooks/useObservableStates"
 import type { CourseRouteConfigGetPathParams } from "../../course.route.config"
-import { courseRouteConfig } from "../../course.route.config"
+import { getCoursePath } from "../../course.route.config"
 import { courseClassShareModalReducer, initCourseClassShareModalReducer } from "./CourseClassShareModal.reducer"
 import { useCourseClassByIdQuery } from "./CourseClassShareModal.urqlGraphql.generated"
 import { useCourseClassShareModalStyles } from "./useCourseClassShareModalStyles"
@@ -102,7 +102,7 @@ const CourseClassShareModalComponent: React.FC<CourseClassShareModalProps> = ({ 
 			}
 		}
 
-		return appConfig.baseUrl + courseRouteConfig.path(getPathParams)
+		return appConfig.baseUrl + getCoursePath(getPathParams)
 	}, [
 		...Object.values(
 			pick(state, ["courseClassListCode", "courseClassNo", "startOn", "startOnSeconds", "endOn", "endOnSeconds"])

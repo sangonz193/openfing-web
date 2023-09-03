@@ -4,15 +4,8 @@ import React from "react"
 import { LoginForm } from "../LoginForm"
 import { useLoginStyles } from "./useLoginStyles"
 
-export type LoginProps = {
-	children?: undefined
-	className?: string
-}
-
-const LoginComponent: React.FC<LoginProps> = ({ className }) => {
-	const styles = useLoginStyles({
-		className,
-	})
+const LoginComponent: React.FC = () => {
+	const styles = useLoginStyles()
 
 	return (
 		<Stack className={styles.wrapper} disableShrink>

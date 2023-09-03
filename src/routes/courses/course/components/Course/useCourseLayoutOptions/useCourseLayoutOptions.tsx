@@ -1,5 +1,6 @@
-import { CommandBar, CommandBarButton, Link } from "@fluentui/react"
+import { CommandBar, CommandBarButton } from "@fluentui/react"
 import React, { useCallback, useEffect } from "react"
+import { Link } from "react-router-dom"
 import type { UseQueryState } from "urql"
 
 import { useAuthStore } from "../../../../../../auth"
@@ -13,7 +14,6 @@ import { PENCIL_OUTLINE_ICON_NAME } from "../../../../../../components/Icon/penc
 import { RADIO_OUTLINE_ICON_NAME } from "../../../../../../components/Icon/radio-outline.generated"
 import { useLayoutOptions } from "../../../../../../components/Layout/useLayoutOptions"
 import { useComponentWithProps } from "../../../../../../hooks/useComponentWithProps"
-import { useLocalLinkProps } from "../../../../../../hooks/useLocalLinkProps"
 import { useObservableStates } from "../../../../../../hooks/useObservableStates"
 import type { CourseClassListByCodeQuery } from "../Course.urqlGraphql.generated"
 import type { useCourseStyles } from "../useCourseStyles"
@@ -95,19 +95,13 @@ export function useCourseLayoutOptions({
 		setHeaderOptions(getHeaderTitle() || headerOptions)
 	}, [getHeaderTitle])
 
-	const evaLinkProps = useLocalLinkProps({
-		href: courseEva ?? undefined,
-		className: styles.headerLink,
-	})
-
-	const evaUrl = evaLinkProps.href
 	const handleOpenEva = React.useCallback(() => {
-		if (!evaUrl) {
+		if (!courseEva) {
 			return
 		}
 
-		openLink({ link: evaUrl, newWindow: true })
-	}, [evaUrl])
+		openLink({ link: courseEva, newWindow: true })
+	}, [courseEva])
 
 	const { grant } = useObservableStates(useAuthStore(), ["grant"]) // TODO: get isAdmin condition
 	const createCourseClassCommandItem = useCreateCourseClassCommandItem({
@@ -117,18 +111,13 @@ export function useCourseLayoutOptions({
 	})
 
 	const HeaderRight = useComponentWithProps(
-		({
-			courseClassId,
-			evaLinkProps,
-			evaUrl,
-			isCourse,
-			grant,
-			styles,
-			onEditLiveState,
-			onShowCreateCourseClassListForm,
-		}) => {
+		({ courseClassId, courseEva, isCourse, grant, styles, onEditLiveState, onShowCreateCourseClassListForm }) => {
 			if (!grant && !isCourse) {
-				return !!evaUrl ? <Link {...evaLinkProps}>EVA</Link> : null
+				return !!courseEva ? (
+					<Link to={courseEva} className={styles.headerLink} target="_blank" rel="noopener noreferrer">
+						EVA
+					</Link>
+				) : null
 			}
 
 			if (!grant) {
@@ -211,8 +200,7 @@ export function useCourseLayoutOptions({
 		},
 		{
 			courseClassId,
-			evaLinkProps,
-			evaUrl,
+			courseEva,
 			isCourse: headerOptions.isCourse,
 			grant,
 			styles,

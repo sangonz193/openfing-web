@@ -5,10 +5,8 @@ import React, { Suspense } from "react"
 import { useIsAuthenticated } from "../../../../auth"
 import { CreativeCommonsFooter } from "../../../../components/CreativeCommonsFooter"
 import { useCourseSearchStore } from "../../../../courseSearch"
-import { useGoogleAnalyticsPageView } from "../../../../googleAnalytics/useGoogleAnalyticsPageView"
 import { useObservableStates } from "../../../../hooks/useObservableStates"
 // import {ELLIPSIS_HORIZONTAL_ICON_NAME} from "../../../../components/Icon/ellipsis-horizontal.generated"
-import { useScreenTitle } from "../../../../hooks/useScreenTitle"
 import { CourseItem } from "../CourseItem/CourseItem"
 import { useCoursesQuery } from "./Courses.urqlGraphql.generated"
 import { useCoursesLayoutOptions } from "./useCoursesLayoutOptions"
@@ -18,16 +16,7 @@ const LazyCreateCourseForm = React.lazy(async () => ({
 	default: (await import("../CreateCourseForm")).CreateCourseForm,
 }))
 
-export type CoursesProps = {
-	children?: undefined
-	className?: string
-}
-
-const CoursesComponent: React.FC<CoursesProps> = ({ className }) => {
-	const title = "Cursos"
-	useScreenTitle(title)
-	useGoogleAnalyticsPageView({ title: title })
-
+const CoursesComponent: React.FC = () => {
 	const [coursesResponse] = useCoursesQuery()
 	const courses = React.useMemo(() => coursesResponse.data?.courses || [], [coursesResponse.data?.courses])
 
@@ -60,7 +49,6 @@ const CoursesComponent: React.FC<CoursesProps> = ({ className }) => {
 	const showHeaderRight = useIsAuthenticated() // TODO: get isAdmin condition
 
 	const styles = useCoursesStyles({
-		className,
 		showHeaderRight,
 	})
 

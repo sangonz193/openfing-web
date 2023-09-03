@@ -3,9 +3,7 @@ import { Fragment } from "react"
 import { useQuery } from "urql"
 
 import { CreativeCommonsFooter } from "@/components/CreativeCommonsFooter"
-import { useGoogleAnalyticsPageView } from "@/googleAnalytics/useGoogleAnalyticsPageView"
 import { graphql } from "@/gql"
-import { useScreenTitle } from "@/hooks/useScreenTitle"
 
 import { FaqItem } from "./faq-item"
 
@@ -23,10 +21,6 @@ export const FaqsQueryDocument = graphql(/* GraphQL */ `
 `)
 
 export function Faqs() {
-	const title = "FAQs"
-	useScreenTitle(title)
-	useGoogleAnalyticsPageView({ title: title })
-
 	const [{ fetching, data }] = useQuery({ query: FaqsQueryDocument })
 
 	return (

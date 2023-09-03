@@ -2,24 +2,12 @@ import { FocusZone, FocusZoneDirection, List, Separator, Spinner } from "@fluent
 import React from "react"
 
 import { CreativeCommonsFooter } from "../../../../components/CreativeCommonsFooter"
-import { useGoogleAnalyticsPageView } from "../../../../googleAnalytics/useGoogleAnalyticsPageView"
-import { useScreenTitle } from "../../../../hooks/useScreenTitle"
 import { UpdateItem } from "../UpdateItem"
 import { useUpdatesQuery } from "./Updates.urqlGraphql.generated"
 import { useUpdatesStyles } from "./useUpdatesStyles"
 
-export type UpdatesProps = {
-	children?: undefined
-	className?: string
-}
-
-const UpdatesComponent: React.FC<UpdatesProps> = ({ className }) => {
-	const title = "Actualizaciones"
-	useScreenTitle(title)
-	useGoogleAnalyticsPageView({ title: title })
-	const styles = useUpdatesStyles({
-		className,
-	})
+const UpdatesComponent: React.FC = () => {
+	const styles = useUpdatesStyles()
 
 	const [{ fetching, data }] = useUpdatesQuery()
 	const { latestCourseClasses } = data || {}

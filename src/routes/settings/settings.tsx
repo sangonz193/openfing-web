@@ -3,18 +3,12 @@ import { useCallback, useMemo } from "react"
 
 import { appConfig } from "../../app.config"
 import { useAppearanceStore } from "../../appearance"
-import { useGoogleAnalyticsPageView } from "../../googleAnalytics/useGoogleAnalyticsPageView"
 import { useObservableStates } from "../../hooks/useObservableStates"
-import { useScreenTitle } from "../../hooks/useScreenTitle"
 import type { ThemeKey } from "../../styles/themes"
 import { isThemeKey } from "../../styles/themes"
 import { ThemeRadioOption } from "./theme-radio-option"
 
 export function Settings() {
-	const title = "Ajustes"
-	useScreenTitle(title)
-	useGoogleAnalyticsPageView({ title: title })
-
 	const appearanceStore = useAppearanceStore()
 	const { themeKey: selectedThemeKey } = useObservableStates(appearanceStore, ["themeKey"])
 

@@ -1,10 +1,6 @@
-import { css, makeStyles } from "@fluentui/react"
+import { makeStyles } from "@fluentui/react"
 
 import { getMinWidthSelector } from "../../../../../styles/getMinWidthSelector"
-
-export type CourseStyleProps = {
-	className: string | undefined
-}
 
 const useStyles = makeStyles((theme) => {
 	return {
@@ -79,11 +75,11 @@ const useStyles = makeStyles((theme) => {
 	}
 })
 
-export function useCourseStyles({ className }: CourseStyleProps) {
+export function useCourseStyles() {
 	const styles = useStyles()
 
 	return {
 		...styles,
-		wrapper: css(styles.wrapper, className),
+		wrapper: styles.wrapper,
 	}
 }

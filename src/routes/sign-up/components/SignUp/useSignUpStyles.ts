@@ -1,11 +1,6 @@
-import { css, makeStyles } from "@fluentui/react"
+import { makeStyles } from "@fluentui/react"
 
-export type SignUpStyleProps = {
-	className: string | undefined
-}
-
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-const useStyles = makeStyles((theme) => {
+const useStyles = makeStyles(() => {
 	return {
 		wrapper: {
 			overflow: "auto",
@@ -13,10 +8,10 @@ const useStyles = makeStyles((theme) => {
 	}
 })
 
-export function useSignUpStyles({ className }: SignUpStyleProps) {
+export function useSignUpStyles() {
 	const styles = useStyles()
 
 	return {
-		wrapper: css(styles.wrapper, className),
+		wrapper: styles.wrapper,
 	}
 }

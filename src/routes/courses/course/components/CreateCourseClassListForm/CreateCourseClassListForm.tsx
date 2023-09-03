@@ -5,14 +5,14 @@ import identity from "lodash/identity"
 import React from "react"
 import type { SubmitHandler } from "react-hook-form"
 import { Controller, useForm } from "react-hook-form"
+import { useNavigate } from "react-router-dom"
 import * as yup from "yup"
 
 import { useCheckboxControllerProps } from "../../../../../fluentui/useCheckboxControllerProps"
 import { useDropdownControllerProps } from "../../../../../fluentui/useDropdownControllerProps"
 import { useTextFieldControllerProps } from "../../../../../fluentui/useTextFieldControllerProps"
 import type { CreateCourseClassListInputVisibility } from "../../../../../graphql/remoteSchema.types"
-import { useHistory } from "../../../../../navigation/useHistory"
-import { courseRouteConfig } from "../../course.route.config"
+import { getCoursePath } from "../../course.route.config"
 import { useCreateCourseClassListMutation } from "./CreateCourseClassListForm.urqlGraphql.generated"
 import { useCreateCourseClassListFormStyles } from "./useCreateCourseClassListFormStyles"
 
@@ -105,16 +105,19 @@ const CreateCourseClassListFormComponent: React.FC<CreateCourseClassListFormProp
 		[fetching]
 	)
 
-	const history = useHistory()
+	const navigate = useNavigate()
 	React.useEffect(() => {
 		if (data?.createCourseClassList_v2.__typename === "CreateCourseClassListPayload") {
 			onClose?.()
 
 			if (data.createCourseClassList_v2.courseClassList.courseEdition?.courseClassLists.length === 1) {
-				history.replace(
-					courseRouteConfig.path({
+				navigate(
+					getCoursePath({
 						code: data.createCourseClassList_v2.courseClassList.code,
-					})
+					}),
+					{
+						replace: true,
+					}
 				)
 			}
 		}

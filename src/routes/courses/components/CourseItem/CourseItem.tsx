@@ -1,8 +1,8 @@
-import { Image, ImageFit, Link, Stack, Text } from "@fluentui/react"
+import { Image, ImageFit, Stack, Text } from "@fluentui/react"
 import React from "react"
+import { Link } from "react-router-dom"
 
-import { useLocalLinkProps } from "../../../../hooks/useLocalLinkProps"
-import { courseRouteConfig } from "../../course/course.route.config"
+import { getCoursePath } from "../../course/course.route.config"
 import type { CourseItemCourseFragment } from "./CourseItem.urqlGraphql.generated"
 import { useCourseItemStyles } from "./useCourseItemStyles"
 
@@ -18,13 +18,13 @@ const CourseItemComponent: React.FC<CourseItemProps> = ({ className, course }) =
 	})
 
 	const courseClassListCode = course.editions[0]?.courseClassLists[0]?.code ?? course.code
-	const url = React.useMemo(() => courseRouteConfig.path({ code: courseClassListCode }), [courseClassListCode])
+	const url = React.useMemo(() => getCoursePath({ code: courseClassListCode }), [courseClassListCode])
 	const latestEdition = course.editions.length
 		? course.editions.reduce((e1, e2) => (e1.year && e2.year && e1.year > e2.year ? e1 : e2))
 		: undefined
 
 	return (
-		<Link className={styles.wrapper} {...useLocalLinkProps({ href: url })}>
+		<Link className={styles.wrapper} to={url}>
 			<Stack className={styles.imageContainer}>
 				{course?.iconUrl && (
 					<Image className={styles.image} src={course?.iconUrl} imageFit={ImageFit.contain} />
