@@ -15,7 +15,9 @@ export function Header({ className, title = "", right, left }: Props) {
 		<div className={cn("flex h-14 items-center", className)}>
 			{left && React.createElement(left)}
 			{typeof title === "string" ? (
-				<h1 className="mr-auto text-ellipsis whitespace-nowrap px-5 text-2xl font-bold">{title}</h1>
+				<h1 className="ml-4 mr-auto shrink overflow-auto whitespace-nowrap pl-1 pr-5 text-2xl font-bold md:ml-2">
+					{title}
+				</h1>
 			) : (
 				title && React.createElement(title)
 			)}

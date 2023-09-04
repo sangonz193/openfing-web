@@ -8,7 +8,7 @@ import { useResizeDetector } from "react-resize-detector"
 import { cn } from "@/lib/cn"
 
 import { useIsAuthenticated } from "../../../../../auth"
-import { CreativeCommonsFooter } from "../../../../../components/CreativeCommonsFooter/CreativeCommonsFooter"
+import { CreativeCommonsFooter } from "../../../../../components/creative-commons-footer/CreativeCommonsFooter"
 import { useCourseClassPlayerStore } from "../../../../../courseClassPlayer"
 import { useCourseSelectionStore } from "../../../../../courseSelection"
 import { getCourseClassDateInfo } from "../../../../../graphql/CourseClass/getCourseClassDateInfo"

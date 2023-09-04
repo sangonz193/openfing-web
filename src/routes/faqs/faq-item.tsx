@@ -19,12 +19,12 @@ export function FaqItem(props: Props) {
 	const faq = useFragment(FaqItemFragmentDocument, faqFragment)
 
 	return (
-		<div className="flex flex-col gap-4 px-4">
-			<h2 className="text-center text-xl font-semibold">{faq.title}</h2>
+		<div className="flex flex-col gap-4 rounded-lg border p-4">
+			<h2 className="text-xl font-semibold">{faq.title}</h2>
 
 			<p
 				dangerouslySetInnerHTML={faq.isHtml && faq.content ? { __html: faq.content } : undefined}
-				className="prose mx-auto text-center text-base"
+				className="prose text-base"
 			>
 				{faq.isHtml && faq.content ? undefined : faq.content}
 			</p>
