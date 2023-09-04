@@ -8,7 +8,7 @@ create table data.faqs (
     updated_at timestamp with time zone not null default now(),
     deleted_at timestamp with time zone
 );
-create view public.faqs as
+create view public.faq as
 select id,
     title,
     content,
@@ -19,4 +19,4 @@ select id,
 from data.faqs
 where deleted_at is null;
 
-comment on view public.faqs is e'@graphql({"primary_key_columns": ["id"]})';
+comment on view public.faq is e'@graphql({"primary_key_columns": ["id"]})';

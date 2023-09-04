@@ -44,6 +44,1140 @@ input BooleanFilter {
 	is: FilterIs
 }
 
+type Course implements Node {
+	code: String
+	createdAt: Datetime
+	editions(
+		"""
+		Query values in the collection after the provided cursor
+		"""
+		after: Cursor
+
+		"""
+		Query values in the collection before the provided cursor
+		"""
+		before: Cursor
+
+		"""
+		Filters to apply to the results set when querying from the collection
+		"""
+		filter: CourseEditionFilter
+
+		"""
+		Query the first `n` records in the collection
+		"""
+		first: Int
+
+		"""
+		Query the last `n` records in the collection
+		"""
+		last: Int
+
+		"""
+		Sort order to apply to the collection
+		"""
+		orderBy: [CourseEditionOrderBy!]
+	): CourseEditionConnection
+	eva: String
+	iconUrl: String
+	id: UUID
+	name: String
+
+	"""
+	Globally Unique Record Identifier
+	"""
+	nodeId: ID!
+	updatedAt: Datetime
+	visibility: Opaque
+}
+
+type CourseClass implements Node {
+	courseClassList: CourseClassList
+	courseClassListId: UUID
+	createdAt: Datetime
+	cues(
+		"""
+		Query values in the collection after the provided cursor
+		"""
+		after: Cursor
+
+		"""
+		Query values in the collection before the provided cursor
+		"""
+		before: Cursor
+
+		"""
+		Filters to apply to the results set when querying from the collection
+		"""
+		filter: CourseClassChapterCueFilter
+
+		"""
+		Query the first `n` records in the collection
+		"""
+		first: Int
+
+		"""
+		Query the last `n` records in the collection
+		"""
+		last: Int
+
+		"""
+		Sort order to apply to the collection
+		"""
+		orderBy: [CourseClassChapterCueOrderBy!]
+	): CourseClassChapterCueConnection
+	id: UUID
+	liveState: Opaque
+	name: String
+
+	"""
+	Globally Unique Record Identifier
+	"""
+	nodeId: ID!
+	number: Int
+	updatedAt: Datetime
+	videos(
+		"""
+		Query values in the collection after the provided cursor
+		"""
+		after: Cursor
+
+		"""
+		Query values in the collection before the provided cursor
+		"""
+		before: Cursor
+
+		"""
+		Filters to apply to the results set when querying from the collection
+		"""
+		filter: CourseClassVideoFilter
+
+		"""
+		Query the first `n` records in the collection
+		"""
+		first: Int
+
+		"""
+		Query the last `n` records in the collection
+		"""
+		last: Int
+
+		"""
+		Sort order to apply to the collection
+		"""
+		orderBy: [CourseClassVideoOrderBy!]
+	): CourseClassVideoConnection
+	visibility: Opaque
+}
+
+type CourseClassChapterCue implements Node {
+	courseClass: CourseClass
+	courseClassId: UUID
+	createdAt: Datetime
+	id: UUID
+	name: String
+
+	"""
+	Globally Unique Record Identifier
+	"""
+	nodeId: ID!
+	startSeconds: BigFloat
+	updatedAt: Datetime
+}
+
+type CourseClassChapterCueConnection {
+	edges: [CourseClassChapterCueEdge!]!
+	pageInfo: PageInfo!
+}
+
+type CourseClassChapterCueDeleteResponse {
+	"""
+	Count of the records impacted by the mutation
+	"""
+	affectedCount: Int!
+
+	"""
+	Array of records impacted by the mutation
+	"""
+	records: [CourseClassChapterCue!]!
+}
+
+type CourseClassChapterCueEdge {
+	cursor: String!
+	node: CourseClassChapterCue!
+}
+
+input CourseClassChapterCueFilter {
+	courseClassId: UUIDFilter
+	createdAt: DatetimeFilter
+	id: UUIDFilter
+	name: StringFilter
+	nodeId: IDFilter
+	startSeconds: BigFloatFilter
+	updatedAt: DatetimeFilter
+}
+
+input CourseClassChapterCueInsertInput {
+	courseClassId: UUID
+	createdAt: Datetime
+	id: UUID
+	name: String
+	startSeconds: BigFloat
+	updatedAt: Datetime
+}
+
+type CourseClassChapterCueInsertResponse {
+	"""
+	Count of the records impacted by the mutation
+	"""
+	affectedCount: Int!
+
+	"""
+	Array of records impacted by the mutation
+	"""
+	records: [CourseClassChapterCue!]!
+}
+
+input CourseClassChapterCueOrderBy {
+	courseClassId: OrderByDirection
+	createdAt: OrderByDirection
+	id: OrderByDirection
+	name: OrderByDirection
+	startSeconds: OrderByDirection
+	updatedAt: OrderByDirection
+}
+
+input CourseClassChapterCueUpdateInput {
+	courseClassId: UUID
+	createdAt: Datetime
+	id: UUID
+	name: String
+	startSeconds: BigFloat
+	updatedAt: Datetime
+}
+
+type CourseClassChapterCueUpdateResponse {
+	"""
+	Count of the records impacted by the mutation
+	"""
+	affectedCount: Int!
+
+	"""
+	Array of records impacted by the mutation
+	"""
+	records: [CourseClassChapterCue!]!
+}
+
+type CourseClassConnection {
+	edges: [CourseClassEdge!]!
+	pageInfo: PageInfo!
+}
+
+type CourseClassDeleteResponse {
+	"""
+	Count of the records impacted by the mutation
+	"""
+	affectedCount: Int!
+
+	"""
+	Array of records impacted by the mutation
+	"""
+	records: [CourseClass!]!
+}
+
+type CourseClassEdge {
+	cursor: String!
+	node: CourseClass!
+}
+
+input CourseClassFilter {
+	courseClassListId: UUIDFilter
+	createdAt: DatetimeFilter
+	id: UUIDFilter
+	name: StringFilter
+	nodeId: IDFilter
+	number: IntFilter
+	updatedAt: DatetimeFilter
+	visibility: OpaqueFilter
+}
+
+input CourseClassInsertInput {
+	courseClassListId: UUID
+	createdAt: Datetime
+	id: UUID
+	name: String
+	number: Int
+	updatedAt: Datetime
+	visibility: Opaque
+}
+
+type CourseClassInsertResponse {
+	"""
+	Count of the records impacted by the mutation
+	"""
+	affectedCount: Int!
+
+	"""
+	Array of records impacted by the mutation
+	"""
+	records: [CourseClass!]!
+}
+
+type CourseClassList implements Node {
+	code: String
+	courseClass(
+		"""
+		Query values in the collection after the provided cursor
+		"""
+		after: Cursor
+
+		"""
+		Query values in the collection before the provided cursor
+		"""
+		before: Cursor
+
+		"""
+		Filters to apply to the results set when querying from the collection
+		"""
+		filter: CourseClassFilter
+
+		"""
+		Query the first `n` records in the collection
+		"""
+		first: Int
+
+		"""
+		Query the last `n` records in the collection
+		"""
+		last: Int
+
+		"""
+		Sort order to apply to the collection
+		"""
+		orderBy: [CourseClassOrderBy!]
+	): CourseClassConnection
+	courseEditionId: UUID
+	createdAt: Datetime
+	edition: CourseEdition
+	id: UUID
+	name: String
+
+	"""
+	Globally Unique Record Identifier
+	"""
+	nodeId: ID!
+	updatedAt: Datetime
+	visibility: Opaque
+}
+
+type CourseClassListConnection {
+	edges: [CourseClassListEdge!]!
+	pageInfo: PageInfo!
+}
+
+type CourseClassListDeleteResponse {
+	"""
+	Count of the records impacted by the mutation
+	"""
+	affectedCount: Int!
+
+	"""
+	Array of records impacted by the mutation
+	"""
+	records: [CourseClassList!]!
+}
+
+type CourseClassListEdge {
+	cursor: String!
+	node: CourseClassList!
+}
+
+input CourseClassListFilter {
+	code: StringFilter
+	courseEditionId: UUIDFilter
+	createdAt: DatetimeFilter
+	id: UUIDFilter
+	name: StringFilter
+	nodeId: IDFilter
+	updatedAt: DatetimeFilter
+	visibility: OpaqueFilter
+}
+
+input CourseClassListInsertInput {
+	code: String
+	courseEditionId: UUID
+	createdAt: Datetime
+	id: UUID
+	name: String
+	updatedAt: Datetime
+	visibility: Opaque
+}
+
+type CourseClassListInsertResponse {
+	"""
+	Count of the records impacted by the mutation
+	"""
+	affectedCount: Int!
+
+	"""
+	Array of records impacted by the mutation
+	"""
+	records: [CourseClassList!]!
+}
+
+input CourseClassListOrderBy {
+	code: OrderByDirection
+	courseEditionId: OrderByDirection
+	createdAt: OrderByDirection
+	id: OrderByDirection
+	name: OrderByDirection
+	updatedAt: OrderByDirection
+	visibility: OrderByDirection
+}
+
+input CourseClassListUpdateInput {
+	code: String
+	courseEditionId: UUID
+	createdAt: Datetime
+	id: UUID
+	name: String
+	updatedAt: Datetime
+	visibility: Opaque
+}
+
+type CourseClassListUpdateResponse {
+	"""
+	Count of the records impacted by the mutation
+	"""
+	affectedCount: Int!
+
+	"""
+	Array of records impacted by the mutation
+	"""
+	records: [CourseClassList!]!
+}
+
+type CourseClassLiveState implements Node {
+	courseClass: CourseClass
+	courseClassId: UUID
+	createdAt: Datetime
+	html: String
+	id: UUID
+	inProgress: Boolean
+
+	"""
+	Globally Unique Record Identifier
+	"""
+	nodeId: ID!
+	startDate: Datetime
+	updatedAt: Datetime
+}
+
+type CourseClassLiveStateConnection {
+	edges: [CourseClassLiveStateEdge!]!
+	pageInfo: PageInfo!
+}
+
+type CourseClassLiveStateDeleteResponse {
+	"""
+	Count of the records impacted by the mutation
+	"""
+	affectedCount: Int!
+
+	"""
+	Array of records impacted by the mutation
+	"""
+	records: [CourseClassLiveState!]!
+}
+
+type CourseClassLiveStateEdge {
+	cursor: String!
+	node: CourseClassLiveState!
+}
+
+input CourseClassLiveStateFilter {
+	courseClassId: UUIDFilter
+	createdAt: DatetimeFilter
+	html: StringFilter
+	id: UUIDFilter
+	inProgress: BooleanFilter
+	nodeId: IDFilter
+	startDate: DatetimeFilter
+	updatedAt: DatetimeFilter
+}
+
+input CourseClassLiveStateInsertInput {
+	courseClassId: UUID
+	createdAt: Datetime
+	html: String
+	id: UUID
+	inProgress: Boolean
+	startDate: Datetime
+	updatedAt: Datetime
+}
+
+type CourseClassLiveStateInsertResponse {
+	"""
+	Count of the records impacted by the mutation
+	"""
+	affectedCount: Int!
+
+	"""
+	Array of records impacted by the mutation
+	"""
+	records: [CourseClassLiveState!]!
+}
+
+input CourseClassLiveStateOrderBy {
+	courseClassId: OrderByDirection
+	createdAt: OrderByDirection
+	html: OrderByDirection
+	id: OrderByDirection
+	inProgress: OrderByDirection
+	startDate: OrderByDirection
+	updatedAt: OrderByDirection
+}
+
+input CourseClassLiveStateUpdateInput {
+	courseClassId: UUID
+	createdAt: Datetime
+	html: String
+	id: UUID
+	inProgress: Boolean
+	startDate: Datetime
+	updatedAt: Datetime
+}
+
+type CourseClassLiveStateUpdateResponse {
+	"""
+	Count of the records impacted by the mutation
+	"""
+	affectedCount: Int!
+
+	"""
+	Array of records impacted by the mutation
+	"""
+	records: [CourseClassLiveState!]!
+}
+
+input CourseClassOrderBy {
+	courseClassListId: OrderByDirection
+	createdAt: OrderByDirection
+	id: OrderByDirection
+	name: OrderByDirection
+	number: OrderByDirection
+	updatedAt: OrderByDirection
+	visibility: OrderByDirection
+}
+
+input CourseClassUpdateInput {
+	courseClassListId: UUID
+	createdAt: Datetime
+	id: UUID
+	name: String
+	number: Int
+	updatedAt: Datetime
+	visibility: Opaque
+}
+
+type CourseClassUpdateResponse {
+	"""
+	Count of the records impacted by the mutation
+	"""
+	affectedCount: Int!
+
+	"""
+	Array of records impacted by the mutation
+	"""
+	records: [CourseClass!]!
+}
+
+type CourseClassVideo implements Node {
+	courseClass: CourseClass
+	courseClassId: UUID
+	createdAt: Datetime
+	id: UUID
+	name: String
+
+	"""
+	Globally Unique Record Identifier
+	"""
+	nodeId: ID!
+	position: Int
+	qualities(
+		"""
+		Query values in the collection after the provided cursor
+		"""
+		after: Cursor
+
+		"""
+		Query values in the collection before the provided cursor
+		"""
+		before: Cursor
+
+		"""
+		Filters to apply to the results set when querying from the collection
+		"""
+		filter: CourseClassVideoQualityFilter
+
+		"""
+		Query the first `n` records in the collection
+		"""
+		first: Int
+
+		"""
+		Query the last `n` records in the collection
+		"""
+		last: Int
+
+		"""
+		Sort order to apply to the collection
+		"""
+		orderBy: [CourseClassVideoQualityOrderBy!]
+	): CourseClassVideoQualityConnection
+	updatedAt: Datetime
+}
+
+type CourseClassVideoConnection {
+	edges: [CourseClassVideoEdge!]!
+	pageInfo: PageInfo!
+}
+
+type CourseClassVideoDeleteResponse {
+	"""
+	Count of the records impacted by the mutation
+	"""
+	affectedCount: Int!
+
+	"""
+	Array of records impacted by the mutation
+	"""
+	records: [CourseClassVideo!]!
+}
+
+type CourseClassVideoEdge {
+	cursor: String!
+	node: CourseClassVideo!
+}
+
+input CourseClassVideoFilter {
+	courseClassId: UUIDFilter
+	createdAt: DatetimeFilter
+	id: UUIDFilter
+	name: StringFilter
+	nodeId: IDFilter
+	position: IntFilter
+	updatedAt: DatetimeFilter
+}
+
+type CourseClassVideoFormat implements Node {
+	courseClassVideoQualityId: UUID
+	createdAt: Datetime
+	id: UUID
+	name: String
+
+	"""
+	Globally Unique Record Identifier
+	"""
+	nodeId: ID!
+	quality: CourseClassVideoQuality
+	updatedAt: Datetime
+	url: String
+}
+
+type CourseClassVideoFormatConnection {
+	edges: [CourseClassVideoFormatEdge!]!
+	pageInfo: PageInfo!
+}
+
+type CourseClassVideoFormatDeleteResponse {
+	"""
+	Count of the records impacted by the mutation
+	"""
+	affectedCount: Int!
+
+	"""
+	Array of records impacted by the mutation
+	"""
+	records: [CourseClassVideoFormat!]!
+}
+
+type CourseClassVideoFormatEdge {
+	cursor: String!
+	node: CourseClassVideoFormat!
+}
+
+input CourseClassVideoFormatFilter {
+	courseClassVideoQualityId: UUIDFilter
+	createdAt: DatetimeFilter
+	id: UUIDFilter
+	name: StringFilter
+	nodeId: IDFilter
+	updatedAt: DatetimeFilter
+	url: StringFilter
+}
+
+input CourseClassVideoFormatInsertInput {
+	courseClassVideoQualityId: UUID
+	createdAt: Datetime
+	id: UUID
+	name: String
+	updatedAt: Datetime
+	url: String
+}
+
+type CourseClassVideoFormatInsertResponse {
+	"""
+	Count of the records impacted by the mutation
+	"""
+	affectedCount: Int!
+
+	"""
+	Array of records impacted by the mutation
+	"""
+	records: [CourseClassVideoFormat!]!
+}
+
+input CourseClassVideoFormatOrderBy {
+	courseClassVideoQualityId: OrderByDirection
+	createdAt: OrderByDirection
+	id: OrderByDirection
+	name: OrderByDirection
+	updatedAt: OrderByDirection
+	url: OrderByDirection
+}
+
+input CourseClassVideoFormatUpdateInput {
+	courseClassVideoQualityId: UUID
+	createdAt: Datetime
+	id: UUID
+	name: String
+	updatedAt: Datetime
+	url: String
+}
+
+type CourseClassVideoFormatUpdateResponse {
+	"""
+	Count of the records impacted by the mutation
+	"""
+	affectedCount: Int!
+
+	"""
+	Array of records impacted by the mutation
+	"""
+	records: [CourseClassVideoFormat!]!
+}
+
+input CourseClassVideoInsertInput {
+	courseClassId: UUID
+	createdAt: Datetime
+	id: UUID
+	name: String
+	position: Int
+	updatedAt: Datetime
+}
+
+type CourseClassVideoInsertResponse {
+	"""
+	Count of the records impacted by the mutation
+	"""
+	affectedCount: Int!
+
+	"""
+	Array of records impacted by the mutation
+	"""
+	records: [CourseClassVideo!]!
+}
+
+input CourseClassVideoOrderBy {
+	courseClassId: OrderByDirection
+	createdAt: OrderByDirection
+	id: OrderByDirection
+	name: OrderByDirection
+	position: OrderByDirection
+	updatedAt: OrderByDirection
+}
+
+type CourseClassVideoQuality implements Node {
+	courseClassVideoId: UUID
+	createdAt: Datetime
+	formats(
+		"""
+		Query values in the collection after the provided cursor
+		"""
+		after: Cursor
+
+		"""
+		Query values in the collection before the provided cursor
+		"""
+		before: Cursor
+
+		"""
+		Filters to apply to the results set when querying from the collection
+		"""
+		filter: CourseClassVideoFormatFilter
+
+		"""
+		Query the first `n` records in the collection
+		"""
+		first: Int
+
+		"""
+		Query the last `n` records in the collection
+		"""
+		last: Int
+
+		"""
+		Sort order to apply to the collection
+		"""
+		orderBy: [CourseClassVideoFormatOrderBy!]
+	): CourseClassVideoFormatConnection
+	height: Int
+	id: UUID
+
+	"""
+	Globally Unique Record Identifier
+	"""
+	nodeId: ID!
+	updatedAt: Datetime
+	video: CourseClassVideo
+	width: Int
+}
+
+type CourseClassVideoQualityConnection {
+	edges: [CourseClassVideoQualityEdge!]!
+	pageInfo: PageInfo!
+}
+
+type CourseClassVideoQualityDeleteResponse {
+	"""
+	Count of the records impacted by the mutation
+	"""
+	affectedCount: Int!
+
+	"""
+	Array of records impacted by the mutation
+	"""
+	records: [CourseClassVideoQuality!]!
+}
+
+type CourseClassVideoQualityEdge {
+	cursor: String!
+	node: CourseClassVideoQuality!
+}
+
+input CourseClassVideoQualityFilter {
+	courseClassVideoId: UUIDFilter
+	createdAt: DatetimeFilter
+	height: IntFilter
+	id: UUIDFilter
+	nodeId: IDFilter
+	updatedAt: DatetimeFilter
+	width: IntFilter
+}
+
+input CourseClassVideoQualityInsertInput {
+	courseClassVideoId: UUID
+	createdAt: Datetime
+	height: Int
+	id: UUID
+	updatedAt: Datetime
+	width: Int
+}
+
+type CourseClassVideoQualityInsertResponse {
+	"""
+	Count of the records impacted by the mutation
+	"""
+	affectedCount: Int!
+
+	"""
+	Array of records impacted by the mutation
+	"""
+	records: [CourseClassVideoQuality!]!
+}
+
+input CourseClassVideoQualityOrderBy {
+	courseClassVideoId: OrderByDirection
+	createdAt: OrderByDirection
+	height: OrderByDirection
+	id: OrderByDirection
+	updatedAt: OrderByDirection
+	width: OrderByDirection
+}
+
+input CourseClassVideoQualityUpdateInput {
+	courseClassVideoId: UUID
+	createdAt: Datetime
+	height: Int
+	id: UUID
+	updatedAt: Datetime
+	width: Int
+}
+
+type CourseClassVideoQualityUpdateResponse {
+	"""
+	Count of the records impacted by the mutation
+	"""
+	affectedCount: Int!
+
+	"""
+	Array of records impacted by the mutation
+	"""
+	records: [CourseClassVideoQuality!]!
+}
+
+input CourseClassVideoUpdateInput {
+	courseClassId: UUID
+	createdAt: Datetime
+	id: UUID
+	name: String
+	position: Int
+	updatedAt: Datetime
+}
+
+type CourseClassVideoUpdateResponse {
+	"""
+	Count of the records impacted by the mutation
+	"""
+	affectedCount: Int!
+
+	"""
+	Array of records impacted by the mutation
+	"""
+	records: [CourseClassVideo!]!
+}
+
+type CourseConnection {
+	edges: [CourseEdge!]!
+	pageInfo: PageInfo!
+}
+
+type CourseDeleteResponse {
+	"""
+	Count of the records impacted by the mutation
+	"""
+	affectedCount: Int!
+
+	"""
+	Array of records impacted by the mutation
+	"""
+	records: [Course!]!
+}
+
+type CourseEdge {
+	cursor: String!
+	node: Course!
+}
+
+type CourseEdition implements Node {
+	course: Course
+	courseClassLists(
+		"""
+		Query values in the collection after the provided cursor
+		"""
+		after: Cursor
+
+		"""
+		Query values in the collection before the provided cursor
+		"""
+		before: Cursor
+
+		"""
+		Filters to apply to the results set when querying from the collection
+		"""
+		filter: CourseClassListFilter
+
+		"""
+		Query the first `n` records in the collection
+		"""
+		first: Int
+
+		"""
+		Query the last `n` records in the collection
+		"""
+		last: Int
+
+		"""
+		Sort order to apply to the collection
+		"""
+		orderBy: [CourseClassListOrderBy!]
+	): CourseClassListConnection
+	courseId: UUID
+	createdAt: Datetime
+	id: UUID
+	name: String
+
+	"""
+	Globally Unique Record Identifier
+	"""
+	nodeId: ID!
+	semester: Int
+	updatedAt: Datetime
+	visibility: Opaque
+	year: Int
+}
+
+type CourseEditionConnection {
+	edges: [CourseEditionEdge!]!
+	pageInfo: PageInfo!
+}
+
+type CourseEditionDeleteResponse {
+	"""
+	Count of the records impacted by the mutation
+	"""
+	affectedCount: Int!
+
+	"""
+	Array of records impacted by the mutation
+	"""
+	records: [CourseEdition!]!
+}
+
+type CourseEditionEdge {
+	cursor: String!
+	node: CourseEdition!
+}
+
+input CourseEditionFilter {
+	courseId: UUIDFilter
+	createdAt: DatetimeFilter
+	id: UUIDFilter
+	name: StringFilter
+	nodeId: IDFilter
+	semester: IntFilter
+	updatedAt: DatetimeFilter
+	visibility: OpaqueFilter
+	year: IntFilter
+}
+
+input CourseEditionInsertInput {
+	courseId: UUID
+	createdAt: Datetime
+	id: UUID
+	name: String
+	semester: Int
+	updatedAt: Datetime
+	visibility: Opaque
+	year: Int
+}
+
+type CourseEditionInsertResponse {
+	"""
+	Count of the records impacted by the mutation
+	"""
+	affectedCount: Int!
+
+	"""
+	Array of records impacted by the mutation
+	"""
+	records: [CourseEdition!]!
+}
+
+input CourseEditionOrderBy {
+	courseId: OrderByDirection
+	createdAt: OrderByDirection
+	id: OrderByDirection
+	name: OrderByDirection
+	semester: OrderByDirection
+	updatedAt: OrderByDirection
+	visibility: OrderByDirection
+	year: OrderByDirection
+}
+
+input CourseEditionUpdateInput {
+	courseId: UUID
+	createdAt: Datetime
+	id: UUID
+	name: String
+	semester: Int
+	updatedAt: Datetime
+	visibility: Opaque
+	year: Int
+}
+
+type CourseEditionUpdateResponse {
+	"""
+	Count of the records impacted by the mutation
+	"""
+	affectedCount: Int!
+
+	"""
+	Array of records impacted by the mutation
+	"""
+	records: [CourseEdition!]!
+}
+
+input CourseFilter {
+	code: StringFilter
+	createdAt: DatetimeFilter
+	eva: StringFilter
+	iconUrl: StringFilter
+	id: UUIDFilter
+	name: StringFilter
+	nodeId: IDFilter
+	updatedAt: DatetimeFilter
+	visibility: OpaqueFilter
+}
+
+input CourseInsertInput {
+	code: String
+	createdAt: Datetime
+	eva: String
+	iconUrl: String
+	id: UUID
+	name: String
+	updatedAt: Datetime
+	visibility: Opaque
+}
+
+type CourseInsertResponse {
+	"""
+	Count of the records impacted by the mutation
+	"""
+	affectedCount: Int!
+
+	"""
+	Array of records impacted by the mutation
+	"""
+	records: [Course!]!
+}
+
+input CourseOrderBy {
+	code: OrderByDirection
+	createdAt: OrderByDirection
+	eva: OrderByDirection
+	iconUrl: OrderByDirection
+	id: OrderByDirection
+	name: OrderByDirection
+	updatedAt: OrderByDirection
+	visibility: OrderByDirection
+}
+
+input CourseUpdateInput {
+	code: String
+	createdAt: Datetime
+	eva: String
+	iconUrl: String
+	id: UUID
+	name: String
+	updatedAt: Datetime
+	visibility: Opaque
+}
+
+type CourseUpdateResponse {
+	"""
+	Count of the records impacted by the mutation
+	"""
+	affectedCount: Int!
+
+	"""
+	Array of records impacted by the mutation
+	"""
+	records: [Course!]!
+}
+
 """
 An opaque string using for tracking a position in results during pagination
 """
@@ -87,7 +1221,7 @@ input DatetimeFilter {
 	neq: Datetime
 }
 
-type Faqs implements Node {
+type Faq implements Node {
 	content: String
 	createdAt: Datetime
 	id: UUID
@@ -102,12 +1236,12 @@ type Faqs implements Node {
 	updatedAt: Datetime
 }
 
-type FaqsConnection {
-	edges: [FaqsEdge!]!
+type FaqConnection {
+	edges: [FaqEdge!]!
 	pageInfo: PageInfo!
 }
 
-type FaqsDeleteResponse {
+type FaqDeleteResponse {
 	"""
 	Count of the records impacted by the mutation
 	"""
@@ -116,15 +1250,15 @@ type FaqsDeleteResponse {
 	"""
 	Array of records impacted by the mutation
 	"""
-	records: [Faqs!]!
+	records: [Faq!]!
 }
 
-type FaqsEdge {
+type FaqEdge {
 	cursor: String!
-	node: Faqs!
+	node: Faq!
 }
 
-input FaqsFilter {
+input FaqFilter {
 	content: StringFilter
 	createdAt: DatetimeFilter
 	id: UUIDFilter
@@ -135,7 +1269,7 @@ input FaqsFilter {
 	updatedAt: DatetimeFilter
 }
 
-input FaqsInsertInput {
+input FaqInsertInput {
 	content: String
 	createdAt: Datetime
 	id: UUID
@@ -145,7 +1279,7 @@ input FaqsInsertInput {
 	updatedAt: Datetime
 }
 
-type FaqsInsertResponse {
+type FaqInsertResponse {
 	"""
 	Count of the records impacted by the mutation
 	"""
@@ -154,10 +1288,10 @@ type FaqsInsertResponse {
 	"""
 	Array of records impacted by the mutation
 	"""
-	records: [Faqs!]!
+	records: [Faq!]!
 }
 
-input FaqsOrderBy {
+input FaqOrderBy {
 	content: OrderByDirection
 	createdAt: OrderByDirection
 	id: OrderByDirection
@@ -167,7 +1301,7 @@ input FaqsOrderBy {
 	updatedAt: OrderByDirection
 }
 
-input FaqsUpdateInput {
+input FaqUpdateInput {
 	content: String
 	createdAt: Datetime
 	id: UUID
@@ -177,7 +1311,7 @@ input FaqsUpdateInput {
 	updatedAt: Datetime
 }
 
-type FaqsUpdateResponse {
+type FaqUpdateResponse {
 	"""
 	Count of the records impacted by the mutation
 	"""
@@ -186,7 +1320,7 @@ type FaqsUpdateResponse {
 	"""
 	Array of records impacted by the mutation
 	"""
-	records: [Faqs!]!
+	records: [Faq!]!
 }
 
 enum FilterIs {
@@ -239,9 +1373,9 @@ The root type for creating and mutating data
 """
 type Mutation {
 	"""
-	Deletes zero or more records from the `Faqs` collection
+	Deletes zero or more records from the `CourseClassChapterCue` collection
 	"""
-	deleteFromFaqsCollection(
+	deleteFromCourseClassChapterCueCollection(
 		"""
 		The maximum number of records in the collection permitted to be affected
 		"""
@@ -250,18 +1384,13 @@ type Mutation {
 		"""
 		Restricts the mutation's impact to records matching the criteria
 		"""
-		filter: FaqsFilter
-	): FaqsDeleteResponse!
+		filter: CourseClassChapterCueFilter
+	): CourseClassChapterCueDeleteResponse!
 
 	"""
-	Adds one or more `Faqs` records to the collection
+	Deletes zero or more records from the `CourseClass` collection
 	"""
-	insertIntoFaqsCollection(objects: [FaqsInsertInput!]!): FaqsInsertResponse
-
-	"""
-	Updates zero or more records in the `Faqs` collection
-	"""
-	updateFaqsCollection(
+	deleteFromCourseClassCollection(
 		"""
 		The maximum number of records in the collection permitted to be affected
 		"""
@@ -270,13 +1399,386 @@ type Mutation {
 		"""
 		Restricts the mutation's impact to records matching the criteria
 		"""
-		filter: FaqsFilter
+		filter: CourseClassFilter
+	): CourseClassDeleteResponse!
+
+	"""
+	Deletes zero or more records from the `CourseClassList` collection
+	"""
+	deleteFromCourseClassListCollection(
+		"""
+		The maximum number of records in the collection permitted to be affected
+		"""
+		atMost: Int! = 1
+
+		"""
+		Restricts the mutation's impact to records matching the criteria
+		"""
+		filter: CourseClassListFilter
+	): CourseClassListDeleteResponse!
+
+	"""
+	Deletes zero or more records from the `CourseClassLiveState` collection
+	"""
+	deleteFromCourseClassLiveStateCollection(
+		"""
+		The maximum number of records in the collection permitted to be affected
+		"""
+		atMost: Int! = 1
+
+		"""
+		Restricts the mutation's impact to records matching the criteria
+		"""
+		filter: CourseClassLiveStateFilter
+	): CourseClassLiveStateDeleteResponse!
+
+	"""
+	Deletes zero or more records from the `CourseClassVideo` collection
+	"""
+	deleteFromCourseClassVideoCollection(
+		"""
+		The maximum number of records in the collection permitted to be affected
+		"""
+		atMost: Int! = 1
+
+		"""
+		Restricts the mutation's impact to records matching the criteria
+		"""
+		filter: CourseClassVideoFilter
+	): CourseClassVideoDeleteResponse!
+
+	"""
+	Deletes zero or more records from the `CourseClassVideoFormat` collection
+	"""
+	deleteFromCourseClassVideoFormatCollection(
+		"""
+		The maximum number of records in the collection permitted to be affected
+		"""
+		atMost: Int! = 1
+
+		"""
+		Restricts the mutation's impact to records matching the criteria
+		"""
+		filter: CourseClassVideoFormatFilter
+	): CourseClassVideoFormatDeleteResponse!
+
+	"""
+	Deletes zero or more records from the `CourseClassVideoQuality` collection
+	"""
+	deleteFromCourseClassVideoQualityCollection(
+		"""
+		The maximum number of records in the collection permitted to be affected
+		"""
+		atMost: Int! = 1
+
+		"""
+		Restricts the mutation's impact to records matching the criteria
+		"""
+		filter: CourseClassVideoQualityFilter
+	): CourseClassVideoQualityDeleteResponse!
+
+	"""
+	Deletes zero or more records from the `Course` collection
+	"""
+	deleteFromCourseCollection(
+		"""
+		The maximum number of records in the collection permitted to be affected
+		"""
+		atMost: Int! = 1
+
+		"""
+		Restricts the mutation's impact to records matching the criteria
+		"""
+		filter: CourseFilter
+	): CourseDeleteResponse!
+
+	"""
+	Deletes zero or more records from the `CourseEdition` collection
+	"""
+	deleteFromCourseEditionCollection(
+		"""
+		The maximum number of records in the collection permitted to be affected
+		"""
+		atMost: Int! = 1
+
+		"""
+		Restricts the mutation's impact to records matching the criteria
+		"""
+		filter: CourseEditionFilter
+	): CourseEditionDeleteResponse!
+
+	"""
+	Deletes zero or more records from the `Faq` collection
+	"""
+	deleteFromFaqCollection(
+		"""
+		The maximum number of records in the collection permitted to be affected
+		"""
+		atMost: Int! = 1
+
+		"""
+		Restricts the mutation's impact to records matching the criteria
+		"""
+		filter: FaqFilter
+	): FaqDeleteResponse!
+
+	"""
+	Adds one or more `CourseClassChapterCue` records to the collection
+	"""
+	insertIntoCourseClassChapterCueCollection(
+		objects: [CourseClassChapterCueInsertInput!]!
+	): CourseClassChapterCueInsertResponse
+
+	"""
+	Adds one or more `CourseClass` records to the collection
+	"""
+	insertIntoCourseClassCollection(objects: [CourseClassInsertInput!]!): CourseClassInsertResponse
+
+	"""
+	Adds one or more `CourseClassList` records to the collection
+	"""
+	insertIntoCourseClassListCollection(objects: [CourseClassListInsertInput!]!): CourseClassListInsertResponse
+
+	"""
+	Adds one or more `CourseClassLiveState` records to the collection
+	"""
+	insertIntoCourseClassLiveStateCollection(
+		objects: [CourseClassLiveStateInsertInput!]!
+	): CourseClassLiveStateInsertResponse
+
+	"""
+	Adds one or more `CourseClassVideo` records to the collection
+	"""
+	insertIntoCourseClassVideoCollection(objects: [CourseClassVideoInsertInput!]!): CourseClassVideoInsertResponse
+
+	"""
+	Adds one or more `CourseClassVideoFormat` records to the collection
+	"""
+	insertIntoCourseClassVideoFormatCollection(
+		objects: [CourseClassVideoFormatInsertInput!]!
+	): CourseClassVideoFormatInsertResponse
+
+	"""
+	Adds one or more `CourseClassVideoQuality` records to the collection
+	"""
+	insertIntoCourseClassVideoQualityCollection(
+		objects: [CourseClassVideoQualityInsertInput!]!
+	): CourseClassVideoQualityInsertResponse
+
+	"""
+	Adds one or more `Course` records to the collection
+	"""
+	insertIntoCourseCollection(objects: [CourseInsertInput!]!): CourseInsertResponse
+
+	"""
+	Adds one or more `CourseEdition` records to the collection
+	"""
+	insertIntoCourseEditionCollection(objects: [CourseEditionInsertInput!]!): CourseEditionInsertResponse
+
+	"""
+	Adds one or more `Faq` records to the collection
+	"""
+	insertIntoFaqCollection(objects: [FaqInsertInput!]!): FaqInsertResponse
+
+	"""
+	Updates zero or more records in the `CourseClassChapterCue` collection
+	"""
+	updateCourseClassChapterCueCollection(
+		"""
+		The maximum number of records in the collection permitted to be affected
+		"""
+		atMost: Int! = 1
+
+		"""
+		Restricts the mutation's impact to records matching the criteria
+		"""
+		filter: CourseClassChapterCueFilter
 
 		"""
 		Fields that are set will be updated for all records matching the `filter`
 		"""
-		set: FaqsUpdateInput!
-	): FaqsUpdateResponse!
+		set: CourseClassChapterCueUpdateInput!
+	): CourseClassChapterCueUpdateResponse!
+
+	"""
+	Updates zero or more records in the `CourseClass` collection
+	"""
+	updateCourseClassCollection(
+		"""
+		The maximum number of records in the collection permitted to be affected
+		"""
+		atMost: Int! = 1
+
+		"""
+		Restricts the mutation's impact to records matching the criteria
+		"""
+		filter: CourseClassFilter
+
+		"""
+		Fields that are set will be updated for all records matching the `filter`
+		"""
+		set: CourseClassUpdateInput!
+	): CourseClassUpdateResponse!
+
+	"""
+	Updates zero or more records in the `CourseClassList` collection
+	"""
+	updateCourseClassListCollection(
+		"""
+		The maximum number of records in the collection permitted to be affected
+		"""
+		atMost: Int! = 1
+
+		"""
+		Restricts the mutation's impact to records matching the criteria
+		"""
+		filter: CourseClassListFilter
+
+		"""
+		Fields that are set will be updated for all records matching the `filter`
+		"""
+		set: CourseClassListUpdateInput!
+	): CourseClassListUpdateResponse!
+
+	"""
+	Updates zero or more records in the `CourseClassLiveState` collection
+	"""
+	updateCourseClassLiveStateCollection(
+		"""
+		The maximum number of records in the collection permitted to be affected
+		"""
+		atMost: Int! = 1
+
+		"""
+		Restricts the mutation's impact to records matching the criteria
+		"""
+		filter: CourseClassLiveStateFilter
+
+		"""
+		Fields that are set will be updated for all records matching the `filter`
+		"""
+		set: CourseClassLiveStateUpdateInput!
+	): CourseClassLiveStateUpdateResponse!
+
+	"""
+	Updates zero or more records in the `CourseClassVideo` collection
+	"""
+	updateCourseClassVideoCollection(
+		"""
+		The maximum number of records in the collection permitted to be affected
+		"""
+		atMost: Int! = 1
+
+		"""
+		Restricts the mutation's impact to records matching the criteria
+		"""
+		filter: CourseClassVideoFilter
+
+		"""
+		Fields that are set will be updated for all records matching the `filter`
+		"""
+		set: CourseClassVideoUpdateInput!
+	): CourseClassVideoUpdateResponse!
+
+	"""
+	Updates zero or more records in the `CourseClassVideoFormat` collection
+	"""
+	updateCourseClassVideoFormatCollection(
+		"""
+		The maximum number of records in the collection permitted to be affected
+		"""
+		atMost: Int! = 1
+
+		"""
+		Restricts the mutation's impact to records matching the criteria
+		"""
+		filter: CourseClassVideoFormatFilter
+
+		"""
+		Fields that are set will be updated for all records matching the `filter`
+		"""
+		set: CourseClassVideoFormatUpdateInput!
+	): CourseClassVideoFormatUpdateResponse!
+
+	"""
+	Updates zero or more records in the `CourseClassVideoQuality` collection
+	"""
+	updateCourseClassVideoQualityCollection(
+		"""
+		The maximum number of records in the collection permitted to be affected
+		"""
+		atMost: Int! = 1
+
+		"""
+		Restricts the mutation's impact to records matching the criteria
+		"""
+		filter: CourseClassVideoQualityFilter
+
+		"""
+		Fields that are set will be updated for all records matching the `filter`
+		"""
+		set: CourseClassVideoQualityUpdateInput!
+	): CourseClassVideoQualityUpdateResponse!
+
+	"""
+	Updates zero or more records in the `Course` collection
+	"""
+	updateCourseCollection(
+		"""
+		The maximum number of records in the collection permitted to be affected
+		"""
+		atMost: Int! = 1
+
+		"""
+		Restricts the mutation's impact to records matching the criteria
+		"""
+		filter: CourseFilter
+
+		"""
+		Fields that are set will be updated for all records matching the `filter`
+		"""
+		set: CourseUpdateInput!
+	): CourseUpdateResponse!
+
+	"""
+	Updates zero or more records in the `CourseEdition` collection
+	"""
+	updateCourseEditionCollection(
+		"""
+		The maximum number of records in the collection permitted to be affected
+		"""
+		atMost: Int! = 1
+
+		"""
+		Restricts the mutation's impact to records matching the criteria
+		"""
+		filter: CourseEditionFilter
+
+		"""
+		Fields that are set will be updated for all records matching the `filter`
+		"""
+		set: CourseEditionUpdateInput!
+	): CourseEditionUpdateResponse!
+
+	"""
+	Updates zero or more records in the `Faq` collection
+	"""
+	updateFaqCollection(
+		"""
+		The maximum number of records in the collection permitted to be affected
+		"""
+		atMost: Int! = 1
+
+		"""
+		Restricts the mutation's impact to records matching the criteria
+		"""
+		filter: FaqFilter
+
+		"""
+		Fields that are set will be updated for all records matching the `filter`
+		"""
+		set: FaqUpdateInput!
+	): FaqUpdateResponse!
 }
 
 interface Node {
@@ -336,9 +1838,9 @@ The root type for querying data
 """
 type Query {
 	"""
-	A pagable collection of type `Faqs`
+	A pagable collection of type `CourseClassChapterCue`
 	"""
-	faqsCollection(
+	courseClassChapterCueCollection(
 		"""
 		Query values in the collection after the provided cursor
 		"""
@@ -352,7 +1854,7 @@ type Query {
 		"""
 		Filters to apply to the results set when querying from the collection
 		"""
-		filter: FaqsFilter
+		filter: CourseClassChapterCueFilter
 
 		"""
 		Query the first `n` records in the collection
@@ -367,8 +1869,323 @@ type Query {
 		"""
 		Sort order to apply to the collection
 		"""
-		orderBy: [FaqsOrderBy!]
-	): FaqsConnection
+		orderBy: [CourseClassChapterCueOrderBy!]
+	): CourseClassChapterCueConnection
+
+	"""
+	A pagable collection of type `CourseClass`
+	"""
+	courseClassCollection(
+		"""
+		Query values in the collection after the provided cursor
+		"""
+		after: Cursor
+
+		"""
+		Query values in the collection before the provided cursor
+		"""
+		before: Cursor
+
+		"""
+		Filters to apply to the results set when querying from the collection
+		"""
+		filter: CourseClassFilter
+
+		"""
+		Query the first `n` records in the collection
+		"""
+		first: Int
+
+		"""
+		Query the last `n` records in the collection
+		"""
+		last: Int
+
+		"""
+		Sort order to apply to the collection
+		"""
+		orderBy: [CourseClassOrderBy!]
+	): CourseClassConnection
+
+	"""
+	A pagable collection of type `CourseClassList`
+	"""
+	courseClassListCollection(
+		"""
+		Query values in the collection after the provided cursor
+		"""
+		after: Cursor
+
+		"""
+		Query values in the collection before the provided cursor
+		"""
+		before: Cursor
+
+		"""
+		Filters to apply to the results set when querying from the collection
+		"""
+		filter: CourseClassListFilter
+
+		"""
+		Query the first `n` records in the collection
+		"""
+		first: Int
+
+		"""
+		Query the last `n` records in the collection
+		"""
+		last: Int
+
+		"""
+		Sort order to apply to the collection
+		"""
+		orderBy: [CourseClassListOrderBy!]
+	): CourseClassListConnection
+
+	"""
+	A pagable collection of type `CourseClassLiveState`
+	"""
+	courseClassLiveStateCollection(
+		"""
+		Query values in the collection after the provided cursor
+		"""
+		after: Cursor
+
+		"""
+		Query values in the collection before the provided cursor
+		"""
+		before: Cursor
+
+		"""
+		Filters to apply to the results set when querying from the collection
+		"""
+		filter: CourseClassLiveStateFilter
+
+		"""
+		Query the first `n` records in the collection
+		"""
+		first: Int
+
+		"""
+		Query the last `n` records in the collection
+		"""
+		last: Int
+
+		"""
+		Sort order to apply to the collection
+		"""
+		orderBy: [CourseClassLiveStateOrderBy!]
+	): CourseClassLiveStateConnection
+
+	"""
+	A pagable collection of type `CourseClassVideo`
+	"""
+	courseClassVideoCollection(
+		"""
+		Query values in the collection after the provided cursor
+		"""
+		after: Cursor
+
+		"""
+		Query values in the collection before the provided cursor
+		"""
+		before: Cursor
+
+		"""
+		Filters to apply to the results set when querying from the collection
+		"""
+		filter: CourseClassVideoFilter
+
+		"""
+		Query the first `n` records in the collection
+		"""
+		first: Int
+
+		"""
+		Query the last `n` records in the collection
+		"""
+		last: Int
+
+		"""
+		Sort order to apply to the collection
+		"""
+		orderBy: [CourseClassVideoOrderBy!]
+	): CourseClassVideoConnection
+
+	"""
+	A pagable collection of type `CourseClassVideoFormat`
+	"""
+	courseClassVideoFormatCollection(
+		"""
+		Query values in the collection after the provided cursor
+		"""
+		after: Cursor
+
+		"""
+		Query values in the collection before the provided cursor
+		"""
+		before: Cursor
+
+		"""
+		Filters to apply to the results set when querying from the collection
+		"""
+		filter: CourseClassVideoFormatFilter
+
+		"""
+		Query the first `n` records in the collection
+		"""
+		first: Int
+
+		"""
+		Query the last `n` records in the collection
+		"""
+		last: Int
+
+		"""
+		Sort order to apply to the collection
+		"""
+		orderBy: [CourseClassVideoFormatOrderBy!]
+	): CourseClassVideoFormatConnection
+
+	"""
+	A pagable collection of type `CourseClassVideoQuality`
+	"""
+	courseClassVideoQualityCollection(
+		"""
+		Query values in the collection after the provided cursor
+		"""
+		after: Cursor
+
+		"""
+		Query values in the collection before the provided cursor
+		"""
+		before: Cursor
+
+		"""
+		Filters to apply to the results set when querying from the collection
+		"""
+		filter: CourseClassVideoQualityFilter
+
+		"""
+		Query the first `n` records in the collection
+		"""
+		first: Int
+
+		"""
+		Query the last `n` records in the collection
+		"""
+		last: Int
+
+		"""
+		Sort order to apply to the collection
+		"""
+		orderBy: [CourseClassVideoQualityOrderBy!]
+	): CourseClassVideoQualityConnection
+
+	"""
+	A pagable collection of type `Course`
+	"""
+	courseCollection(
+		"""
+		Query values in the collection after the provided cursor
+		"""
+		after: Cursor
+
+		"""
+		Query values in the collection before the provided cursor
+		"""
+		before: Cursor
+
+		"""
+		Filters to apply to the results set when querying from the collection
+		"""
+		filter: CourseFilter
+
+		"""
+		Query the first `n` records in the collection
+		"""
+		first: Int
+
+		"""
+		Query the last `n` records in the collection
+		"""
+		last: Int
+
+		"""
+		Sort order to apply to the collection
+		"""
+		orderBy: [CourseOrderBy!]
+	): CourseConnection
+
+	"""
+	A pagable collection of type `CourseEdition`
+	"""
+	courseEditionCollection(
+		"""
+		Query values in the collection after the provided cursor
+		"""
+		after: Cursor
+
+		"""
+		Query values in the collection before the provided cursor
+		"""
+		before: Cursor
+
+		"""
+		Filters to apply to the results set when querying from the collection
+		"""
+		filter: CourseEditionFilter
+
+		"""
+		Query the first `n` records in the collection
+		"""
+		first: Int
+
+		"""
+		Query the last `n` records in the collection
+		"""
+		last: Int
+
+		"""
+		Sort order to apply to the collection
+		"""
+		orderBy: [CourseEditionOrderBy!]
+	): CourseEditionConnection
+
+	"""
+	A pagable collection of type `Faq`
+	"""
+	faqCollection(
+		"""
+		Query values in the collection after the provided cursor
+		"""
+		after: Cursor
+
+		"""
+		Query values in the collection before the provided cursor
+		"""
+		before: Cursor
+
+		"""
+		Filters to apply to the results set when querying from the collection
+		"""
+		filter: FaqFilter
+
+		"""
+		Query the first `n` records in the collection
+		"""
+		first: Int
+
+		"""
+		Query the last `n` records in the collection
+		"""
+		last: Int
+
+		"""
+		Sort order to apply to the collection
+		"""
+		orderBy: [FaqOrderBy!]
+	): FaqConnection
 
 	"""
 	Retrieve a record by its `ID`
@@ -390,13 +2207,11 @@ input StringFilter {
 	gte: String
 	ilike: String
 	in: [String!]
-	iregex: String
 	is: FilterIs
 	like: String
 	lt: String
 	lte: String
 	neq: String
-	regex: String
 	startsWith: String
 }
 

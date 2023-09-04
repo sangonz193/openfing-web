@@ -1,8 +1,8 @@
-import type { FragmentType } from "@/gql"
-import { graphql, useFragment } from "@/gql"
+import { graphql } from "@/gql"
+import type { FaqItemFaqFragment } from "@/gql/graphql"
 
-const FaqItemFragmentDocument = graphql(/* GraphQL */ `
-	fragment FaqItemFragment on Faqs {
+graphql(/* GraphQL */ `
+	fragment FaqItemFaq on Faq {
 		id
 		title
 		content
@@ -11,12 +11,11 @@ const FaqItemFragmentDocument = graphql(/* GraphQL */ `
 `)
 
 type Props = {
-	faqFragment: FragmentType<typeof FaqItemFragmentDocument>
+	faq: FaqItemFaqFragment
 }
 
 export function FaqItem(props: Props) {
-	const { faqFragment } = props
-	const faq = useFragment(FaqItemFragmentDocument, faqFragment)
+	const { faq } = props
 
 	return (
 		<div className="flex flex-col gap-4 rounded-lg border p-4">
