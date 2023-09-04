@@ -1,7 +1,8 @@
 import { Outlet, type RouteObject } from "react-router-dom"
 
+import { useLayoutOptions } from "@/components/new-layout/context"
+
 import { appConfig } from "../../app.config"
-import { useLayoutOptions } from "../../components/Layout/useLayoutOptions"
 import { useRedirectToCoursesIfAuthenticated } from "../../hooks/useRedirectToCoursesIfAuthenticated"
 import { useScreenTitle } from "../../hooks/useScreenTitle"
 

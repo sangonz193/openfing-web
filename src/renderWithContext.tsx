@@ -5,7 +5,6 @@ import { AppManager, AppProvider } from "./app"
 import { AppearanceManager, AppearanceProvider } from "./appearance"
 import { AuthManager, AuthProvider } from "./auth"
 import { BlogManager, BlogProvider } from "./blog"
-import { LayoutProvider } from "./components/Layout/LayoutProvider"
 import { CourseClassPlayerManager, CourseClassPlayerProvider } from "./courseClassPlayer"
 import { CourseSearchProvider } from "./courseSearch"
 import { CourseSelectionManager, CourseSelectionProvider } from "./courseSelection"
@@ -29,7 +28,6 @@ const WithWrappers = withWrappers(
 		CourseSearchProvider,
 		AuthProvider,
 		UrqlProvider,
-		LayoutProvider,
 		BlogProvider,
 	],
 	withSiblings<PropsWithChildren<{}>>(

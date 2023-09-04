@@ -1,7 +1,7 @@
 import { useEffect } from "react"
 import { createBrowserRouter, Outlet, useNavigate } from "react-router-dom"
 
-import { Layout } from "@/components/Layout"
+import { Layout } from "@/components/new-layout/layout"
 import { renderWithContext } from "@/renderWithContext"
 
 import { blogRouteConfig } from "./blog/blog.route.config"
@@ -28,11 +28,14 @@ export const router = createBrowserRouter([
 					faqsRouteConfig,
 					settingsRouteConfig,
 					updatesRouteConfig,
+					loginRouteConfig,
 				],
 			},
-			loginRouteConfig,
 		],
-		errorElement: <RedirectToCourses />,
+	},
+	{
+		path: "*",
+		element: <RedirectToCourses />,
 	},
 ])
 
