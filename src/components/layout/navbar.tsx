@@ -25,7 +25,7 @@ export function Navbar(props: Props) {
 	const { className } = props
 
 	return (
-		<div className={cn("flex gap-2 overflow-auto px-2 py-2 md:flex-col", className)}>
+		<div className={cn("flex gap-2 overflow-auto px-2 py-2 max-md:bg-card/50 md:flex-col", className)}>
 			<NavbarButton to="/" exact label="Inicio" Icon={HomeIcon} SolidIcon={HomeSolidIcon} />
 			<NavbarButton to="/courses" label="Cursos" Icon={VideoCameraIcon} SolidIcon={VideoCameraSolidIcon} />
 			<NavbarButton to="/updates" label="Últimas" Icon={ClockIcon} SolidIcon={ClockSolidIcon} />
