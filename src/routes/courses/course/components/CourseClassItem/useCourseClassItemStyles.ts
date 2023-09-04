@@ -9,6 +9,7 @@ const useStyles = makeStyles((theme) => {
 	return {
 		wrapper: {
 			display: "flex",
+			flexDirection: "column",
 			padding: "16px 0",
 
 			color: theme.semanticColors.buttonText,
@@ -62,6 +63,7 @@ const useStyles = makeStyles((theme) => {
 		courseClassName: {
 			...theme.fonts.mediumPlus,
 			paddingRight: 10,
+			flexShrink: 1,
 		},
 
 		courseClassNameActive: {

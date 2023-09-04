@@ -1,6 +1,7 @@
 import { devtoolsExchange } from "@urql/devtools"
 import type { AuthConfig } from "@urql/exchange-auth"
 import { authExchange } from "@urql/exchange-auth"
+import type { PropsWithChildren } from "react"
 import { useState } from "react"
 import { Context, createClient, fetchExchange } from "urql"
 import { z } from "zod"
@@ -11,7 +12,7 @@ import type { RefreshTokenMutation, RefreshTokenMutationVariables } from "./Urql
 
 // TODO: add cacheExchange back in
 
-export const UrqlProvider: React.FC = ({ children }) => {
+export function UrqlProvider({ children }: PropsWithChildren<{}>) {
 	const authStore = useAuthStore()
 	const { VITE_SUPABASE_URL, VITE_SUPABASE_KEY } = z
 		.object({

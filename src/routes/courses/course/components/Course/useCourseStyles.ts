@@ -19,16 +19,6 @@ const useStyles = makeStyles((theme) => {
 			padding: "0 20px",
 		},
 
-		courseMaster: {
-			height: "100%",
-
-			[getMinWidthSelector("sm")]: {
-				width: 350,
-				flexShrink: 0,
-				borderRight: `1px solid ${theme.semanticColors.bodyFrameDivider}`,
-			},
-		},
-
 		courseDetails: {
 			position: "absolute",
 			top: 0,

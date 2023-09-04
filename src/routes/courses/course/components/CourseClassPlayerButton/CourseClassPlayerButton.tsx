@@ -2,6 +2,8 @@ import type { IButtonProps } from "@fluentui/react"
 import { DefaultButton, FontIcon, Text } from "@fluentui/react"
 import React from "react"
 
+import { cn } from "@/lib/cn"
+
 import { useCourseClassPlayerButtonStyles } from "./useCourseClassPlayerButtonStyles"
 
 export type CourseClassPlayerButtonProps = {
@@ -26,7 +28,7 @@ const CourseClassPlayerButtonComponent: React.FC<CourseClassPlayerButtonProps> =
 	return (
 		<DefaultButton className={styles.wrapper} {...buttonProps}>
 			{iconName ? <FontIcon className={styles.icon} iconName={iconName} /> : children}
-			{text && <Text className={styles.text}>{text}</Text>}
+			{text && <Text className={cn(styles.text, "text-xs")}>{text}</Text>}
 		</DefaultButton>
 	)
 }

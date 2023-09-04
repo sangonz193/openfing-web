@@ -30,7 +30,7 @@ export function Settings() {
 	}, [])
 
 	return (
-		<div className="flex flex-col p-5 pb-20">
+		<div className="flex h-full flex-col overflow-auto p-5 pb-20 pt-2">
 			<span className="text-xl font-bold">Apariencia</span>
 
 			<RadioGroup className="flex flex-col gap-2" value={selectedThemeKey} onChange={handleThemeChange}>

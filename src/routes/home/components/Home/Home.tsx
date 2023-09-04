@@ -3,11 +3,7 @@ import keyboardKey from "keyboard-key"
 import React, { useCallback } from "react"
 import { Link, useNavigate } from "react-router-dom"
 
-import { useBlogStore } from "../../../../blog"
-import { useObservableStates } from "../../../../hooks/useObservableStates"
-import { useRedirect } from "../../../../hooks/useRedirect"
 import { useRootEventListener } from "../../../../rootEventListeners"
-import { blogRouteConfig } from "../../../blog/blog.route.config"
 import { loginRouteConfig } from "../../../login/login.route.config"
 import { useHomeStyles } from "./useHomeStyles"
 
@@ -28,10 +24,6 @@ export const Home: React.FC = () => {
 			}
 		}, [])
 	)
-
-	const blogStore = useBlogStore()
-	const blogStoreState = useObservableStates(blogStore, ["enabled"])
-	useRedirect(blogRouteConfig.path, !blogStoreState.enabled)
 
 	return (
 		<div className={styles.wrapper}>

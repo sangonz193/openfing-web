@@ -137,13 +137,13 @@ const CourseComponent: React.FC<CourseProps> = ({ courseClassListCode, courseCla
 
 	return (
 		<>
-			<Stack className={styles.wrapper} disableShrink>
-				{showMaster && <CourseMaster className={styles.courseMaster} />}
+			<div className="relative flex h-full flex-col md:flex-row md:gap-2">
+				{showMaster && <CourseMaster />}
 
 				<Stack.Item shrink grow>
 					{showCourseDetail && <CourseDetail className={styles.courseDetails} />}
 				</Stack.Item>
-			</Stack>
+			</div>
 
 			<Panel
 				headerText="Crear lista de clases"

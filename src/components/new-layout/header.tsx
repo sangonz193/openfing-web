@@ -12,7 +12,7 @@ type Props = {
 
 export function Header({ className, title = "", right, left }: Props) {
 	return (
-		<div className={cn("flex h-16 items-center", className)}>
+		<div className={cn("flex h-14 items-center", className)}>
 			{left && React.createElement(left)}
 			{typeof title === "string" ? (
 				<h1 className="mr-auto text-ellipsis whitespace-nowrap px-5 text-2xl font-bold">{title}</h1>

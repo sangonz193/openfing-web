@@ -5,10 +5,10 @@ import { cn } from "@/lib/cn"
 import { withWrappers } from "@/react/withWrapper"
 import { useRootEventListeners } from "@/rootEventListeners/useRootEventListeners"
 
-import { Navbar } from "../Navbar"
 import type { LayoutOptions } from "./context"
 import { LayoutProvider, useLayoutContext } from "./context"
 import { Header } from "./header"
+import { Navbar } from "./navbar"
 
 function LayoutInner() {
 	const context = useLayoutContext()
@@ -30,7 +30,12 @@ function LayoutInner() {
 			tabIndex={0} // Necessary for eventListeners to fire
 		>
 			{options.showHeader && (
-				<Header title={options.headerTitle} left={options.headerLeft} right={options.headerRight} />
+				<Header
+					title={options.headerTitle}
+					left={options.headerLeft}
+					right={options.headerRight}
+					className="shrink-0"
+				/>
 			)}
 
 			<div
