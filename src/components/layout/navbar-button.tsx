@@ -29,8 +29,8 @@ export function NavbarButton(props: Props) {
 				to={to}
 				className={cn(
 					"mx-auto flex h-16 w-20 grow flex-col items-center justify-center rounded-lg",
-					active && "bg-foreground/10 text-primary",
-					!active && "hover:bg-card-foreground/10"
+					active && "bg-card text-primary",
+					!active && "hover:bg-card/50"
 				)}
 			>
 				<Icon className="w-6" />

@@ -64,7 +64,7 @@ const CourseMasterComponent: React.FC<CourseMasterProps> = ({ className }) => {
 	return (
 		<div
 			className={cn(
-				"flex shrink flex-col overflow-hidden md:mb-2 md:w-[350px] md:shrink-0 md:rounded-xl md:bg-foreground/10",
+				"flex shrink flex-col overflow-hidden md:mb-2 md:w-[350px] md:shrink-0 md:rounded-xl md:bg-card/50",
 				className
 			)}
 		>
