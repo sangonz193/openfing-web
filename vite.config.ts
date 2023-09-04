@@ -6,6 +6,7 @@ import svgr from "vite-plugin-svgr"
 import { z } from "zod"
 
 import { assetTypes } from "./config/rollup/assetTypes/assetTypes"
+import { graphqlCodegen } from "./config/rollup/graphql-codegen"
 
 export default defineConfig(({ mode, command }) => {
 	const env = loadEnv(mode, process.cwd(), [""])
@@ -39,6 +40,7 @@ export default defineConfig(({ mode, command }) => {
 		},
 		plugins: [
 			assetTypes(command),
+			graphqlCodegen(command),
 			svgr(),
 			react({
 				babel: {

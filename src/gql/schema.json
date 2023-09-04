@@ -6,7 +6,7 @@
 		"types": [
 			{
 				"kind": "OBJECT",
-				"name": "Faqs",
+				"name": "Course",
 				"fields": [
 					{
 						"name": "nodeId",
@@ -14,18 +14,139 @@
 						"args": []
 					},
 					{ "name": "id", "type": { "kind": "SCALAR", "name": "Any" }, "args": [] },
-					{ "name": "title", "type": { "kind": "SCALAR", "name": "Any" }, "args": [] },
-					{ "name": "content", "type": { "kind": "SCALAR", "name": "Any" }, "args": [] },
-					{ "name": "isHtml", "type": { "kind": "SCALAR", "name": "Any" }, "args": [] },
-					{ "name": "position", "type": { "kind": "SCALAR", "name": "Any" }, "args": [] },
+					{ "name": "name", "type": { "kind": "SCALAR", "name": "Any" }, "args": [] },
+					{ "name": "visibility", "type": { "kind": "SCALAR", "name": "Any" }, "args": [] },
+					{ "name": "code", "type": { "kind": "SCALAR", "name": "Any" }, "args": [] },
+					{ "name": "iconUrl", "type": { "kind": "SCALAR", "name": "Any" }, "args": [] },
+					{ "name": "eva", "type": { "kind": "SCALAR", "name": "Any" }, "args": [] },
 					{ "name": "createdAt", "type": { "kind": "SCALAR", "name": "Any" }, "args": [] },
-					{ "name": "updatedAt", "type": { "kind": "SCALAR", "name": "Any" }, "args": [] }
+					{ "name": "updatedAt", "type": { "kind": "SCALAR", "name": "Any" }, "args": [] },
+					{
+						"name": "editions",
+						"type": { "kind": "OBJECT", "name": "CourseEditionConnection", "ofType": null },
+						"args": [
+							{ "name": "first", "type": { "kind": "SCALAR", "name": "Any" } },
+							{ "name": "last", "type": { "kind": "SCALAR", "name": "Any" } },
+							{ "name": "before", "type": { "kind": "SCALAR", "name": "Any" } },
+							{ "name": "after", "type": { "kind": "SCALAR", "name": "Any" } },
+							{ "name": "filter", "type": { "kind": "SCALAR", "name": "Any" } },
+							{
+								"name": "orderBy",
+								"type": {
+									"kind": "LIST",
+									"ofType": { "kind": "NON_NULL", "ofType": { "kind": "SCALAR", "name": "Any" } }
+								}
+							}
+						]
+					}
 				],
 				"interfaces": [{ "kind": "INTERFACE", "name": "Node" }]
 			},
 			{
 				"kind": "OBJECT",
-				"name": "FaqsConnection",
+				"name": "CourseClass",
+				"fields": [
+					{
+						"name": "nodeId",
+						"type": { "kind": "NON_NULL", "ofType": { "kind": "SCALAR", "name": "Any" } },
+						"args": []
+					},
+					{ "name": "id", "type": { "kind": "SCALAR", "name": "Any" }, "args": [] },
+					{ "name": "name", "type": { "kind": "SCALAR", "name": "Any" }, "args": [] },
+					{ "name": "number", "type": { "kind": "SCALAR", "name": "Any" }, "args": [] },
+					{ "name": "visibility", "type": { "kind": "SCALAR", "name": "Any" }, "args": [] },
+					{ "name": "createdAt", "type": { "kind": "SCALAR", "name": "Any" }, "args": [] },
+					{ "name": "updatedAt", "type": { "kind": "SCALAR", "name": "Any" }, "args": [] },
+					{ "name": "courseClassListId", "type": { "kind": "SCALAR", "name": "Any" }, "args": [] },
+					{
+						"name": "courseClassList",
+						"type": { "kind": "OBJECT", "name": "CourseClassList", "ofType": null },
+						"args": []
+					},
+					{
+						"name": "videos",
+						"type": { "kind": "OBJECT", "name": "CourseClassVideoConnection", "ofType": null },
+						"args": [
+							{ "name": "first", "type": { "kind": "SCALAR", "name": "Any" } },
+							{ "name": "last", "type": { "kind": "SCALAR", "name": "Any" } },
+							{ "name": "before", "type": { "kind": "SCALAR", "name": "Any" } },
+							{ "name": "after", "type": { "kind": "SCALAR", "name": "Any" } },
+							{ "name": "filter", "type": { "kind": "SCALAR", "name": "Any" } },
+							{
+								"name": "orderBy",
+								"type": {
+									"kind": "LIST",
+									"ofType": { "kind": "NON_NULL", "ofType": { "kind": "SCALAR", "name": "Any" } }
+								}
+							}
+						]
+					},
+					{
+						"name": "liveState",
+						"type": { "kind": "OBJECT", "name": "CourseClassLiveStateConnection", "ofType": null },
+						"args": [
+							{ "name": "first", "type": { "kind": "SCALAR", "name": "Any" } },
+							{ "name": "last", "type": { "kind": "SCALAR", "name": "Any" } },
+							{ "name": "before", "type": { "kind": "SCALAR", "name": "Any" } },
+							{ "name": "after", "type": { "kind": "SCALAR", "name": "Any" } },
+							{ "name": "filter", "type": { "kind": "SCALAR", "name": "Any" } },
+							{
+								"name": "orderBy",
+								"type": {
+									"kind": "LIST",
+									"ofType": { "kind": "NON_NULL", "ofType": { "kind": "SCALAR", "name": "Any" } }
+								}
+							}
+						]
+					},
+					{
+						"name": "cues",
+						"type": { "kind": "OBJECT", "name": "CourseClassChapterCueConnection", "ofType": null },
+						"args": [
+							{ "name": "first", "type": { "kind": "SCALAR", "name": "Any" } },
+							{ "name": "last", "type": { "kind": "SCALAR", "name": "Any" } },
+							{ "name": "before", "type": { "kind": "SCALAR", "name": "Any" } },
+							{ "name": "after", "type": { "kind": "SCALAR", "name": "Any" } },
+							{ "name": "filter", "type": { "kind": "SCALAR", "name": "Any" } },
+							{
+								"name": "orderBy",
+								"type": {
+									"kind": "LIST",
+									"ofType": { "kind": "NON_NULL", "ofType": { "kind": "SCALAR", "name": "Any" } }
+								}
+							}
+						]
+					},
+					{ "name": "liveState", "type": { "kind": "SCALAR", "name": "Any" }, "args": [] }
+				],
+				"interfaces": [{ "kind": "INTERFACE", "name": "Node" }]
+			},
+			{
+				"kind": "OBJECT",
+				"name": "CourseClassChapterCue",
+				"fields": [
+					{
+						"name": "nodeId",
+						"type": { "kind": "NON_NULL", "ofType": { "kind": "SCALAR", "name": "Any" } },
+						"args": []
+					},
+					{ "name": "id", "type": { "kind": "SCALAR", "name": "Any" }, "args": [] },
+					{ "name": "name", "type": { "kind": "SCALAR", "name": "Any" }, "args": [] },
+					{ "name": "startSeconds", "type": { "kind": "SCALAR", "name": "Any" }, "args": [] },
+					{ "name": "createdAt", "type": { "kind": "SCALAR", "name": "Any" }, "args": [] },
+					{ "name": "updatedAt", "type": { "kind": "SCALAR", "name": "Any" }, "args": [] },
+					{ "name": "courseClassId", "type": { "kind": "SCALAR", "name": "Any" }, "args": [] },
+					{
+						"name": "courseClass",
+						"type": { "kind": "OBJECT", "name": "CourseClass", "ofType": null },
+						"args": []
+					}
+				],
+				"interfaces": [{ "kind": "INTERFACE", "name": "Node" }]
+			},
+			{
+				"kind": "OBJECT",
+				"name": "CourseClassChapterCueConnection",
 				"fields": [
 					{
 						"name": "edges",
@@ -35,7 +156,7 @@
 								"kind": "LIST",
 								"ofType": {
 									"kind": "NON_NULL",
-									"ofType": { "kind": "OBJECT", "name": "FaqsEdge", "ofType": null }
+									"ofType": { "kind": "OBJECT", "name": "CourseClassChapterCueEdge", "ofType": null }
 								}
 							}
 						},
@@ -54,7 +175,7 @@
 			},
 			{
 				"kind": "OBJECT",
-				"name": "FaqsDeleteResponse",
+				"name": "CourseClassChapterCueDeleteResponse",
 				"fields": [
 					{
 						"name": "affectedCount",
@@ -69,7 +190,7 @@
 								"kind": "LIST",
 								"ofType": {
 									"kind": "NON_NULL",
-									"ofType": { "kind": "OBJECT", "name": "Faqs", "ofType": null }
+									"ofType": { "kind": "OBJECT", "name": "CourseClassChapterCue", "ofType": null }
 								}
 							}
 						},
@@ -80,7 +201,7 @@
 			},
 			{
 				"kind": "OBJECT",
-				"name": "FaqsEdge",
+				"name": "CourseClassChapterCueEdge",
 				"fields": [
 					{
 						"name": "cursor",
@@ -89,7 +210,10 @@
 					},
 					{
 						"name": "node",
-						"type": { "kind": "NON_NULL", "ofType": { "kind": "OBJECT", "name": "Faqs", "ofType": null } },
+						"type": {
+							"kind": "NON_NULL",
+							"ofType": { "kind": "OBJECT", "name": "CourseClassChapterCue", "ofType": null }
+						},
 						"args": []
 					}
 				],
@@ -97,7 +221,7 @@
 			},
 			{
 				"kind": "OBJECT",
-				"name": "FaqsInsertResponse",
+				"name": "CourseClassChapterCueInsertResponse",
 				"fields": [
 					{
 						"name": "affectedCount",
@@ -112,7 +236,7 @@
 								"kind": "LIST",
 								"ofType": {
 									"kind": "NON_NULL",
-									"ofType": { "kind": "OBJECT", "name": "Faqs", "ofType": null }
+									"ofType": { "kind": "OBJECT", "name": "CourseClassChapterCue", "ofType": null }
 								}
 							}
 						},
@@ -123,7 +247,7 @@
 			},
 			{
 				"kind": "OBJECT",
-				"name": "FaqsUpdateResponse",
+				"name": "CourseClassChapterCueUpdateResponse",
 				"fields": [
 					{
 						"name": "affectedCount",
@@ -138,7 +262,1380 @@
 								"kind": "LIST",
 								"ofType": {
 									"kind": "NON_NULL",
-									"ofType": { "kind": "OBJECT", "name": "Faqs", "ofType": null }
+									"ofType": { "kind": "OBJECT", "name": "CourseClassChapterCue", "ofType": null }
+								}
+							}
+						},
+						"args": []
+					}
+				],
+				"interfaces": []
+			},
+			{
+				"kind": "OBJECT",
+				"name": "CourseClassConnection",
+				"fields": [
+					{
+						"name": "edges",
+						"type": {
+							"kind": "NON_NULL",
+							"ofType": {
+								"kind": "LIST",
+								"ofType": {
+									"kind": "NON_NULL",
+									"ofType": { "kind": "OBJECT", "name": "CourseClassEdge", "ofType": null }
+								}
+							}
+						},
+						"args": []
+					},
+					{
+						"name": "pageInfo",
+						"type": {
+							"kind": "NON_NULL",
+							"ofType": { "kind": "OBJECT", "name": "PageInfo", "ofType": null }
+						},
+						"args": []
+					}
+				],
+				"interfaces": []
+			},
+			{
+				"kind": "OBJECT",
+				"name": "CourseClassDeleteResponse",
+				"fields": [
+					{
+						"name": "affectedCount",
+						"type": { "kind": "NON_NULL", "ofType": { "kind": "SCALAR", "name": "Any" } },
+						"args": []
+					},
+					{
+						"name": "records",
+						"type": {
+							"kind": "NON_NULL",
+							"ofType": {
+								"kind": "LIST",
+								"ofType": {
+									"kind": "NON_NULL",
+									"ofType": { "kind": "OBJECT", "name": "CourseClass", "ofType": null }
+								}
+							}
+						},
+						"args": []
+					}
+				],
+				"interfaces": []
+			},
+			{
+				"kind": "OBJECT",
+				"name": "CourseClassEdge",
+				"fields": [
+					{
+						"name": "cursor",
+						"type": { "kind": "NON_NULL", "ofType": { "kind": "SCALAR", "name": "Any" } },
+						"args": []
+					},
+					{
+						"name": "node",
+						"type": {
+							"kind": "NON_NULL",
+							"ofType": { "kind": "OBJECT", "name": "CourseClass", "ofType": null }
+						},
+						"args": []
+					}
+				],
+				"interfaces": []
+			},
+			{
+				"kind": "OBJECT",
+				"name": "CourseClassInsertResponse",
+				"fields": [
+					{
+						"name": "affectedCount",
+						"type": { "kind": "NON_NULL", "ofType": { "kind": "SCALAR", "name": "Any" } },
+						"args": []
+					},
+					{
+						"name": "records",
+						"type": {
+							"kind": "NON_NULL",
+							"ofType": {
+								"kind": "LIST",
+								"ofType": {
+									"kind": "NON_NULL",
+									"ofType": { "kind": "OBJECT", "name": "CourseClass", "ofType": null }
+								}
+							}
+						},
+						"args": []
+					}
+				],
+				"interfaces": []
+			},
+			{
+				"kind": "OBJECT",
+				"name": "CourseClassList",
+				"fields": [
+					{
+						"name": "nodeId",
+						"type": { "kind": "NON_NULL", "ofType": { "kind": "SCALAR", "name": "Any" } },
+						"args": []
+					},
+					{ "name": "id", "type": { "kind": "SCALAR", "name": "Any" }, "args": [] },
+					{ "name": "name", "type": { "kind": "SCALAR", "name": "Any" }, "args": [] },
+					{ "name": "code", "type": { "kind": "SCALAR", "name": "Any" }, "args": [] },
+					{ "name": "visibility", "type": { "kind": "SCALAR", "name": "Any" }, "args": [] },
+					{ "name": "createdAt", "type": { "kind": "SCALAR", "name": "Any" }, "args": [] },
+					{ "name": "updatedAt", "type": { "kind": "SCALAR", "name": "Any" }, "args": [] },
+					{ "name": "courseEditionId", "type": { "kind": "SCALAR", "name": "Any" }, "args": [] },
+					{
+						"name": "edition",
+						"type": { "kind": "OBJECT", "name": "CourseEdition", "ofType": null },
+						"args": []
+					},
+					{
+						"name": "courseClass",
+						"type": { "kind": "OBJECT", "name": "CourseClassConnection", "ofType": null },
+						"args": [
+							{ "name": "first", "type": { "kind": "SCALAR", "name": "Any" } },
+							{ "name": "last", "type": { "kind": "SCALAR", "name": "Any" } },
+							{ "name": "before", "type": { "kind": "SCALAR", "name": "Any" } },
+							{ "name": "after", "type": { "kind": "SCALAR", "name": "Any" } },
+							{ "name": "filter", "type": { "kind": "SCALAR", "name": "Any" } },
+							{
+								"name": "orderBy",
+								"type": {
+									"kind": "LIST",
+									"ofType": { "kind": "NON_NULL", "ofType": { "kind": "SCALAR", "name": "Any" } }
+								}
+							}
+						]
+					}
+				],
+				"interfaces": [{ "kind": "INTERFACE", "name": "Node" }]
+			},
+			{
+				"kind": "OBJECT",
+				"name": "CourseClassListConnection",
+				"fields": [
+					{
+						"name": "edges",
+						"type": {
+							"kind": "NON_NULL",
+							"ofType": {
+								"kind": "LIST",
+								"ofType": {
+									"kind": "NON_NULL",
+									"ofType": { "kind": "OBJECT", "name": "CourseClassListEdge", "ofType": null }
+								}
+							}
+						},
+						"args": []
+					},
+					{
+						"name": "pageInfo",
+						"type": {
+							"kind": "NON_NULL",
+							"ofType": { "kind": "OBJECT", "name": "PageInfo", "ofType": null }
+						},
+						"args": []
+					}
+				],
+				"interfaces": []
+			},
+			{
+				"kind": "OBJECT",
+				"name": "CourseClassListDeleteResponse",
+				"fields": [
+					{
+						"name": "affectedCount",
+						"type": { "kind": "NON_NULL", "ofType": { "kind": "SCALAR", "name": "Any" } },
+						"args": []
+					},
+					{
+						"name": "records",
+						"type": {
+							"kind": "NON_NULL",
+							"ofType": {
+								"kind": "LIST",
+								"ofType": {
+									"kind": "NON_NULL",
+									"ofType": { "kind": "OBJECT", "name": "CourseClassList", "ofType": null }
+								}
+							}
+						},
+						"args": []
+					}
+				],
+				"interfaces": []
+			},
+			{
+				"kind": "OBJECT",
+				"name": "CourseClassListEdge",
+				"fields": [
+					{
+						"name": "cursor",
+						"type": { "kind": "NON_NULL", "ofType": { "kind": "SCALAR", "name": "Any" } },
+						"args": []
+					},
+					{
+						"name": "node",
+						"type": {
+							"kind": "NON_NULL",
+							"ofType": { "kind": "OBJECT", "name": "CourseClassList", "ofType": null }
+						},
+						"args": []
+					}
+				],
+				"interfaces": []
+			},
+			{
+				"kind": "OBJECT",
+				"name": "CourseClassListInsertResponse",
+				"fields": [
+					{
+						"name": "affectedCount",
+						"type": { "kind": "NON_NULL", "ofType": { "kind": "SCALAR", "name": "Any" } },
+						"args": []
+					},
+					{
+						"name": "records",
+						"type": {
+							"kind": "NON_NULL",
+							"ofType": {
+								"kind": "LIST",
+								"ofType": {
+									"kind": "NON_NULL",
+									"ofType": { "kind": "OBJECT", "name": "CourseClassList", "ofType": null }
+								}
+							}
+						},
+						"args": []
+					}
+				],
+				"interfaces": []
+			},
+			{
+				"kind": "OBJECT",
+				"name": "CourseClassListUpdateResponse",
+				"fields": [
+					{
+						"name": "affectedCount",
+						"type": { "kind": "NON_NULL", "ofType": { "kind": "SCALAR", "name": "Any" } },
+						"args": []
+					},
+					{
+						"name": "records",
+						"type": {
+							"kind": "NON_NULL",
+							"ofType": {
+								"kind": "LIST",
+								"ofType": {
+									"kind": "NON_NULL",
+									"ofType": { "kind": "OBJECT", "name": "CourseClassList", "ofType": null }
+								}
+							}
+						},
+						"args": []
+					}
+				],
+				"interfaces": []
+			},
+			{
+				"kind": "OBJECT",
+				"name": "CourseClassLiveState",
+				"fields": [
+					{
+						"name": "nodeId",
+						"type": { "kind": "NON_NULL", "ofType": { "kind": "SCALAR", "name": "Any" } },
+						"args": []
+					},
+					{ "name": "id", "type": { "kind": "SCALAR", "name": "Any" }, "args": [] },
+					{ "name": "html", "type": { "kind": "SCALAR", "name": "Any" }, "args": [] },
+					{ "name": "startDate", "type": { "kind": "SCALAR", "name": "Any" }, "args": [] },
+					{ "name": "inProgress", "type": { "kind": "SCALAR", "name": "Any" }, "args": [] },
+					{ "name": "createdAt", "type": { "kind": "SCALAR", "name": "Any" }, "args": [] },
+					{ "name": "updatedAt", "type": { "kind": "SCALAR", "name": "Any" }, "args": [] },
+					{ "name": "courseClassId", "type": { "kind": "SCALAR", "name": "Any" }, "args": [] },
+					{
+						"name": "courseClass",
+						"type": { "kind": "OBJECT", "name": "CourseClass", "ofType": null },
+						"args": []
+					}
+				],
+				"interfaces": [{ "kind": "INTERFACE", "name": "Node" }]
+			},
+			{
+				"kind": "OBJECT",
+				"name": "CourseClassLiveStateConnection",
+				"fields": [
+					{
+						"name": "edges",
+						"type": {
+							"kind": "NON_NULL",
+							"ofType": {
+								"kind": "LIST",
+								"ofType": {
+									"kind": "NON_NULL",
+									"ofType": { "kind": "OBJECT", "name": "CourseClassLiveStateEdge", "ofType": null }
+								}
+							}
+						},
+						"args": []
+					},
+					{
+						"name": "pageInfo",
+						"type": {
+							"kind": "NON_NULL",
+							"ofType": { "kind": "OBJECT", "name": "PageInfo", "ofType": null }
+						},
+						"args": []
+					}
+				],
+				"interfaces": []
+			},
+			{
+				"kind": "OBJECT",
+				"name": "CourseClassLiveStateDeleteResponse",
+				"fields": [
+					{
+						"name": "affectedCount",
+						"type": { "kind": "NON_NULL", "ofType": { "kind": "SCALAR", "name": "Any" } },
+						"args": []
+					},
+					{
+						"name": "records",
+						"type": {
+							"kind": "NON_NULL",
+							"ofType": {
+								"kind": "LIST",
+								"ofType": {
+									"kind": "NON_NULL",
+									"ofType": { "kind": "OBJECT", "name": "CourseClassLiveState", "ofType": null }
+								}
+							}
+						},
+						"args": []
+					}
+				],
+				"interfaces": []
+			},
+			{
+				"kind": "OBJECT",
+				"name": "CourseClassLiveStateEdge",
+				"fields": [
+					{
+						"name": "cursor",
+						"type": { "kind": "NON_NULL", "ofType": { "kind": "SCALAR", "name": "Any" } },
+						"args": []
+					},
+					{
+						"name": "node",
+						"type": {
+							"kind": "NON_NULL",
+							"ofType": { "kind": "OBJECT", "name": "CourseClassLiveState", "ofType": null }
+						},
+						"args": []
+					}
+				],
+				"interfaces": []
+			},
+			{
+				"kind": "OBJECT",
+				"name": "CourseClassLiveStateInsertResponse",
+				"fields": [
+					{
+						"name": "affectedCount",
+						"type": { "kind": "NON_NULL", "ofType": { "kind": "SCALAR", "name": "Any" } },
+						"args": []
+					},
+					{
+						"name": "records",
+						"type": {
+							"kind": "NON_NULL",
+							"ofType": {
+								"kind": "LIST",
+								"ofType": {
+									"kind": "NON_NULL",
+									"ofType": { "kind": "OBJECT", "name": "CourseClassLiveState", "ofType": null }
+								}
+							}
+						},
+						"args": []
+					}
+				],
+				"interfaces": []
+			},
+			{
+				"kind": "OBJECT",
+				"name": "CourseClassLiveStateUpdateResponse",
+				"fields": [
+					{
+						"name": "affectedCount",
+						"type": { "kind": "NON_NULL", "ofType": { "kind": "SCALAR", "name": "Any" } },
+						"args": []
+					},
+					{
+						"name": "records",
+						"type": {
+							"kind": "NON_NULL",
+							"ofType": {
+								"kind": "LIST",
+								"ofType": {
+									"kind": "NON_NULL",
+									"ofType": { "kind": "OBJECT", "name": "CourseClassLiveState", "ofType": null }
+								}
+							}
+						},
+						"args": []
+					}
+				],
+				"interfaces": []
+			},
+			{
+				"kind": "OBJECT",
+				"name": "CourseClassUpdateResponse",
+				"fields": [
+					{
+						"name": "affectedCount",
+						"type": { "kind": "NON_NULL", "ofType": { "kind": "SCALAR", "name": "Any" } },
+						"args": []
+					},
+					{
+						"name": "records",
+						"type": {
+							"kind": "NON_NULL",
+							"ofType": {
+								"kind": "LIST",
+								"ofType": {
+									"kind": "NON_NULL",
+									"ofType": { "kind": "OBJECT", "name": "CourseClass", "ofType": null }
+								}
+							}
+						},
+						"args": []
+					}
+				],
+				"interfaces": []
+			},
+			{
+				"kind": "OBJECT",
+				"name": "CourseClassVideo",
+				"fields": [
+					{
+						"name": "nodeId",
+						"type": { "kind": "NON_NULL", "ofType": { "kind": "SCALAR", "name": "Any" } },
+						"args": []
+					},
+					{ "name": "id", "type": { "kind": "SCALAR", "name": "Any" }, "args": [] },
+					{ "name": "name", "type": { "kind": "SCALAR", "name": "Any" }, "args": [] },
+					{ "name": "position", "type": { "kind": "SCALAR", "name": "Any" }, "args": [] },
+					{ "name": "createdAt", "type": { "kind": "SCALAR", "name": "Any" }, "args": [] },
+					{ "name": "updatedAt", "type": { "kind": "SCALAR", "name": "Any" }, "args": [] },
+					{ "name": "courseClassId", "type": { "kind": "SCALAR", "name": "Any" }, "args": [] },
+					{
+						"name": "courseClass",
+						"type": { "kind": "OBJECT", "name": "CourseClass", "ofType": null },
+						"args": []
+					},
+					{
+						"name": "qualities",
+						"type": { "kind": "OBJECT", "name": "CourseClassVideoQualityConnection", "ofType": null },
+						"args": [
+							{ "name": "first", "type": { "kind": "SCALAR", "name": "Any" } },
+							{ "name": "last", "type": { "kind": "SCALAR", "name": "Any" } },
+							{ "name": "before", "type": { "kind": "SCALAR", "name": "Any" } },
+							{ "name": "after", "type": { "kind": "SCALAR", "name": "Any" } },
+							{ "name": "filter", "type": { "kind": "SCALAR", "name": "Any" } },
+							{
+								"name": "orderBy",
+								"type": {
+									"kind": "LIST",
+									"ofType": { "kind": "NON_NULL", "ofType": { "kind": "SCALAR", "name": "Any" } }
+								}
+							}
+						]
+					}
+				],
+				"interfaces": [{ "kind": "INTERFACE", "name": "Node" }]
+			},
+			{
+				"kind": "OBJECT",
+				"name": "CourseClassVideoConnection",
+				"fields": [
+					{
+						"name": "edges",
+						"type": {
+							"kind": "NON_NULL",
+							"ofType": {
+								"kind": "LIST",
+								"ofType": {
+									"kind": "NON_NULL",
+									"ofType": { "kind": "OBJECT", "name": "CourseClassVideoEdge", "ofType": null }
+								}
+							}
+						},
+						"args": []
+					},
+					{
+						"name": "pageInfo",
+						"type": {
+							"kind": "NON_NULL",
+							"ofType": { "kind": "OBJECT", "name": "PageInfo", "ofType": null }
+						},
+						"args": []
+					}
+				],
+				"interfaces": []
+			},
+			{
+				"kind": "OBJECT",
+				"name": "CourseClassVideoDeleteResponse",
+				"fields": [
+					{
+						"name": "affectedCount",
+						"type": { "kind": "NON_NULL", "ofType": { "kind": "SCALAR", "name": "Any" } },
+						"args": []
+					},
+					{
+						"name": "records",
+						"type": {
+							"kind": "NON_NULL",
+							"ofType": {
+								"kind": "LIST",
+								"ofType": {
+									"kind": "NON_NULL",
+									"ofType": { "kind": "OBJECT", "name": "CourseClassVideo", "ofType": null }
+								}
+							}
+						},
+						"args": []
+					}
+				],
+				"interfaces": []
+			},
+			{
+				"kind": "OBJECT",
+				"name": "CourseClassVideoEdge",
+				"fields": [
+					{
+						"name": "cursor",
+						"type": { "kind": "NON_NULL", "ofType": { "kind": "SCALAR", "name": "Any" } },
+						"args": []
+					},
+					{
+						"name": "node",
+						"type": {
+							"kind": "NON_NULL",
+							"ofType": { "kind": "OBJECT", "name": "CourseClassVideo", "ofType": null }
+						},
+						"args": []
+					}
+				],
+				"interfaces": []
+			},
+			{
+				"kind": "OBJECT",
+				"name": "CourseClassVideoFormat",
+				"fields": [
+					{
+						"name": "nodeId",
+						"type": { "kind": "NON_NULL", "ofType": { "kind": "SCALAR", "name": "Any" } },
+						"args": []
+					},
+					{ "name": "id", "type": { "kind": "SCALAR", "name": "Any" }, "args": [] },
+					{ "name": "name", "type": { "kind": "SCALAR", "name": "Any" }, "args": [] },
+					{ "name": "url", "type": { "kind": "SCALAR", "name": "Any" }, "args": [] },
+					{ "name": "createdAt", "type": { "kind": "SCALAR", "name": "Any" }, "args": [] },
+					{ "name": "updatedAt", "type": { "kind": "SCALAR", "name": "Any" }, "args": [] },
+					{ "name": "courseClassVideoQualityId", "type": { "kind": "SCALAR", "name": "Any" }, "args": [] },
+					{
+						"name": "quality",
+						"type": { "kind": "OBJECT", "name": "CourseClassVideoQuality", "ofType": null },
+						"args": []
+					}
+				],
+				"interfaces": [{ "kind": "INTERFACE", "name": "Node" }]
+			},
+			{
+				"kind": "OBJECT",
+				"name": "CourseClassVideoFormatConnection",
+				"fields": [
+					{
+						"name": "edges",
+						"type": {
+							"kind": "NON_NULL",
+							"ofType": {
+								"kind": "LIST",
+								"ofType": {
+									"kind": "NON_NULL",
+									"ofType": { "kind": "OBJECT", "name": "CourseClassVideoFormatEdge", "ofType": null }
+								}
+							}
+						},
+						"args": []
+					},
+					{
+						"name": "pageInfo",
+						"type": {
+							"kind": "NON_NULL",
+							"ofType": { "kind": "OBJECT", "name": "PageInfo", "ofType": null }
+						},
+						"args": []
+					}
+				],
+				"interfaces": []
+			},
+			{
+				"kind": "OBJECT",
+				"name": "CourseClassVideoFormatDeleteResponse",
+				"fields": [
+					{
+						"name": "affectedCount",
+						"type": { "kind": "NON_NULL", "ofType": { "kind": "SCALAR", "name": "Any" } },
+						"args": []
+					},
+					{
+						"name": "records",
+						"type": {
+							"kind": "NON_NULL",
+							"ofType": {
+								"kind": "LIST",
+								"ofType": {
+									"kind": "NON_NULL",
+									"ofType": { "kind": "OBJECT", "name": "CourseClassVideoFormat", "ofType": null }
+								}
+							}
+						},
+						"args": []
+					}
+				],
+				"interfaces": []
+			},
+			{
+				"kind": "OBJECT",
+				"name": "CourseClassVideoFormatEdge",
+				"fields": [
+					{
+						"name": "cursor",
+						"type": { "kind": "NON_NULL", "ofType": { "kind": "SCALAR", "name": "Any" } },
+						"args": []
+					},
+					{
+						"name": "node",
+						"type": {
+							"kind": "NON_NULL",
+							"ofType": { "kind": "OBJECT", "name": "CourseClassVideoFormat", "ofType": null }
+						},
+						"args": []
+					}
+				],
+				"interfaces": []
+			},
+			{
+				"kind": "OBJECT",
+				"name": "CourseClassVideoFormatInsertResponse",
+				"fields": [
+					{
+						"name": "affectedCount",
+						"type": { "kind": "NON_NULL", "ofType": { "kind": "SCALAR", "name": "Any" } },
+						"args": []
+					},
+					{
+						"name": "records",
+						"type": {
+							"kind": "NON_NULL",
+							"ofType": {
+								"kind": "LIST",
+								"ofType": {
+									"kind": "NON_NULL",
+									"ofType": { "kind": "OBJECT", "name": "CourseClassVideoFormat", "ofType": null }
+								}
+							}
+						},
+						"args": []
+					}
+				],
+				"interfaces": []
+			},
+			{
+				"kind": "OBJECT",
+				"name": "CourseClassVideoFormatUpdateResponse",
+				"fields": [
+					{
+						"name": "affectedCount",
+						"type": { "kind": "NON_NULL", "ofType": { "kind": "SCALAR", "name": "Any" } },
+						"args": []
+					},
+					{
+						"name": "records",
+						"type": {
+							"kind": "NON_NULL",
+							"ofType": {
+								"kind": "LIST",
+								"ofType": {
+									"kind": "NON_NULL",
+									"ofType": { "kind": "OBJECT", "name": "CourseClassVideoFormat", "ofType": null }
+								}
+							}
+						},
+						"args": []
+					}
+				],
+				"interfaces": []
+			},
+			{
+				"kind": "OBJECT",
+				"name": "CourseClassVideoInsertResponse",
+				"fields": [
+					{
+						"name": "affectedCount",
+						"type": { "kind": "NON_NULL", "ofType": { "kind": "SCALAR", "name": "Any" } },
+						"args": []
+					},
+					{
+						"name": "records",
+						"type": {
+							"kind": "NON_NULL",
+							"ofType": {
+								"kind": "LIST",
+								"ofType": {
+									"kind": "NON_NULL",
+									"ofType": { "kind": "OBJECT", "name": "CourseClassVideo", "ofType": null }
+								}
+							}
+						},
+						"args": []
+					}
+				],
+				"interfaces": []
+			},
+			{
+				"kind": "OBJECT",
+				"name": "CourseClassVideoQuality",
+				"fields": [
+					{
+						"name": "nodeId",
+						"type": { "kind": "NON_NULL", "ofType": { "kind": "SCALAR", "name": "Any" } },
+						"args": []
+					},
+					{ "name": "id", "type": { "kind": "SCALAR", "name": "Any" }, "args": [] },
+					{ "name": "width", "type": { "kind": "SCALAR", "name": "Any" }, "args": [] },
+					{ "name": "height", "type": { "kind": "SCALAR", "name": "Any" }, "args": [] },
+					{ "name": "createdAt", "type": { "kind": "SCALAR", "name": "Any" }, "args": [] },
+					{ "name": "updatedAt", "type": { "kind": "SCALAR", "name": "Any" }, "args": [] },
+					{ "name": "courseClassVideoId", "type": { "kind": "SCALAR", "name": "Any" }, "args": [] },
+					{
+						"name": "video",
+						"type": { "kind": "OBJECT", "name": "CourseClassVideo", "ofType": null },
+						"args": []
+					},
+					{
+						"name": "formats",
+						"type": { "kind": "OBJECT", "name": "CourseClassVideoFormatConnection", "ofType": null },
+						"args": [
+							{ "name": "first", "type": { "kind": "SCALAR", "name": "Any" } },
+							{ "name": "last", "type": { "kind": "SCALAR", "name": "Any" } },
+							{ "name": "before", "type": { "kind": "SCALAR", "name": "Any" } },
+							{ "name": "after", "type": { "kind": "SCALAR", "name": "Any" } },
+							{ "name": "filter", "type": { "kind": "SCALAR", "name": "Any" } },
+							{
+								"name": "orderBy",
+								"type": {
+									"kind": "LIST",
+									"ofType": { "kind": "NON_NULL", "ofType": { "kind": "SCALAR", "name": "Any" } }
+								}
+							}
+						]
+					}
+				],
+				"interfaces": [{ "kind": "INTERFACE", "name": "Node" }]
+			},
+			{
+				"kind": "OBJECT",
+				"name": "CourseClassVideoQualityConnection",
+				"fields": [
+					{
+						"name": "edges",
+						"type": {
+							"kind": "NON_NULL",
+							"ofType": {
+								"kind": "LIST",
+								"ofType": {
+									"kind": "NON_NULL",
+									"ofType": {
+										"kind": "OBJECT",
+										"name": "CourseClassVideoQualityEdge",
+										"ofType": null
+									}
+								}
+							}
+						},
+						"args": []
+					},
+					{
+						"name": "pageInfo",
+						"type": {
+							"kind": "NON_NULL",
+							"ofType": { "kind": "OBJECT", "name": "PageInfo", "ofType": null }
+						},
+						"args": []
+					}
+				],
+				"interfaces": []
+			},
+			{
+				"kind": "OBJECT",
+				"name": "CourseClassVideoQualityDeleteResponse",
+				"fields": [
+					{
+						"name": "affectedCount",
+						"type": { "kind": "NON_NULL", "ofType": { "kind": "SCALAR", "name": "Any" } },
+						"args": []
+					},
+					{
+						"name": "records",
+						"type": {
+							"kind": "NON_NULL",
+							"ofType": {
+								"kind": "LIST",
+								"ofType": {
+									"kind": "NON_NULL",
+									"ofType": { "kind": "OBJECT", "name": "CourseClassVideoQuality", "ofType": null }
+								}
+							}
+						},
+						"args": []
+					}
+				],
+				"interfaces": []
+			},
+			{
+				"kind": "OBJECT",
+				"name": "CourseClassVideoQualityEdge",
+				"fields": [
+					{
+						"name": "cursor",
+						"type": { "kind": "NON_NULL", "ofType": { "kind": "SCALAR", "name": "Any" } },
+						"args": []
+					},
+					{
+						"name": "node",
+						"type": {
+							"kind": "NON_NULL",
+							"ofType": { "kind": "OBJECT", "name": "CourseClassVideoQuality", "ofType": null }
+						},
+						"args": []
+					}
+				],
+				"interfaces": []
+			},
+			{
+				"kind": "OBJECT",
+				"name": "CourseClassVideoQualityInsertResponse",
+				"fields": [
+					{
+						"name": "affectedCount",
+						"type": { "kind": "NON_NULL", "ofType": { "kind": "SCALAR", "name": "Any" } },
+						"args": []
+					},
+					{
+						"name": "records",
+						"type": {
+							"kind": "NON_NULL",
+							"ofType": {
+								"kind": "LIST",
+								"ofType": {
+									"kind": "NON_NULL",
+									"ofType": { "kind": "OBJECT", "name": "CourseClassVideoQuality", "ofType": null }
+								}
+							}
+						},
+						"args": []
+					}
+				],
+				"interfaces": []
+			},
+			{
+				"kind": "OBJECT",
+				"name": "CourseClassVideoQualityUpdateResponse",
+				"fields": [
+					{
+						"name": "affectedCount",
+						"type": { "kind": "NON_NULL", "ofType": { "kind": "SCALAR", "name": "Any" } },
+						"args": []
+					},
+					{
+						"name": "records",
+						"type": {
+							"kind": "NON_NULL",
+							"ofType": {
+								"kind": "LIST",
+								"ofType": {
+									"kind": "NON_NULL",
+									"ofType": { "kind": "OBJECT", "name": "CourseClassVideoQuality", "ofType": null }
+								}
+							}
+						},
+						"args": []
+					}
+				],
+				"interfaces": []
+			},
+			{
+				"kind": "OBJECT",
+				"name": "CourseClassVideoUpdateResponse",
+				"fields": [
+					{
+						"name": "affectedCount",
+						"type": { "kind": "NON_NULL", "ofType": { "kind": "SCALAR", "name": "Any" } },
+						"args": []
+					},
+					{
+						"name": "records",
+						"type": {
+							"kind": "NON_NULL",
+							"ofType": {
+								"kind": "LIST",
+								"ofType": {
+									"kind": "NON_NULL",
+									"ofType": { "kind": "OBJECT", "name": "CourseClassVideo", "ofType": null }
+								}
+							}
+						},
+						"args": []
+					}
+				],
+				"interfaces": []
+			},
+			{
+				"kind": "OBJECT",
+				"name": "CourseConnection",
+				"fields": [
+					{
+						"name": "edges",
+						"type": {
+							"kind": "NON_NULL",
+							"ofType": {
+								"kind": "LIST",
+								"ofType": {
+									"kind": "NON_NULL",
+									"ofType": { "kind": "OBJECT", "name": "CourseEdge", "ofType": null }
+								}
+							}
+						},
+						"args": []
+					},
+					{
+						"name": "pageInfo",
+						"type": {
+							"kind": "NON_NULL",
+							"ofType": { "kind": "OBJECT", "name": "PageInfo", "ofType": null }
+						},
+						"args": []
+					}
+				],
+				"interfaces": []
+			},
+			{
+				"kind": "OBJECT",
+				"name": "CourseDeleteResponse",
+				"fields": [
+					{
+						"name": "affectedCount",
+						"type": { "kind": "NON_NULL", "ofType": { "kind": "SCALAR", "name": "Any" } },
+						"args": []
+					},
+					{
+						"name": "records",
+						"type": {
+							"kind": "NON_NULL",
+							"ofType": {
+								"kind": "LIST",
+								"ofType": {
+									"kind": "NON_NULL",
+									"ofType": { "kind": "OBJECT", "name": "Course", "ofType": null }
+								}
+							}
+						},
+						"args": []
+					}
+				],
+				"interfaces": []
+			},
+			{
+				"kind": "OBJECT",
+				"name": "CourseEdge",
+				"fields": [
+					{
+						"name": "cursor",
+						"type": { "kind": "NON_NULL", "ofType": { "kind": "SCALAR", "name": "Any" } },
+						"args": []
+					},
+					{
+						"name": "node",
+						"type": {
+							"kind": "NON_NULL",
+							"ofType": { "kind": "OBJECT", "name": "Course", "ofType": null }
+						},
+						"args": []
+					}
+				],
+				"interfaces": []
+			},
+			{
+				"kind": "OBJECT",
+				"name": "CourseEdition",
+				"fields": [
+					{
+						"name": "nodeId",
+						"type": { "kind": "NON_NULL", "ofType": { "kind": "SCALAR", "name": "Any" } },
+						"args": []
+					},
+					{ "name": "id", "type": { "kind": "SCALAR", "name": "Any" }, "args": [] },
+					{ "name": "name", "type": { "kind": "SCALAR", "name": "Any" }, "args": [] },
+					{ "name": "semester", "type": { "kind": "SCALAR", "name": "Any" }, "args": [] },
+					{ "name": "year", "type": { "kind": "SCALAR", "name": "Any" }, "args": [] },
+					{ "name": "visibility", "type": { "kind": "SCALAR", "name": "Any" }, "args": [] },
+					{ "name": "createdAt", "type": { "kind": "SCALAR", "name": "Any" }, "args": [] },
+					{ "name": "updatedAt", "type": { "kind": "SCALAR", "name": "Any" }, "args": [] },
+					{ "name": "courseId", "type": { "kind": "SCALAR", "name": "Any" }, "args": [] },
+					{ "name": "course", "type": { "kind": "OBJECT", "name": "Course", "ofType": null }, "args": [] },
+					{
+						"name": "courseClassLists",
+						"type": { "kind": "OBJECT", "name": "CourseClassListConnection", "ofType": null },
+						"args": [
+							{ "name": "first", "type": { "kind": "SCALAR", "name": "Any" } },
+							{ "name": "last", "type": { "kind": "SCALAR", "name": "Any" } },
+							{ "name": "before", "type": { "kind": "SCALAR", "name": "Any" } },
+							{ "name": "after", "type": { "kind": "SCALAR", "name": "Any" } },
+							{ "name": "filter", "type": { "kind": "SCALAR", "name": "Any" } },
+							{
+								"name": "orderBy",
+								"type": {
+									"kind": "LIST",
+									"ofType": { "kind": "NON_NULL", "ofType": { "kind": "SCALAR", "name": "Any" } }
+								}
+							}
+						]
+					}
+				],
+				"interfaces": [{ "kind": "INTERFACE", "name": "Node" }]
+			},
+			{
+				"kind": "OBJECT",
+				"name": "CourseEditionConnection",
+				"fields": [
+					{
+						"name": "edges",
+						"type": {
+							"kind": "NON_NULL",
+							"ofType": {
+								"kind": "LIST",
+								"ofType": {
+									"kind": "NON_NULL",
+									"ofType": { "kind": "OBJECT", "name": "CourseEditionEdge", "ofType": null }
+								}
+							}
+						},
+						"args": []
+					},
+					{
+						"name": "pageInfo",
+						"type": {
+							"kind": "NON_NULL",
+							"ofType": { "kind": "OBJECT", "name": "PageInfo", "ofType": null }
+						},
+						"args": []
+					}
+				],
+				"interfaces": []
+			},
+			{
+				"kind": "OBJECT",
+				"name": "CourseEditionDeleteResponse",
+				"fields": [
+					{
+						"name": "affectedCount",
+						"type": { "kind": "NON_NULL", "ofType": { "kind": "SCALAR", "name": "Any" } },
+						"args": []
+					},
+					{
+						"name": "records",
+						"type": {
+							"kind": "NON_NULL",
+							"ofType": {
+								"kind": "LIST",
+								"ofType": {
+									"kind": "NON_NULL",
+									"ofType": { "kind": "OBJECT", "name": "CourseEdition", "ofType": null }
+								}
+							}
+						},
+						"args": []
+					}
+				],
+				"interfaces": []
+			},
+			{
+				"kind": "OBJECT",
+				"name": "CourseEditionEdge",
+				"fields": [
+					{
+						"name": "cursor",
+						"type": { "kind": "NON_NULL", "ofType": { "kind": "SCALAR", "name": "Any" } },
+						"args": []
+					},
+					{
+						"name": "node",
+						"type": {
+							"kind": "NON_NULL",
+							"ofType": { "kind": "OBJECT", "name": "CourseEdition", "ofType": null }
+						},
+						"args": []
+					}
+				],
+				"interfaces": []
+			},
+			{
+				"kind": "OBJECT",
+				"name": "CourseEditionInsertResponse",
+				"fields": [
+					{
+						"name": "affectedCount",
+						"type": { "kind": "NON_NULL", "ofType": { "kind": "SCALAR", "name": "Any" } },
+						"args": []
+					},
+					{
+						"name": "records",
+						"type": {
+							"kind": "NON_NULL",
+							"ofType": {
+								"kind": "LIST",
+								"ofType": {
+									"kind": "NON_NULL",
+									"ofType": { "kind": "OBJECT", "name": "CourseEdition", "ofType": null }
+								}
+							}
+						},
+						"args": []
+					}
+				],
+				"interfaces": []
+			},
+			{
+				"kind": "OBJECT",
+				"name": "CourseEditionUpdateResponse",
+				"fields": [
+					{
+						"name": "affectedCount",
+						"type": { "kind": "NON_NULL", "ofType": { "kind": "SCALAR", "name": "Any" } },
+						"args": []
+					},
+					{
+						"name": "records",
+						"type": {
+							"kind": "NON_NULL",
+							"ofType": {
+								"kind": "LIST",
+								"ofType": {
+									"kind": "NON_NULL",
+									"ofType": { "kind": "OBJECT", "name": "CourseEdition", "ofType": null }
+								}
+							}
+						},
+						"args": []
+					}
+				],
+				"interfaces": []
+			},
+			{
+				"kind": "OBJECT",
+				"name": "CourseInsertResponse",
+				"fields": [
+					{
+						"name": "affectedCount",
+						"type": { "kind": "NON_NULL", "ofType": { "kind": "SCALAR", "name": "Any" } },
+						"args": []
+					},
+					{
+						"name": "records",
+						"type": {
+							"kind": "NON_NULL",
+							"ofType": {
+								"kind": "LIST",
+								"ofType": {
+									"kind": "NON_NULL",
+									"ofType": { "kind": "OBJECT", "name": "Course", "ofType": null }
+								}
+							}
+						},
+						"args": []
+					}
+				],
+				"interfaces": []
+			},
+			{
+				"kind": "OBJECT",
+				"name": "CourseUpdateResponse",
+				"fields": [
+					{
+						"name": "affectedCount",
+						"type": { "kind": "NON_NULL", "ofType": { "kind": "SCALAR", "name": "Any" } },
+						"args": []
+					},
+					{
+						"name": "records",
+						"type": {
+							"kind": "NON_NULL",
+							"ofType": {
+								"kind": "LIST",
+								"ofType": {
+									"kind": "NON_NULL",
+									"ofType": { "kind": "OBJECT", "name": "Course", "ofType": null }
+								}
+							}
+						},
+						"args": []
+					}
+				],
+				"interfaces": []
+			},
+			{
+				"kind": "OBJECT",
+				"name": "Faq",
+				"fields": [
+					{
+						"name": "nodeId",
+						"type": { "kind": "NON_NULL", "ofType": { "kind": "SCALAR", "name": "Any" } },
+						"args": []
+					},
+					{ "name": "id", "type": { "kind": "SCALAR", "name": "Any" }, "args": [] },
+					{ "name": "title", "type": { "kind": "SCALAR", "name": "Any" }, "args": [] },
+					{ "name": "content", "type": { "kind": "SCALAR", "name": "Any" }, "args": [] },
+					{ "name": "isHtml", "type": { "kind": "SCALAR", "name": "Any" }, "args": [] },
+					{ "name": "position", "type": { "kind": "SCALAR", "name": "Any" }, "args": [] },
+					{ "name": "createdAt", "type": { "kind": "SCALAR", "name": "Any" }, "args": [] },
+					{ "name": "updatedAt", "type": { "kind": "SCALAR", "name": "Any" }, "args": [] }
+				],
+				"interfaces": [{ "kind": "INTERFACE", "name": "Node" }]
+			},
+			{
+				"kind": "OBJECT",
+				"name": "FaqConnection",
+				"fields": [
+					{
+						"name": "edges",
+						"type": {
+							"kind": "NON_NULL",
+							"ofType": {
+								"kind": "LIST",
+								"ofType": {
+									"kind": "NON_NULL",
+									"ofType": { "kind": "OBJECT", "name": "FaqEdge", "ofType": null }
+								}
+							}
+						},
+						"args": []
+					},
+					{
+						"name": "pageInfo",
+						"type": {
+							"kind": "NON_NULL",
+							"ofType": { "kind": "OBJECT", "name": "PageInfo", "ofType": null }
+						},
+						"args": []
+					}
+				],
+				"interfaces": []
+			},
+			{
+				"kind": "OBJECT",
+				"name": "FaqDeleteResponse",
+				"fields": [
+					{
+						"name": "affectedCount",
+						"type": { "kind": "NON_NULL", "ofType": { "kind": "SCALAR", "name": "Any" } },
+						"args": []
+					},
+					{
+						"name": "records",
+						"type": {
+							"kind": "NON_NULL",
+							"ofType": {
+								"kind": "LIST",
+								"ofType": {
+									"kind": "NON_NULL",
+									"ofType": { "kind": "OBJECT", "name": "Faq", "ofType": null }
+								}
+							}
+						},
+						"args": []
+					}
+				],
+				"interfaces": []
+			},
+			{
+				"kind": "OBJECT",
+				"name": "FaqEdge",
+				"fields": [
+					{
+						"name": "cursor",
+						"type": { "kind": "NON_NULL", "ofType": { "kind": "SCALAR", "name": "Any" } },
+						"args": []
+					},
+					{
+						"name": "node",
+						"type": { "kind": "NON_NULL", "ofType": { "kind": "OBJECT", "name": "Faq", "ofType": null } },
+						"args": []
+					}
+				],
+				"interfaces": []
+			},
+			{
+				"kind": "OBJECT",
+				"name": "FaqInsertResponse",
+				"fields": [
+					{
+						"name": "affectedCount",
+						"type": { "kind": "NON_NULL", "ofType": { "kind": "SCALAR", "name": "Any" } },
+						"args": []
+					},
+					{
+						"name": "records",
+						"type": {
+							"kind": "NON_NULL",
+							"ofType": {
+								"kind": "LIST",
+								"ofType": {
+									"kind": "NON_NULL",
+									"ofType": { "kind": "OBJECT", "name": "Faq", "ofType": null }
+								}
+							}
+						},
+						"args": []
+					}
+				],
+				"interfaces": []
+			},
+			{
+				"kind": "OBJECT",
+				"name": "FaqUpdateResponse",
+				"fields": [
+					{
+						"name": "affectedCount",
+						"type": { "kind": "NON_NULL", "ofType": { "kind": "SCALAR", "name": "Any" } },
+						"args": []
+					},
+					{
+						"name": "records",
+						"type": {
+							"kind": "NON_NULL",
+							"ofType": {
+								"kind": "LIST",
+								"ofType": {
+									"kind": "NON_NULL",
+									"ofType": { "kind": "OBJECT", "name": "Faq", "ofType": null }
 								}
 							}
 						},
@@ -152,10 +1649,14 @@
 				"name": "Mutation",
 				"fields": [
 					{
-						"name": "deleteFromFaqsCollection",
+						"name": "deleteFromCourseClassChapterCueCollection",
 						"type": {
 							"kind": "NON_NULL",
-							"ofType": { "kind": "OBJECT", "name": "FaqsDeleteResponse", "ofType": null }
+							"ofType": {
+								"kind": "OBJECT",
+								"name": "CourseClassChapterCueDeleteResponse",
+								"ofType": null
+							}
 						},
 						"args": [
 							{ "name": "filter", "type": { "kind": "SCALAR", "name": "Any" } },
@@ -166,8 +1667,142 @@
 						]
 					},
 					{
-						"name": "insertIntoFaqsCollection",
-						"type": { "kind": "OBJECT", "name": "FaqsInsertResponse", "ofType": null },
+						"name": "deleteFromCourseClassCollection",
+						"type": {
+							"kind": "NON_NULL",
+							"ofType": { "kind": "OBJECT", "name": "CourseClassDeleteResponse", "ofType": null }
+						},
+						"args": [
+							{ "name": "filter", "type": { "kind": "SCALAR", "name": "Any" } },
+							{
+								"name": "atMost",
+								"type": { "kind": "NON_NULL", "ofType": { "kind": "SCALAR", "name": "Any" } }
+							}
+						]
+					},
+					{
+						"name": "deleteFromCourseClassListCollection",
+						"type": {
+							"kind": "NON_NULL",
+							"ofType": { "kind": "OBJECT", "name": "CourseClassListDeleteResponse", "ofType": null }
+						},
+						"args": [
+							{ "name": "filter", "type": { "kind": "SCALAR", "name": "Any" } },
+							{
+								"name": "atMost",
+								"type": { "kind": "NON_NULL", "ofType": { "kind": "SCALAR", "name": "Any" } }
+							}
+						]
+					},
+					{
+						"name": "deleteFromCourseClassLiveStateCollection",
+						"type": {
+							"kind": "NON_NULL",
+							"ofType": { "kind": "OBJECT", "name": "CourseClassLiveStateDeleteResponse", "ofType": null }
+						},
+						"args": [
+							{ "name": "filter", "type": { "kind": "SCALAR", "name": "Any" } },
+							{
+								"name": "atMost",
+								"type": { "kind": "NON_NULL", "ofType": { "kind": "SCALAR", "name": "Any" } }
+							}
+						]
+					},
+					{
+						"name": "deleteFromCourseClassVideoCollection",
+						"type": {
+							"kind": "NON_NULL",
+							"ofType": { "kind": "OBJECT", "name": "CourseClassVideoDeleteResponse", "ofType": null }
+						},
+						"args": [
+							{ "name": "filter", "type": { "kind": "SCALAR", "name": "Any" } },
+							{
+								"name": "atMost",
+								"type": { "kind": "NON_NULL", "ofType": { "kind": "SCALAR", "name": "Any" } }
+							}
+						]
+					},
+					{
+						"name": "deleteFromCourseClassVideoFormatCollection",
+						"type": {
+							"kind": "NON_NULL",
+							"ofType": {
+								"kind": "OBJECT",
+								"name": "CourseClassVideoFormatDeleteResponse",
+								"ofType": null
+							}
+						},
+						"args": [
+							{ "name": "filter", "type": { "kind": "SCALAR", "name": "Any" } },
+							{
+								"name": "atMost",
+								"type": { "kind": "NON_NULL", "ofType": { "kind": "SCALAR", "name": "Any" } }
+							}
+						]
+					},
+					{
+						"name": "deleteFromCourseClassVideoQualityCollection",
+						"type": {
+							"kind": "NON_NULL",
+							"ofType": {
+								"kind": "OBJECT",
+								"name": "CourseClassVideoQualityDeleteResponse",
+								"ofType": null
+							}
+						},
+						"args": [
+							{ "name": "filter", "type": { "kind": "SCALAR", "name": "Any" } },
+							{
+								"name": "atMost",
+								"type": { "kind": "NON_NULL", "ofType": { "kind": "SCALAR", "name": "Any" } }
+							}
+						]
+					},
+					{
+						"name": "deleteFromCourseCollection",
+						"type": {
+							"kind": "NON_NULL",
+							"ofType": { "kind": "OBJECT", "name": "CourseDeleteResponse", "ofType": null }
+						},
+						"args": [
+							{ "name": "filter", "type": { "kind": "SCALAR", "name": "Any" } },
+							{
+								"name": "atMost",
+								"type": { "kind": "NON_NULL", "ofType": { "kind": "SCALAR", "name": "Any" } }
+							}
+						]
+					},
+					{
+						"name": "deleteFromCourseEditionCollection",
+						"type": {
+							"kind": "NON_NULL",
+							"ofType": { "kind": "OBJECT", "name": "CourseEditionDeleteResponse", "ofType": null }
+						},
+						"args": [
+							{ "name": "filter", "type": { "kind": "SCALAR", "name": "Any" } },
+							{
+								"name": "atMost",
+								"type": { "kind": "NON_NULL", "ofType": { "kind": "SCALAR", "name": "Any" } }
+							}
+						]
+					},
+					{
+						"name": "deleteFromFaqCollection",
+						"type": {
+							"kind": "NON_NULL",
+							"ofType": { "kind": "OBJECT", "name": "FaqDeleteResponse", "ofType": null }
+						},
+						"args": [
+							{ "name": "filter", "type": { "kind": "SCALAR", "name": "Any" } },
+							{
+								"name": "atMost",
+								"type": { "kind": "NON_NULL", "ofType": { "kind": "SCALAR", "name": "Any" } }
+							}
+						]
+					},
+					{
+						"name": "insertIntoCourseClassChapterCueCollection",
+						"type": { "kind": "OBJECT", "name": "CourseClassChapterCueInsertResponse", "ofType": null },
 						"args": [
 							{
 								"name": "objects",
@@ -182,10 +1817,328 @@
 						]
 					},
 					{
-						"name": "updateFaqsCollection",
+						"name": "insertIntoCourseClassCollection",
+						"type": { "kind": "OBJECT", "name": "CourseClassInsertResponse", "ofType": null },
+						"args": [
+							{
+								"name": "objects",
+								"type": {
+									"kind": "NON_NULL",
+									"ofType": {
+										"kind": "LIST",
+										"ofType": { "kind": "NON_NULL", "ofType": { "kind": "SCALAR", "name": "Any" } }
+									}
+								}
+							}
+						]
+					},
+					{
+						"name": "insertIntoCourseClassListCollection",
+						"type": { "kind": "OBJECT", "name": "CourseClassListInsertResponse", "ofType": null },
+						"args": [
+							{
+								"name": "objects",
+								"type": {
+									"kind": "NON_NULL",
+									"ofType": {
+										"kind": "LIST",
+										"ofType": { "kind": "NON_NULL", "ofType": { "kind": "SCALAR", "name": "Any" } }
+									}
+								}
+							}
+						]
+					},
+					{
+						"name": "insertIntoCourseClassLiveStateCollection",
+						"type": { "kind": "OBJECT", "name": "CourseClassLiveStateInsertResponse", "ofType": null },
+						"args": [
+							{
+								"name": "objects",
+								"type": {
+									"kind": "NON_NULL",
+									"ofType": {
+										"kind": "LIST",
+										"ofType": { "kind": "NON_NULL", "ofType": { "kind": "SCALAR", "name": "Any" } }
+									}
+								}
+							}
+						]
+					},
+					{
+						"name": "insertIntoCourseClassVideoCollection",
+						"type": { "kind": "OBJECT", "name": "CourseClassVideoInsertResponse", "ofType": null },
+						"args": [
+							{
+								"name": "objects",
+								"type": {
+									"kind": "NON_NULL",
+									"ofType": {
+										"kind": "LIST",
+										"ofType": { "kind": "NON_NULL", "ofType": { "kind": "SCALAR", "name": "Any" } }
+									}
+								}
+							}
+						]
+					},
+					{
+						"name": "insertIntoCourseClassVideoFormatCollection",
+						"type": { "kind": "OBJECT", "name": "CourseClassVideoFormatInsertResponse", "ofType": null },
+						"args": [
+							{
+								"name": "objects",
+								"type": {
+									"kind": "NON_NULL",
+									"ofType": {
+										"kind": "LIST",
+										"ofType": { "kind": "NON_NULL", "ofType": { "kind": "SCALAR", "name": "Any" } }
+									}
+								}
+							}
+						]
+					},
+					{
+						"name": "insertIntoCourseClassVideoQualityCollection",
+						"type": { "kind": "OBJECT", "name": "CourseClassVideoQualityInsertResponse", "ofType": null },
+						"args": [
+							{
+								"name": "objects",
+								"type": {
+									"kind": "NON_NULL",
+									"ofType": {
+										"kind": "LIST",
+										"ofType": { "kind": "NON_NULL", "ofType": { "kind": "SCALAR", "name": "Any" } }
+									}
+								}
+							}
+						]
+					},
+					{
+						"name": "insertIntoCourseCollection",
+						"type": { "kind": "OBJECT", "name": "CourseInsertResponse", "ofType": null },
+						"args": [
+							{
+								"name": "objects",
+								"type": {
+									"kind": "NON_NULL",
+									"ofType": {
+										"kind": "LIST",
+										"ofType": { "kind": "NON_NULL", "ofType": { "kind": "SCALAR", "name": "Any" } }
+									}
+								}
+							}
+						]
+					},
+					{
+						"name": "insertIntoCourseEditionCollection",
+						"type": { "kind": "OBJECT", "name": "CourseEditionInsertResponse", "ofType": null },
+						"args": [
+							{
+								"name": "objects",
+								"type": {
+									"kind": "NON_NULL",
+									"ofType": {
+										"kind": "LIST",
+										"ofType": { "kind": "NON_NULL", "ofType": { "kind": "SCALAR", "name": "Any" } }
+									}
+								}
+							}
+						]
+					},
+					{
+						"name": "insertIntoFaqCollection",
+						"type": { "kind": "OBJECT", "name": "FaqInsertResponse", "ofType": null },
+						"args": [
+							{
+								"name": "objects",
+								"type": {
+									"kind": "NON_NULL",
+									"ofType": {
+										"kind": "LIST",
+										"ofType": { "kind": "NON_NULL", "ofType": { "kind": "SCALAR", "name": "Any" } }
+									}
+								}
+							}
+						]
+					},
+					{
+						"name": "updateCourseClassChapterCueCollection",
 						"type": {
 							"kind": "NON_NULL",
-							"ofType": { "kind": "OBJECT", "name": "FaqsUpdateResponse", "ofType": null }
+							"ofType": {
+								"kind": "OBJECT",
+								"name": "CourseClassChapterCueUpdateResponse",
+								"ofType": null
+							}
+						},
+						"args": [
+							{
+								"name": "set",
+								"type": { "kind": "NON_NULL", "ofType": { "kind": "SCALAR", "name": "Any" } }
+							},
+							{ "name": "filter", "type": { "kind": "SCALAR", "name": "Any" } },
+							{
+								"name": "atMost",
+								"type": { "kind": "NON_NULL", "ofType": { "kind": "SCALAR", "name": "Any" } }
+							}
+						]
+					},
+					{
+						"name": "updateCourseClassCollection",
+						"type": {
+							"kind": "NON_NULL",
+							"ofType": { "kind": "OBJECT", "name": "CourseClassUpdateResponse", "ofType": null }
+						},
+						"args": [
+							{
+								"name": "set",
+								"type": { "kind": "NON_NULL", "ofType": { "kind": "SCALAR", "name": "Any" } }
+							},
+							{ "name": "filter", "type": { "kind": "SCALAR", "name": "Any" } },
+							{
+								"name": "atMost",
+								"type": { "kind": "NON_NULL", "ofType": { "kind": "SCALAR", "name": "Any" } }
+							}
+						]
+					},
+					{
+						"name": "updateCourseClassListCollection",
+						"type": {
+							"kind": "NON_NULL",
+							"ofType": { "kind": "OBJECT", "name": "CourseClassListUpdateResponse", "ofType": null }
+						},
+						"args": [
+							{
+								"name": "set",
+								"type": { "kind": "NON_NULL", "ofType": { "kind": "SCALAR", "name": "Any" } }
+							},
+							{ "name": "filter", "type": { "kind": "SCALAR", "name": "Any" } },
+							{
+								"name": "atMost",
+								"type": { "kind": "NON_NULL", "ofType": { "kind": "SCALAR", "name": "Any" } }
+							}
+						]
+					},
+					{
+						"name": "updateCourseClassLiveStateCollection",
+						"type": {
+							"kind": "NON_NULL",
+							"ofType": { "kind": "OBJECT", "name": "CourseClassLiveStateUpdateResponse", "ofType": null }
+						},
+						"args": [
+							{
+								"name": "set",
+								"type": { "kind": "NON_NULL", "ofType": { "kind": "SCALAR", "name": "Any" } }
+							},
+							{ "name": "filter", "type": { "kind": "SCALAR", "name": "Any" } },
+							{
+								"name": "atMost",
+								"type": { "kind": "NON_NULL", "ofType": { "kind": "SCALAR", "name": "Any" } }
+							}
+						]
+					},
+					{
+						"name": "updateCourseClassVideoCollection",
+						"type": {
+							"kind": "NON_NULL",
+							"ofType": { "kind": "OBJECT", "name": "CourseClassVideoUpdateResponse", "ofType": null }
+						},
+						"args": [
+							{
+								"name": "set",
+								"type": { "kind": "NON_NULL", "ofType": { "kind": "SCALAR", "name": "Any" } }
+							},
+							{ "name": "filter", "type": { "kind": "SCALAR", "name": "Any" } },
+							{
+								"name": "atMost",
+								"type": { "kind": "NON_NULL", "ofType": { "kind": "SCALAR", "name": "Any" } }
+							}
+						]
+					},
+					{
+						"name": "updateCourseClassVideoFormatCollection",
+						"type": {
+							"kind": "NON_NULL",
+							"ofType": {
+								"kind": "OBJECT",
+								"name": "CourseClassVideoFormatUpdateResponse",
+								"ofType": null
+							}
+						},
+						"args": [
+							{
+								"name": "set",
+								"type": { "kind": "NON_NULL", "ofType": { "kind": "SCALAR", "name": "Any" } }
+							},
+							{ "name": "filter", "type": { "kind": "SCALAR", "name": "Any" } },
+							{
+								"name": "atMost",
+								"type": { "kind": "NON_NULL", "ofType": { "kind": "SCALAR", "name": "Any" } }
+							}
+						]
+					},
+					{
+						"name": "updateCourseClassVideoQualityCollection",
+						"type": {
+							"kind": "NON_NULL",
+							"ofType": {
+								"kind": "OBJECT",
+								"name": "CourseClassVideoQualityUpdateResponse",
+								"ofType": null
+							}
+						},
+						"args": [
+							{
+								"name": "set",
+								"type": { "kind": "NON_NULL", "ofType": { "kind": "SCALAR", "name": "Any" } }
+							},
+							{ "name": "filter", "type": { "kind": "SCALAR", "name": "Any" } },
+							{
+								"name": "atMost",
+								"type": { "kind": "NON_NULL", "ofType": { "kind": "SCALAR", "name": "Any" } }
+							}
+						]
+					},
+					{
+						"name": "updateCourseCollection",
+						"type": {
+							"kind": "NON_NULL",
+							"ofType": { "kind": "OBJECT", "name": "CourseUpdateResponse", "ofType": null }
+						},
+						"args": [
+							{
+								"name": "set",
+								"type": { "kind": "NON_NULL", "ofType": { "kind": "SCALAR", "name": "Any" } }
+							},
+							{ "name": "filter", "type": { "kind": "SCALAR", "name": "Any" } },
+							{
+								"name": "atMost",
+								"type": { "kind": "NON_NULL", "ofType": { "kind": "SCALAR", "name": "Any" } }
+							}
+						]
+					},
+					{
+						"name": "updateCourseEditionCollection",
+						"type": {
+							"kind": "NON_NULL",
+							"ofType": { "kind": "OBJECT", "name": "CourseEditionUpdateResponse", "ofType": null }
+						},
+						"args": [
+							{
+								"name": "set",
+								"type": { "kind": "NON_NULL", "ofType": { "kind": "SCALAR", "name": "Any" } }
+							},
+							{ "name": "filter", "type": { "kind": "SCALAR", "name": "Any" } },
+							{
+								"name": "atMost",
+								"type": { "kind": "NON_NULL", "ofType": { "kind": "SCALAR", "name": "Any" } }
+							}
+						]
+					},
+					{
+						"name": "updateFaqCollection",
+						"type": {
+							"kind": "NON_NULL",
+							"ofType": { "kind": "OBJECT", "name": "FaqUpdateResponse", "ofType": null }
 						},
 						"args": [
 							{
@@ -213,7 +2166,18 @@
 					}
 				],
 				"interfaces": [],
-				"possibleTypes": [{ "kind": "OBJECT", "name": "Faqs" }]
+				"possibleTypes": [
+					{ "kind": "OBJECT", "name": "Course" },
+					{ "kind": "OBJECT", "name": "CourseClass" },
+					{ "kind": "OBJECT", "name": "CourseClassChapterCue" },
+					{ "kind": "OBJECT", "name": "CourseClassList" },
+					{ "kind": "OBJECT", "name": "CourseClassLiveState" },
+					{ "kind": "OBJECT", "name": "CourseClassVideo" },
+					{ "kind": "OBJECT", "name": "CourseClassVideoFormat" },
+					{ "kind": "OBJECT", "name": "CourseClassVideoQuality" },
+					{ "kind": "OBJECT", "name": "CourseEdition" },
+					{ "kind": "OBJECT", "name": "Faq" }
+				]
 			},
 			{
 				"kind": "OBJECT",
@@ -239,8 +2203,170 @@
 				"name": "Query",
 				"fields": [
 					{
-						"name": "faqsCollection",
-						"type": { "kind": "OBJECT", "name": "FaqsConnection", "ofType": null },
+						"name": "courseClassChapterCueCollection",
+						"type": { "kind": "OBJECT", "name": "CourseClassChapterCueConnection", "ofType": null },
+						"args": [
+							{ "name": "first", "type": { "kind": "SCALAR", "name": "Any" } },
+							{ "name": "last", "type": { "kind": "SCALAR", "name": "Any" } },
+							{ "name": "before", "type": { "kind": "SCALAR", "name": "Any" } },
+							{ "name": "after", "type": { "kind": "SCALAR", "name": "Any" } },
+							{ "name": "filter", "type": { "kind": "SCALAR", "name": "Any" } },
+							{
+								"name": "orderBy",
+								"type": {
+									"kind": "LIST",
+									"ofType": { "kind": "NON_NULL", "ofType": { "kind": "SCALAR", "name": "Any" } }
+								}
+							}
+						]
+					},
+					{
+						"name": "courseClassCollection",
+						"type": { "kind": "OBJECT", "name": "CourseClassConnection", "ofType": null },
+						"args": [
+							{ "name": "first", "type": { "kind": "SCALAR", "name": "Any" } },
+							{ "name": "last", "type": { "kind": "SCALAR", "name": "Any" } },
+							{ "name": "before", "type": { "kind": "SCALAR", "name": "Any" } },
+							{ "name": "after", "type": { "kind": "SCALAR", "name": "Any" } },
+							{ "name": "filter", "type": { "kind": "SCALAR", "name": "Any" } },
+							{
+								"name": "orderBy",
+								"type": {
+									"kind": "LIST",
+									"ofType": { "kind": "NON_NULL", "ofType": { "kind": "SCALAR", "name": "Any" } }
+								}
+							}
+						]
+					},
+					{
+						"name": "courseClassListCollection",
+						"type": { "kind": "OBJECT", "name": "CourseClassListConnection", "ofType": null },
+						"args": [
+							{ "name": "first", "type": { "kind": "SCALAR", "name": "Any" } },
+							{ "name": "last", "type": { "kind": "SCALAR", "name": "Any" } },
+							{ "name": "before", "type": { "kind": "SCALAR", "name": "Any" } },
+							{ "name": "after", "type": { "kind": "SCALAR", "name": "Any" } },
+							{ "name": "filter", "type": { "kind": "SCALAR", "name": "Any" } },
+							{
+								"name": "orderBy",
+								"type": {
+									"kind": "LIST",
+									"ofType": { "kind": "NON_NULL", "ofType": { "kind": "SCALAR", "name": "Any" } }
+								}
+							}
+						]
+					},
+					{
+						"name": "courseClassLiveStateCollection",
+						"type": { "kind": "OBJECT", "name": "CourseClassLiveStateConnection", "ofType": null },
+						"args": [
+							{ "name": "first", "type": { "kind": "SCALAR", "name": "Any" } },
+							{ "name": "last", "type": { "kind": "SCALAR", "name": "Any" } },
+							{ "name": "before", "type": { "kind": "SCALAR", "name": "Any" } },
+							{ "name": "after", "type": { "kind": "SCALAR", "name": "Any" } },
+							{ "name": "filter", "type": { "kind": "SCALAR", "name": "Any" } },
+							{
+								"name": "orderBy",
+								"type": {
+									"kind": "LIST",
+									"ofType": { "kind": "NON_NULL", "ofType": { "kind": "SCALAR", "name": "Any" } }
+								}
+							}
+						]
+					},
+					{
+						"name": "courseClassVideoCollection",
+						"type": { "kind": "OBJECT", "name": "CourseClassVideoConnection", "ofType": null },
+						"args": [
+							{ "name": "first", "type": { "kind": "SCALAR", "name": "Any" } },
+							{ "name": "last", "type": { "kind": "SCALAR", "name": "Any" } },
+							{ "name": "before", "type": { "kind": "SCALAR", "name": "Any" } },
+							{ "name": "after", "type": { "kind": "SCALAR", "name": "Any" } },
+							{ "name": "filter", "type": { "kind": "SCALAR", "name": "Any" } },
+							{
+								"name": "orderBy",
+								"type": {
+									"kind": "LIST",
+									"ofType": { "kind": "NON_NULL", "ofType": { "kind": "SCALAR", "name": "Any" } }
+								}
+							}
+						]
+					},
+					{
+						"name": "courseClassVideoFormatCollection",
+						"type": { "kind": "OBJECT", "name": "CourseClassVideoFormatConnection", "ofType": null },
+						"args": [
+							{ "name": "first", "type": { "kind": "SCALAR", "name": "Any" } },
+							{ "name": "last", "type": { "kind": "SCALAR", "name": "Any" } },
+							{ "name": "before", "type": { "kind": "SCALAR", "name": "Any" } },
+							{ "name": "after", "type": { "kind": "SCALAR", "name": "Any" } },
+							{ "name": "filter", "type": { "kind": "SCALAR", "name": "Any" } },
+							{
+								"name": "orderBy",
+								"type": {
+									"kind": "LIST",
+									"ofType": { "kind": "NON_NULL", "ofType": { "kind": "SCALAR", "name": "Any" } }
+								}
+							}
+						]
+					},
+					{
+						"name": "courseClassVideoQualityCollection",
+						"type": { "kind": "OBJECT", "name": "CourseClassVideoQualityConnection", "ofType": null },
+						"args": [
+							{ "name": "first", "type": { "kind": "SCALAR", "name": "Any" } },
+							{ "name": "last", "type": { "kind": "SCALAR", "name": "Any" } },
+							{ "name": "before", "type": { "kind": "SCALAR", "name": "Any" } },
+							{ "name": "after", "type": { "kind": "SCALAR", "name": "Any" } },
+							{ "name": "filter", "type": { "kind": "SCALAR", "name": "Any" } },
+							{
+								"name": "orderBy",
+								"type": {
+									"kind": "LIST",
+									"ofType": { "kind": "NON_NULL", "ofType": { "kind": "SCALAR", "name": "Any" } }
+								}
+							}
+						]
+					},
+					{
+						"name": "courseCollection",
+						"type": { "kind": "OBJECT", "name": "CourseConnection", "ofType": null },
+						"args": [
+							{ "name": "first", "type": { "kind": "SCALAR", "name": "Any" } },
+							{ "name": "last", "type": { "kind": "SCALAR", "name": "Any" } },
+							{ "name": "before", "type": { "kind": "SCALAR", "name": "Any" } },
+							{ "name": "after", "type": { "kind": "SCALAR", "name": "Any" } },
+							{ "name": "filter", "type": { "kind": "SCALAR", "name": "Any" } },
+							{
+								"name": "orderBy",
+								"type": {
+									"kind": "LIST",
+									"ofType": { "kind": "NON_NULL", "ofType": { "kind": "SCALAR", "name": "Any" } }
+								}
+							}
+						]
+					},
+					{
+						"name": "courseEditionCollection",
+						"type": { "kind": "OBJECT", "name": "CourseEditionConnection", "ofType": null },
+						"args": [
+							{ "name": "first", "type": { "kind": "SCALAR", "name": "Any" } },
+							{ "name": "last", "type": { "kind": "SCALAR", "name": "Any" } },
+							{ "name": "before", "type": { "kind": "SCALAR", "name": "Any" } },
+							{ "name": "after", "type": { "kind": "SCALAR", "name": "Any" } },
+							{ "name": "filter", "type": { "kind": "SCALAR", "name": "Any" } },
+							{
+								"name": "orderBy",
+								"type": {
+									"kind": "LIST",
+									"ofType": { "kind": "NON_NULL", "ofType": { "kind": "SCALAR", "name": "Any" } }
+								}
+							}
+						]
+					},
+					{
+						"name": "faqCollection",
+						"type": { "kind": "OBJECT", "name": "FaqConnection", "ofType": null },
 						"args": [
 							{ "name": "first", "type": { "kind": "SCALAR", "name": "Any" } },
 							{ "name": "last", "type": { "kind": "SCALAR", "name": "Any" } },

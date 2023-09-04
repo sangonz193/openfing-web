@@ -1,5 +1,4 @@
 import { Loader2 as Loader2Icon } from "lucide-react"
-import { Fragment } from "react"
 import { useQuery } from "urql"
 
 import { CreativeCommonsFooter } from "@/components/creative-commons-footer"
@@ -8,12 +7,12 @@ import { graphql } from "@/gql"
 import { FaqItem } from "./faq-item"
 
 export const FaqsQueryDocument = graphql(/* GraphQL */ `
-	query FaqsQuery {
-		faqsCollection(orderBy: [{ position: AscNullsLast }]) {
+	query FaqQuery {
+		faqCollection(orderBy: [{ position: AscNullsLast }]) {
 			edges {
 				node {
 					id
-					...FaqItemFragment
+					...FaqItemFaq
 				}
 			}
 		}
@@ -29,11 +28,7 @@ export function Faqs() {
 				{fetching ? (
 					<Loader2Icon className="col-span-full mx-auto mt-4 h-10 w-10 animate-spin text-primary" />
 				) : (
-					data?.faqsCollection?.edges.map(({ node }) => (
-						<Fragment key={node.id}>
-							<FaqItem faqFragment={node} />
-						</Fragment>
-					))
+					data?.faqCollection?.edges.map(({ node }) => <FaqItem key={node.id} faq={node} />)
 				)}
 			</div>
 
