@@ -3,7 +3,7 @@ import keyboardKey from "keyboard-key"
 import React, { useCallback, useState } from "react"
 import { useNavigate } from "react-router-dom"
 
-import { CreativeCommonsFooter } from "../../../../components/CreativeCommonsFooter"
+import { CreativeCommonsFooter } from "../../../../components/creative-commons-footer"
 import { useRootEventListener } from "../../../../rootEventListeners"
 import { loginRouteConfig } from "../../../login/login.route.config"
 import { CreatePostFormWrapper } from "../CreatePostFormWrapper"

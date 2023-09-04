@@ -3,7 +3,7 @@ import { FocusZone, FocusZoneDirection } from "@fluentui/react-focus"
 import React, { Suspense } from "react"
 
 import { useIsAuthenticated } from "../../../../auth"
-import { CreativeCommonsFooter } from "../../../../components/CreativeCommonsFooter"
+import { CreativeCommonsFooter } from "../../../../components/creative-commons-footer"
 import { useCourseSearchStore } from "../../../../courseSearch"
 import { useObservableStates } from "../../../../hooks/useObservableStates"
 // import {ELLIPSIS_HORIZONTAL_ICON_NAME} from "../../../../components/Icon/ellipsis-horizontal.generated"

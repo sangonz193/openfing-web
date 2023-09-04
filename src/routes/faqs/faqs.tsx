@@ -2,7 +2,7 @@ import { Loader2 as Loader2Icon } from "lucide-react"
 import { Fragment } from "react"
 import { useQuery } from "urql"
 
-import { CreativeCommonsFooter } from "@/components/CreativeCommonsFooter"
+import { CreativeCommonsFooter } from "@/components/creative-commons-footer"
 import { graphql } from "@/gql"
 
 import { FaqItem } from "./faq-item"
@@ -25,13 +25,12 @@ export function Faqs() {
 
 	return (
 		<div className="flex shrink grow flex-col overflow-auto">
-			<div className="mx-auto flex min-h-full max-w-2xl shrink-0 flex-col gap-8 pb-10 pt-4">
+			<div className="mx-auto grid min-h-full w-full max-w-4xl shrink-0 gap-8 p-4 pb-10 md:grid-cols-2">
 				{fetching ? (
-					<Loader2Icon className="mx-auto mt-4 h-10 w-10 animate-spin text-primary" />
+					<Loader2Icon className="col-span-full mx-auto mt-4 h-10 w-10 animate-spin text-primary" />
 				) : (
 					data?.faqsCollection?.edges.map(({ node }) => (
 						<Fragment key={node.id}>
-							{node.id !== data.faqsCollection?.edges[0].node.id && <hr className="border-border" />}
 							<FaqItem faqFragment={node} />
 						</Fragment>
 					))

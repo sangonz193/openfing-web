@@ -1,7 +1,7 @@
 import { FocusZone, FocusZoneDirection, List, Separator, Spinner } from "@fluentui/react"
 import React from "react"
 
-import { CreativeCommonsFooter } from "../../../../components/CreativeCommonsFooter"
+import { CreativeCommonsFooter } from "../../../../components/creative-commons-footer"
 import { UpdateItem } from "../UpdateItem"
 import { useUpdatesQuery } from "./Updates.urqlGraphql.generated"
 import { useUpdatesStyles } from "./useUpdatesStyles"
