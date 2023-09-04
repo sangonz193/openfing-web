@@ -1,14 +1,14 @@
 import { getUuid } from "@sangonz193/utils"
-import type { PropsWithChildren } from "react"
+import type { ComponentProps, PropsWithChildren } from "react"
 import { createContext, useContext, useEffect, useLayoutEffect, useMemo, useRef, useState } from "react"
 
-import type { HeaderProps } from "../Header"
+import type { Header } from "./header"
 
 export type LayoutOptions = {
 	className?: string
-	headerTitle?: HeaderProps["title"]
-	headerRight?: HeaderProps["right"]
-	headerLeft?: HeaderProps["left"]
+	headerTitle?: ComponentProps<typeof Header>["title"]
+	headerRight?: ComponentProps<typeof Header>["right"]
+	headerLeft?: ComponentProps<typeof Header>["left"]
 	showHeader?: boolean
 	showNavBar?: boolean
 }
