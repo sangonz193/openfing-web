@@ -3,7 +3,7 @@ import React from "react"
 import ResizeDetector from "react-resize-detector"
 import { useMediaQuery } from "react-responsive"
 
-import { useLayoutOptions } from "@/components/new-layout/context"
+import { useLayoutOptions } from "@/components/layout/context"
 
 import { ADD_OUTLINE_ICON_NAME } from "../../../../components/Icon/add-outline.generated"
 import { CLOSE_OUTLINE_ICON_NAME } from "../../../../components/Icon/close-outline.generated"

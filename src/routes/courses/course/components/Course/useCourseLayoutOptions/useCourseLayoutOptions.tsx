@@ -3,7 +3,7 @@ import React, { useCallback, useEffect } from "react"
 import { Link } from "react-router-dom"
 import type { UseQueryState } from "urql"
 
-import { useLayoutOptions } from "@/components/new-layout/context"
+import { useLayoutOptions } from "@/components/layout/context"
 
 import { useAuthStore } from "../../../../../../auth"
 import { openLink } from "../../../../../../browserAPI/openLink"

@@ -1,4 +1,4 @@
-import { useLayoutOptions } from "@/components/new-layout/context"
+import { useLayoutOptions } from "@/components/layout/context"
 
 import { appConfig } from "../app.config"
 import { useDocumentTitle } from "./useDocumentTitle"

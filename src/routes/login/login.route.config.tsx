@@ -1,6 +1,6 @@
 import { Outlet, type RouteObject } from "react-router-dom"
 
-import { useLayoutOptions } from "@/components/new-layout/context"
+import { useLayoutOptions } from "@/components/layout/context"
 
 import { appConfig } from "../../app.config"
 import { useRedirectToCoursesIfAuthenticated } from "../../hooks/useRedirectToCoursesIfAuthenticated"

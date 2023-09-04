@@ -1,7 +1,7 @@
 import { useEffect } from "react"
 import { createBrowserRouter, Outlet, useNavigate } from "react-router-dom"
 
-import { Layout } from "@/components/new-layout/layout"
+import { Layout } from "@/components/layout/layout"
 import { renderWithContext } from "@/renderWithContext"
 
 import { blogRouteConfig } from "./blog/blog.route.config"
