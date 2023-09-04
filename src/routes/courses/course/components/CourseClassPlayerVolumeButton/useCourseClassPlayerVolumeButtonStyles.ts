@@ -8,6 +8,7 @@ const useStyles = makeStyles((theme) => {
 	return {
 		sliderWrapper: {
 			height: 180,
+			flexShrink: 1,
 
 			backgroundColor: theme.semanticColors.bodyStandoutBackground,
 
@@ -25,6 +26,18 @@ const useStyles = makeStyles((theme) => {
 			flexDirection: "column",
 			marginRight: 5,
 			marginLeft: 5,
+
+			".ms-Slider-container": {
+				flexShrink: 1,
+
+				".ms-Slider-slideBox": {
+					flexShrink: 1,
+				},
+
+				".ms-Label": {
+					flexShrink: 1,
+				},
+			},
 		},
 	}
 })

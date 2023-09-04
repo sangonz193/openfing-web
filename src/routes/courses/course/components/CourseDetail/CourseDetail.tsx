@@ -5,6 +5,8 @@ import parse from "html-react-parser"
 import React from "react"
 import { useResizeDetector } from "react-resize-detector"
 
+import { cn } from "@/lib/cn"
+
 import { useIsAuthenticated } from "../../../../../auth"
 import { CreativeCommonsFooter } from "../../../../../components/CreativeCommonsFooter/CreativeCommonsFooter"
 import { useCourseClassPlayerStore } from "../../../../../courseClassPlayer"
@@ -138,7 +140,7 @@ const CourseDetailComponent: React.FC<CourseDetailProps> = ({ className }) => {
 	}, [courseClass, isAuthenticated])
 
 	return (
-		<Stack className={styles.wrapper} data-is-scrollable>
+		<Stack className={cn(styles.wrapper, "md:pr-2")} data-is-scrollable>
 			<Stack.Item className={styles.container} disableShrink>
 				{courseClassResult.fetching ? (
 					<Spinner size={SpinnerSize.large} className={styles.spinner} />

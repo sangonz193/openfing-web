@@ -1,5 +1,6 @@
+import { useLayoutOptions } from "@/components/layout/context"
+
 import { appConfig } from "../app.config"
-import { useLayoutOptions } from "../components/Layout/useLayoutOptions"
 import { useDocumentTitle } from "./useDocumentTitle"
 
 export function useScreenTitle(title: string) {

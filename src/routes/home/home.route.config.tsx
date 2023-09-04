@@ -1,6 +1,6 @@
 import { Outlet, type RouteObject } from "react-router-dom"
 
-import { useLayoutOptions } from "@/components/Layout/useLayoutOptions"
+import { useLayoutOptions } from "@/components/layout/context"
 import { useScreenTitle } from "@/hooks/useScreenTitle"
 
 export const homeRouteConfig = {

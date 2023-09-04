@@ -1,21 +1,7 @@
-import { css, makeStyles } from "@fluentui/react"
-
-export type CourseMasterStyleProps = {
-	className: string | undefined
-}
+import { makeStyles } from "@fluentui/react"
 
 const useStyles = makeStyles((theme) => {
 	return {
-		wrapper: {
-			backgroundColor: theme.semanticColors.listBackground,
-
-			overflow: "auto",
-
-			"> *": {
-				flexShrink: 0,
-			},
-		},
-
 		dropdownListContainer: {
 			display: "flex",
 			flexWrap: "wrap",
@@ -25,11 +11,6 @@ const useStyles = makeStyles((theme) => {
 
 		editionsSpinner: {
 			marginTop: 10,
-		},
-
-		itemSeparator: {
-			height: 0,
-			padding: 0,
 		},
 
 		courseClassListOption: {
@@ -69,15 +50,13 @@ const useStyles = makeStyles((theme) => {
 	}
 })
 
-export function useCourseMasterStyles({ className }: CourseMasterStyleProps) {
+export function useCourseMasterStyles() {
 	const styles = useStyles()
 
 	return {
-		wrapper: css(styles.wrapper, className),
 		dropdownListContainer: styles.dropdownListContainer,
 		editionsSpinner: styles.editionsSpinner,
 		courseClassListOption: styles.courseClassListOption,
 		activeCourseClassListOption: styles.activeCourseClassListOption,
-		itemSeparator: styles.itemSeparator,
 	}
 }

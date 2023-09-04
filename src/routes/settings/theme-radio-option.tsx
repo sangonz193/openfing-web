@@ -12,7 +12,7 @@ export function ThemeRadioOption(props: Props) {
 	const { themeKey, label } = props
 
 	return (
-		<RadioGroup.Option key={themeKey} value={themeKey} className="flex cursor-pointer items-center gap-2">
+		<RadioGroup.Option key={themeKey} value={themeKey} className="mr-auto flex cursor-pointer items-center gap-2">
 			{({ checked }) => (
 				<>
 					<span
@@ -24,7 +24,9 @@ export function ThemeRadioOption(props: Props) {
 						{checked && <span className="h-2 w-2 rounded-full bg-primary" />}
 					</span>
 
-					<span className="text-center text-foreground">{label}</span>
+					<RadioGroup.Label className="mr-auto cursor-pointer text-center text-base text-foreground">
+						{label}
+					</RadioGroup.Label>
 				</>
 			)}
 		</RadioGroup.Option>

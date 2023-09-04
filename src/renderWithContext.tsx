@@ -4,8 +4,6 @@ import React from "react"
 import { AppManager, AppProvider } from "./app"
 import { AppearanceManager, AppearanceProvider } from "./appearance"
 import { AuthManager, AuthProvider } from "./auth"
-import { BlogManager, BlogProvider } from "./blog"
-import { LayoutProvider } from "./components/Layout/LayoutProvider"
 import { CourseClassPlayerManager, CourseClassPlayerProvider } from "./courseClassPlayer"
 import { CourseSearchProvider } from "./courseSearch"
 import { CourseSelectionManager, CourseSelectionProvider } from "./courseSelection"
@@ -14,7 +12,6 @@ import { InitializationProvider, useIsInitializing } from "./initialization"
 import { withSiblings } from "./react/withSiblings"
 import { withWrappers } from "./react/withWrapper"
 import { RootEventListenersProvider } from "./rootEventListeners"
-import { TeachingManager, TeachingProvider } from "./teaching"
 
 const WithWrappers = withWrappers(
 	[
@@ -25,23 +22,12 @@ const WithWrappers = withWrappers(
 		CourseSelectionProvider,
 		CourseClassPlayerProvider,
 		AppearanceProvider,
-		TeachingProvider,
 		CourseSearchProvider,
 		AuthProvider,
 		UrqlProvider,
-		LayoutProvider,
-		BlogProvider,
 	],
 	withSiblings<PropsWithChildren<{}>>(
-		[
-			AppManager,
-			AuthManager,
-			CourseClassPlayerManager,
-			CourseSelectionManager,
-			AppearanceManager,
-			TeachingManager,
-			BlogManager,
-		],
+		[AppManager, AuthManager, CourseClassPlayerManager, CourseSelectionManager, AppearanceManager],
 		({ children }) => {
 			const isInitializing = useIsInitializing()
 

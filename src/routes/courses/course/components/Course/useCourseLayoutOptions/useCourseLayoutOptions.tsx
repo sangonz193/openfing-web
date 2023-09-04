@@ -3,6 +3,8 @@ import React, { useCallback, useEffect } from "react"
 import { Link } from "react-router-dom"
 import type { UseQueryState } from "urql"
 
+import { useLayoutOptions } from "@/components/layout/context"
+
 import { useAuthStore } from "../../../../../../auth"
 import { openLink } from "../../../../../../browserAPI/openLink"
 import { ADD_OUTLINE_ICON_NAME } from "../../../../../../components/Icon/add-outline.generated"
@@ -12,7 +14,6 @@ import { registerMoreIcon } from "../../../../../../components/Icon/more"
 import { OPEN_OUTLINE_ICON_NAME } from "../../../../../../components/Icon/open-outline.generated"
 import { PENCIL_OUTLINE_ICON_NAME } from "../../../../../../components/Icon/pencil-outline.generated"
 import { RADIO_OUTLINE_ICON_NAME } from "../../../../../../components/Icon/radio-outline.generated"
-import { useLayoutOptions } from "../../../../../../components/Layout/useLayoutOptions"
 import { useComponentWithProps } from "../../../../../../hooks/useComponentWithProps"
 import { useObservableStates } from "../../../../../../hooks/useObservableStates"
 import type { CourseClassListByCodeQuery } from "../Course.urqlGraphql.generated"
@@ -208,6 +209,7 @@ export function useCourseLayoutOptions({
 			onEditLiveState,
 		}
 	)
+
 	useLayoutOptions({
 		headerTitle: headerOptions.headerTitle,
 		headerRight: HeaderRight,

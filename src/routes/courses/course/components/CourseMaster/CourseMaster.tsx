@@ -3,6 +3,8 @@ import { css, FocusZone, FocusZoneDirection, List, Separator, Spinner, SpinnerSi
 import React from "react"
 import { Link } from "react-router-dom"
 
+import { cn } from "@/lib/cn"
+
 import { registerChevrondownIcon } from "../../../../../components/Icon/chevrondown"
 import { useCourseSelectionStore } from "../../../../../courseSelection"
 import { useObservableStates } from "../../../../../hooks/useObservableStates"
@@ -43,60 +45,65 @@ const CourseMasterComponent: React.FC<CourseMasterProps> = ({ className }) => {
 
 	const listGetKey = React.useCallback((c: CourseClassItemCourseClassFragment) => c.id, [])
 
-	const styles = useCourseMasterStyles({
-		className,
-	})
+	const styles = useCourseMasterStyles()
 
 	const listRenderCell = React.useCallback<Required<IListProps<CourseClassItemCourseClassFragment>>["onRenderCell"]>(
 		(item, index) =>
 			item && (
 				<>
-					<CourseClassItem courseClass={item} />
+					<CourseClassItem courseClass={item} className="mx-2 rounded" />
 
 					{(index || 0) < ((courseClasses || undefined)?.length || 0) - 1 && (
-						<Separator className={styles.itemSeparator} />
+						<Separator className="mx-4 mb-px py-0" />
 					)}
 				</>
 			),
-		[styles.itemSeparator, courseClasses && courseClasses.length]
+		[courseClasses && courseClasses.length]
 	)
 
 	return (
-		<Stack className={styles.wrapper} data-is-scrollable disableShrink>
-			{allCourseClassLists && allCourseClassLists.length > 1 && (
-				<>
-					<div className={styles.dropdownListContainer}>
-						{allCourseClassLists.map((item) => (
-							<CourseClassListOption
-								key={item.id}
-								className={styles.courseClassListOption}
-								activeClassName={styles.activeCourseClassListOption}
-								selectedListId={courseClassListId}
-								{...item}
-							/>
-						))}
-					</div>
-
-					<Separator />
-				</>
+		<div
+			className={cn(
+				"flex shrink flex-col overflow-hidden md:mb-2 md:w-[350px] md:shrink-0 md:rounded-xl md:bg-card/50",
+				className
 			)}
+		>
+			<Stack className="shrink overflow-auto bg-transparent pb-10 md:py-2" data-is-scrollable disableShrink>
+				{allCourseClassLists && allCourseClassLists.length > 1 && (
+					<>
+						<div className={styles.dropdownListContainer}>
+							{allCourseClassLists.map((item) => (
+								<CourseClassListOption
+									key={item.id}
+									className={styles.courseClassListOption}
+									activeClassName={styles.activeCourseClassListOption}
+									selectedListId={courseClassListId}
+									{...item}
+								/>
+							))}
+						</div>
 
-			{courseClassesResponse.fetching ? (
-				<Spinner size={SpinnerSize.large} />
-			) : (
-				<>
-					{courseClasses && (
-						<FocusZone direction={FocusZoneDirection.vertical}>
-							<List<CourseClassItemCourseClassFragment>
-								items={courseClasses}
-								getKey={listGetKey}
-								onRenderCell={listRenderCell}
-							/>
-						</FocusZone>
-					)}
-				</>
-			)}
-		</Stack>
+						<Separator />
+					</>
+				)}
+
+				{courseClassesResponse.fetching ? (
+					<Spinner size={SpinnerSize.large} />
+				) : (
+					<>
+						{courseClasses && (
+							<FocusZone direction={FocusZoneDirection.vertical}>
+								<List<CourseClassItemCourseClassFragment>
+									items={courseClasses}
+									getKey={listGetKey}
+									onRenderCell={listRenderCell}
+								/>
+							</FocusZone>
+						)}
+					</>
+				)}
+			</Stack>
+		</div>
 	)
 }
 

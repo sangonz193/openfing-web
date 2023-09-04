@@ -3,11 +3,12 @@ import React from "react"
 import ResizeDetector from "react-resize-detector"
 import { useMediaQuery } from "react-responsive"
 
+import { useLayoutOptions } from "@/components/layout/context"
+
 import { ADD_OUTLINE_ICON_NAME } from "../../../../components/Icon/add-outline.generated"
 import { CLOSE_OUTLINE_ICON_NAME } from "../../../../components/Icon/close-outline.generated"
 import { registerMoreIcon } from "../../../../components/Icon/more"
 import { SEARCH_OUTLINE_ICON_NAME } from "../../../../components/Icon/search-outline.generated"
-import { useLayoutOptions } from "../../../../components/Layout/useLayoutOptions"
 import { useComponentWithProps } from "../../../../hooks/useComponentWithProps"
 import { Breakpoint } from "../../../../styles/Breakpoint"
 import type { useCoursesStyles } from "./useCoursesStyles"

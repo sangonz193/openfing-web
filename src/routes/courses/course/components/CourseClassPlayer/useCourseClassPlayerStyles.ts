@@ -30,6 +30,8 @@ const useStyles = makeStyles((theme) => {
 			position: "relative",
 
 			backgroundColor: "#000",
+			borderRadius: "8px",
+			overflow: "hidden",
 		},
 
 		wrapperHideCursor: {
@@ -89,6 +91,7 @@ const useStyles = makeStyles((theme) => {
 		bottomControls: {
 			margin: "auto 10px 10px",
 			width: "100%",
+			flexShrink: 1,
 		},
 
 		bottomControlsFullscreen: {
