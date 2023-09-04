@@ -11,7 +11,3 @@ export const getMatchingFilePaths = (globPath: string): Promise<string[]> => {
 		})
 	})
 }
-
-export const getMatchingFilePathsSync = (globPath: string): string[] => {
-	return glob.sync(globPath, { nodir: true })
-}
