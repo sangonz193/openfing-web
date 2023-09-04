@@ -24,11 +24,11 @@ export function NavbarButton(props: Props) {
 	const Icon = active ? props.SolidIcon : props.Icon
 
 	return (
-		<div className={cn("shrink-0 grow md:grow-0", className)}>
+		<div className={cn("flex min-w-[40px] shrink grow md:grow-0", className)}>
 			<Link
 				to={to}
 				className={cn(
-					"mx-auto flex h-16 w-20 grow flex-col items-center justify-center rounded-lg",
+					"mx-auto flex h-16 w-20 shrink grow-0 flex-col items-center justify-center rounded-lg md:shrink-0",
 					active && "bg-card text-primary",
 					!active && "hover:bg-card/50"
 				)}
