@@ -1,19 +1,20 @@
-import { createClient } from "@/utils/supabase/server";
+import { CoursesList } from "@/modules/courses/courses-list"
+import { createClient } from "@/utils/supabase/server"
 
 export default async function Page() {
-  const supabase = createClient();
-  const courses = await supabase.from("courses").select("*");
+  const supabase = createClient()
+  const courses = await supabase
+    .from("courses")
+    .select("*")
+    .eq("visibility", "public")
 
   return (
-    <div>
-      <h1>Courses</h1>
-      <ul>
-        {courses.data?.map((course) => (
-          <li key={course.id}>
-            <a href={`/courses/${course.code}`}>{course.name}</a>
-          </li>
-        ))}
-      </ul>
-    </div>
-  );
+    <CoursesList
+      courses={(courses.data ?? []).map((course) => ({
+        id: course.id,
+        code: course.code,
+        name: course.name,
+      }))}
+    />
+  )
 }
