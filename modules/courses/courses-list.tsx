@@ -1,8 +1,9 @@
 "use client"
 
+import Link from "next/link"
+
 import { Button } from "@/components/ui/button"
 import { Tables } from "@/supabase/types.gen"
-import Link from "next/link"
 
 type Props = {
   courses: Pick<Tables<"courses">, "id" | "name" | "code">[]
