@@ -204,6 +204,7 @@ export type Database = {
           updated_at: string | null
           updated_by_id: string | null
           visibility: string
+          latest_course_class_list: unknown | null
         }
         Insert: {
           code: string
@@ -240,7 +241,24 @@ export type Database = {
       [_ in never]: never
     }
     Functions: {
-      [_ in never]: never
+      latest_course_class_list: {
+        Args: {
+          "": unknown
+        }
+        Returns: {
+          code: string
+          course_edition_id: string
+          created_at: string
+          created_by_id: string | null
+          deleted_at: string | null
+          deleted_by_id: string | null
+          id: string
+          name: string
+          updated_at: string | null
+          updated_by_id: string | null
+          visibility: string
+        }[]
+      }
     }
     Enums: {
       [_ in never]: never

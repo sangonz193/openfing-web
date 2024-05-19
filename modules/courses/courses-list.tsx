@@ -14,10 +14,13 @@ import {
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { useQueryParamState } from "@/lib/next/use-query-param-state"
-import { Tables } from "@/supabase/types.gen"
+import { Tables } from "@/supabase/types"
 
 type Props = {
-  courses: Pick<Tables<"courses">, "id" | "name" | "code">[]
+  courses: Pick<
+    Tables<"courses">,
+    "id" | "name" | "code" | "latest_course_class_list"
+  >[]
 }
 
 export function CoursesList({ courses }: Props) {
@@ -68,7 +71,9 @@ export function CoursesList({ courses }: Props) {
                 variant="link"
                 className="block h-auto justify-start whitespace-pre-wrap py-4"
               >
-                <Link href={`/courses/${course.item.code}`}>
+                <Link
+                  href={`/courses/${course.item.latest_course_class_list?.code || course.item.code}`}
+                >
                   {course.item.name}
                 </Link>
               </Button>

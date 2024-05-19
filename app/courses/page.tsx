@@ -5,7 +5,7 @@ export default async function Page() {
   const supabase = createClient()
   const courses = await supabase
     .from("courses")
-    .select("*")
+    .select("*,latest_course_class_list(code)")
     .eq("visibility", "public")
     .order("name")
 
@@ -15,6 +15,7 @@ export default async function Page() {
         id: course.id,
         code: course.code,
         name: course.name,
+        latest_course_class_list: course.latest_course_class_list,
       }))}
     />
   )
