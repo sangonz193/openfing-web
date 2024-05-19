@@ -3,10 +3,10 @@ import { Metadata } from "next"
 import { notFound } from "next/navigation"
 import { cache } from "react"
 
-import { SourceWithHash } from "@/components/source-with-hash"
 import { Button } from "@/components/ui/button"
 import { PublishedAt } from "@/modules/course/published-at"
-import { cn } from "@/utils/cn"
+import { ShareCourseClass } from "@/modules/course-class/share/share"
+import { Video } from "@/modules/video"
 import { createClient } from "@/utils/supabase/server"
 
 const fetchData = cache(async (code: string, number: string) => {
@@ -44,18 +44,7 @@ export default async function Page({ params }: Props) {
     <div className="flex grow flex-col overflow-auto px-4 pb-10 pt-2">
       <div className="mx-auto flex w-full max-w-screen-2xl flex-col">
         <div className="flex shrink-0 flex-col overflow-hidden rounded-lg border">
-          <video
-            autoPlay
-            controls
-            className={cn(
-              "aspect-video bg-black",
-
-              // https://stackoverflow.com/questions/20037784/html5-video-border-radius-in-chrome-not-working
-              "[-webkit-mask-image:url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAIAAACQd1PeAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAA5JREFUeNpiYGBgAAgwAAAEAAGbA+oJAAAAAElFTkSuQmCC)]",
-            )}
-          >
-            <SourceWithHash src={videoUrl} />
-          </video>
+          <Video src={videoUrl} />
         </div>
 
         <span className="mt-4 text-2xl">{courseClass.name}</span>
@@ -64,13 +53,15 @@ export default async function Page({ params }: Props) {
           <PublishedAt publishedAt={courseClass.published_at} />
         )}
 
-        <div className="mt-4 flex">
+        <div className="mt-4 flex gap-2">
           <Button asChild variant="outline">
             <a href={videoUrl} download>
-              <DownloadIcon className="size-5" />
-              Download
+              <DownloadIcon className="size-4" />
+              Descargar
             </a>
           </Button>
+
+          <ShareCourseClass />
         </div>
       </div>
     </div>
