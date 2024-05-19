@@ -1,6 +1,5 @@
 import { DownloadIcon } from "lucide-react"
 import { Metadata } from "next"
-import Link from "next/link"
 import { notFound } from "next/navigation"
 import { cache } from "react"
 
