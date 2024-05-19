@@ -1,7 +1,7 @@
 import { notFound } from "next/navigation"
 
 import { CourseClassItem } from "./course-class-item"
-import { fetchCourseMasterData } from "./course-master-query"
+import { fetchCourseMasterData } from "./fetch-course-master-data"
 import { MaybeCourseClassLists } from "./maybe-course-class-lists"
 
 type Props = {

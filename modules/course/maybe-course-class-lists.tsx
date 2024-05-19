@@ -6,7 +6,7 @@ import { Fragment } from "react"
 
 import { Button } from "@/components/ui/button"
 
-import { fetchCourseMasterData } from "./course-master-query"
+import { fetchCourseMasterData } from "./fetch-course-master-data"
 
 export function MaybeCourseClassLists({
   course,

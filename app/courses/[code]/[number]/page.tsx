@@ -1,21 +1,37 @@
+import { Metadata } from "next"
 import { notFound } from "next/navigation"
+import { cache } from "react"
 
 import { cn } from "@/utils/cn"
 import { createClient } from "@/utils/supabase/server"
 
-export default async function Page({
-  params,
-}: {
-  params: { code: string; number: string }
-}) {
+const fetchData = cache(async (code: string, number: string) => {
   const supabase = createClient()
   const { data: courseClass } = await supabase
     .from("course_classes")
     .select("name, course_class_lists!inner(*)")
-    .eq("number", params.number)
-    .eq("course_class_lists.code", params.code)
+    .eq("number", number)
+    .eq("course_class_lists.code", code)
     .single()
 
+  return courseClass
+})
+
+type Props = {
+  params: { code: string; number: string }
+}
+
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+  const courseClass = await fetchData(params.code, params.number)
+  if (!courseClass) return {}
+
+  return {
+    title: `${courseClass.name} - OpenFING`,
+  }
+}
+
+export default async function Page({ params }: Props) {
+  const courseClass = await fetchData(params.code, params.number)
   if (!courseClass) return notFound()
 
   return (

@@ -24,9 +24,15 @@ export function CourseClassItem(props: Props) {
     <Button
       asChild
       variant={isActive ? undefined : "link"}
-      className="h-auto justify-start whitespace-pre-wrap py-3"
+      className="group h-auto items-center justify-start whitespace-pre-wrap py-3 hover:no-underline"
     >
-      <Link href={href}>{courseClass.name}</Link>
+      <Link href={href}>
+        <span className="shrink-0 font-mono">
+          {courseClass.number.toString().padStart(2, " ")}{" "}
+        </span>
+
+        <span className="group-hover:underline">{courseClass.name}</span>
+      </Link>
     </Button>
   )
 }

@@ -1,6 +1,8 @@
+import { cache } from "react"
+
 import { createClient } from "@/utils/supabase/server"
 
-export async function fetchCourseMasterData(code: string) {
+export const fetchCourseMasterData = cache(async (code: string) => {
   const supabase = createClient()
   const { data: courseClassList } = await supabase
     .from("course_class_lists")
@@ -35,4 +37,4 @@ export async function fetchCourseMasterData(code: string) {
     .single()
 
   return courseClassList
-}
+})
