@@ -34,6 +34,162 @@ export type Database = {
   }
   public: {
     Tables: {
+      course_class_lists: {
+        Row: {
+          code: string
+          course_edition_id: string
+          created_at: string
+          created_by_id: string | null
+          deleted_at: string | null
+          deleted_by_id: string | null
+          id: string
+          name: string
+          updated_at: string | null
+          updated_by_id: string | null
+          visibility: string
+        }
+        Insert: {
+          code: string
+          course_edition_id: string
+          created_at: string
+          created_by_id?: string | null
+          deleted_at?: string | null
+          deleted_by_id?: string | null
+          id?: string
+          name: string
+          updated_at?: string | null
+          updated_by_id?: string | null
+          visibility: string
+        }
+        Update: {
+          code?: string
+          course_edition_id?: string
+          created_at?: string
+          created_by_id?: string | null
+          deleted_at?: string | null
+          deleted_by_id?: string | null
+          id?: string
+          name?: string
+          updated_at?: string | null
+          updated_by_id?: string | null
+          visibility?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "course_class_lists_course_edition_id_fkey"
+            columns: ["course_edition_id"]
+            isOneToOne: false
+            referencedRelation: "course_editions"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      course_classes: {
+        Row: {
+          course_class_list_id: string
+          created_at: string
+          created_by_id: string | null
+          deleted_at: string | null
+          deleted_by_id: string | null
+          id: string
+          name: string
+          number: number
+          published_at: string | null
+          updated_at: string | null
+          updated_by_id: string | null
+          visibility: string
+        }
+        Insert: {
+          course_class_list_id: string
+          created_at: string
+          created_by_id?: string | null
+          deleted_at?: string | null
+          deleted_by_id?: string | null
+          id?: string
+          name: string
+          number: number
+          published_at?: string | null
+          updated_at?: string | null
+          updated_by_id?: string | null
+          visibility: string
+        }
+        Update: {
+          course_class_list_id?: string
+          created_at?: string
+          created_by_id?: string | null
+          deleted_at?: string | null
+          deleted_by_id?: string | null
+          id?: string
+          name?: string
+          number?: number
+          published_at?: string | null
+          updated_at?: string | null
+          updated_by_id?: string | null
+          visibility?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "course_classes_course_class_list_id_fkey"
+            columns: ["course_class_list_id"]
+            isOneToOne: false
+            referencedRelation: "course_class_lists"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      course_editions: {
+        Row: {
+          course_id: string
+          created_at: string
+          created_by_id: string | null
+          deleted_at: string | null
+          deleted_by_id: string | null
+          id: string
+          name: string
+          semester: number
+          updated_at: string | null
+          updated_by_id: string | null
+          visibility: string
+          year: number
+        }
+        Insert: {
+          course_id: string
+          created_at: string
+          created_by_id?: string | null
+          deleted_at?: string | null
+          deleted_by_id?: string | null
+          id: string
+          name: string
+          semester: number
+          updated_at?: string | null
+          updated_by_id?: string | null
+          visibility: string
+          year: number
+        }
+        Update: {
+          course_id?: string
+          created_at?: string
+          created_by_id?: string | null
+          deleted_at?: string | null
+          deleted_by_id?: string | null
+          id?: string
+          name?: string
+          semester?: number
+          updated_at?: string | null
+          updated_by_id?: string | null
+          visibility?: string
+          year?: number
+        }
+        Relationships: [
+          {
+            foreignKeyName: "course_editions_course_id_fkey"
+            columns: ["course_id"]
+            isOneToOne: false
+            referencedRelation: "courses"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       courses: {
         Row: {
           code: string
