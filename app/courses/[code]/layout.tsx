@@ -22,7 +22,7 @@ export default async function Page(
         <Breadcrumb>
           <BreadcrumbList>
             <BreadcrumbItem>
-              <BreadcrumbLink href="/courses">Courses</BreadcrumbLink>
+              <BreadcrumbLink href="/courses">Cursos</BreadcrumbLink>
             </BreadcrumbItem>
             <BreadcrumbSeparator />
             <BreadcrumbItem>
