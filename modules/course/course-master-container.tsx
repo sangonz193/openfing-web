@@ -18,8 +18,8 @@ export function CourseMasterContainer(props: Props) {
       className={cn(
         props.className,
         "flex-col",
-        !!segments.length && "hidden md:flex",
-        !segments.length && "flex max-md:w-full max-md:max-w-none",
+        !!segments.length && "hidden lg:flex",
+        !segments.length && "flex max-lg:w-full max-lg:max-w-none",
       )}
     >
       {props.children}

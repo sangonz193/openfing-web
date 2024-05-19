@@ -2,6 +2,8 @@
 
 import { useEffect, useState } from "react"
 
+import { cn } from "@/utils/cn"
+
 export function PublishedAt({ publishedAt }: { publishedAt: string }) {
   const [text, setText] = useState<string>()
 
@@ -12,8 +14,13 @@ export function PublishedAt({ publishedAt }: { publishedAt: string }) {
   }, [publishedAt])
 
   return (
-    <div className="flex min-h-8 items-center text-muted-foreground">
-      {text}
+    <div
+      className={cn(
+        "mt-1 block whitespace-pre text-sm text-muted-foreground",
+        text && "duration-300 animate-in fade-in",
+      )}
+    >
+      {text || " "}
     </div>
   )
 }
