@@ -9,6 +9,7 @@ export const fetchCourseMasterData = cache(async (code: string) => {
     .select(
       `
       code,
+      name,
       course_editions(
         courses(
           id,
@@ -34,6 +35,15 @@ export const fetchCourseMasterData = cache(async (code: string) => {
   `,
     )
     .eq("code", code)
+    .order("year", {
+      referencedTable: "course_editions.courses.course_editions",
+      ascending: false,
+    })
+    .order("semester", {
+      referencedTable: "course_editions.courses.course_editions",
+      ascending: false,
+    })
+    .order("number", { referencedTable: "course_classes" })
     .single()
 
   return courseClassList
