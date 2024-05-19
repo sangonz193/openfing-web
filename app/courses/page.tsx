@@ -7,6 +7,7 @@ export default async function Page() {
     .from("courses")
     .select("*")
     .eq("visibility", "public")
+    .order("name")
 
   return (
     <CoursesList

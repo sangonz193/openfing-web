@@ -70,7 +70,7 @@
 
 @layer base {
   * {
-    @apply border-border;
+    @apply scrollbar-thin scrollbar-track-background scrollbar-thumb-white/40 border-border;
   }
   body {
     @apply bg-background text-foreground;
