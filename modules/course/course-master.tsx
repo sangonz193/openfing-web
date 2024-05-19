@@ -16,7 +16,7 @@ export function CourseMaster(props: Props) {
   const courseClasses = data.course_classes
 
   return (
-    <div className="flex max-w-sm shrink-0 flex-col gap-3 overflow-auto pb-10 pt-2">
+    <div className="flex max-w-sm shrink-0 flex-col gap-3 overflow-auto border-r pb-10 pt-2">
       <MaybeCourseClassLists course={course} />
 
       <div className="flex flex-col gap-2 px-2">

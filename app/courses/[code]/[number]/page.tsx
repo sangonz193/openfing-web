@@ -37,28 +37,30 @@ export default async function Page({ params }: Props) {
 
   return (
     <div className="flex grow flex-col overflow-auto px-4 pb-10 pt-2">
-      <div className="flex shrink-0 flex-col overflow-hidden rounded-lg border">
-        <video
-          autoPlay
-          controls
-          className={cn(
-            "aspect-video bg-black",
+      <div className="mx-auto flex w-full max-w-screen-2xl flex-col">
+        <div className="flex shrink-0 flex-col overflow-hidden rounded-lg border">
+          <video
+            autoPlay
+            controls
+            className={cn(
+              "aspect-video bg-black",
 
-            // https://stackoverflow.com/questions/20037784/html5-video-border-radius-in-chrome-not-working
-            "[-webkit-mask-image:url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAIAAACQd1PeAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAA5JREFUeNpiYGBgAAgwAAAEAAGbA+oJAAAAAElFTkSuQmCC)]",
-          )}
-        >
-          <source
-            src={`https://open.fing.edu.uy/media/${params.code}/${params.code}_${params.number.toString().padStart(2, "0")}.mp4`}
-          />
-        </video>
+              // https://stackoverflow.com/questions/20037784/html5-video-border-radius-in-chrome-not-working
+              "[-webkit-mask-image:url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAIAAACQd1PeAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAA5JREFUeNpiYGBgAAgwAAAEAAGbA+oJAAAAAElFTkSuQmCC)]",
+            )}
+          >
+            <source
+              src={`https://open.fing.edu.uy/media/${params.code}/${params.code}_${params.number.toString().padStart(2, "0")}.mp4`}
+            />
+          </video>
+        </div>
+
+        <span className="mt-3 text-2xl">{courseClass.name}</span>
+
+        {courseClass.published_at && (
+          <PublishedAt publishedAt={courseClass.published_at} />
+        )}
       </div>
-
-      <span className="mt-3 text-2xl">{courseClass.name}</span>
-
-      {courseClass.published_at && (
-        <PublishedAt publishedAt={courseClass.published_at} />
-      )}
     </div>
   )
 }
