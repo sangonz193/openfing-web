@@ -1,8 +1,11 @@
+import { DownloadIcon } from "lucide-react"
 import { Metadata } from "next"
+import Link from "next/link"
 import { notFound } from "next/navigation"
 import { cache } from "react"
 
 import { SourceWithHash } from "@/components/source-with-hash"
+import { Button } from "@/components/ui/button"
 import { PublishedAt } from "@/modules/course/published-at"
 import { cn } from "@/utils/cn"
 import { createClient } from "@/utils/supabase/server"
@@ -36,6 +39,8 @@ export default async function Page({ params }: Props) {
   const courseClass = await fetchData(params.code, params.number)
   if (!courseClass) return notFound()
 
+  const videoUrl = `https://open.fing.edu.uy/media/${params.code}/${params.code}_${params.number.toString().padStart(2, "0")}.mp4`
+
   return (
     <div className="flex grow flex-col overflow-auto px-4 pb-10 pt-2">
       <div className="mx-auto flex w-full max-w-screen-2xl flex-col">
@@ -50,17 +55,24 @@ export default async function Page({ params }: Props) {
               "[-webkit-mask-image:url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAIAAACQd1PeAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAA5JREFUeNpiYGBgAAgwAAAEAAGbA+oJAAAAAElFTkSuQmCC)]",
             )}
           >
-            <SourceWithHash
-              src={`https://open.fing.edu.uy/media/${params.code}/${params.code}_${params.number.toString().padStart(2, "0")}.mp4`}
-            />
+            <SourceWithHash src={videoUrl} />
           </video>
         </div>
 
-        <span className="mt-3 text-2xl">{courseClass.name}</span>
+        <span className="mt-4 text-2xl">{courseClass.name}</span>
 
         {courseClass.published_at && (
           <PublishedAt publishedAt={courseClass.published_at} />
         )}
+
+        <div className="mt-4 flex">
+          <Button asChild variant="outline">
+            <a href={videoUrl} download>
+              <DownloadIcon className="size-5" />
+              Download
+            </a>
+          </Button>
+        </div>
       </div>
     </div>
   )
