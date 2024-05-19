@@ -1,22 +1,21 @@
 "use client"
 
-import { ComponentProps, useEffect, useState } from "react"
+import { ComponentProps, useMemo } from "react"
+
+import { useHash } from "@/utils/use-hash"
 
 type Props = ComponentProps<"source">
 
 export function SourceWithHash(props: Props) {
-  const [src, setSrc] = useState<string | null>()
+  const hash = useHash()
 
-  useEffect(() => {
-    if (!props.src) {
-      setSrc(null)
-      return
-    }
+  const src = useMemo(() => {
+    if (hash === undefined) return props.src
 
-    setSrc(`${props.src}${location.hash}`)
-  }, [props.src])
+    return `${props.src}${hash}`
+  }, [hash, props.src])
 
-  if (src === undefined) return null
+  if (!src) return null
 
-  return <source key={src} {...props} src={src || undefined} />
+  return <source key={src} {...props} src={src} />
 }
