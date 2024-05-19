@@ -2,6 +2,7 @@ import { Metadata } from "next"
 import { notFound } from "next/navigation"
 import { cache } from "react"
 
+import { SourceWithHash } from "@/components/source-with-hash"
 import { PublishedAt } from "@/modules/course/published-at"
 import { cn } from "@/utils/cn"
 import { createClient } from "@/utils/supabase/server"
@@ -49,7 +50,7 @@ export default async function Page({ params }: Props) {
               "[-webkit-mask-image:url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAIAAACQd1PeAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAA5JREFUeNpiYGBgAAgwAAAEAAGbA+oJAAAAAElFTkSuQmCC)]",
             )}
           >
-            <source
+            <SourceWithHash
               src={`https://open.fing.edu.uy/media/${params.code}/${params.code}_${params.number.toString().padStart(2, "0")}.mp4`}
             />
           </video>
