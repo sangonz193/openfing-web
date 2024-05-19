@@ -18,7 +18,7 @@ export default async function Page(
 
   return (
     <div className="flex grow flex-col">
-      <header className="flex h-14 items-center border-b px-4">
+      <header className="flex h-14 items-center gap-2 border-b px-4">
         <Breadcrumb>
           <BreadcrumbList>
             <BreadcrumbItem>
@@ -30,6 +30,8 @@ export default async function Page(
             </BreadcrumbItem>
           </BreadcrumbList>
         </Breadcrumb>
+
+        {/* <MaybeAccountAvatar className="ml-auto" /> */}
       </header>
 
       <div className="flex min-h-0 grow basis-0">

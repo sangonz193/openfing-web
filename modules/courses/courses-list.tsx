@@ -13,8 +13,8 @@ import {
 } from "@/components/ui/breadcrumb"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
-import { useQueryParamState } from "@/lib/next/use-query-param-state"
 import { Tables } from "@/supabase/types"
+import { useQueryParamState } from "@/utils/next/use-query-param-state"
 
 type Props = {
   courses: Pick<

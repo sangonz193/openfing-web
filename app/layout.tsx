@@ -3,8 +3,13 @@ import "./globals.css"
 import { Analytics } from "@vercel/analytics/react"
 import { GeistSans } from "geist/font/sans"
 
-const defaultUrl = process.env.VERCEL_URL
-  ? `https://${process.env.VERCEL_URL}`
+import { AutoSignIn } from "@/modules/auth/auto-sign-in"
+import { serverEnv } from "@/modules/env/server"
+
+import { Providers } from "./providers"
+
+const defaultUrl = serverEnv.VERCEL_URL
+  ? `https://${serverEnv.VERCEL_URL}`
   : "http://localhost:3000"
 
 export const metadata = {
@@ -21,7 +26,10 @@ export default function RootLayout({
     <html lang="en" className={GeistSans.className}>
       <body className="bg-background text-foreground">
         <main className="flex min-h-screen flex-col">
-          {children}
+          <Providers>
+            {children}
+            <AutoSignIn />
+          </Providers>
           <Analytics />
         </main>
       </body>

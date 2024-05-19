@@ -23,7 +23,7 @@ import {
   FormMessage,
 } from "@/components/ui/form"
 import { Input } from "@/components/ui/input"
-import { useZodForm } from "@/lib/react-hook-form/useZodForm"
+import { useZodForm } from "@/utils/react-hook-form/useZodForm"
 
 import { formSchema } from "./form-schema"
 import { inputToSeconds, secondsToInput } from "./input-to-seconds"
