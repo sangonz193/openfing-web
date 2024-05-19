@@ -2,6 +2,12 @@
 
 import Link from "next/link"
 
+import {
+  Breadcrumb,
+  BreadcrumbItem,
+  BreadcrumbLink,
+  BreadcrumbList,
+} from "@/components/ui/breadcrumb"
 import { Button } from "@/components/ui/button"
 import { Tables } from "@/supabase/types.gen"
 
@@ -11,20 +17,32 @@ type Props = {
 
 export function CoursesList({ courses }: Props) {
   return (
-    <div>
-      <h3 className="mb-3 mt-8 scroll-m-20 text-2xl font-semibold tracking-tight">
-        Courses
-      </h3>
+    <div className="flex grow flex-col">
+      <header className="flex h-14 items-center border-b px-4">
+        <Breadcrumb>
+          <BreadcrumbList>
+            <BreadcrumbItem>
+              <BreadcrumbLink href="/courses">Cursos</BreadcrumbLink>
+            </BreadcrumbItem>
+          </BreadcrumbList>
+        </Breadcrumb>
+      </header>
 
-      <ul className="flex flex-col gap-2">
-        {courses.map((course) => (
-          <li key={course.id} className="rounded-md border border-border">
-            <Button asChild variant="link" className="block justify-start">
-              <Link href={`/courses/${course.code}`}>{course.name}</Link>
-            </Button>
-          </li>
-        ))}
-      </ul>
+      <div className="min-h-0 grow basis-0 overflow-auto pb-10 pt-4">
+        <ul className="mx-auto flex w-full max-w-md flex-col gap-2 px-2">
+          {courses.map((course) => (
+            <li key={course.id} className="rounded-md border border-border">
+              <Button
+                asChild
+                variant="link"
+                className="block h-auto justify-start whitespace-pre-wrap py-4"
+              >
+                <Link href={`/courses/${course.code}`}>{course.name}</Link>
+              </Button>
+            </li>
+          ))}
+        </ul>
+      </div>
     </div>
   )
 }
