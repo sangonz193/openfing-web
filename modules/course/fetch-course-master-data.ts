@@ -43,6 +43,11 @@ export const fetchCourseMasterData = cache(async (code: string) => {
       referencedTable: "course_editions.courses.course_editions",
       ascending: false,
     })
+    .order("created_at", {
+      referencedTable:
+        "course_editions.courses.course_editions.course_class_lists",
+      ascending: false,
+    })
     .order("number", { referencedTable: "course_classes" })
     .single()
 
