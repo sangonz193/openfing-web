@@ -2,6 +2,7 @@ import { Metadata } from "next"
 import { notFound } from "next/navigation"
 import { cache } from "react"
 
+import { PublishedAt } from "@/modules/course/published-at"
 import { cn } from "@/utils/cn"
 import { createClient } from "@/utils/supabase/server"
 
@@ -9,7 +10,7 @@ const fetchData = cache(async (code: string, number: string) => {
   const supabase = createClient()
   const { data: courseClass } = await supabase
     .from("course_classes")
-    .select("name, course_class_lists!inner(*)")
+    .select("name, course_class_lists!inner(*), published_at")
     .eq("number", number)
     .eq("course_class_lists.code", code)
     .single()
@@ -35,8 +36,8 @@ export default async function Page({ params }: Props) {
   if (!courseClass) return notFound()
 
   return (
-    <div className="flex grow flex-col px-4 pt-2">
-      <div className="flex flex-col overflow-hidden rounded-md [-webkit-transform:translateZ(0)]">
+    <div className="flex grow flex-col overflow-auto px-4 pb-10 pt-2">
+      <div className="flex shrink-0 flex-col overflow-hidden rounded-lg border">
         <video
           autoPlay
           controls
@@ -52,6 +53,12 @@ export default async function Page({ params }: Props) {
           />
         </video>
       </div>
+
+      <span className="mt-3 text-2xl">{courseClass.name}</span>
+
+      {courseClass.published_at && (
+        <PublishedAt publishedAt={courseClass.published_at} />
+      )}
     </div>
   )
 }
