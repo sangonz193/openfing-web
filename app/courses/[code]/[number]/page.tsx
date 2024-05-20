@@ -7,6 +7,7 @@ import { Button } from "@/components/ui/button"
 import { MaxLgCourseClassList } from "@/modules/course/max-lg-course-class-list"
 import { PublishedAt } from "@/modules/course/published-at"
 import { MaybeBookmarks } from "@/modules/course-class/bookmarks/bookmarks"
+import { getVideoUrl } from "@/modules/course-class/get-video-url"
 import { ShareCourseClass } from "@/modules/course-class/share/share"
 import { Video } from "@/modules/video"
 import { createClient } from "@/utils/supabase/server"
@@ -47,7 +48,7 @@ export default async function Page({ params }: Props) {
   const courseClass = await fetchData(params.code, params.number)
   if (!courseClass) return notFound()
 
-  const videoUrl = `https://open.fing.edu.uy/media/${params.code}/${params.code}_${params.number.toString().padStart(2, "0")}.mp4`
+  const videoUrl = getVideoUrl(params)
 
   return (
     <div className="shrink grow overflow-auto px-4 pb-10 pt-2">
