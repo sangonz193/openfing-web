@@ -1,5 +1,6 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query"
 import { TrashIcon } from "lucide-react"
+import { ComponentProps } from "react"
 
 import { Spinner } from "@/components/spinner"
 import {
@@ -14,7 +15,9 @@ import {
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog"
 import { Button } from "@/components/ui/button"
+import { useCourseLayoutContext } from "@/modules/course/layout/provider"
 import { Tables } from "@/supabase/types"
+import { cn } from "@/utils/cn"
 import { createClient } from "@/utils/supabase/client"
 
 import { useBookmarksQuery } from "./use-bookmarks"
@@ -22,9 +25,11 @@ import { secondsToInput } from "../share/input-to-seconds"
 
 type Props = {
   bookmark: Tables<"course_class_bookmarks">
+  onClicked?: () => void
 }
 
-export function BookmarkItem({ bookmark }: Props) {
+export function BookmarkItem({ bookmark, onClicked }: Props) {
+  const { videoRef } = useCourseLayoutContext()
   const queryClient = useQueryClient()
   const deleteMutation = useMutation({
     mutationFn: async () => {
@@ -48,12 +53,26 @@ export function BookmarkItem({ bookmark }: Props) {
     },
   })
 
+  const Comp = bookmark.start_at ? Button : "div"
+
   return (
     <div className="flex-row rounded-md border py-2">
-      <Button
-        type="button"
-        variant="link"
-        className="flex h-auto grow flex-col items-start justify-start gap-0 text-left"
+      <Comp
+        {...(Comp === Button &&
+          ({
+            type: "button",
+            variant: "link",
+          } satisfies ComponentProps<typeof Button>))}
+        className={cn(
+          "flex h-auto grow flex-col items-start justify-center gap-0 text-left",
+          Comp !== Button && "px-4",
+        )}
+        onClick={() => {
+          if (!videoRef.current || bookmark.start_at === null) return
+
+          videoRef.current.currentTime = bookmark.start_at
+          onClicked?.()
+        }}
       >
         <span className="text-lg font-semibold">{bookmark.title}</span>
         {!!bookmark.start_at && (
@@ -71,7 +90,7 @@ export function BookmarkItem({ bookmark }: Props) {
         {!!bookmark.description && (
           <span className="text-base font-normal">{bookmark.description}</span>
         )}
-      </Button>
+      </Comp>
 
       <AlertDialog>
         <AlertDialogTrigger asChild>

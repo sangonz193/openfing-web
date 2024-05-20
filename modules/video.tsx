@@ -5,11 +5,14 @@ import { useMemo } from "react"
 import { cn } from "@/utils/cn"
 import { useHash } from "@/utils/use-hash"
 
+import { useCourseLayoutContext } from "./course/layout/provider"
+
 type Props = {
   src: string
 }
 
 export function Video(props: Props) {
+  const { videoRef } = useCourseLayoutContext()
   const hash = useHash()
   const src = useMemo(() => {
     if (hash === undefined) return props.src
@@ -20,6 +23,7 @@ export function Video(props: Props) {
   return (
     <video
       key={hash}
+      ref={videoRef}
       autoPlay
       controls
       className={cn(

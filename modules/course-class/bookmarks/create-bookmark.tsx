@@ -150,7 +150,7 @@ function Content({
                     />
                   </FormControl>
 
-                  <FormLabel>Iniciar en:</FormLabel>
+                  <FormLabel>Desde:</FormLabel>
                 </FormItem>
               )}
             />
@@ -194,7 +194,7 @@ function Content({
                     />
                   </FormControl>
 
-                  <FormLabel>Terminar en:</FormLabel>
+                  <FormLabel>Hasta:</FormLabel>
                 </FormItem>
               )}
             />

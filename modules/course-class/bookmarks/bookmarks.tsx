@@ -1,6 +1,7 @@
 "use client"
 
 import { BookmarkIcon } from "lucide-react"
+import { useState } from "react"
 
 import { Button } from "@/components/ui/button"
 import {
@@ -29,11 +30,12 @@ export function MaybeBookmarks(props: Props) {
 }
 
 function Bookmarks({ courseClassId }: Props) {
+  const [open, setOpen] = useState(false)
   const query = useBookmarksQuery({ courseClassId })
   const { data, isSuccess } = query
 
   return (
-    <Sheet>
+    <Sheet open={open} onOpenChange={setOpen}>
       <SheetTrigger asChild>
         <Button variant="outline">
           <BookmarkIcon className="size-4" />
@@ -53,7 +55,11 @@ function Bookmarks({ courseClassId }: Props) {
           {isSuccess && !data.length && <EmptyState />}
 
           {data?.map((bookmark) => (
-            <BookmarkItem key={bookmark.id} bookmark={bookmark} />
+            <BookmarkItem
+              key={bookmark.id}
+              bookmark={bookmark}
+              onClicked={() => setOpen(false)}
+            />
           ))}
         </div>
       </SheetContent>
