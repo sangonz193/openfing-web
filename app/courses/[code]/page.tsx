@@ -1,3 +1,4 @@
+import { ClapperboardIcon } from "lucide-react"
 import { Metadata } from "next"
 
 import { fetchCourseMasterData } from "@/modules/course/fetch-course-master-data"
@@ -19,5 +20,12 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 }
 
 export default async function Page() {
-  return null
+  return (
+    <div className="shrink grow items-center justify-center gap-2">
+      <ClapperboardIcon className="mx-auto size-20 text-muted-foreground" />
+      <p className="text-center font-medium text-muted-foreground">
+        Elije una clase para ver el video.
+      </p>
+    </div>
+  )
 }

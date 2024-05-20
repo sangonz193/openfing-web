@@ -32,7 +32,7 @@ function CourseLayout(props: Props) {
       <div className="min-h-0 grow basis-0 flex-row">
         <CourseMaster {...props} />
 
-        {children}
+        <div className="hidden shrink grow lg:flex">{children}</div>
       </div>
     </>
   )
