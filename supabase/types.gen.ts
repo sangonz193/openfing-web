@@ -34,6 +34,54 @@ export type Database = {
   }
   public: {
     Tables: {
+      course_class_bookmarks: {
+        Row: {
+          course_class_id: string
+          created_at: string | null
+          description: string | null
+          end_at: number | null
+          id: string
+          start_at: number | null
+          title: string
+          user_id: string
+        }
+        Insert: {
+          course_class_id: string
+          created_at?: string | null
+          description?: string | null
+          end_at?: number | null
+          id?: string
+          start_at?: number | null
+          title: string
+          user_id: string
+        }
+        Update: {
+          course_class_id?: string
+          created_at?: string | null
+          description?: string | null
+          end_at?: number | null
+          id?: string
+          start_at?: number | null
+          title?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "course_class_bookmarks_course_class_id_fkey"
+            columns: ["course_class_id"]
+            isOneToOne: false
+            referencedRelation: "course_classes"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "course_class_bookmarks_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: false
+            referencedRelation: "users"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       course_class_lists: {
         Row: {
           code: string
@@ -233,6 +281,21 @@ export type Database = {
           updated_at?: string | null
           updated_by_id?: string | null
           visibility?: string
+        }
+        Relationships: []
+      }
+      users: {
+        Row: {
+          created_at: string | null
+          id: string
+        }
+        Insert: {
+          created_at?: string | null
+          id: string
+        }
+        Update: {
+          created_at?: string | null
+          id?: string
         }
         Relationships: []
       }
