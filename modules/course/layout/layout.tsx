@@ -5,7 +5,7 @@ import { InPortal } from "react-reverse-portal"
 
 import { withWrappers } from "@/utils/react/with-wrappers"
 
-import { CourseLayoutProvider, useCourseLayout } from "./provider"
+import { CourseLayoutProvider, useCourseLayoutContext } from "./provider"
 import { CourseClassList } from "../course-class-list"
 import { CourseMaster } from "../course-master"
 
@@ -16,7 +16,7 @@ interface Props
 function CourseLayout(props: Props) {
   const { children, data } = props
 
-  const { courseClassListPortalNode } = useCourseLayout()
+  const { courseClassListPortalNode } = useCourseLayoutContext()
 
   return (
     <>

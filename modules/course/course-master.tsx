@@ -7,7 +7,7 @@ import { useBreakpoint } from "@/utils/browser/use-breakpoint"
 import { cn } from "@/utils/cn"
 
 import { fetchCourseMasterData } from "./fetch-course-master-data"
-import { useCourseLayout } from "./layout/provider"
+import { useCourseLayoutContext } from "./layout/provider"
 import { MaybeCourseClassLists } from "./maybe-course-class-lists"
 import { useCourseClassSelected } from "./use-course-class-selected"
 
@@ -40,7 +40,7 @@ export function CourseMaster(props: Props) {
 
   const course = data.course_editions.courses
 
-  const { courseClassListPortalNode } = useCourseLayout()
+  const { courseClassListPortalNode } = useCourseLayoutContext()
   const isLg = useBreakpoint("lg")
   const courseClassSelected = useCourseClassSelected()
 

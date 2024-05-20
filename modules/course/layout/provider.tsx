@@ -28,6 +28,6 @@ export function CourseLayoutProvider({ children }: PropsWithChildren) {
   )
 }
 
-export function useCourseLayout() {
+export function useCourseLayoutContext() {
   return useContext(Context)
 }

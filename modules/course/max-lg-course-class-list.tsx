@@ -4,10 +4,10 @@ import { OutPortal } from "react-reverse-portal"
 
 import { useBreakpoint } from "@/utils/browser/use-breakpoint"
 
-import { useCourseLayout } from "./layout/provider"
+import { useCourseLayoutContext } from "./layout/provider"
 
 export function MaxLgCourseClassList() {
-  const { courseClassListPortalNode } = useCourseLayout()
+  const { courseClassListPortalNode } = useCourseLayoutContext()
   const isLg = useBreakpoint("lg", true)
 
   return (
