@@ -1,10 +1,10 @@
 import { usePathname } from "next/navigation"
 
+const regex = /^\/courses\/([^/])+\//
+
 export function useCourseClassSelected() {
   const pathname = usePathname()
-  const coursesPath = "/courses/"
+  const match = pathname.match(regex)
 
-  return (
-    pathname.startsWith(coursesPath) && pathname.length > coursesPath.length
-  )
+  return !!match && pathname.length > match?.[0].length
 }

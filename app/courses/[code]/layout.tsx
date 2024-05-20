@@ -10,6 +10,7 @@ import {
 } from "@/components/ui/breadcrumb"
 import { fetchCourseMasterData } from "@/modules/course/fetch-course-master-data"
 import { CourseLayout } from "@/modules/course/layout/layout"
+import { MaybeFavoriteButton } from "@/modules/course/maybe-favorite-button"
 
 export default async function Page(
   props: PropsWithChildren & { params: { code: string } },
@@ -18,6 +19,7 @@ export default async function Page(
   const courseClassList = await fetchCourseMasterData(params.code)
 
   if (!courseClassList?.course_editions?.courses) notFound()
+  const course = courseClassList.course_editions.courses
 
   return (
     <div className="grow">
@@ -29,7 +31,9 @@ export default async function Page(
             </BreadcrumbItem>
             <BreadcrumbSeparator />
             <BreadcrumbItem>
-              {courseClassList?.course_editions?.courses?.name}
+              {course.name}
+
+              <MaybeFavoriteButton courseId={course.id} />
             </BreadcrumbItem>
           </BreadcrumbList>
         </Breadcrumb>
@@ -42,7 +46,7 @@ export default async function Page(
           ...courseClassList,
           course_editions: {
             ...courseClassList.course_editions,
-            courses: courseClassList.course_editions.courses,
+            courses: course,
           },
         }}
       >
