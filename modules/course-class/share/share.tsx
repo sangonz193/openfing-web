@@ -107,7 +107,7 @@ function Content() {
               })
             }
           >
-            <span className="sr-only">Copy</span>
+            <span className="sr-only">Copiar</span>
             <Icon className="size-4" />
           </Button>
         </div>

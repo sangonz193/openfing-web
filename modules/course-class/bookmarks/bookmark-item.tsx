@@ -1,26 +1,25 @@
-import { useMutation, useQueryClient } from "@tanstack/react-query"
-import { TrashIcon } from "lucide-react"
-import { ComponentProps } from "react"
-
-import { Spinner } from "@/components/spinner"
 import {
-  AlertDialog,
-  AlertDialogAction,
-  AlertDialogCancel,
-  AlertDialogContent,
-  AlertDialogDescription,
-  AlertDialogFooter,
-  AlertDialogHeader,
-  AlertDialogTitle,
-  AlertDialogTrigger,
-} from "@/components/ui/alert-dialog"
+  CheckIcon,
+  CopyIcon,
+  Edit2Icon,
+  MoreVerticalIcon,
+  TrashIcon,
+} from "lucide-react"
+import { usePathname } from "next/navigation"
+import { ComponentProps, useEffect, useState } from "react"
+
 import { Button } from "@/components/ui/button"
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu"
 import { useCourseLayoutContext } from "@/modules/course/layout/provider"
 import { Tables } from "@/supabase/types"
 import { cn } from "@/utils/cn"
-import { createClient } from "@/utils/supabase/client"
 
-import { useBookmarksQuery } from "./use-bookmarks"
+import { DeleteBookmarkAlertDialog } from "./delete-bookmark-alert-dialog"
 import { secondsToInput } from "../share/input-to-seconds"
 
 type Props = {
@@ -30,28 +29,7 @@ type Props = {
 
 export function BookmarkItem({ bookmark, onClicked }: Props) {
   const { videoRef } = useCourseLayoutContext()
-  const queryClient = useQueryClient()
-  const deleteMutation = useMutation({
-    mutationFn: async () => {
-      const supabase = createClient()
-
-      const { error } = await supabase
-        .from("course_class_bookmarks")
-        .delete()
-        .eq("id", bookmark.id)
-
-      if (error) throw error
-
-      return null
-    },
-    onSuccess: () => {
-      queryClient.invalidateQueries({
-        queryKey: useBookmarksQuery.key({
-          courseClassId: bookmark.course_class_id,
-        }),
-      })
-    },
-  })
+  const [showDeleteAlert, setShowDeleteAlert] = useState(false)
 
   const Comp = bookmark.start_at ? Button : "div"
 
@@ -92,43 +70,74 @@ export function BookmarkItem({ bookmark, onClicked }: Props) {
         )}
       </Comp>
 
-      <AlertDialog>
-        <AlertDialogTrigger asChild>
-          <Button size="icon" variant="destructive" className="mr-2">
-            <span className="sr-only">Eliminar</span>
-            <TrashIcon className="size-4" />
+      <DropdownMenu>
+        <DropdownMenuTrigger asChild>
+          <Button size="icon" variant="ghost" className="mr-2">
+            <span className="sr-only">Acciones</span>
+            <MoreVerticalIcon className="size-4" />
           </Button>
-        </AlertDialogTrigger>
+        </DropdownMenuTrigger>
 
-        <AlertDialogContent>
-          <AlertDialogHeader>
-            <AlertDialogTitle>Eliminar marcador</AlertDialogTitle>
-            <AlertDialogDescription>
-              ¿Estás seguro de que deseas eliminar este marcador?
-            </AlertDialogDescription>
-          </AlertDialogHeader>
+        <DropdownMenuContent align="end" className="w-40">
+          <CopyMenuItem bookmark={bookmark} />
 
-          <AlertDialogFooter>
-            <AlertDialogCancel>Cancelar</AlertDialogCancel>
-            <form
-              onSubmit={(e) => {
-                e.preventDefault()
-                deleteMutation.mutate()
-              }}
-            >
-              <Button variant="destructive" asChild>
-                <AlertDialogAction
-                  type="submit"
-                  disabled={deleteMutation.isPending}
-                >
-                  {deleteMutation.isPending && <Spinner />}
-                  Eliminar
-                </AlertDialogAction>
-              </Button>
-            </form>
-          </AlertDialogFooter>
-        </AlertDialogContent>
-      </AlertDialog>
+          <DropdownMenuItem disabled>
+            <Edit2Icon className="mr-2 size-4" />
+            Editar
+          </DropdownMenuItem>
+
+          <DropdownMenuItem
+            className="text-red-700 hover:text-red-700 focus:text-red-700"
+            onClick={() => setShowDeleteAlert(true)}
+          >
+            <TrashIcon className="mr-2 size-4" />
+            Eliminar
+          </DropdownMenuItem>
+        </DropdownMenuContent>
+      </DropdownMenu>
+
+      <DeleteBookmarkAlertDialog
+        open={showDeleteAlert}
+        bookmark={bookmark}
+        onClose={() => setShowDeleteAlert(false)}
+      />
     </div>
+  )
+}
+
+function CopyMenuItem({ bookmark }: Pick<Props, "bookmark">) {
+  const pathname = usePathname()
+
+  let url = `${window.location.origin}${pathname}#t=${bookmark.start_at}`
+  if (bookmark.end_at) {
+    url += `,${bookmark.end_at}`
+  }
+
+  const [copied, setCopied] = useState(0)
+  useEffect(() => {
+    if (!copied) return
+
+    const timeout = setTimeout(() => {
+      setCopied(0)
+    }, 2000)
+
+    return () => clearTimeout(timeout)
+  }, [copied])
+
+  const Icon = copied ? CheckIcon : CopyIcon
+
+  return (
+    <DropdownMenuItem
+      onClick={(e) => {
+        e.preventDefault()
+
+        navigator.clipboard.writeText(url).then(() => {
+          setCopied(copied + 1)
+        })
+      }}
+    >
+      <Icon className="mr-2 size-4" />
+      {copied ? "Copiado" : "Copiar link"}
+    </DropdownMenuItem>
   )
 }
