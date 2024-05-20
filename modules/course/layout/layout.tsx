@@ -3,11 +3,13 @@
 import { ComponentProps, PropsWithChildren } from "react"
 import { InPortal } from "react-reverse-portal"
 
+import { cn } from "@/utils/cn"
 import { withWrappers } from "@/utils/react/with-wrappers"
 
 import { CourseLayoutProvider, useCourseLayoutContext } from "./provider"
 import { CourseClassList } from "../course-class-list"
 import { CourseMaster } from "../course-master"
+import { useCourseClassSelected } from "../use-course-class-selected"
 
 interface Props
   extends ComponentProps<typeof CourseMaster>,
@@ -17,6 +19,7 @@ function CourseLayout(props: Props) {
   const { children, data } = props
 
   const { courseClassListPortalNode } = useCourseLayoutContext()
+  const selectedCourseClass = useCourseClassSelected()
 
   return (
     <>
@@ -32,7 +35,14 @@ function CourseLayout(props: Props) {
       <div className="min-h-0 grow basis-0 flex-row">
         <CourseMaster {...props} />
 
-        <div className="hidden shrink grow lg:flex">{children}</div>
+        <div
+          className={cn(
+            !selectedCourseClass && "hidden",
+            "shrink grow lg:flex",
+          )}
+        >
+          {children}
+        </div>
       </div>
     </>
   )

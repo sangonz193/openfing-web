@@ -1,8 +1,10 @@
-import { useSelectedLayoutSegments } from "next/navigation"
+import { usePathname } from "next/navigation"
 
 export function useCourseClassSelected() {
-  const segments = useSelectedLayoutSegments()
-  if (segments.length === 0) return false
+  const pathname = usePathname()
+  const coursesPath = "/courses/"
 
-  return segments.length > 1 || segments[0] !== "courses"
+  return (
+    pathname.startsWith(coursesPath) && pathname.length > coursesPath.length
+  )
 }
