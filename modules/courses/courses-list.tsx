@@ -2,7 +2,6 @@
 
 import Fuse from "fuse.js"
 import { KeyboardIcon, SearchIcon } from "lucide-react"
-import Link from "next/link"
 import { useMemo } from "react"
 
 import {
@@ -11,10 +10,11 @@ import {
   BreadcrumbLink,
   BreadcrumbList,
 } from "@/components/ui/breadcrumb"
-import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Tables } from "@/supabase/types"
 import { useQueryParamState } from "@/utils/next/use-query-param-state"
+
+import { CourseItem } from "./course-item"
 
 type Props = {
   courses: Pick<
@@ -62,22 +62,7 @@ export function CoursesList({ courses }: Props) {
           </div>
 
           {searchResults.map((course) => (
-            <li
-              key={course.item.id}
-              className="rounded-md border border-border"
-            >
-              <Button
-                asChild
-                variant="link"
-                className="block h-auto justify-start whitespace-pre-wrap py-4"
-              >
-                <Link
-                  href={`/courses/${course.item.latest_course_class_list?.code || course.item.code}`}
-                >
-                  {course.item.name}
-                </Link>
-              </Button>
-            </li>
+            <CourseItem key={course.item.id} course={course.item} />
           ))}
 
           {searchResults.length === 0 && <EmptyState />}
