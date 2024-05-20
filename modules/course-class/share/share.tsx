@@ -73,7 +73,7 @@ function Content() {
     const url = new URL(pathname, location.origin).href
     if (!startAtSeconds && !endAtSeconds) return url.toString()
 
-    let result = url.toString() + `#t=`
+    let result = url.toString() + `?t=`
     result += startAtSeconds ?? 0
     if (endAtSeconds) result += `,${endAtSeconds}`
 

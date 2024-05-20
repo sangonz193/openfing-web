@@ -3,6 +3,7 @@ import { Metadata } from "next"
 import Link from "next/link"
 import { notFound } from "next/navigation"
 import { cache } from "react"
+import { z } from "zod"
 
 import { Button } from "@/components/ui/button"
 import { MaxLgCourseClassList } from "@/modules/course/max-lg-course-class-list"
@@ -34,6 +35,7 @@ const fetchData = cache(async (code: string, number: string) => {
 
 type Props = {
   params: { code: string; number: string }
+  searchParams: { t?: string }
 }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
@@ -45,9 +47,27 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   }
 }
 
-export default async function Page({ params }: Props) {
+export default async function Page({ params, searchParams }: Props) {
   const courseClass = await fetchData(params.code, params.number)
   if (!courseClass) return notFound()
+
+  const searchValidation = z
+    .string()
+    .transform((value) => {
+      const values = value.split(",")
+
+      return {
+        start: values[0] || undefined,
+        end: values[1] || undefined,
+      }
+    })
+    .pipe(
+      z.object({
+        start: z.coerce.number(),
+        end: z.coerce.number().optional(),
+      }),
+    )
+    .safeParse(searchParams.t)
 
   const videoUrl = getVideoUrl(params)
 
@@ -55,7 +75,11 @@ export default async function Page({ params }: Props) {
     <div className="shrink grow overflow-auto px-4 pb-10 pt-2">
       <div className="mx-auto w-full max-w-screen-2xl">
         <div className="shrink-0 overflow-hidden rounded-lg border">
-          <Video src={videoUrl} />
+          <Video
+            src={videoUrl}
+            start={searchValidation.data?.start}
+            end={searchValidation.data?.end}
+          />
         </div>
 
         <span className="mt-4 text-2xl">{courseClass.name}</span>

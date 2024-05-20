@@ -53,7 +53,7 @@ export function BookmarkItem({ bookmark, onClicked }: Props) {
         }}
       >
         <span className="text-lg font-semibold">{bookmark.title}</span>
-        {!!bookmark.start_at && (
+        {bookmark.start_at !== null && (
           <span className="-mt-1 mb-1 text-xs text-muted-foreground">
             {secondsToInput(bookmark.start_at)}
             {!!bookmark.end_at && (
@@ -79,7 +79,7 @@ export function BookmarkItem({ bookmark, onClicked }: Props) {
         </DropdownMenuTrigger>
 
         <DropdownMenuContent align="end" className="w-40">
-          <CopyMenuItem bookmark={bookmark} />
+          {bookmark.start_at !== null && <CopyMenuItem bookmark={bookmark} />}
 
           <DropdownMenuItem disabled>
             <Edit2Icon className="mr-2 size-4" />
@@ -108,7 +108,7 @@ export function BookmarkItem({ bookmark, onClicked }: Props) {
 function CopyMenuItem({ bookmark }: Pick<Props, "bookmark">) {
   const pathname = usePathname()
 
-  let url = `${window.location.origin}${pathname}#t=${bookmark.start_at}`
+  let url = `${window.location.origin}${pathname}?t=${bookmark.start_at}`
   if (bookmark.end_at) {
     url += `,${bookmark.end_at}`
   }
