@@ -1,5 +1,6 @@
-import { DownloadIcon } from "lucide-react"
+import { DownloadIcon, ExternalLinkIcon } from "lucide-react"
 import { Metadata } from "next"
+import Link from "next/link"
 import { notFound } from "next/navigation"
 import { cache } from "react"
 
@@ -78,6 +79,17 @@ export default async function Page({ params }: Props) {
             courseClassNumber={params.number}
             courseClassListCode={params.code}
           />
+
+          <Button asChild variant="outline">
+            <Link
+              href={`https://open.fing.edu.uy/courses/${params.code}/${params.number}`}
+              rel="noopener noreferrer"
+              target="_blank"
+            >
+              <ExternalLinkIcon className="size-4" />
+              open.fing.edu.uy
+            </Link>
+          </Button>
         </div>
 
         <MaxLgCourseClassList />
