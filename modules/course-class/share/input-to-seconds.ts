@@ -3,7 +3,7 @@ export function inputToSeconds(value: string) {
   const sections = value.split(":").reverse()
 
   for (let i = 0; i < Math.min(3, sections.length); i++) {
-    const section = sections[i].padEnd(2, "0")
+    const section = sections[i]
     const parsedSection = Number(section)
     if (isNaN(parsedSection)) return undefined
 
