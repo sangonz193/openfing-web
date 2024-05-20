@@ -29,7 +29,7 @@ function CourseLayout(props: Props) {
         </InPortal>
       )}
 
-      <div className="flex min-h-0 grow basis-0">
+      <div className="min-h-0 grow basis-0 flex-row">
         <CourseMaster {...props} />
 
         {children}

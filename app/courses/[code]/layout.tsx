@@ -20,7 +20,7 @@ export default async function Page(
   if (!courseClassList?.course_editions?.courses) notFound()
 
   return (
-    <div className="flex grow flex-col">
+    <div className="grow">
       <header className="flex h-14 items-center gap-2 border-b px-4">
         <Breadcrumb>
           <BreadcrumbList>

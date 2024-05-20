@@ -42,9 +42,9 @@ export default async function Page({ params }: Props) {
   const videoUrl = `https://open.fing.edu.uy/media/${params.code}/${params.code}_${params.number.toString().padStart(2, "0")}.mp4`
 
   return (
-    <div className="flex grow flex-col overflow-auto px-4 pb-10 pt-2">
-      <div className="mx-auto flex w-full max-w-screen-2xl flex-col">
-        <div className="flex shrink-0 flex-col overflow-hidden rounded-lg border">
+    <div className="shrink grow overflow-auto px-4 pb-10 pt-2">
+      <div className="mx-auto w-full max-w-screen-2xl">
+        <div className="shrink-0 overflow-hidden rounded-lg border">
           <Video src={videoUrl} />
         </div>
 
@@ -54,7 +54,7 @@ export default async function Page({ params }: Props) {
           <PublishedAt publishedAt={courseClass.published_at} />
         )}
 
-        <div className="mt-4 flex gap-2">
+        <div className="mt-4 flex-row gap-2">
           <Button asChild variant="outline">
             <a href={videoUrl} download>
               <DownloadIcon className="size-4" />
