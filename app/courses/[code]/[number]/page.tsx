@@ -4,6 +4,7 @@ import { notFound } from "next/navigation"
 import { cache } from "react"
 
 import { Button } from "@/components/ui/button"
+import { MaxLgCourseClassList } from "@/modules/course/max-lg-course-class-list"
 import { PublishedAt } from "@/modules/course/published-at"
 import { ShareCourseClass } from "@/modules/course-class/share/share"
 import { Video } from "@/modules/video"
@@ -63,6 +64,8 @@ export default async function Page({ params }: Props) {
 
           <ShareCourseClass />
         </div>
+
+        <MaxLgCourseClassList />
       </div>
     </div>
   )

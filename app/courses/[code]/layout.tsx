@@ -1,3 +1,4 @@
+import { notFound } from "next/navigation"
 import { PropsWithChildren } from "react"
 
 import {
@@ -7,14 +8,16 @@ import {
   BreadcrumbList,
   BreadcrumbSeparator,
 } from "@/components/ui/breadcrumb"
-import { CourseMaster } from "@/modules/course/course-master"
 import { fetchCourseMasterData } from "@/modules/course/fetch-course-master-data"
+import { CourseLayout } from "@/modules/course/layout/layout"
 
 export default async function Page(
   props: PropsWithChildren & { params: { code: string } },
 ) {
   const { children, params } = props
   const courseClassList = await fetchCourseMasterData(params.code)
+
+  if (!courseClassList?.course_editions?.courses) notFound()
 
   return (
     <div className="flex grow flex-col">
@@ -34,11 +37,17 @@ export default async function Page(
         {/* <MaybeAccountAvatar className="ml-auto" /> */}
       </header>
 
-      <div className="flex min-h-0 grow basis-0">
-        <CourseMaster data={courseClassList} />
-
+      <CourseLayout
+        data={{
+          ...courseClassList,
+          course_editions: {
+            ...courseClassList.course_editions,
+            courses: courseClassList.course_editions.courses,
+          },
+        }}
+      >
         {children}
-      </div>
+      </CourseLayout>
     </div>
   )
 }

@@ -1,34 +1,65 @@
-import { notFound } from "next/navigation"
+"use client"
 
-import { CourseClassItem } from "./course-class-item"
-import { CourseMasterContainer } from "./course-master-container"
+import { OutPortal } from "react-reverse-portal"
+import { Except } from "type-fest"
+
+import { useBreakpoint } from "@/utils/browser/use-breakpoint"
+import { cn } from "@/utils/cn"
+
 import { fetchCourseMasterData } from "./fetch-course-master-data"
+import { useCourseLayout } from "./layout/provider"
 import { MaybeCourseClassLists } from "./maybe-course-class-lists"
+import { useCourseClassSelected } from "./use-course-class-selected"
 
 type Props = {
-  data: Awaited<ReturnType<typeof fetchCourseMasterData>>
+  data: Except<
+    NonNullable<Awaited<ReturnType<typeof fetchCourseMasterData>>>,
+    "course_editions"
+  > & {
+    course_editions: Except<
+      NonNullable<
+        NonNullable<
+          Awaited<ReturnType<typeof fetchCourseMasterData>>
+        >["course_editions"]
+      >,
+      "courses"
+    > & {
+      courses: NonNullable<
+        NonNullable<
+          NonNullable<
+            Awaited<ReturnType<typeof fetchCourseMasterData>>
+          >["course_editions"]
+        >["courses"]
+      >
+    }
+  }
 }
 
 export function CourseMaster(props: Props) {
   const { data } = props
-  if (!data?.course_editions?.courses) notFound()
 
   const course = data.course_editions.courses
-  const courseClasses = data.course_classes
+
+  const { courseClassListPortalNode } = useCourseLayout()
+  const isLg = useBreakpoint("lg")
+  const courseClassSelected = useCourseClassSelected()
 
   return (
-    <CourseMasterContainer className="max-w-sm shrink-0 gap-3 overflow-auto border-r pb-10 pt-2">
+    <div
+      className={cn(
+        "max-w-sm shrink-0 gap-3 overflow-auto border-r pb-10 pt-2",
+        "flex-col",
+        courseClassSelected && "hidden lg:flex",
+        !courseClassSelected && "flex max-lg:w-full max-lg:max-w-none",
+      )}
+    >
       <MaybeCourseClassLists course={course} />
 
-      <div className="flex flex-col gap-2 px-2">
-        {courseClasses.map((courseClass) => (
-          <CourseClassItem
-            key={courseClass.id}
-            courseClass={courseClass}
-            courseClassListCode={data.code}
-          />
-        ))}
-      </div>
-    </CourseMasterContainer>
+      {(isLg || !courseClassSelected) && courseClassListPortalNode && (
+        <div className="px-2">
+          <OutPortal node={courseClassListPortalNode} />
+        </div>
+      )}
+    </div>
   )
 }

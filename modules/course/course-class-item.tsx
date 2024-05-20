@@ -28,7 +28,7 @@ export function CourseClassItem(props: Props) {
     >
       <Link href={href}>
         <span className="shrink-0 font-mono">
-          {courseClass.number.toString().padStart(2, " ")}{" "}
+          {courseClass.number.toString().padStart(2, " ")}
         </span>
 
         <span className="group-hover:underline">{courseClass.name}</span>
