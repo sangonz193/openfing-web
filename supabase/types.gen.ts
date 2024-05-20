@@ -284,6 +284,42 @@ export type Database = {
         }
         Relationships: []
       }
+      favorite_courses: {
+        Row: {
+          course_id: string
+          created_at: string | null
+          id: string
+          user_id: string
+        }
+        Insert: {
+          course_id: string
+          created_at?: string | null
+          id?: string
+          user_id: string
+        }
+        Update: {
+          course_id?: string
+          created_at?: string | null
+          id?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "favorite_courses_course_id_fkey"
+            columns: ["course_id"]
+            isOneToOne: false
+            referencedRelation: "courses"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "favorite_courses_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: false
+            referencedRelation: "users"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       users: {
         Row: {
           created_at: string | null
