@@ -16,7 +16,7 @@ const videoTimeSchema = z.string().transform((value, ctx) => {
 
 export const schema = z
   .object({
-    title: z.string().trim().min(1),
+    title: z.string().trim().min(1, "Requerido"),
     description: z.string().trim().optional(),
     startAt: z.union([
       z.object({
@@ -40,9 +40,8 @@ export const schema = z
     ]),
   })
   .refine((data) => !data.endAt.enabled || data.startAt.enabled, {
-    message:
-      "El tiempo de finalización no puede estar activo sin el tiempo de inicio",
-    path: ["endAt", "time"],
+    message: "Finalización requiere inicio",
+    path: ["startAt", "time"],
   })
   .refine(
     (data) => {
@@ -51,7 +50,7 @@ export const schema = z
       return data.startAt.time < data.endAt.time
     },
     {
-      message: "El tiempo de finalización debe ser mayor al tiempo de inicio",
+      message: "Finalización debe ser mayor a inicio",
       path: ["endAt", "time"],
     },
   )

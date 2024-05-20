@@ -15,11 +15,13 @@ import {
 import { useUser } from "@/modules/auth/use-user"
 
 import { BookmarkItem } from "./bookmark-item"
-import { CreateBookmark } from "./create-bookmark"
+import { CreateBookmark } from "./create/create-bookmark"
 import { useBookmarksQuery } from "./use-bookmarks"
 
 type Props = {
   courseClassId: string
+  courseClassNumber: string
+  courseClassListCode: string
 }
 
 export function MaybeBookmarks(props: Props) {
@@ -29,7 +31,11 @@ export function MaybeBookmarks(props: Props) {
   return <Bookmarks {...props} />
 }
 
-function Bookmarks({ courseClassId }: Props) {
+function Bookmarks({
+  courseClassId,
+  courseClassListCode,
+  courseClassNumber,
+}: Props) {
   const [open, setOpen] = useState(false)
   const query = useBookmarksQuery({ courseClassId })
   const { data, isSuccess } = query
@@ -50,7 +56,11 @@ function Bookmarks({ courseClassId }: Props) {
         </SheetHeader>
 
         <div className="-m-6 mt-0 shrink grow gap-3 overflow-auto p-6 pt-0">
-          <CreateBookmark courseClassId={courseClassId} />
+          <CreateBookmark
+            courseClassId={courseClassId}
+            courseClassListCode={courseClassListCode}
+            courseClassNumber={courseClassNumber}
+          />
 
           {isSuccess && !data.length && <EmptyState />}
 

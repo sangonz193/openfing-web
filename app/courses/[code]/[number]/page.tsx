@@ -73,7 +73,11 @@ export default async function Page({ params }: Props) {
 
           <ShareCourseClass />
 
-          <MaybeBookmarks courseClassId={courseClass.id} />
+          <MaybeBookmarks
+            courseClassId={courseClass.id}
+            courseClassNumber={params.number}
+            courseClassListCode={params.code}
+          />
         </div>
 
         <MaxLgCourseClassList />
