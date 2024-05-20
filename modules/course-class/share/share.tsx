@@ -95,9 +95,9 @@ function Content() {
 
   return (
     <Form {...form}>
-      <div className="flex flex-col gap-3">
-        <div className="mb-4 flex">
-          <Input value={url} readOnly className="rounded-e-none" />
+      <div className="gap-3">
+        <div className="mb-4 flex-row">
+          <Input value={url} readOnly className="w-auto grow rounded-e-none" />
           <Button
             size="icon"
             className="rounded-s-none"
@@ -112,92 +112,94 @@ function Content() {
           </Button>
         </div>
 
-        <div className="flex flex-col gap-1.5">
-          <FormField
-            control={form.control}
-            name="startAtEnabled"
-            render={({ field }) => (
-              <FormItem className="flex items-center gap-2 space-y-0">
-                <FormControl>
-                  <Checkbox
-                    {...field}
-                    onCheckedChange={(checked) => field.onChange(checked)}
-                    onChange={undefined}
-                    value=""
-                    checked={field.value}
-                  />
-                </FormControl>
+        <div className="grid grid-cols-2 gap-4">
+          <div className="gap-1.5">
+            <FormField
+              control={form.control}
+              name="startAtEnabled"
+              render={({ field }) => (
+                <FormItem className="flex-row items-center gap-2 space-y-0">
+                  <FormControl>
+                    <Checkbox
+                      {...field}
+                      onCheckedChange={(checked) => field.onChange(checked)}
+                      onChange={undefined}
+                      value=""
+                      checked={field.value}
+                    />
+                  </FormControl>
 
-                <FormLabel>Iniciar en:</FormLabel>
-              </FormItem>
-            )}
-          />
+                  <FormLabel>Iniciar en:</FormLabel>
+                </FormItem>
+              )}
+            />
 
-          <FormField
-            control={form.control}
-            name="startAt"
-            render={({ field }) => (
-              <FormItem>
-                <FormControl
-                  onBlur={() => {
-                    const seconds = inputToSeconds(field.value)
-                    if (typeof seconds === "number")
-                      field.onChange(secondsToInput(Math.max(seconds, 0)))
+            <FormField
+              control={form.control}
+              name="startAt"
+              render={({ field }) => (
+                <FormItem>
+                  <FormControl
+                    onBlur={() => {
+                      const seconds = inputToSeconds(field.value)
+                      if (typeof seconds === "number")
+                        field.onChange(secondsToInput(Math.max(seconds, 0)))
 
-                    form.trigger()
-                    field.onBlur()
-                  }}
-                >
-                  <Input {...field} disabled={!startAtEnabled} />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-        </div>
+                      form.trigger()
+                      field.onBlur()
+                    }}
+                  >
+                    <Input {...field} disabled={!startAtEnabled} />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+          </div>
 
-        <div className="flex flex-col gap-1.5">
-          <FormField
-            control={form.control}
-            name="endAtEnabled"
-            render={({ field }) => (
-              <FormItem className="flex items-center gap-2 space-y-0">
-                <FormControl>
-                  <Checkbox
-                    {...field}
-                    onCheckedChange={(checked) => field.onChange(checked)}
-                    onChange={undefined}
-                    value=""
-                    checked={field.value}
-                  />
-                </FormControl>
+          <div className="gap-1.5">
+            <FormField
+              control={form.control}
+              name="endAtEnabled"
+              render={({ field }) => (
+                <FormItem className="flex-row items-center gap-2 space-y-0">
+                  <FormControl>
+                    <Checkbox
+                      {...field}
+                      onCheckedChange={(checked) => field.onChange(checked)}
+                      onChange={undefined}
+                      value=""
+                      checked={field.value}
+                    />
+                  </FormControl>
 
-                <FormLabel>Terminar en:</FormLabel>
-              </FormItem>
-            )}
-          />
+                  <FormLabel>Terminar en:</FormLabel>
+                </FormItem>
+              )}
+            />
 
-          <FormField
-            control={form.control}
-            name="endAt"
-            render={({ field }) => (
-              <FormItem>
-                <FormControl
-                  onBlur={() => {
-                    const seconds = inputToSeconds(field.value)
-                    if (typeof seconds === "number")
-                      field.onChange(secondsToInput(Math.max(seconds, 0)))
+            <FormField
+              control={form.control}
+              name="endAt"
+              render={({ field }) => (
+                <FormItem>
+                  <FormControl
+                    onBlur={() => {
+                      const seconds = inputToSeconds(field.value)
+                      if (typeof seconds === "number")
+                        field.onChange(secondsToInput(Math.max(seconds, 0)))
 
-                    form.trigger()
-                    field.onBlur()
-                  }}
-                >
-                  <Input {...field} disabled={!endAtEnabled} />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
+                      form.trigger()
+                      field.onBlur()
+                    }}
+                  >
+                    <Input {...field} disabled={!endAtEnabled} />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+          </div>
         </div>
       </div>
     </Form>

@@ -6,6 +6,7 @@ import { cache } from "react"
 import { Button } from "@/components/ui/button"
 import { MaxLgCourseClassList } from "@/modules/course/max-lg-course-class-list"
 import { PublishedAt } from "@/modules/course/published-at"
+import { MaybeBookmarks } from "@/modules/course-class/bookmarks/bookmarks"
 import { ShareCourseClass } from "@/modules/course-class/share/share"
 import { Video } from "@/modules/video"
 import { createClient } from "@/utils/supabase/server"
@@ -14,7 +15,14 @@ const fetchData = cache(async (code: string, number: string) => {
   const supabase = createClient()
   const { data: courseClass } = await supabase
     .from("course_classes")
-    .select("name, course_class_lists!inner(*), published_at")
+    .select(
+      `
+      id,
+      name,
+      course_class_lists!inner(*),
+      published_at
+    `,
+    )
     .eq("number", number)
     .eq("course_class_lists.code", code)
     .single()
@@ -63,6 +71,8 @@ export default async function Page({ params }: Props) {
           </Button>
 
           <ShareCourseClass />
+
+          <MaybeBookmarks courseClassId={courseClass.id} />
         </div>
 
         <MaxLgCourseClassList />
