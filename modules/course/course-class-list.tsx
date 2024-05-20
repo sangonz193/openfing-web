@@ -11,7 +11,7 @@ type Props = {
 
 export function CourseClassList({ courseClassListCode, courseClasses }: Props) {
   return (
-    <div className="flex flex-col gap-2">
+    <div className="gap-2">
       {courseClasses.map((courseClass) => (
         <CourseClassItem
           key={courseClass.id}

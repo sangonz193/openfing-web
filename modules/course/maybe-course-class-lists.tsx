@@ -29,7 +29,7 @@ export function MaybeCourseClassLists({
   if (!render) return null
 
   return (
-    <div className="flex flex-wrap gap-2 px-2">
+    <div className="flex-row flex-wrap gap-2 px-2">
       {course.course_editions.map((edition) => (
         <Fragment key={edition.id}>
           {edition.course_class_lists.map((list) => {

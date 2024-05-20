@@ -31,7 +31,7 @@ export function CourseClassItem(props: Props) {
           {courseClass.number.toString().padStart(2, " ")}
         </span>
 
-        <span className="group-hover:underline">{courseClass.name}</span>
+        <span className="shrink group-hover:underline">{courseClass.name}</span>
       </Link>
     </Button>
   )
