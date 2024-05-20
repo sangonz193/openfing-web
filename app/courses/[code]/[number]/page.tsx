@@ -64,7 +64,7 @@ export default async function Page({ params }: Props) {
           <PublishedAt publishedAt={courseClass.published_at} />
         )}
 
-        <div className="mt-4 flex-row gap-2">
+        <div className="mt-4 flex-row gap-2 overflow-auto">
           <Button asChild variant="outline">
             <a href={videoUrl} download>
               <DownloadIcon className="size-4" />
