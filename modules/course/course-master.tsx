@@ -47,7 +47,7 @@ export function CourseMaster(props: Props) {
   return (
     <div
       className={cn(
-        "max-w-sm shrink-0 gap-3 overflow-auto border-r pb-10 pt-2",
+        "w-full max-w-sm shrink-0 gap-3 overflow-auto border-r pb-10 pt-2",
         "flex-col",
         courseClassSelected && "hidden lg:flex",
         !courseClassSelected && "flex max-lg:w-full max-lg:max-w-none",
