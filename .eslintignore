@@ -1,11 +1,1 @@
-/node_modules
-/dist
-package-lock.json
-!.storybook
-
-# Generated files
-*.generated.ts
-*.generated.tsx
-src/graphql/remoteSchema.types.ts
-*.svg.d.ts
-src/gql/fragment-masking.ts
+supabase/types.gen.ts

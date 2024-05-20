@@ -1,4 +1,4 @@
+.vscode
+.next
 node_modules
-package-lock.json
-*.hbs
-src/gql/*
+supabase/types.gen.ts
