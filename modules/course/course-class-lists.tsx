@@ -22,7 +22,7 @@ export function CourseClassLists({ editions, className }: Props) {
   const pathname = usePathname()
 
   return (
-    <div className={cn("flex-row flex-wrap gap-2 px-2", className)}>
+    <div className={cn("flex-row flex-wrap gap-1 px-2", className)}>
       {editions.map((edition) => (
         <Fragment key={edition.id}>
           {edition.course_class_lists.map((list) => {
@@ -44,6 +44,7 @@ export function CourseClassLists({ editions, className }: Props) {
                 asChild
                 variant={isActive ? undefined : "outline"}
                 size="sm"
+                className="px-2 text-xs"
               >
                 <Link href={href}>
                   {list.name}

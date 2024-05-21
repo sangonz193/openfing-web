@@ -4,7 +4,6 @@ import "./reset.css"
 import { Analytics } from "@vercel/analytics/react"
 import { GeistSans } from "geist/font/sans"
 
-import { AutoSignIn } from "@/modules/auth/auto-sign-in"
 import { serverEnv } from "@/modules/env/server"
 
 import { Providers } from "./providers"
@@ -27,10 +26,7 @@ export default function RootLayout({
     <html lang="en" className={GeistSans.className}>
       <body className="bg-background text-foreground">
         <main className="flex min-h-screen flex-col">
-          <Providers>
-            {children}
-            <AutoSignIn />
-          </Providers>
+          <Providers>{children}</Providers>
           <Analytics />
         </main>
       </body>

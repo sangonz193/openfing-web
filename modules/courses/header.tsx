@@ -5,6 +5,8 @@ import {
   BreadcrumbList,
 } from "@/components/ui/breadcrumb"
 
+import { MaybeSignIn } from "../auth/sign-in"
+
 export function Header() {
   return (
     <header className="flex h-14 items-center border-b px-4">
@@ -15,6 +17,8 @@ export function Header() {
           </BreadcrumbItem>
         </BreadcrumbList>
       </Breadcrumb>
+
+      <MaybeSignIn className="ml-auto" />
     </header>
   )
 }
