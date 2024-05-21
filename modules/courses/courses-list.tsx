@@ -4,12 +4,6 @@ import Fuse from "fuse.js"
 import { KeyboardIcon, SearchIcon } from "lucide-react"
 import { useMemo } from "react"
 
-import {
-  Breadcrumb,
-  BreadcrumbItem,
-  BreadcrumbLink,
-  BreadcrumbList,
-} from "@/components/ui/breadcrumb"
 import { Input } from "@/components/ui/input"
 import { Tables } from "@/supabase/types"
 import { useQueryParamState } from "@/utils/next/use-query-param-state"
@@ -38,36 +32,28 @@ export function CoursesList({ courses }: Props) {
   }, [courses, fuse, search])
 
   return (
-    <div className="flex grow flex-col">
-      <header className="flex h-14 items-center border-b px-4">
-        <Breadcrumb>
-          <BreadcrumbList>
-            <BreadcrumbItem>
-              <BreadcrumbLink href="/courses">Cursos</BreadcrumbLink>
-            </BreadcrumbItem>
-          </BreadcrumbList>
-        </Breadcrumb>
-      </header>
+    <div className="mx-auto w-full max-w-md grow pb-10">
+      <div className="mb-4 flex px-4">
+        <div className="relative flex-row">
+          <Input
+            value={search ?? ""}
+            placeholder="Buscar curso..."
+            onChange={(e) => setSearch(e.target.value)}
+            className="pr-9"
+          />
+          <SearchIcon className="absolute right-3 top-1/2 size-5 -translate-y-1/2 text-muted-foreground" />
+        </div>
+      </div>
 
-      <div className="min-h-0 grow basis-0 overflow-auto pb-10 pt-4">
-        <ul className="mx-auto flex w-full max-w-md flex-col gap-2 px-2">
-          <div className="relative mb-4 flex">
-            <Input
-              value={search ?? ""}
-              placeholder="Buscar curso..."
-              onChange={(e) => setSearch(e.target.value)}
-              className="pr-9"
-            />
-            <SearchIcon className="absolute right-2 top-1/2 size-5 -translate-y-1/2 text-muted-foreground" />
-          </div>
-
+      {searchResults.length > 0 && (
+        <ul className="flex flex-col gap-2 px-4">
           {searchResults.map((course) => (
             <CourseItem key={course.item.id} course={course.item} />
           ))}
-
-          {searchResults.length === 0 && <EmptyState />}
         </ul>
-      </div>
+      )}
+
+      {searchResults.length === 0 && <EmptyState />}
     </div>
   )
 }

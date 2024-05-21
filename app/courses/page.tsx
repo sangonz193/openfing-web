@@ -1,4 +1,8 @@
+import { getUser } from "@/modules/auth/get-user"
 import { CoursesList } from "@/modules/courses/courses-list"
+import { Favorites } from "@/modules/courses/favorites"
+import { fetchFavorites } from "@/modules/courses/fetch-favorites"
+import { Header } from "@/modules/courses/header"
 import { createClient } from "@/utils/supabase/server"
 
 export default async function Page() {
@@ -9,14 +13,23 @@ export default async function Page() {
     .eq("visibility", "public")
     .order("name")
 
+  const user = await getUser()
+  const favorites = user ? await fetchFavorites(user.id) : []
+
   return (
-    <CoursesList
-      courses={(courses.data ?? []).map((course) => ({
-        id: course.id,
-        code: course.code,
-        name: course.name,
-        latest_course_class_list: course.latest_course_class_list,
-      }))}
-    />
+    <div className="gap-4">
+      <Header />
+
+      {favorites && <Favorites favorites={favorites} />}
+
+      <CoursesList
+        courses={(courses.data ?? []).map((course) => ({
+          id: course.id,
+          code: course.code,
+          name: course.name,
+          latest_course_class_list: course.latest_course_class_list,
+        }))}
+      />
+    </div>
   )
 }

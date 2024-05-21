@@ -6,9 +6,10 @@ import { Except } from "type-fest"
 import { useBreakpoint } from "@/utils/browser/use-breakpoint"
 import { cn } from "@/utils/cn"
 
+import { CourseClassLists } from "./course-class-lists"
 import { fetchCourseMasterData } from "./fetch-course-master-data"
+import { hasMultipleCourseClassLists } from "./has-multiple-course-class-lists"
 import { useCourseLayoutContext } from "./layout/provider"
-import { MaybeCourseClassLists } from "./maybe-course-class-lists"
 import { useCourseClassSelected } from "./use-course-class-selected"
 
 type Props = {
@@ -53,7 +54,9 @@ export function CourseMaster(props: Props) {
         !courseClassSelected && "flex max-lg:w-full max-lg:max-w-none",
       )}
     >
-      <MaybeCourseClassLists course={course} />
+      {hasMultipleCourseClassLists(course.course_editions) && (
+        <CourseClassLists editions={course.course_editions} />
+      )}
 
       {(isLg || !courseClassSelected) && courseClassListPortalNode && (
         <div className="px-2">

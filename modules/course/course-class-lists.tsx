@@ -5,39 +5,32 @@ import { usePathname } from "next/navigation"
 import { Fragment } from "react"
 
 import { Button } from "@/components/ui/button"
+import { Tables } from "@/supabase/types"
+import { cn } from "@/utils/cn"
 
-import { fetchCourseMasterData } from "./fetch-course-master-data"
+type Props = {
+  editions: (Pick<Tables<"course_editions">, "id" | "year" | "semester"> & {
+    course_class_lists: Pick<
+      Tables<"course_class_lists">,
+      "id" | "code" | "name"
+    >[]
+  })[]
+  className?: string
+}
 
-export function MaybeCourseClassLists({
-  course,
-}: {
-  course: NonNullable<
-    NonNullable<
-      NonNullable<
-        Awaited<ReturnType<typeof fetchCourseMasterData>>
-      >["course_editions"]
-    >["courses"]
-  >
-}) {
-  const render =
-    course.course_editions.length > 1 ||
-    (course.course_editions.length === 1 &&
-      course.course_editions[0].course_class_lists.length > 1)
-
+export function CourseClassLists({ editions, className }: Props) {
   const pathname = usePathname()
 
-  if (!render) return null
-
   return (
-    <div className="flex-row flex-wrap gap-2 px-2">
-      {course.course_editions.map((edition) => (
+    <div className={cn("flex-row flex-wrap gap-2 px-2", className)}>
+      {editions.map((edition) => (
         <Fragment key={edition.id}>
           {edition.course_class_lists.map((list) => {
-            const specifyYear = course.course_editions.length > 1
+            const specifyYear = editions.length > 1
             const specifySemester =
               edition.course_class_lists.length > 1 ||
-              (course.course_editions.length === 1 &&
-                course.course_editions[0].course_class_lists.length > 1)
+              (editions.length === 1 &&
+                editions[0].course_class_lists.length > 1)
 
             const href = `/courses/${list.code}`
             const isActive =
@@ -50,6 +43,7 @@ export function MaybeCourseClassLists({
                 key={list.id}
                 asChild
                 variant={isActive ? undefined : "outline"}
+                size="sm"
               >
                 <Link href={href}>
                   {list.name}
