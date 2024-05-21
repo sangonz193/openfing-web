@@ -132,6 +132,48 @@ export type Database = {
           },
         ]
       }
+      course_class_view: {
+        Row: {
+          course_class_id: string
+          created_at: string | null
+          id: string
+          progress: number
+          updated_at: string | null
+          user_id: string
+        }
+        Insert: {
+          course_class_id: string
+          created_at?: string | null
+          id?: string
+          progress: number
+          updated_at?: string | null
+          user_id: string
+        }
+        Update: {
+          course_class_id?: string
+          created_at?: string | null
+          id?: string
+          progress?: number
+          updated_at?: string | null
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "course_class_view_course_class_id_fkey"
+            columns: ["course_class_id"]
+            isOneToOne: false
+            referencedRelation: "course_classes"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "course_class_view_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: false
+            referencedRelation: "users"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       course_classes: {
         Row: {
           course_class_list_id: string
