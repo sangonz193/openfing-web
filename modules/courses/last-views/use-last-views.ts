@@ -27,15 +27,23 @@ export function useLastViewsQuery() {
             number,
             course_class_lists(
               id,
-              code
+              code,
+              course_editions(
+                id,
+                courses(
+                  id,
+                  name
+                )
+              )
             )
           )
           `,
         )
         .eq("user_id", userId)
-        .order("created_at", {
+        .order("updated_at", {
           ascending: false,
         })
+        .limit(6)
 
       if (error) {
         console.warn(error)

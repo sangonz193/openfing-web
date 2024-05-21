@@ -45,18 +45,22 @@ function LastView({
 
   if (!courseClass?.course_class_lists) return null
   const courseClassList = courseClass.course_class_lists
+  const courseName = courseClassList.course_editions?.courses?.name
 
   return (
     <div className="relative min-w-0 max-w-full overflow-hidden rounded-md border p-4">
       <Button
         asChild
         variant="link"
-        className="h-auto justify-start whitespace-pre-wrap px-0 py-0 text-base font-normal"
+        className="flex h-auto flex-col items-start justify-start whitespace-pre-wrap px-0 py-0 text-left text-base font-normal"
       >
         <Link
           href={`/courses/${courseClassList.code}/${courseClass.number}?t=${item.seconds}`}
         >
-          {courseClass.name} {item.progress}
+          {courseClass.number} - {courseClass.name}
+          {courseName && (
+            <span className="text-sm text-muted-foreground">{courseName}</span>
+          )}
         </Link>
       </Button>
 
