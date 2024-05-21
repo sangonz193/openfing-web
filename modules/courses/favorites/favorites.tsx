@@ -31,7 +31,7 @@ export function Favorites({ className }: Props) {
         </div>
       )}
 
-      {query.isPending && <Spinner className="min-h-20" />}
+      {query.isLoading && <Spinner className="min-h-20" />}
 
       {query.isSuccess && !favorites?.length && <EmptyState />}
     </div>

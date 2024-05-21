@@ -11,7 +11,7 @@ import { PublishedAt } from "@/modules/course/published-at"
 import { MaybeBookmarks } from "@/modules/course-class/bookmarks/bookmarks"
 import { getVideoUrl } from "@/modules/course-class/get-video-url"
 import { ShareCourseClass } from "@/modules/course-class/share/share"
-import { Video } from "@/modules/video"
+import { Video } from "@/modules/course-class/video"
 import { createClient } from "@/utils/supabase/server"
 
 const fetchData = cache(async (code: string, number: string) => {
@@ -79,6 +79,7 @@ export default async function Page({ params, searchParams }: Props) {
             src={videoUrl}
             start={searchValidation.data?.start}
             end={searchValidation.data?.end}
+            courseClassId={courseClass.id}
           />
         </div>
 

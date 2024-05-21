@@ -2,6 +2,7 @@ import { getUser } from "@/modules/auth/get-user"
 import { CoursesList } from "@/modules/courses/courses-list"
 import { Favorites } from "@/modules/courses/favorites/favorites"
 import { Header } from "@/modules/courses/header"
+import { LastViews } from "@/modules/courses/last-views/last-views"
 import { createClient } from "@/utils/supabase/server"
 
 export default async function Page() {
@@ -18,7 +19,12 @@ export default async function Page() {
     <div className="gap-4">
       <Header />
 
-      {user && <Favorites />}
+      {user && (
+        <div className="gap-4">
+          <LastViews />
+          <Favorites />
+        </div>
+      )}
 
       <CoursesList
         courses={(courses.data ?? []).map((course) => ({
