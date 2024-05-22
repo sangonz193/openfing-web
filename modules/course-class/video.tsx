@@ -2,6 +2,7 @@
 
 import { useEffect, useMemo } from "react"
 
+import { Video, useVideoState } from "@/components/video/video"
 import { cn } from "@/utils/cn"
 
 import { useCreateView } from "./views/use-create-view"
@@ -15,7 +16,7 @@ type Props = {
   courseClassId: string
 }
 
-export function Video(props: Props) {
+export function CourseClassVideo(props: Props) {
   const { start, end, courseClassId } = props
   const { videoRef } = useCourseLayoutContext()
   const user = useUser()
@@ -31,7 +32,7 @@ export function Video(props: Props) {
 
   return (
     <>
-      <video
+      <Video
         ref={videoRef}
         autoPlay
         controls
@@ -43,7 +44,7 @@ export function Video(props: Props) {
         )}
       >
         <source src={src} />
-      </video>
+      </Video>
 
       {user && (
         <TrackView
@@ -65,14 +66,19 @@ function TrackView({
   videoRef: React.RefObject<HTMLVideoElement>
   courseClassId: string
 }) {
-  const mutation = useCreateView({ userId })
+  const { mutate } = useCreateView({ userId })
+  const { paused } = useVideoState()
 
   useEffect(() => {
+    if (paused) {
+      return
+    }
+
     const interval = setInterval(() => {
       if (!videoRef.current) return
       const { currentTime, duration } = videoRef.current
 
-      mutation.mutate({
+      mutate({
         courseClassId,
         seconds: currentTime,
         total: duration,
@@ -80,7 +86,7 @@ function TrackView({
     }, 10000)
 
     return () => clearInterval(interval)
-  }, [courseClassId, mutation, videoRef])
+  }, [courseClassId, mutate, paused, videoRef])
 
   return null
 }

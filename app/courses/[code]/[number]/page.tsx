@@ -6,12 +6,13 @@ import { cache } from "react"
 import { z } from "zod"
 
 import { Button } from "@/components/ui/button"
+import { VideoProvider } from "@/components/video/video"
 import { MaxLgCourseClassList } from "@/modules/course/max-lg-course-class-list"
 import { PublishedAt } from "@/modules/course/published-at"
 import { MaybeBookmarks } from "@/modules/course-class/bookmarks/bookmarks"
 import { getVideoUrl } from "@/modules/course-class/get-video-url"
 import { ShareCourseClass } from "@/modules/course-class/share/share"
-import { Video } from "@/modules/course-class/video"
+import { CourseClassVideo } from "@/modules/course-class/video"
 import { createClient } from "@/utils/supabase/server"
 
 const fetchData = cache(async (code: string, number: string) => {
@@ -75,12 +76,14 @@ export default async function Page({ params, searchParams }: Props) {
     <div className="shrink grow overflow-auto px-4 pb-10 pt-2">
       <div className="mx-auto w-full max-w-screen-2xl">
         <div className="shrink-0 overflow-hidden rounded-lg border">
-          <Video
-            src={videoUrl}
-            start={searchValidation.data?.start}
-            end={searchValidation.data?.end}
-            courseClassId={courseClass.id}
-          />
+          <VideoProvider>
+            <CourseClassVideo
+              src={videoUrl}
+              start={searchValidation.data?.start}
+              end={searchValidation.data?.end}
+              courseClassId={courseClass.id}
+            />
+          </VideoProvider>
         </div>
 
         <span className="mt-4 text-2xl">{courseClass.name}</span>
