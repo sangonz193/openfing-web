@@ -8,7 +8,6 @@ import {
   createContext,
   forwardRef,
   useContext,
-  useEffect,
   useRef,
   useState,
 } from "react"
@@ -22,28 +21,13 @@ type ContextValue = {
 
 const Context = createContext<ContextValue>(null as any)
 
-function useVideoContext() {
+export function useVideoContext() {
   const context = useContext(Context)
   if (!context) {
     throw new Error("useVideoContext must be used within a VideoProvider")
   }
 
   return context
-}
-
-export function useVideoState() {
-  const { store } = useVideoContext()
-  const [, forceRender] = useState<object>()
-
-  useEffect(() => {
-    const unsubscribe = store.subscribe(() => {
-      forceRender({})
-    })
-
-    return () => unsubscribe()
-  })
-
-  return store.state
 }
 
 export function VideoProvider({ children }: PropsWithChildren) {
