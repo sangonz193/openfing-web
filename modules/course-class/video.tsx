@@ -2,7 +2,8 @@
 
 import { useEffect, useMemo } from "react"
 
-import { Video, useVideoState } from "@/components/video/video"
+import { useVideoState } from "@/components/video/use-state"
+import { Video } from "@/components/video/video"
 import { cn } from "@/utils/cn"
 
 import { useCreateView } from "./views/use-create-view"
