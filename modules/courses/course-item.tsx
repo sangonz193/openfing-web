@@ -1,15 +1,20 @@
 import Link from "next/link"
 
 import { Button } from "@/components/ui/button"
-import { Tables } from "@/supabase/types"
+import { QueryResult } from "@/utils/supabase/query-result"
 
 type Props = {
-  course: Pick<
-    Tables<"courses">,
-    "id" | "name" | "code" | "latest_course_class_list"
-  > & {
-    latest_course_class_list: Pick<Tables<"course_class_lists">, "code"> | null
-  }
+  course: QueryResult<
+    "courses",
+    `
+    id,
+    name,
+    code,
+    latest_course_class_list:course_class_lists!latest_course_class_list(
+      code
+    )
+  `
+  >
 }
 
 export function CourseItem({ course }: Props) {

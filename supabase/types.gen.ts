@@ -191,6 +191,7 @@ export type Database = {
           updated_at: string | null
           updated_by_id: string | null
           visibility: string
+          next_class: unknown | null
         }
         Insert: {
           course_class_list_id: string
@@ -398,6 +399,25 @@ export type Database = {
           deleted_by_id: string | null
           id: string
           name: string
+          updated_at: string | null
+          updated_by_id: string | null
+          visibility: string
+        }[]
+      }
+      next_class: {
+        Args: {
+          "": unknown
+        }
+        Returns: {
+          course_class_list_id: string
+          created_at: string
+          created_by_id: string | null
+          deleted_at: string | null
+          deleted_by_id: string | null
+          id: string
+          name: string
+          number: number
+          published_at: string | null
           updated_at: string | null
           updated_by_id: string | null
           visibility: string

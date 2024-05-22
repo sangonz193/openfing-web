@@ -3,11 +3,11 @@ import { useQuery } from "@tanstack/react-query"
 import { useUser } from "@/modules/auth/use-user"
 import { createClient } from "@/utils/supabase/client"
 
-export function useLastViewsQuery() {
+export function useContinueWatchingQuery() {
   const userId = useUser()?.id
 
   const query = useQuery({
-    queryKey: ["last-views", userId],
+    queryKey: ["continue-watching", userId],
     enabled: !!userId,
     queryFn: async () => {
       if (!userId) return null as never
@@ -46,7 +46,7 @@ export function useLastViewsQuery() {
         .limit(6)
 
       if (error) {
-        console.warn(error)
+        console.warn(error.message)
         throw error
       }
 

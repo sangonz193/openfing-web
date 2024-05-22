@@ -7,24 +7,24 @@ import { Spinner } from "@/components/spinner"
 import { Button } from "@/components/ui/button"
 import { cn } from "@/utils/cn"
 
-import { useLastViewsQuery } from "./use-last-views"
+import { useContinueWatchingQuery } from "./use-continue-watching"
 
 type Props = {
   className?: string
 }
 
-export function LastViews({ className }: Props) {
-  const query = useLastViewsQuery()
+export function ContinueWatching({ className }: Props) {
+  const query = useContinueWatchingQuery()
   const views = query.data
 
   return (
     <div className={cn("mx-auto w-full max-w-5xl gap-2 px-4", className)}>
-      <span className="font-medium">Vistas recientes</span>
+      <span className="font-medium">Seguir viendo</span>
 
       {!!views?.length && (
         <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
           {views.map((v) => (
-            <LastView key={v.id} item={v} />
+            <WatchingItem key={v.id} item={v} />
           ))}
         </div>
       )}
@@ -36,10 +36,10 @@ export function LastViews({ className }: Props) {
   )
 }
 
-function LastView({
+function WatchingItem({
   item,
 }: {
-  item: NonNullable<ReturnType<typeof useLastViewsQuery>["data"]>[0]
+  item: NonNullable<ReturnType<typeof useContinueWatchingQuery>["data"]>[0]
 }) {
   const courseClass = item.course_classes
 
@@ -79,7 +79,7 @@ function EmptyState() {
     <div className="pb-4">
       <HistoryIcon className="mx-auto size-14 text-muted-foreground" />
       <p className="text-center font-medium text-muted-foreground">
-        No tienes vistas recientes
+        No tienes ningún curso en progreso
       </p>
     </div>
   )

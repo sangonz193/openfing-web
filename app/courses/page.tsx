@@ -1,8 +1,8 @@
 import { getUser } from "@/modules/auth/get-user"
+import { ContinueWatching } from "@/modules/courses/continue-watching/continue-watching"
 import { CoursesList } from "@/modules/courses/courses-list"
 import { Favorites } from "@/modules/courses/favorites/favorites"
 import { Header } from "@/modules/courses/header"
-import { LastViews } from "@/modules/courses/last-views/last-views"
 import { createClient } from "@/utils/supabase/server"
 
 export default async function Page() {
@@ -21,7 +21,7 @@ export default async function Page() {
 
       {user && (
         <div className="gap-4">
-          <LastViews />
+          <ContinueWatching />
           <Favorites />
         </div>
       )}
@@ -31,7 +31,7 @@ export default async function Page() {
           id: course.id,
           code: course.code,
           name: course.name,
-          latest_course_class_list: course.latest_course_class_list,
+          latest_course_class_list: course.latest_course_class_list as any,
         }))}
       />
     </div>

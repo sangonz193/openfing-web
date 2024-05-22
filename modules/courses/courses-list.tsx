@@ -2,19 +2,15 @@
 
 import Fuse from "fuse.js"
 import { KeyboardIcon, SearchIcon } from "lucide-react"
-import { useMemo } from "react"
+import { ComponentProps, useMemo } from "react"
 
 import { Input } from "@/components/ui/input"
-import { Tables } from "@/supabase/types"
 import { useQueryParamState } from "@/utils/next/use-query-param-state"
 
 import { CourseItem } from "./course-item"
 
 type Props = {
-  courses: Pick<
-    Tables<"courses">,
-    "id" | "name" | "code" | "latest_course_class_list"
-  >[]
+  courses: ComponentProps<typeof CourseItem>["course"][]
 }
 
 export function CoursesList({ courses }: Props) {

@@ -8,9 +8,19 @@ export type Database = MergeDeep<
     public: {
       Tables: {
         courses: {
-          Row: {
-            latest_course_class_list: Generated.Tables<"course_class_lists"> | null
-          }
+          Relationships: [
+            {
+              foreignKeyName: "latest_course_class_list"
+            },
+          ]
+        }
+        course_classes: {
+          Relationships: [
+            Generated.Database["public"]["Tables"]["course_classes"]["Relationships"][0],
+            {
+              foreignKeyName: "next_class"
+            },
+          ]
         }
       }
     }

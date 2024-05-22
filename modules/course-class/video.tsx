@@ -4,9 +4,9 @@ import { useEffect, useMemo } from "react"
 
 import { cn } from "@/utils/cn"
 
+import { useCreateView } from "./views/use-create-view"
 import { useUser } from "../auth/use-user"
 import { useCourseLayoutContext } from "../course/layout/provider"
-import { useCreateView } from "../courses/last-views/use-create-view"
 
 type Props = {
   src: string
