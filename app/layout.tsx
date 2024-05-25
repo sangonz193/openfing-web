@@ -5,7 +5,6 @@ import { Analytics } from "@vercel/analytics/react"
 import { GeistSans } from "geist/font/sans"
 
 import { serverEnv } from "@/modules/env/server"
-import icon from "@/public/icon.svg"
 
 import { Providers } from "./providers"
 
@@ -16,7 +15,6 @@ const defaultUrl = serverEnv.VERCEL_URL
 export const metadata = {
   metadataBase: new URL(defaultUrl),
   title: "OpenFING",
-  icons: [{ rel: "icon", url: icon.src }],
 }
 
 export default function RootLayout({
